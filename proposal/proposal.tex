@@ -17,21 +17,39 @@
 todo.
 \end{abstract}
 \section{Introduction}
-The Self-Organizing Map (SOM) uses an artificial neural network to organize high
-dimensional data onto a lower dimensional grid.  Each neuron on the 
-grid contains a reference vector that can be considered to model a portion of
-the input space. Before training these neurons are initialized to random values.
-During the training process input vectors search the map for their best matching
-unit (BMU), that is the neuron that is most similar. The BMU and it's
-neiborhood, as defined by a neighborhood function, are adjusted to better match
-that input vector \citep{Kohonen2000}.  The traditional SOM is laid out on a two
-dimensional plane using either a rectangular or hexagonal topology.  The
-hexagonal structure is more uniform and generally preferred.  Neurons on the
-edge of either grid have fewer neighbors and therefore fewer chances of being
-updated\citep{Wu:2006lr}.  As shown in Figure \ref{figure1}, this causes
-distortions around the edge of the map, which may be referred to as ``boundary
-effects'' \citep{ritter99}, ``edge effects'' \citep{boudjemai2003} or  ``border
-effects'' \citep{Wu:2006lr}.
+The Self-Organizing Map (SOM) was introduced by Teuvo Kohonen as a technique to
+help analyze high dimensional data sets. The SOM algorithum uses an artificial
+neural network to organize high dimensional data onto a low dimensional lattice,
+or map, of neurons.  Each neuron contains a reference vector that can be
+considered to model a portion of the input space. Before training these neurons
+are initialized, most commonly to random values.  During the training process
+input vectors search the map for their best matching unit (BMU), that is the
+neuron that is most similar. The BMU and it's neiborhood, as defined by a
+neighborhood function, are adjusted to better match that observation
+\citep{Kohonen2000}.  The traditional SOM is laid out on a two dimensional plane
+using either a rectangular or hexagonal topology.  The hexagonal structure is
+more uniform and generally preferred \citep{Wu:2006lr}.
+
+An obvious drawback of locating the neural lattice in a discrete euclidean plane
+is the boundry of that plane.  A neruon located on the boundry has fewer
+neighbors and thus fewer chances of being updated \citep{Wu:2006lr}.  The
+toroidol som was introduced by \cite{li1993} and removes this drawback.
+\cite{ritter99} suggests that flat space is bad and curved space better reflects
+directional data.  He also says the torus is topologically flat.
+Many objections can be rasied to the use of a euclid
+
+The euclidean plane used to layout the neural lattice is 
+
+
+
+Neurons on the edge of either grid have fewer neighbors and therefore fewer
+chances of being updated \citep{Wu:2006lr}.  As shown in Figure \ref{figure1},
+this causes distortions around the edge of the map, which may be referred to as
+``boundary effects'' \citep{ritter99}, ``edge effects'' \citep{boudjemai2003} or
+``border effects'' \citep{Wu:2006lr}.
+
+Toroidal som was introduced by \citep{li1993}.
+
 
 In the next section I review one of the primary methods for dealing with edge
 effects addressing both its features and limitations.  Following this
