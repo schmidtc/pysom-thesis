@@ -7,33 +7,31 @@
 \usepackage{graphicx}
 \graphicspath{{figures/}}
 \usepackage[round]{natbib}
-\title{Distributed Spherical SOM in Python}
-\title{Approximation of the Hexagonal Lattice on a Sphere for the Application
-of Self-Organizing Maps}
+\title{Effects of Irregular Topology in Non-Planar SOM Variants}
 \author{\sc{Charles R. Schmidt}\\Regional Analysis Laboratory\\Department of Geography\\San Diego State University}
 %\author{\sc{Charles R. Schmidt}\\REGAL}
-\date{December 12th, 2006}
+\date{January 29th, 2007}
 \begin{document}
 \maketitle
 \begin{abstract}
-Limitations in current Spherical Self-Organizing Maps (S-SOM) are addressed with the
-introduction of HS-SOM.  HS-SOM approximate the popular hexagonal
-lattice used in traditional SOMs in order to minimize topological distortion.
-A new method for measureing such distortion is proposed.
+todo.
 \end{abstract}
 \section{Introduction}
 The Self-Organizing Map (SOM) uses an artificial neural network to organize high
-dimensional data onto a two-dimensional grid.  Each neuron on the structured
+dimensional data onto a lower dimensional grid.  Each neuron on the 
 grid contains a reference vector that can be considered to model a portion of
-the input data. When a neuron's reference vector is modified so are its
-neighbor's, as defined by a neighborhood function \citep{Kohonen2000}.  The
-traditional SOM is laid out on a two dimensional plane using either a
-rectangular or hexagonal structure.  The hexagonal structure is more uniform
-and generally preferred.  Neurons on the edge of either grid have fewer
-neighbors and therefore fewer chances of being updated\citep{Wu:2006lr}.  As
-shown in Figure \ref{figure1}, this causes distortions around the edge of the
-map, which may be referred to as ``boundary effects'' \citep{ritter99}, ``edge
-effects'' \citep{boudjemai2003} or  ``border effects'' \citep{Wu:2006lr}.
+the input space. Before training these neurons are initialized to random values.
+During the training process input vectors search the map for their best matching
+unit (BMU), that is the neuron that is most similar. The BMU and it's
+neiborhood, as defined by a neighborhood function, are adjusted to better match
+that input vector \citep{Kohonen2000}.  The traditional SOM is laid out on a two
+dimensional plane using either a rectangular or hexagonal topology.  The
+hexagonal structure is more uniform and generally preferred.  Neurons on the
+edge of either grid have fewer neighbors and therefore fewer chances of being
+updated\citep{Wu:2006lr}.  As shown in Figure \ref{figure1}, this causes
+distortions around the edge of the map, which may be referred to as ``boundary
+effects'' \citep{ritter99}, ``edge effects'' \citep{boudjemai2003} or  ``border
+effects'' \citep{Wu:2006lr}.
 
 In the next section I review one of the primary methods for dealing with edge
 effects addressing both its features and limitations.  Following this
@@ -44,7 +42,6 @@ method for measuring topologically caused distortion is proposed along with a
 simple numerical example.  Finally, limitations are quickly addressed and
 expected results are briefly outlined.
 
-\section{Background}
 \begin{figure}
 \centering
 \includegraphics[width=0.85\linewidth]{gridedge.png}
@@ -53,6 +50,7 @@ variables.  Darker neurons have a relatively large difference from the mean of
 the states, while lighter neurons are relatively close.}
 \label{figure1}
 \end{figure}
+\section{Background}
 
 %\subsection{Spherical SOM}
 A well-known and commonly used technique to eliminate these edge effects is to
@@ -71,6 +69,7 @@ equally spaced.  They find generally that the tessellation method best
 satisfies this condition and specifically that the icosahedrons is the best
 starting point \citep{wu2005}.
 
+\subsection{Network Size}
 The tessellation method used by the class of spherical SOM based on Ritter's
 work results in a network size that is a function of the number of
 tessellations and therefore grows exponentially. In practice 2D Euclidean SOMs
@@ -102,7 +101,7 @@ size while still satisfying the uniformity condition the \cite{Rakhmanov94}
 algorithm for distributing points of a sphere, which was dismissed by
 \cite{wu2005} is reexamined here.  It should be noted that the method proposed
 in the next section is applicable to any somewhat uniform distribution of
-points of a sphere including the helix method proposed by
+points on a sphere including the helix method proposed by
 \cite{Nishio:2006fk}.
 
 \section{Proposed Topology}
