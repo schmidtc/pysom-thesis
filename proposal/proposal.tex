@@ -14,26 +14,63 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-todo.
+
+Purpose\ldots
+My objective is to analyize these effects for several spherical topologies.
+This will be acomplished by creating a new method for measuring and visualizing
+the effects.
+
+
+
+
 \end{abstract}
 
-\section{Problem Statement}
-The development of the spherical SOM has been driven by the border effects
-observed in tradiontal SOM.  Two problems exist with the Spherical SOM. The
-first is the level of control over the network size. The second is the
-topologically induced errors caused by the arrangment of neurons on the sphere.
-Both of these problems stem from the problem of uniformly distibuting points on
-a sphere.
 
-Both these problems will be looked into by the introudtion of a new method for
-testing topologgically induced errors. The method first analysis the neural
-network to find topological mis matches, next we train the network with an
-overwhelming about of synthetic data.  Through a series of simple plots we can
-then compair each nuerons interal variance as defined by the obersvations that
-best fit that neuron with suchs metrics as nieghborhood influence, number of
-child observations, etc.
+%\section{Problem Statement}
+%The development of the spherical SOM has been driven by the border effects
+%observed in traditional SOM.  Two problems exist with the Spherical SOM. The
+%first is the level of control over the network size. The second is the
+%topologically induced errors caused by the arrangment of neurons on the sphere.
+%Both of these problems stem from the problem of uniformly distibuting points on
+%a sphere.
+
+%Both these problems will be looked into by the introudtion of a new method for
+%testing topologgically induced errors. The method first analysis the neural
+%network to find topological mis matches, next we train the network with an
+%overwhelming about of synthetic data.  Through a series of simple plots we can
+%then compair each nuerons interal variance as defined by the obersvations that
+%best fit that neuron with suchs metrics as nieghborhood influence, number of
+%child observations, etc.
+1. Introduction (10\%)
+
+2. Background and Lit Review (30\%)
+
+	\ldots Problem Statement
+
+	\ldots Lit Review
+
+3. Research Design / Plan / Metodology (50\%)
+
+4. Significance and Limitations (10\%)
+
+5. Timetable
 
 \section{Introduction}
+Using a Spherical lattice has long been suggested as a solution to the bordery
+effect in the tradiation Self-Organizing Maps.  However, the use of the spherical
+lattice introduces new problems. The primary method for generating the spherical
+lattice involves tesellation of a polyhedron.  The main problem with this method
+is the discrete control over network size.  Another problem with this and other
+methods is that the resulting topology is irregular, save the five platonic
+solids, the neurons do not all have the same number of neighbors.  Other methods
+for creating the lattice offer greater flexability in the network size, but
+suffer from increased irregularities. A question that has not yet been answered
+is to what degree dose the irregular topology effect the Spherical SOM.
+
+\section{Background and Lit Review}
+\citeauthor{Kohonen:1982uq} first introduced the Self-Organizing Map in
+\citeyear{Kohonen:1982uq}.
+
 The Self-Organizing Map (SOM) was introduced by Teuvo Kohonen as a technique to
 help analyze high dimensional data sets. The SOM algorithum uses an artificial
 neural network to organize high dimensional data onto a low dimensional lattice,
@@ -85,7 +122,6 @@ variables.  Darker neurons have a relatively large difference from the mean of
 the states, while lighter neurons are relatively close.}
 \label{figure1}
 \end{figure}
-\section{Background}
 
 %\subsection{Spherical SOM}
 A well-known and commonly used technique to eliminate these edge effects is to
