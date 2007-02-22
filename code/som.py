@@ -1,4 +1,5 @@
 import random,math,time,sys
+from Numeric import *
 from math import acos,sqrt,pi,degrees,sin,cos,asin
 
 class som:
@@ -24,18 +25,20 @@ class som:
 		Dims,Size = header.split()
 		self.Dims = int(Dims)
 		self.Size = int(Size)
+		self.nodes = array([[0.0 for i in xrange(self.Dims)] for j in xrange(self.Size)])
+		self.grid = array([[0.0 for i in xrange(2)] for j in xrange(self.Size)])
 
 		for i in xrange(self.Size):
 			if geof:
 				geo = geof.next()
 				geo = geo.split()
 				geo = (math.radians(float(geo[0])),math.radians(float(geo[1])))
-				self.grid.append(geo)
+				self.grid[i] = geo
 			
 			data = dataf.next()
 			data = data.split()
 			data = map(float,data)
-			self.nodes.append(data)
+			self.nodes[i] = data
 
 	def save(self,path,name):
 		outf = open(path+name+'.txt','w')
@@ -43,7 +46,7 @@ class som:
 		outf.write("%d %d\n"%(self.Dims,self.Size))
 		geof.write("%d %d\n"%(self.Dims,self.Size))
 		for i in xrange(self.Size):
-			outf.write(' '.join(str(self.nodes[i])[1:-1].split(', '))+'\n')
+			outf.write(' '.join(str(self.nodes[i].tolist())[1:-1].split(', '))+'\n')
 			geof.write("%f %f\n"%(degrees(self.grid[i][0]),degrees(self.grid[i][1])))
 		outf.close()
 		geof.close()
@@ -60,9 +63,9 @@ class som:
 	                else:
 	                        phi = (points[int(i)-2][0] + (3.6/sqrt(N)) * (1/sqrt(1-h**2)) ) % (2*pi)
 	                points.append((phi,theta))
-	        points = [(phi-pi,theta-(pi/2)) for phi,theta in points]
+	        points = array([(phi-pi,theta-(pi/2)) for phi,theta in points])
 		self.grid = points
-	        self.nodes = [[random.random() for j in xrange(self.Dims)] for i in xrange(self.Size)]
+	        self.nodes = array([[random.random() for j in xrange(self.Dims)] for i in xrange(self.Size)])
 
 	def sdist(self,pt1,pt2):
 		phi1,theta1 = pt1
@@ -86,11 +89,11 @@ class som:
 			self.neighborhoodCache[bmu] = pts
 			return pts
 
-	def findBMU(self,obs,ReturnDist = False):
-	        minDist = self.diff(self.nodes[0],obs)
+	def findBMU(self,ind,v,ReturnDist = False):
+	        minDist = self.diff(0,ind,v)
 	        BMU = 0 
 	        for i in xrange(1,self.Size):
-	                d = self.diff(self.nodes[i],obs)
+	                d = self.diff(i,ind,v)
 	                if d < minDist:
 	                        minDist = d
 	                        BMU = i 
@@ -98,20 +101,23 @@ class som:
 			return BMU,minDist
 		else:
 	        	return BMU
-	def MatchAll(self,obs,ReturnDist = False):
-		bmList = [(0,0) for i in xrange(self.Size)]
-		for i in xrange(self.Size):
-			d = self.diff(self.nodes[i],obs)
-			bmList[i] = (d,i)
-		bmList.sort()
-		return bmList
+#	def MatchAll(self,obs,ReturnDist = False):
+#		bmList = [(0,0) for i in xrange(self.Size)]
+#		for i in xrange(self.Size):
+#			d = self.diff(self.nodes[i],obs)
+#			bmList[i] = (d,i)
+#		bmList.sort()
+#		return bmList
 
-	def diff(self,node,dictObs):
-	        diff = 0
-	        for key in dictObs:
-	                diff += (node[key]-dictObs[key])**2
-	        #return math.sqrt(diff)
-	        return diff
+	def diff(self,nodeid,ind,v):
+		node = take(self.nodes[nodeid],ind)	
+		return sum((node-v)**2)
+#	def diff(self,node,dictObs):
+#	        diff = 0
+#	        for key in dictObs:
+#	                diff += (node[key]-dictObs[key])**2
+#	        #return math.sqrt(diff)
+#	        return diff
 
 	def alpha(self,t):
 		r = self.alpha0 * (1 - (t/float(self.tSteps)))
@@ -129,9 +135,9 @@ class som:
 		if r == 0: r = 1
 		return r
 
-	def merge(self,t,obs):
+	def merge(self,t,ind,v):
 #		t1 = time.time()
-		bmu = self.findBMU(obs)
+		bmu = self.findBMU(ind,v)
 #		print "\tFound BMU: %d in %f seconds"%(bmu,time.time()-t1)
 #		t2 = time.time()
 		sigma = self.kernalWidth(t)
@@ -140,9 +146,10 @@ class som:
 #		t2 = time.time()
 		## Nodes = (nodeID, hci)
 		alteredNodes = [(results[i],self.hci(t,i)) for i in xrange(len(results))]
-		for node in alteredNodes:
-			for n in obs:
-				self.nodes[node[0]][n] = self.nodes[node[0]][n] + node[1]*(obs[n]-self.nodes[node[0]][n])
+		for nodeID,hc in alteredNodes:
+			part = take(self.nodes[nodeID],ind)
+			delta = part+hc*(v-part)
+			put(self.nodes[nodeID],ind,delta)
 #		print "\tUpdated %d neighbors in %f seconds"%(sigma,time.time()-t2)
 #		print "\tt in %f seconds"%(time.time()-t1)
 
@@ -162,20 +169,20 @@ class som:
 		print "Running..."
 		t1 = time.time()
 		for t in xrange(self.tSteps):
-			id,obs = obsf.stream()
-			self.merge(t,obs)
+			id,ind,v = obsf.stream()
+			self.merge(t,ind,v)
 		print "\nRun compleated in %f seconds"%(time.time()-t1)
 
-	def bmap(self,obsf,outFileName):
-		o = file(outFileName,'w')
-		o.write("ID,BMU\n")
-		for id,obs in obsf:
-			try:
-				bm = self.findBMU(obs)
-			except:
-				print id
-			o.write("%s,%d\n"%(id,bm))
-		o.close()
+#	def bmap(self,obsf,outFileName):
+#		o = file(outFileName,'w')
+#		o.write("ID,BMU\n")
+#		for id,obs in obsf:
+#			try:
+#				bm = self.findBMU(obs)
+#			except:
+#				print id
+#			o.write("%s,%d\n"%(id,bm))
+#		o.close()
 
 
 	def map(self,obsf,outFileName):
@@ -206,8 +213,15 @@ class ObsFile:
 		line = self.fileObj.next()
 		id,line = line.split(':')
 		line = line.split(',')
-		obs = dict([(int(line[n])-1,float(line[n+1])) for n in xrange(0,len(line),2)])
-		return id,obs
+		Num = len(line)/2
+		indices = empty(Num,typecode='s')
+		values = empty(Num,typecode='f')
+		c = 0
+		for n in xrange(0,Num*2,2):
+			indices[c] = int(line[n])-1
+			values[c] = float(line[n+1])
+			c += 1
+		return id,indices,values
 	def Cnext(self):
 		line = self.fileObj.next()
 		line = line.split()
@@ -235,33 +249,22 @@ class ObsFile:
 		self.fileObj.close()
 
 if __name__=="__main__":
-	import sys
-	sys.stdout = open('flixnet_log.txt','w',0)
-	s = som()
-#	s.load('runs/','run20')
-#	f = ObsFile('train.dat','sparse')
-#	s.bmap(f,'maps/map20BMUs.txt')
-	s.Size = 1000
-	s.Dims = 17770
-	s.maxN = 0.5
-	s.tSteps = 1000000
-	s.alpha0=0.5
-	f = ObsFile('../som_data/flixnet.dat','sparse')
-	print "init"
-	s.randInit()
-	print "save"
-	s.save('../cod_files/','flixnet_1k_cod')
-	print "run t=1M"
-	s.run(f)
-	print "save"
-	s.save('../cod_files/','flixnet_1k_cod')
+	import sys,time
+        sys.stdout = open('numeric_log.txt','w',0)
+        s = som()
+        s.Size = 1000
+        s.Dims = 17770
+        s.maxN = 0.5 
+        s.tSteps = 1000000
+        s.alpha0=0.5
+        f = ObsFile('/Volumes/Mac_HD_2/charlie/som_data/bigGuys.dat','sparse')
+        print "init"
+        s.randInit()
+        print "save"
+        s.save('../cod_files/','bigGuys_1k_cod')
+        print "run t=1M"
+        s.run(f)
+        print "save"
+        s.save('../cod_files/','bigGuys_1k_cod')
 
-	f.reset()
-#	f.close()
-#	print "loading som"
-#	s.load('../cod_files/','bigGuys_cod')
-#	f = ObsFile('../som_data/flixnet.dat','sparse')
-	print "Finding BMU's"
-	s.bmap(f,'../results/flixnet_1k_bm.txt')
-	f.close()
-	sys.stdout.close()
+        f.close()
