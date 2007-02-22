@@ -2,11 +2,6 @@ import random,math,time,sys,os
 from Numeric import *
 from math import acos,sqrt,pi,degrees,sin,cos,asin
 
-
-
-			
-
-
 class som:
 	def __init__(self):
 		self.Dims = 0
@@ -15,25 +10,20 @@ class som:
 		self.maxN = 0
 		self.alpha0 = 0
 		self.nodes = []
-		#self.topo = topo
 
 	def load(self,path,name):
-
 		dataf = open(path+name+'.txt','r')
 		header = dataf.next()
 		Dims,Size = header.split()
 		self.Dims = int(Dims)
 		self.Size = int(Size)
 		self.nodes = array([[0.0 for i in xrange(self.Dims)] for j in xrange(self.Size)])
-
 		for i in xrange(self.Size):
 			
 			data = dataf.next()
 			data = data.split()
 			data = map(float,data)
 			self.nodes[i] = data
-		#Load the topology
-		#self.topo.load(path,name)
 
 	def save(self,path,name):
 		outf = open(path+name+'.txt','w')
@@ -41,14 +31,9 @@ class som:
 		for i in xrange(self.Size):
 			outf.write(' '.join(str(self.nodes[i].tolist())[1:-1].split(', '))+'\n')
 		outf.close()
-		#Save the topology
-		#self.topo.save(path,name)
 
 	def randInit(self):
 	        self.nodes = array([[random.random() for j in xrange(self.Dims)] for i in xrange(self.Size)])
-		#Generate topology
-		#self.topo.randInit()
-
 
 	def findBMU(self,ind,v,ReturnDist = False):
 	        minDist = self.diff(0,ind,v)
@@ -78,6 +63,9 @@ class som:
 		bottom = (2*(float(sigma)**2))
 		return a * math.exp(-top/bottom)
 	def kernalWidth(self,t):
+		"""Returns the number of neurons to include at time t
+		   this should probably return the current order instead,
+		   which means it should be moved to Topology."""
 		r = round((self.Size*self.maxN) * (1 - (t/float(self.tSteps))))
 		r = int(r)
 		if r == 0: r = 1
@@ -87,7 +75,7 @@ class som:
 		bmu = self.findBMU(ind,v)
 		sigma = self.kernalWidth(t)
 		results = self.neighborhood( bmu , sigma )
-		alteredNodes = [(results[i],self.hci(t,i)) for i in xrange(len(results))]
+		alteredNodes = [(results[i],self.hci(t,self.odist(i))) for i in xrange(len(results))]
 		for nodeID,hc in alteredNodes:
 			part = take(self.nodes[nodeID],ind)
 			delta = part+hc*(v-part)
@@ -123,7 +111,7 @@ class som:
 			qerror += err
 			pt = self.grid[bm]
 			outf.write("%d %f %f %f\n"%(bm,degrees(pt[0]),degrees(pt[1]),err))
-			sys.stdout.write(".%d,%f.\r"%(counter,err))
+			sys.stdout.write(".%d,%f.\r"%(count.maxr,err))
 			sys.stdout.flush()
 			counter += 1
 		qerror = qerror/counter
@@ -142,9 +130,21 @@ class Topology(som):
 		som.load(self,path,name)
 	def randInit(self):
 		som.randInit(self)
-	def neighborhood(self,bmu,NumNeighbors):
+	def kernalWidth(self,t):
+		""" You should overwrite this, see note above...
+		   kernalWidth returns the width of the neighborhood in terms of order"""
 		pass
-		
+	def odist(n):
+		"""n is the nth neuron in the in neighborhood, return's order
+		   example the 3rd neuron in the set is 1 order from the 0th."""
+		pass
+	def neighborhood(self,bmu,kernalWidth):
+		"""
+		This function must return the ID's of the nodes inside the neighborhood, 
+		NumNeighbors is defined by kernalWidth and is express in number of neurons.
+		bmu is the id of the best match
+		"""
+		pass
 	
 class Sphere(som):
 	def __init__(self):
@@ -152,6 +152,7 @@ class Sphere(som):
 		# The Cache cache only works if the Neighborhood size is decreasing!
 		# If you increase the maxN clear the cache!
 		self.neighborhoodCache = {}
+		self.maxN = 0.5
 	def clearCache(self):
 		self.neighborhoodCache = {}
 	def randInit(self):
@@ -170,6 +171,19 @@ class Sphere(som):
 	                points.append((phi,theta))
 	        points = array([(phi-pi,theta-(pi/2)) for phi,theta in points])
 		self.grid = points
+
+		size = self.Size * self.maxN
+		maxW = 0
+		W = 0
+		while size >= (1+(3*maxW)*(maxW-1)):
+			maxW += 1
+		self.maxW = maxW
+
+	def odist(self,n):
+		d = 1
+		while n >= (1+(3*d)*(d-1)):
+			d+=1
+		return d-1
 	def save(self,path,name):
 		som.save(self,path,name)
 		geof = open(path+name+'_geo.txt','w')
@@ -182,9 +196,6 @@ class Sphere(som):
 		if os.path.exists(path+name+'_geo.txt'):
 			geof = open(path+name+'_geo.txt','r')
 			header = geof.next()
-			#Dims,Size = header.split()
-			#self.Dims = int(Dims)
-			#self.Size = int(Size)
 			self.grid = zeros((self.Size,2),typecode='f')
 			for i in xrange(self.Size):
 				geo = geof.next()
@@ -201,7 +212,13 @@ class Sphere(som):
 		a = sin(dtheta/2)**2 + (cos(theta1) * cos(theta2) * sin(dphi/2)**2)
 		c = 2 * asin(min(1,sqrt(a)))
 		return c
-	def neighborhood(self,bmu,NumNeighbors):
+	def kernalWidth(self,t):
+		r = round((self.maxW) * (1 - (t/float(self.tSteps))))
+		r = int(r)
+		if r == 0: r = 1
+		return r
+	def neighborhood(self,bmu,sigma):
+		NumNeighbors = (1+(3*sigma)*(sigma-1))
 		try:
 			return self.neighborhoodCache[bmu][:NumNeighbors]
 		except:
@@ -214,9 +231,6 @@ class Sphere(som):
 			pts = [dists[keys[i]] for i in xrange(NumNeighbors)]
 			self.neighborhoodCache[bmu] = pts
 			return pts
-
-
-
 
 class ObsFile:
 	def __init__(self,filename,fileType = 'complete'):
@@ -244,9 +258,7 @@ class ObsFile:
 		line = line.split()
 		id = self.nextLine
 		for n in xrange(0,self.Dims):
-			self.indices[n] = n
 			self.values[n] = float(line[n])
-		#obs = dict([(n,float(line[n])) for n in xrange(self.Dims)])
 		self.nextLine+=1
 		return id,self.indices,self.values
 	def reset(self):
@@ -255,7 +267,7 @@ class ObsFile:
 		if self.fileType == 'complete':
 			self.next = self.Cnext
 			self.Dims = int(self.fileObj.next())
-			self.indices = empty(self.Dims,typecode='s') #typecode 's' is Int16
+			self.indices = array(range(self.Dims),typecode='s') #typecode 's' is Int16
 			self.values = empty(self.Dims,typecode='f') #typecode 'f' is Float32
 			self.nextLine += 1
 		elif self.fileType == 'sparse':
