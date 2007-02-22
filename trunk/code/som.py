@@ -204,7 +204,7 @@ class som:
 class ObsFile:
 	def __init__(self,filename,fileType = 'complete'):
 		self.filename = filename
-		self.fileObj = file(filename,'r')
+		self.fileObj = open(filename,'r')
 		self.fileType = fileType
 		self.reset()
 	def __iter__(self):
@@ -225,9 +225,15 @@ class ObsFile:
 	def Cnext(self):
 		line = self.fileObj.next()
 		line = line.split()
-		obs = dict([(n,float(line[n])) for n in xrange(self.Dims)])
+		id = self.nextLine
+		indices = empty(self.Dims,typecode='s') #typecode 's' is Int16
+		values = empty(self.Dims,typecode='f') #typecode 'f' is Float32
+		for n in xrange(0,self.Dims):
+			indices[n] = n
+			values[n] = float(line[n])
+		#obs = dict([(n,float(line[n])) for n in xrange(self.Dims)])
 		self.nextLine+=1
-		return obs
+		return id,indices,values
 	def reset(self):
 		self.fileObj.seek(0)
 		self.nextLine = 0 #Zero Base
@@ -250,21 +256,21 @@ class ObsFile:
 
 if __name__=="__main__":
 	import sys,time
-        sys.stdout = open('numeric_log.txt','w',0)
+        #sys.stdout = open('numeric_log.txt','w',0)
         s = som()
         s.Size = 1000
-        s.Dims = 17770
+        s.Dims = 10
         s.maxN = 0.5 
-        s.tSteps = 1000000
-        s.alpha0=0.5
-        f = ObsFile('/Volumes/Mac_HD_2/charlie/som_data/bigGuys.dat','sparse')
+        s.tSteps = 10000
+        s.alpha0 = 0.5
+        f = ObsFile('testData/10d-10c-no0.dat','complete')
         print "init"
         s.randInit()
         print "save"
-        s.save('../cod_files/','bigGuys_1k_cod')
-        print "run t=1M"
+        s.save('testResults/','test-10d-10c-no0_rand')
+        print "run t=10K"
         s.run(f)
         print "save"
-        s.save('../cod_files/','bigGuys_1k_cod')
+        s.save('testResults/','test-10d-10c-no0_10K')
 
         f.close()
