@@ -1,3 +1,14 @@
+"""
+Data scaler for use with Python Self-Organizing Maps
+----------------------------------------------------------------------
+AUTHOR(S):      Charles R. Schmidt cschmidt@rohan.sdsu.edu
+----------------------------------------------------------------------
+Copyright (c) 2006-2007  Charles R. Schmidt
+======================================================================
+This source code is licensed under the GNU General Public License,
+Version 2.
+======================================================================
+"""
 def scaler(data_file_name,out_file_name,delim=None,minList=None,maxList=None):
 	"""
 	scaler scales all the values in a text file using the giving minList and maxList, if both min and max lists are not given they are generated.  Values will be scaled from 0 to 1 by default.
