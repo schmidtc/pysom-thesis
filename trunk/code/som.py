@@ -1,3 +1,14 @@
+"""
+Python Self-Organizing Maps with Spherical Lattice
+----------------------------------------------------------------------
+AUTHOR(S):      Charles R. Schmidt cschmidt@rohan.sdsu.edu
+----------------------------------------------------------------------
+Copyright (c) 2006-2007  Charles R. Schmidt
+======================================================================
+This source code is licensed under the GNU General Public License,
+Version 2.
+======================================================================
+"""
 import random,math,time,sys,os
 from Numeric import *
 from math import acos,sqrt,pi,degrees,sin,cos,asin
