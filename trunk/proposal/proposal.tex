@@ -73,62 +73,58 @@ two dimensional plane using either a rectangular or hexagonal topology.
 According to \cite{Wu:2006lr} the hexagonal structure is more uniform and
 generally preferred.
 
-An obvious drawback of locating the neural lattice in a discrete euclidean plane
-is the boundary of that plane.  A neruon located on the boundry has fewer
-neighbors and thus fewer chances of being updated \citep{Wu:2006lr}.  The
-toroidol som was introduced by \cite{li1993} and removes this drawback.
-\cite{ritter99} suggests that a spherical topology may better reflect
-directional data and that the torus is topologically flat.  The torus is also
-less effective for visualization than the sphere, partly do to our familiarity
-with maps based on the later \citep{ito2000,Wu:2006lr}.
+\subsection{Boundary Effect}
+\begin{figure}
+\centering
+\includegraphics[width=1\linewidth]{gridedge_grey.pdf}
+\caption{Fifty states plus D.C. mapped onto SOM trained with the first thirty-two census
+variables.  Darker neurons have a relatively large differences from the mean of
+the states, while lighter neurons are relatively closer.  Larger dots represent inputs that were poorly fit to the map, small smaller dots show inputs that were better bit to the map.}
+\label{figure1}
+\end{figure}
 
-%In the next section I review one of the primary methods for dealing with edge
-%effects addressing both its features and limitations.  Following this
-%discussion I introduce some simple modifications to the Spherical SOM, which
-%take advantage of slightly irregular point distributions in order to yield a
-%hexagonal like topology that attempts to minimize distortion.  Next a new
-%method for measuring topologically caused distortion is proposed along with a
-%simple numerical example.  Finally, limitations are quickly addressed and
-%expected results are briefly outlined.
+One obvious drawback of building the neural lattice in a discrete euclidean 
+plane is the boundary of the resulting lattice.  A neuron located on the boundry has 
+fewer neighbors and thus fewer chances of being updated \citep{Wu:2006lr}.  
+As equivocally observed in Figure \ref{figure1}, neurons in the center of the 
+map tend to better represent the mean of the input-space.  This is caused 
+by outliers being pushed to the edges of the map, where they encounter fewer 
+competing signals.
 
-%\begin{figure}
-%\centering
-%\includegraphics[width=0.85\linewidth]{gridedge.png}
-%\caption{States mapped onto SOM trained with the first thirty-two census
-%variables.  Darker neurons have a relatively large difference from the mean of
-%the states, while lighter neurons are relatively close.}
-%\label{figure1}
-%\end{figure}
+The toroidal som was introduced by \cite{li1993} and removes this drawback.
+However, the torus is not hugely effective for visualization, as maps generated from 
+a torus are not very intuitive \citep{ito2000,Wu:2006lr}.  \cite{ritter99} describes 
+the torus as being topologically flat and suggests that a curved topology, such 
+as that of a sphere, may better reflect direction data.  A sphere also results in a 
+more intuitive map, since we are accustomed to looking at maps based on a sphere.
 
-%\subsection{Spherical SOM}
-A well-known and commonly used technique to eliminate these edge effects is to
-implement the SOM algorithm on the surface of a torus or a sphere \citep{ritter99}.
-\citeauthor{ritter99} first introduces the spherical SOM in
-\citeyear{ritter99}, not only as a solution to the border effect, but also
-suggests that a spherical SOM may better represent directional data. Several
-enhancements have been suggested over \citeauthor{ritter99}'s original work
-\citep{Wu:2006lr,sangole03,Nishio:2006fk,boudjemai2003}.  A good
+\subsection{Spherical SOM}
+\cite{ritter99} first introduced the spherical SOM and several
+enhancements have since been suggested 
+\citep{Wu:2006lr,boudjemai2003,sangole03,Nishio:2006fk}.  A good
 comparison of these enhancements can be found in \citep{Wu:2006lr}.  All of
-these methods derive their spherical structure through tessellations of a
+these methods derive their spherical structure through the tessellation of a
 polyhedron as originally proposed by \citeauthor{ritter99}.  \cite{Wu:2006lr}
-point out the importance of a uniform distribution on the sphere and that is
+point out the importance of a uniform distribution on the sphere and that it is
 preferable for all neurons to have an equal number of neighbors and to be
 equally spaced.  They find generally that the tessellation method best
-satisfies this condition and specifically that the icosahedrons is the best
+satisfies this condition and specifically that the icosahedron is the best
 starting point \citep{wu2005}.
 
-\subsection{Network Size}
+\subsubsection{Network Size}
+The literature offers little theoretical guidance on network size \citep{cho1996}. 
+The SOM Toolbox documentation suggests simply using a network size 
+of \(5*\sqrt {n}\), where \(n\) is the number of observations \citep{toolbox}.
 The tessellation method used by the class of spherical SOM based on Ritter's
-work results in a network size that is a function of the number of
-tessellations and therefore grows exponentially. In practice 2D Euclidean SOMs
+work results in a network size that is a function of the tessellation frequency
+and therefore grows exponentially. In practice 2D Euclidean SOMs
 also offer limited control over network size, as it is undesirable to have one
-dimension dramatically larger then the other.  The literature offers little
-theoretical guidance on network size \citep{cho1996}.  \cite{Nishio:2006fk}
-address the issue of network size by departing from the tessellation method
-and suggesting the use of a partitioned helix to uniformly distribute any
+dimension dramatically larger then the other.  
+\cite{Nishio:2006fk} try to address the issue of network size granularity by departing 
+from the tessellation method and suggesting the use of a partitioned helix to uniformly distribute any
 number of neurons on a sphere.  A similar method was dismissed by
 \cite{wu2005} for failing to satisfy the uniformity condition.
-\citeauthor{Nishio:2006fk} seem to have addressed part of the condition, the
+\citeauthor{Nishio:2006fk} seem to have addressed part of the condition, but the
 issue of having a uniform number of direct neighbors is still not addressed.
 
 Tessellation of the icosahedron results in a network of neurons, each of which
@@ -141,16 +137,17 @@ Euclidean space. The indexed data structure developed by
 \cite{Nishio:2006fk} offer no such data structure nor any practical advice on
 identification of neighbors; only variance in neuron spacing is addressed.
 
-Given that no theoretical guidance is given for choosing network size the
+\subsection{Conclusion}
+Methods, for distributing points on the sphere, which allow for fine grained 
+control over network size produce slightly more irregular topologies.  However,
+no description of these irregularities or their effects on SOM training has occurred in the
+literature. Given that limited theoretical guidance is available for choosing network size the
 desire for finer control over the network size, should not be overlooked. In
 particular for a larger SOM the ideal network size may not be achievable via
-tessellations of the icosahedron.  In an attempt address the issue of network
-size while still satisfying the uniformity condition the \cite{Rakhmanov94}
-algorithm for distributing points of a sphere, which was dismissed by
-\cite{wu2005} is reexamined here.  It should be noted that the method proposed
-in the next section is applicable to any somewhat uniform distribution of
-points on a sphere including the helix method proposed by
-\cite{Nishio:2006fk}.
+tessellation of the icosahedron. In order to empirically investigate the effects of irregular 
+topology in Spherical SOM a simple method is proposed in the next section.  The method
+identifies topological mis-matches in order to generate a single number representing a
+given lattice's topologically induced errors.  It also allows us to visual the sites of those mis-matches.
 
 \section{Proposed Topology}
 
@@ -260,7 +257,7 @@ searching. Time complexity for neighborhood searching in HS-SOM is
 \begin{math}O(N)\end{math}, while GeoSOM runs in
 \begin{math}O(n)\end{math}\footnote{\textit{N} is the network size and
 \textit{n} in the number of neurons in the current
-neighborhood}\citep{Wu:2006lr}. Time and space complexity can be reduced by
+neighborhood} \citep{Wu:2006lr}. Time and space complexity can be reduced by
 caching neighborhood calcuations on-the-fly out to the current neighborhhod
 size, as opposed to precalcuting neighborhoods out to initial neighborhood
 size.
@@ -271,6 +268,8 @@ size.
 \item Implement the validation method and test the GeoSOM and HS-SOM using the Rakhmanov and helix methods.
 \item Develop more diagnostics, such as the reverse quantization error visualizations.
 \end{itemize}
+
+
 
 %\section{Bibliography}
 \bibliographystyle{apalike}
