@@ -5,6 +5,7 @@
 \setlength{\textwidth}{16.3cm}
 \setlength{\textheight}{22.3cm}
 \usepackage{graphicx}
+\usepackage{subfigure}
 \graphicspath{{figures/}}
 \usepackage[round]{natbib}
 \title{Effects of Irregular Topology in Non-Planar SOM Variants}
@@ -146,42 +147,61 @@ desire for finer control over the network size, should not be overlooked. In
 particular for a larger SOM the ideal network size may not be achievable via
 tessellation of the icosahedron. In order to empirically investigate the effects of irregular 
 topology in Spherical SOM a simple method is proposed in the next section.  The method
-identifies topological mis-matches in order to generate a single number representing a
+identifies topological irregularities in order to generate a single number representing a
 given lattice's topologically induced errors.  It also allows us to visual the sites of those mis-matches.
 
-\section{Proposed Topology}
+%\section{Proposed Topology}
+%The Rakhmanov algorithm has the ability to distribute any number of points
+%onto the surface of a sphere, which allows for the finest possible level of
+%control of network size, even greater than that of the traditional euclidean
+%based SOM \citep{Rakhmanov94}.  There are two problems with the \citeauthor{Rakhmanov94}
+%algorithm. The first is the variance in the number of direct neighbors for any
+%given neuron.  The second is variance in the distance between those neurons.
+%Using the algorithm to distribute 162 points, results in nearest neighbor
+%``distances that vary from 0.15779 to 0.30069'' \cite[pg 3]{wu2005}.
+%Furthermore 114 neurons have 6 direct neighbors, 30 have 5 and 18 have 7, as
+%defined by their Delaunay Triangulation.  The fourth frequency tessellation of
+%the icosahedron has nearest neighbor distances in the range of 0.25319 to
+%0.31287, 150 neurons have 6 neighbors and 12 have 5.
 
-The Rakhmanov algorithm has the ability to distribute any number of points
-onto the surface of a sphere, which allows for the finest possible level of
-control of network size, even greater than that of the traditional euclidean
-based SOM \citep{Rakhmanov94}.  There are two problems with the \citeauthor{Rakhmanov94}
-algorithm. The first is the variance in the number of direct neighbors for any
-given neuron.  The second is variance in the distance between those neurons.
-Using the algorithm to distribute 162 points, results in nearest neighbor
-``distances that vary from 0.15779 to 0.30069'' \cite[pg 3]{wu2005}.
-Furthermore 114 neurons have 6 direct neighbors, 30 have 5 and 18 have 7, as
-defined by their Delaunay Triangulation.  The fourth frequency tessellation of
-the icosahedron has nearest neighbor distances in the range of 0.25319 to
-0.31287, 150 neurons have 6 neighbors and 12 have 5.
+%Irregularities in the spatial distribution of neurons exhibited by the Rakhmanov
+%algorithm allows a given neuron's neighboring points to be easily ranked
+%and sorted by their distance to the neuron in question.  The ranked and sorted
+%neighbors can be further separated into distinct classes, or orders, such that
+%the first order contains exactly \begin{math}1\times6\end{math} neurons and
+%the \textit{n\textsuperscript{th}} order contains exactly
+%\begin{math}n\times6\end{math} neurons.  Furthermore, neurons will be assigned
+%a distance relative to the central neuron and equal to that of their order.
+%For example, the six closest neurons will all be assigned a distance weight of
+%unity, while the next twelve closest neurons will be assigned a distance
+%weight of two and so on and so forth.  This follows from the properties of the
+%standard hexagonal topology used traditionally in SOM and provides the
+%foundation for a spherical SOM which mimic's that behavior.  This approach
+%shall be referred to as HS-SOM.
 
-Irregularities in spatial distribution of neurons exhibited by the Rakhmanov
-algorithm allows a given neuron's neighboring points to be easily ranked
-and sorted by their distance to the neuron in question.  The ranked and sorted
-neighbors can be further separated into distinct classes, or orders, such that
-the first order contains exactly \begin{math}1\times6\end{math} neurons and
-the \textit{n\textsuperscript{th}} order contains exactly
-\begin{math}n\times6\end{math} neurons.  Furthermore, neurons will be assigned
-a distance relative to the central neuron and equal to that of their order.
-For example, the six closest neurons will all be assigned a distance weight of
-unity, while the next twelve closest neurons will be assigned a distance
-weight of two and so on and so forth.  This follows from the properties of the
-standard hexagonal topology used traditionally in SOM and provides the
-foundation for a spherical SOM which mimic's that behavior.  This approach
-shall be referred to as HS-SOM.
+\section{Methodology}
+\subsection{Irregular Topology}
+The basic problem of the "boundary effect" is that neurons on the edge have fewer neighbors. Yet there are only five possible arrangements of points on a sphere such that all points have the same number of neighbors.  Any spherical lattice consisting of more then twenty (dodecahedron) neurons will contain topological irregularities.  This is to say that not all neurons will have the same number of neighbors.  A simple test can be conducted to find the locations of these mis-matches.
 
-\section{Validation of Topology}
-The proposed HS-SOM method raises questions of topological preservation.  One
-can imagine a dense set of points evenly distributed on one hemisphere and a
+\subsection{The Method}
+Let, \begin{math}N\end{math}, be a set of neurons.  Each neuron will have an
+associated one-dimensional reference vector with its sole value initialized to
+zero. Each neuron \(n\) in the set \(N\) is trained with a constant input signal.  During the training
+the input signal will be applied over \(n\)'s neighborhood as defined by a standard distance decay function.
+
+\subsubsection{Demonstration}
+
+\begin{figure}
+\centering
+\subfigure[a]{\includegraphics[width=.30\linewidth]{grid-a}}
+\subfigure[b]{\includegraphics[width=.30\linewidth]{grid-bb}}
+\subfigure[c]{\includegraphics[width=.30\linewidth]{grid-cb}}
+\caption{The grids below are a simple example of a 3x3 neural lattice.  The first grid shows network after the top-right cell was trained with an input signal of two.  The second grid shows how the network looks after training one and two neurons respectivly. The final grid shows the complete training.  Try continuing where the second grid left off.  In the top-right cell mark II, and I in each of it's direct neighbors.  This }
+
+\end{figure}
+
+The proposed HS-SOM method raises questions of topological preservation.  
+One can imagine a dense set of points evenly distributed on one hemisphere and a
 sparse set of points distributed on the other. Neighborhoods near the division
 would be greatly distorted; in terms of training, more updates would occur in
 the dense set.  Given the overall uniformity produced by the
@@ -189,14 +209,7 @@ the dense set.  Given the overall uniformity produced by the
 simple test can be conducted to check for it and further validate the HS-SOM
 and other methods.
 
-Let, \begin{math}N\end{math}, be a set of neurons.  Each neuron will have an
-associated one-dimensional reference vector with its sole value initialized to
-zero. Each neuron will be selected, only once, as a pseudo best matching unit
-(BMU).  A constant neighborhood size will be used through out the experiment,
-along with constant learning rate (set to unity).  For each BMU an input
-signal (its value set to a predefined constant) shall be applied over the
-BMU's neighborhood, given a standard distance decay function.  In the end,
-if true edgeless hexagonal topology is preserved all neurons should have the
+.  In the end, if true edgeless hexagonal topology is preserved all neurons should have the
 same value. The mean squared deviation from each node's attribute vector to
 the mean attribute vector may be used as a distortion measure comparable
 across any SOM, both spherical and 2D of a given network size.
