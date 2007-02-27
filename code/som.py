@@ -132,7 +132,8 @@ class som:
 
 
 class Topology(som):
-	"""Template class for topology"""
+	"""Template class for topology
+	Copy this class to create a new topology for som"""
 	def __init__(self):
 		som.__init__(self)
 	def save(self,path,name):
