@@ -44,16 +44,16 @@ Using a spherical lattice is widely suggested as a solution to the boundary
 effect found in the traditional Self-Organizing Maps \citep{ritter99, boudjemai2003,
 sangole03, Wu:2006lr, Nishio:2006fk}.  However, the use of the spherical lattice
 introduces a new problem.  Save the five platonic solids, distributing points on
-a sphere will allows result in irregular topology \citep{ritter99}.  The classic
+a sphere will always result in irregular topology \citep{ritter99}.  The classic
 method for generating a spherical lattice is to tessellate the sides a platonic
 solid.  When tessellating the icosahedron, as described by \cite{Wu:2006lr}, the
-resulting topology will always consist of 12 pentagons and \(N-12\) hexagons.
+resulting topology will always consist of \(12\) pentagons and \(N-12\) hexagons.
 Where \(N\) is the total number of sides, or neurons.  The main drawback of this
 method is the finite control over \(N\), which grows at a rate of \(f^2*10+2\),
 where \(f\) is the frequency of the tessellation \citep{Wu:2006lr}.  There has been
 little discussion on the effects of irregular topology in Spherical SOM. The goal of
 this research is to investigate these effects in order to determine the usefulness of
-more irregular topologies which offer greater control over \(N\).
+slightly more irregular topologies which offer greater control over \(N\).
 %Find a way to incorporate finite control over N into this sentence.  A question
 %that has not yet been answered is to what degree does the irregular topology
 %effect the Spherical SOM.
@@ -98,13 +98,13 @@ The toroidal som was introduced by \cite{li1993} and removes this drawback.
 However, the torus is not hugely effective for visualization, as maps generated from 
 a torus are not very intuitive \citep{ito2000,Wu:2006lr}.  \cite{ritter99} describes 
 the torus as being topologically flat and suggests that a curved topology, such 
-as that of a sphere, may better reflect direction data.  A sphere also results in a 
+as that of a sphere, may better reflect directional data.  A sphere also results in a 
 more intuitive map, since we are accustomed to looking at maps based on a sphere.
 
 \subsection{Spherical SOM}
 \cite{ritter99} first introduced the spherical SOM and several
 enhancements have since been suggested 
-\citep{Wu:2006lr,boudjemai2003,sangole03,Nishio:2006fk}.  A good
+\citep{boudjemai2003,sangole03,Nishio:2006fk,Wu:2006lr}.  A good
 comparison of these enhancements can be found in \citep{Wu:2006lr}.  All of
 these methods derive their spherical structure through the tessellation of a
 polyhedron as originally proposed by \citeauthor{ritter99}.  \cite{Wu:2006lr}
@@ -118,7 +118,7 @@ starting point \citep{wu2005}.
 The literature offers little theoretical guidance on network size
 \citep{cho1996}.  \cite{toolbox} suggests simply using a network
 size of \(5*\sqrt {n}\), where \(n\) is the number of observations.
-The tessellation method used by the class of spherical SOM
+The tessellation method used by the class of spherical SOMs
 based on Ritter's work results in a network size that is a function of the
 tessellation frequency and therefore grows exponentially. In practice 2D
 Euclidean SOMs also offer limited control over network size, as it is
