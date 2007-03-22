@@ -40,8 +40,8 @@ influence, number of child observations, etc.
 %\\5. Timetable
 
 \section{Introduction}
-Using a Spherical lattice is widely suggested as a solution to the boundary
-effect in the traditional Self-Organizing Maps \citep{ritter99, boudjemai2003,
+Using a spherical lattice is widely suggested as a solution to the boundary
+effect found in the traditional Self-Organizing Maps \citep{ritter99, boudjemai2003,
 sangole03, Wu:2006lr, Nishio:2006fk}.  However, the use of the spherical lattice
 introduces a new problem.  Save the five platonic solids, distributing points on
 a sphere will allows result in irregular topology \citep{ritter99}.  The classic
@@ -50,11 +50,12 @@ solid.  When tessellating the icosahedron, as described by \cite{Wu:2006lr}, the
 resulting topology will always consist of 12 pentagons and \(N-12\) hexagons.
 Where \(N\) is the total number of sides, or neurons.  The main drawback of this
 method is the finite control over \(N\), which grows at a rate of \(f^2*10+2\),
-where \(f\) is the frequency of the tessellation \citep{Wu:2006lr}.  The goal of
-this research is to investigate the effects of irregular topology within
-spherical SOM.
+where \(f\) is the frequency of the tessellation \citep{Wu:2006lr}.  There has been
+little discussion on the effects of irregular topology in Spherical SOM. The goal of
+this research is to investigate these effects in order to determine the usefulness of
+more irregular topologies which offer greater control over \(N\).
 %Find a way to incorporate finite control over N into this sentence.  A question
-%that has not yet been answered is to what degree does the irregulara topology
+%that has not yet been answered is to what degree does the irregular topology
 %effect the Spherical SOM.
 
 \section{Background and Lit Review}
@@ -66,7 +67,7 @@ neuron contains a reference vector that can be considered to model a portion of
 the input space. Before training these neurons are initialized, most commonly to
 random values.  During the training process a randomly selected input vector
 searches the map for its best matching unit (BMU), that is the neuron to which
-it is most similar. The BMU and it's neiborhood, as defined by a neighborhood
+it is most similar. The BMU and its neiborhood, as defined by a neighborhood
 function, are than adjusted to better match that observation
 \citep{Kohonen2000}.  The training process is repeated a predefined number of
 times, or ideally until the map converges.  The traditional SOM is laid out on a
@@ -80,15 +81,16 @@ generally preferred.
 \includegraphics[width=1\linewidth]{gridedge_grey.pdf}
 \caption{Fifty states plus D.C. mapped onto SOM trained with the first thirty-two census
 variables.  Darker neurons have a relatively large differences from the mean of
-the states, while lighter neurons are relatively closer.  Larger dots represent inputs that were poorly fit to the map, small smaller dots show inputs that were better bit to the map.}
+the states, while lighter neurons are relatively closer.  Larger dots represent inputs
+that were poorly fit to the map, small smaller dots show inputs that were better bit to the map.}
 \label{figure1}
 \end{figure}
 
 One obvious drawback of building the neural lattice in a discrete euclidean 
 plane is the boundary of the resulting lattice.  A neuron located on the boundry has 
 fewer neighbors and thus fewer chances of being updated \citep{Wu:2006lr}.  
-As equivocally observed in Figure \ref{figure1}, neurons in the center of the 
-map tend to better represent the mean of the input-space.  This is caused 
+As observed in Figure \ref{figure1}, neurons in the center of the 
+map tend to better represent the mean of the input-space.  This is arguably caused 
 by outliers being pushed to the edges of the map, where they encounter fewer 
 competing signals.
 
@@ -109,24 +111,25 @@ polyhedron as originally proposed by \citeauthor{ritter99}.  \cite{Wu:2006lr}
 point out the importance of a uniform distribution on the sphere and that it is
 preferable for all neurons to have an equal number of neighbors and to be
 equally spaced.  They find generally that the tessellation method best
-satisfies this condition and specifically that the icosahedron is the best
+satisfies these conditions and specifically that the icosahedron is the best
 starting point \citep{wu2005}.
 
 \subsubsection{Network Size}
-The literature offers little theoretical guidance on network size \citep{cho1996}. 
-The SOM Toolbox documentation suggests simply using a network size 
-of \(5*\sqrt {n}\), where \(n\) is the number of observations \citep{toolbox}.
-The tessellation method used by the class of spherical SOM based on Ritter's
-work results in a network size that is a function of the tessellation frequency
-and therefore grows exponentially. In practice 2D Euclidean SOMs
-also offer limited control over network size, as it is undesirable to have one
-dimension dramatically larger then the other.  
-\cite{Nishio:2006fk} try to address the issue of network size granularity by departing 
-from the tessellation method and suggesting the use of a partitioned helix to uniformly distribute any
-number of neurons on a sphere.  A similar method was dismissed by
-\cite{wu2005} for failing to satisfy the uniformity condition.
-\citeauthor{Nishio:2006fk} seem to have addressed part of the condition, but the
-issue of having a uniform number of direct neighbors is still not addressed.
+The literature offers little theoretical guidance on network size
+\citep{cho1996}.  \cite{toolbox} suggests simply using a network
+size of \(5*\sqrt {n}\), where \(n\) is the number of observations.
+The tessellation method used by the class of spherical SOM
+based on Ritter's work results in a network size that is a function of the
+tessellation frequency and therefore grows exponentially. In practice 2D
+Euclidean SOMs also offer limited control over network size, as it is
+undesirable to have one dimension dramatically larger then the other.
+\cite{Nishio:2006fk} try to address the issue of network size granularity by
+departing from the tessellation method and suggesting the use of a partitioned
+helix to uniformly distribute any number of neurons on a sphere.  A similar
+method was dismissed by \cite{wu2005} for failing to satisfy the uniformity
+condition.  \citeauthor{Nishio:2006fk} seem to have addressed variance in 
+nearest neighbor distances, but the issue of having a uniform number of direct
+neighbors is still not addressed.
 
 Tessellation of the icosahedron results in a network of neurons, each of which
 have exactly six neighbors, save the original twelve which each have five.
@@ -139,30 +142,31 @@ Euclidean space. The indexed data structure developed by
 identification of neighbors; only variance in neuron spacing is addressed.
 
 \subsection{Conclusion}
-Methods, for distributing points on the sphere, which allow for fine grained 
+Methods, for distributing points on the sphere, which allow for fine grained
 control over network size produce slightly more irregular topologies.  However,
-no description of these irregularities or their effects on SOM training has occurred in the
-literature. Given that limited theoretical guidance is available for choosing network size the
-desire for finer control over the network size, should not be overlooked. In
-particular for a larger SOM the ideal network size may not be achievable via
-tessellation of the icosahedron. In order to empirically investigate the effects of irregular 
-topology in Spherical SOM a simple method is proposed in the next section.  The method
-identifies topological irregularities in order to generate a single number representing a
-given lattice's topologically induced errors.  It also allows us to visual the sites of those mis-matches.
+no discussion of these irregularities or their effects on SOM training has
+occurred in the literature. Given that limited theoretical guidance is available
+for choosing network size the desire for finer control over the network size,
+should not be overlooked. In particular for a larger SOM the ideal network size
+may not be achievable via tessellation of the icosahedron.
 
-%\section{Proposed Topology}
-%The Rakhmanov algorithm has the ability to distribute any number of points
-%onto the surface of a sphere, which allows for the finest possible level of
-%control of network size, even greater than that of the traditional euclidean
-%based SOM \citep{Rakhmanov94}.  There are two problems with the \citeauthor{Rakhmanov94}
-%algorithm. The first is the variance in the number of direct neighbors for any
-%given neuron.  The second is variance in the distance between those neurons.
-%Using the algorithm to distribute 162 points, results in nearest neighbor
-%``distances that vary from 0.15779 to 0.30069'' \cite[pg 3]{wu2005}.
-%Furthermore 114 neurons have 6 direct neighbors, 30 have 5 and 18 have 7, as
-%defined by their Delaunay Triangulation.  The fourth frequency tessellation of
-%the icosahedron has nearest neighbor distances in the range of 0.25319 to
-%0.31287, 150 neurons have 6 neighbors and 12 have 5.
+\section{Proposed Topology}
+The Rakhmanov algorithm has the ability to distribute any number of points onto
+the surface of a sphere, which allows for the finest possible level of control
+of network size, even greater than that of the traditional euclidean based SOM
+\citep{Rakhmanov94}.  There are two problems with the \citeauthor{Rakhmanov94}
+algorithm. The first is the variance in the number of direct neighbors for any
+given neuron.  The second is variance in the distance between those neurons.
+Using the algorithm to distribute 162 points, results in nearest neighbor
+``distances that vary from 0.15779 to 0.30069'' \cite[pg 3]{wu2005}.
+Furthermore 114 neurons have 6 direct neighbors, 30 have 5 and 18 have 7, as
+defined by their Delaunay Triangulation.  The fourth frequency tessellation of
+the icosahedron has nearest neighbor distances in the range of 0.25319 to
+0.31287, 150 neurons have 6 neighbors and 12 have 5.  \cite{wu2005} dismiss the
+Rakhmanov method based solely on this measure.  For comparison the standard
+rectangular topology used in traditional SOM has no variance in nearest neighbor
+distances, yet suffers severely from the boundary effect.  Of greater importance is the
+variance in the number of first order neighbors.
 
 %Irregularities in the spatial distribution of neurons exhibited by the Rakhmanov
 %algorithm allows a given neuron's neighboring points to be easily ranked
@@ -180,45 +184,26 @@ given lattice's topologically induced errors.  It also allows us to visual the s
 %shall be referred to as HS-SOM.
 
 \section{Methodology}
-\subsection{Irregular Topology}
-The basic problem of the "boundary effect" is that neurons on the edge have fewer neighbors. Yet there are only five possible arrangements of points on a sphere such that all points have the same number of neighbors.  Any spherical lattice consisting of more then twenty (dodecahedron) neurons will contain topological irregularities.  This is to say that not all neurons will have the same number of neighbors.  A simple test can be conducted to find the locations of these mis-matches.
+\subsection{Introduction}
+The basic problem of the "boundary effect" is that neurons on the edge have
+fewer neighbors. Yet there are only five possible arrangements of points on a
+sphere such that all points have the same number of neighbors.  Any spherical
+lattice consisting of more then twenty (dodecahedron) neurons will contain
+topological irregularities.  This is to say that not all neurons will have the
+same number of neighbors.  In order to find the locations of these mis-matches a
+first order adjacency matrix \(A\) will be constructed for each network
+topology.  The sum of \(A_{*,n}\) represents the number of neurons that consider
+neuron \(n\) to be a neighbor.  In a perfectly edgeless topology the variance of
+these column sums would be \(0\).
 
-\subsection{The Method}
-Let, \begin{math}N\end{math}, be a set of neurons.  Each neuron will have an
-associated one-dimensional reference vector with its sole value initialized to
-zero. Each neuron \(n\) in the set \(N\) is trained with a constant input signal.  During the training
-the input signal will be applied over \(n\)'s neighborhood as defined by a standard distance decay function.
+This variance can be used as a global distortion measure comparable across any SOM, both spherical and 2D of a given network size.
 
-\subsubsection{Demonstration}
-
-\begin{figure}
-\centering
-\subfigure[a]{\includegraphics[width=.30\linewidth]{grid-a}}
-\subfigure[b]{\includegraphics[width=.30\linewidth]{grid-bb}}
-\subfigure[c]{\includegraphics[width=.30\linewidth]{grid-cb}}
-\caption{The grids below are a simple example of a 3x3 neural lattice.  The first grid shows network after the top-right cell was trained with an input signal of two.  The second grid shows how the network looks after training one and two neurons respectivly. The final grid shows the complete training.  Try continuing where the second grid left off.  In the top-right cell mark II, and I in each of it's direct neighbors.  This }
-
-\end{figure}
-
-The proposed HS-SOM method raises questions of topological preservation.  
-One can imagine a dense set of points evenly distributed on one hemisphere and a
-sparse set of points distributed on the other. Neighborhoods near the division
-would be greatly distorted; in terms of training, more updates would occur in
-the dense set.  Given the overall uniformity produced by the
-\citeauthor{Rakhmanov94} method this phenomenon should be minimized. However a
-simple test can be conducted to check for it and further validate the HS-SOM
-and other methods.
-
-.  In the end, if true edgeless hexagonal topology is preserved all neurons should have the
-same value. The mean squared deviation from each node's attribute vector to
-the mean attribute vector may be used as a distortion measure comparable
-across any SOM, both spherical and 2D of a given network size.
-
-It is known that for a tessellated icosahedron distortions
+It is known that for a tessellated icosahedron local distortions
 will be observed at exactly twelve locations on the surface, around the twelve
 original vertices.  For a hexagon lattice in 2D euclidean space the
-distortions will be observed at the edges of the lattice.  It is hypothesized
-that for HS-SOM, distortions will be less uniform in their spatial
+distortions will be observed at the edges of the lattice.  
+
+It is hypothesized that for HS-SOM, distortions will be less uniform in their spatial
 distribution and their overall magnitude will be less then those exhibited by
 either GeoSOM or SOM\_PAK.
 
