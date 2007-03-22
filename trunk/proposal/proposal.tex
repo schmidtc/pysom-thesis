@@ -131,17 +131,48 @@ condition.  \citeauthor{Nishio:2006fk} seem to have addressed variance in
 nearest neighbor distances, but the issue of having a uniform number of direct
 neighbors is still not addressed.
 
+\subsection{Conclusion}
+%\subsubsection{Neuron Spacing and Neighborhood Size Variance}
+
 Tessellation of the icosahedron results in a network of neurons, each of which
 have exactly six neighbors, save the original twelve which each have five.
-This is beneficial, as the resulting maps will share many of the same
-properties as maps generated using the traditional hexagonal topology in 2D
-Euclidean space. The indexed data structure developed by
-\citeauthor{Wu:2006lr} (GeoSOM) allows for fast identification of direct
-(first order) and indirect (\textit{n\textsuperscript{th}} order) neighbors.
-\cite{Nishio:2006fk} offer no such data structure nor any practical advice on
-identification of neighbors; only variance in neuron spacing is addressed.
+This is very close to the ideal structure in which every neuron would have
+exactly six neighbors.  This structure has very low variances in both neuron 
+space and neighbor size.  The literature has attached too much importance 
+to the variance of neuron spacing, specifically as a metric to compare different 
+network topologies.  
 
-\subsection{Conclusion}
+Based solely on measures of neuron spacing \cite{wu2005} dismissed a method
+proposed by \cite{Rakhmanov94} for distributing points on a sphere.  Similarly 
+\cite{Nishio:2006fk} use these variance measures to support their helix algorithm 
+for distributing points on a sphere.  Table \ref{table1} shows that these metrics can 
+be misleading and may not be comparable across topologies.  The traditional 
+rectangular and hexagonal topologies have no variance in neuron spacing and 
+the generally preferred hexagonal structure displays greater variance in neighborhood
+size than the rectangular structure.  The torus by comparison would have variance in 
+neuron spacing, yet no variance in neighborhood size.  The distance between two 
+neurons is only considered during the formation of the neuronal network.  At this stage
+the spacing is significant as it plays a part in determining neuron adjacency. However 
+using this measure to evaluate potential topologies for use in SOM may be misleading.
+
+\begin{table}[htbp]
+\caption{Variances in Topologies}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Topology&Grid Size&Neuron Spacing&Variance in Neighborhood Size\\
+\hline
+Rectangular&9x18&1&0.2716\\
+Hexagonal&9x18&1&1.2138\\
+Tessellation&162&0.25319 - 0.31287& 0.0686\\
+Rakhmanov&162&0.15779 - 0.30069& 0.2908\\
+\hline
+
+\end{tabular}
+\end{center}
+\label{table1}
+\end{table}%
+
 Methods, for distributing points on the sphere, which allow for fine grained
 control over network size produce slightly more irregular topologies.  However,
 no discussion of these irregularities or their effects on SOM training has
@@ -150,23 +181,14 @@ for choosing network size the desire for finer control over the network size,
 should not be overlooked. In particular for a larger SOM the ideal network size
 may not be achievable via tessellation of the icosahedron.
 
-\section{Proposed Topology}
-The Rakhmanov algorithm has the ability to distribute any number of points onto
-the surface of a sphere, which allows for the finest possible level of control
-of network size, even greater than that of the traditional euclidean based SOM
-\citep{Rakhmanov94}.  There are two problems with the \citeauthor{Rakhmanov94}
-algorithm. The first is the variance in the number of direct neighbors for any
-given neuron.  The second is variance in the distance between those neurons.
-Using the algorithm to distribute 162 points, results in nearest neighbor
-``distances that vary from 0.15779 to 0.30069'' \cite[pg 3]{wu2005}.
-Furthermore 114 neurons have 6 direct neighbors, 30 have 5 and 18 have 7, as
-defined by their Delaunay Triangulation.  The fourth frequency tessellation of
-the icosahedron has nearest neighbor distances in the range of 0.25319 to
-0.31287, 150 neurons have 6 neighbors and 12 have 5.  \cite{wu2005} dismiss the
-Rakhmanov method based solely on this measure.  For comparison the standard
-rectangular topology used in traditional SOM has no variance in nearest neighbor
-distances, yet suffers severely from the boundary effect.  Of greater importance is the
-variance in the number of first order neighbors.
+%\section{Proposed Topology}
+%The Rakhmanov algorithm has the ability to distribute any number of points onto
+%the surface of a sphere, which allows for the finest possible level of control
+%of network size, even greater than that of the traditional euclidean based SOM
+%\citep{Rakhmanov94}.  There are two problems with the \citeauthor{Rakhmanov94}
+%algorithm. The first is the variance in the number of direct neighbors for any
+%given neuron.  The second is variance in the distance between those neurons.
+
 
 %Irregularities in the spatial distribution of neurons exhibited by the Rakhmanov
 %algorithm allows a given neuron's neighboring points to be easily ranked
@@ -183,14 +205,25 @@ variance in the number of first order neighbors.
 %foundation for a spherical SOM which mimic's that behavior.  This approach
 %shall be referred to as HS-SOM.
 
-\section{Methodology}
-\subsection{Introduction}
+\section{Data and Methodology}
 The basic problem of the "boundary effect" is that neurons on the edge have
 fewer neighbors. Yet there are only five possible arrangements of points on a
 sphere such that all points have the same number of neighbors.  Any spherical
 lattice consisting of more then twenty (dodecahedron) neurons will contain
 topological irregularities.  This is to say that not all neurons will have the
-same number of neighbors.  In order to find the locations of these mis-matches a
+same number of neighbors.  The importance of these irregularities and the 
+magnitude of their effects on SOM training is not known.  This goal of this research
+is to determine whether more flexible network structures may be used in spherical 
+in SOM without introducing significant errors. To accomplish this goal, basic methods 
+in network analysis with be combined with the result from several empirical training
+runs each utilized different topology.  
+
+\subsection{Synthetic Data}
+In order to have a basis for comparison 
+
+
+
+In order to find the locations of these mis-matches a
 first order adjacency matrix \(A\) will be constructed for each network
 topology.  The sum of \(A_{*,n}\) represents the number of neurons that consider
 neuron \(n\) to be a neighbor.  In a perfectly edgeless topology the variance of
