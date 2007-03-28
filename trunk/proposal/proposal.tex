@@ -10,8 +10,7 @@
 \usepackage[round]{natbib}
 \title{Effects of Irregular Topology in Non-Planar SOM Variants}
 \author{\sc{Charles R. Schmidt}\\Regional Analysis Laboratory\\Department of Geography\\San Diego State University}
-%\author{\sc{Charles R. Schmidt}\\REGAL}
-%\date{January 29th, 2007}
+\date{\today} %\date{January 29th, 2007}
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -67,7 +66,7 @@ neuron contains a reference vector that can be considered to model a portion of
 the input space. Before training these neurons are initialized, most commonly to
 random values.  During the training process a randomly selected input vector
 searches the map for its best matching unit (BMU), that is the neuron to which
-it is most similar. The BMU and its neiborhood, as defined by a neighborhood
+it is most similar. The BMU and its neighborhood, as defined by a neighborhood
 function, are than adjusted to better match that observation
 \citep{Kohonen2000}.  The training process is repeated a predefined number of
 times, or ideally until the map converges.  The traditional SOM is laid out on a
@@ -115,6 +114,8 @@ satisfies these conditions and specifically that the icosahedron is the best
 starting point \citep{wu2005}.
 
 \subsubsection{Network Size}
+%Add background material on why Network Size is important.  The need for big and small networks.
+%Waiting for Kohonen Book!!!	
 The literature offers little theoretical guidance on network size
 \citep{cho1996}.  \cite{toolbox} suggests simply using a network
 size of \(5*\sqrt {n}\), where \(n\) is the number of observations.
@@ -127,7 +128,7 @@ undesirable to have one dimension dramatically larger then the other.
 departing from the tessellation method and suggesting the use of a partitioned
 helix to uniformly distribute any number of neurons on a sphere.  A similar
 method was dismissed by \cite{wu2005} for failing to satisfy the uniformity
-condition.  \citeauthor{Nishio:2006fk} seem to have addressed variance in 
+conditions.  \citeauthor{Nishio:2006fk} seem to have addressed variance in 
 nearest neighbor distances, but the issue of having a uniform number of direct
 neighbors is still not addressed.
 
@@ -138,7 +139,7 @@ Tessellation of the icosahedron results in a network of neurons, each of which
 have exactly six neighbors, save the original twelve which each have five.
 This is very close to the ideal structure in which every neuron would have
 exactly six neighbors.  This structure has very low variances in both neuron 
-space and neighbor size.  The literature has attached too much importance 
+spacing and neighbor size.  The literature has attached too much importance 
 to the variance of neuron spacing, specifically as a metric to compare different 
 network topologies.  
 
