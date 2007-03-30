@@ -114,11 +114,12 @@ class som:
 
 	def map(self,obsf,outFileName):
 		outf = file(outFileName,'w')
+		outf.write("#BMU LNG LAT QError\n")
 		pts = []
 		qerror = 0
 		counter = 0 
-		for id,obs in obsf:
-			bm,err = self.findBMU(obs,ReturnDist=True)
+		for id,dimIds,obs in obsf:
+			bm,err = self.findBMU(dimIds,obs,ReturnDist=True)
 			qerror += err
 			pt = self.grid[bm]
 			outf.write("%d %f %f %f\n"%(bm,degrees(pt[0]),degrees(pt[1]),err))
