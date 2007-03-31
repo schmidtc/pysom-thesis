@@ -68,6 +68,27 @@ def scaler(data_file_name,out_file_name,delim=None,minList=None,maxList=None):
 	outf.close()
 	data.close()
 	return minList,maxList
+
+def unscaler(data_file_name,out_file_name,minList,maxList,delim=None):
+	data = open(data_file_name,'r')
+	outf = open(out_file_name,'w')
+
+	header = data.readline()
+	dim = int(header.strip().split()[0])
+
+	outf.write(header)
+	line = data.readline()
+	while line:
+		line = line.strip('\n')
+		line = line.split(delim)
+		for n in xrange(dim):
+			line[n] = str((float(line[n])*(maxList[n] - minList[n])) + minList[n])
+		line = ' '.join(line) + '\n'
+		outf.write(line)
+		line = data.readline()
+	outf.close()
+	data.close()
+
 if __name__=="__main__":
 	from sys import argv
 	infname = argv[1]
