@@ -17,7 +17,7 @@ vsom=open(folder+"\\scripts\\vsom.bat",'w')
 if not(sys.argv[3] =="#"):
     mapinit.write("Time /T >> "+sys.argv[3]+"\n")
     mapinit.write("Date /T >> "+sys.argv[3]+"\n")    
-mapinit.write("@"+folder+"\\ArcSOM\\SOM_PAK\\mapinit.exe -din %1 -cout %2 -topol %3 -neigh %4 -xdim %5 -ydim %6 -init %7")
+mapinit.write("@"+folder+"\\SOM_PAK\\mapinit.exe -din %1 -cout %2 -topol %3 -neigh %4 -xdim %5 -ydim %6 -init %7")
 if not(sys.argv[3] =="#"):
     mapinit.write(" >> "+sys.argv[3]+"\n")
 else:
@@ -39,7 +39,7 @@ visual.write("@Echo begining visual.exe\n")
 if not(sys.argv[4] =="#"):
     visual.write("Time /T >> "+sys.argv[4]+"\n")
     visual.write("Date /T >> "+sys.argv[4]+"\n")    
-visual.write("@"+folder+"\\ArcSOM\\SOM_PAK\\visual.exe -din %1 -cin %2 -dout %3")
+visual.write("@"+folder+"\\SOM_PAK\\visual.exe -din %1 -cin %2 -dout %3")
 if not(sys.argv[4] =="#"):
     visual.write(" >> "+sys.argv[4]+"\n")
 else:
@@ -53,7 +53,7 @@ visual.write("@Echo begining visual.exe\n")
 if not(sys.argv[4] =="#"):
     visual.write("Time /T >> "+sys.argv[4]+"\n")
     visual.write("Date /T >> "+sys.argv[4]+"\n")       
-visual.write("@"+folder+"\\ArcSOM\\SOM_PAK\\visual.exe -din %1 -cin %2 -dout %3 -noskip")
+visual.write("@"+folder+"\\SOM_PAK\\visual.exe -din %1 -cin %2 -dout %3 -noskip")
 if not(sys.argv[4] =="#"):
     visual.write(" >> "+sys.argv[4]+"\n")
 else:
@@ -66,7 +66,7 @@ visual.write("@Echo begining visual.exe\n")
 if not(sys.argv[4] =="#"):
     visual.write("Time /T >> "+sys.argv[4]+"\n")
     visual.write("Date /T >> "+sys.argv[4]+"\n")    
-visual.write("@"+folder+"\\ArcSOM\\SOM_PAK\\visual.exe -din %1 -cin %2 -dout %3 -buffer %5")
+visual.write("@"+folder+"\\SOM_PAK\\visual.exe -din %1 -cin %2 -dout %3 -buffer %5")
 if not(sys.argv[4] =="#"):
     visual.write(" >> "+sys.argv[4]+"\n")
 else:
@@ -79,7 +79,7 @@ visual.write("@Echo begining visual.exe\n")
 if not(sys.argv[4] =="#"):
     visual.write("Time /T >> "+sys.argv[4]+"\n")
     visual.write("Date /T >> "+sys.argv[4]+"\n")    
-visual.write("@"+folder+"\\ArcSOM\\SOM_PAK\\visual.exe -din %1 -cin %2 -dout %3 -noskip -buffer %5")
+visual.write("@"+folder+"\\SOM_PAK\\visual.exe -din %1 -cin %2 -dout %3 -noskip -buffer %5")
 if not(sys.argv[4] =="#"):
     visual.write(" >> "+sys.argv[4]+"\n")
 else:
@@ -98,7 +98,7 @@ visual.close()
 if not(sys.argv[5] =="#"):
     vsom.write("Time /T >> "+sys.argv[5]+"\n")
     vsom.write("Date /T >> "+sys.argv[5]+"\n")    
-vsom.write("@"+folder+"\\ArcSOM\\SOM_PAK\\vsom.exe -din %1 -cin %2 -cout %3 -rlen %4 -alpha %5 -radius %6")
+vsom.write("@"+folder+"\\SOM_PAK\\vsom.exe -din %1 -cin %2 -cout %3 -rlen %4 -alpha %5 -radius %6")
 if not(sys.argv[5] =="#"):
     vsom.write(" >> "+sys.argv[5]+"\n")
 else:
