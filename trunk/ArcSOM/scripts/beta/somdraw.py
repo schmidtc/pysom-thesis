@@ -6,17 +6,21 @@
 
 import Image, ImageDraw
 from math import sqrt
-from dbftool import dbfwriter
-
+import sys
 
 isize=(0,0)
-dialation=100
-border=100
-cfilename="E:/arcSOM/test/states.cod"
-ifilename="E:/arcSOM/test/cod.png"
+dialation=int(sys.argv[3])
+border=dialation
+cfilename=sys.argv[1]
+ifilename=sys.argv[2]
 ypad=int(border*sqrt(2)/1.5)
 classes=256/4
 classwidth=1.0/4
+
+red=int(sys.argv[4])
+redthresh=float(sys.argv[5])
+blue=int(sys.argv[6])
+bluethresh=float(sys.argv[7])
 
 def round6(x):
     return round(x,6)
@@ -143,27 +147,32 @@ elif topology=='hexa':
 im = Image.new("RGB",isize)
 draw = ImageDraw.Draw(im)
 
-for i in range(32):
-    for j in range(i,32):
-        draw.rectangle([(0,0),im.size],fill=(255,255,255))
-        for id,p in enumerate(polygons):
-            R=255-int(int(float(cod[id][i])/classwidth)*(255*classwidth))
-            #G=255-int(float(cod[id][8])*255)
-            B=255-int(int(float(cod[id][j])/classwidth)*(255*classwidth))
-            G=255#(R+B)/2
-            draw.polygon(map(tuple,map(pointround,p[1])),fill=(R,G,B))
-#del draw 
 
-        # write to stdout
-        a=str(i)
-        b=str(j)
-        if i<10:
-            a='0'+a
-        if j<10:
-            b='0'+b
-        ifilename="E:/arcSOM/images/"+a+b+".png"
-        imagefile=open(ifilename,'wb')
-        im.save(imagefile,'PNG')
-        imagefile.close()
-        print ifilename
+draw.rectangle([(0,0),im.size],fill=(255,255,255))
+for id,p in enumerate(polygons):
+    #default to white
+    R=255
+    G=255
+    B=255
+    #if both then green
+    if (float(cod[id][red])>=redthresh) and float(cod[id][blue])>=bluethresh:
+        R=0
+        G=255
+        B=0
+    #if only red then red
+    elif float(cod[id][red])>=redthresh:
+        R=255
+        G=0
+        B=0
+    #if only blue then blue
+    elif float(cod[id][blue])>=bluethresh:
+        R=0
+        G=0
+        B=255
+    draw.polygon(map(tuple,map(pointround,p[1])),fill=(R,G,B))
+
+imagefile=open(ifilename,'wb')
+im.save(imagefile,'PNG')
+imagefile.close()
+
 del draw
