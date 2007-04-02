@@ -193,9 +193,9 @@ elif shapeType==5:
     #16+8*pnts
     #contentLength=16+(8*len(polygons[0][1]))
     if topology=='rect':
-        contentLength=56
+        contentLength=64
     elif topology=='hexa':
-        contentLength=72
+        contentLength=80
 ########Main File Header##########
 #BIG BYTE ORDER, integer
 #byte 0, File Code
@@ -318,7 +318,7 @@ elif shapeType==5:
         #number of parts        
         shp.write(struct.pack('<i',1))
         #number of points
-        shp.write(struct.pack('<i',len(i[1])))
+        shp.write(struct.pack('<i',len(i[1])+1))
         #parts index
         shp.write(struct.pack('<i',0))
     
@@ -331,6 +331,10 @@ elif shapeType==5:
             #y coordinate
             shp.write(struct.pack('<d',float(p[1])))
             #print float(p[0]),float(p[1])
+        #x coordinate
+        shp.write(struct.pack('<d',float(i[1][0][0])))
+        #y coordinate
+        shp.write(struct.pack('<d',float(i[1][0][1])))
 
         #writing index records
         #size=record header+content length
