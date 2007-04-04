@@ -109,7 +109,11 @@ out the importance of a uniform distribution on the sphere and that it is
 preferable for all neurons to have an equal number of neighbors and to be
 equally spaced.  They find generally that the tessellation method best satisfies
 these conditions and specifically that the icosahedron is the best starting
-point \citep{wu2005}.
+point \citep{wu2005}. Tessellation of the icosahedron results in a network of
+neurons, each of which have exactly six neighbors, save the original twelve which
+each have five.  This is very close to the ideal structure in which every neuron
+would have exactly six neighbors.  This structure has very low variances in both
+neuron spacing and neighbor size.  
 
 \subsection{Network Size}
 %Add background material on why Network Size is important.  The need for big and small networks.
@@ -135,18 +139,10 @@ of direct neighbors is still not addressed.
 receive equal geometrical treatment'' \cite[pp. 900]{wu2006}.  To satisfy this
 constraint two conditions must be met.  Firstly, each neuron should occupy the
 same amount of space on the given surface.  Secondly, each neuron should be
-bordered by the same number of surrounding neurons.  The first condition in
-hugely important for visualization, but irrelevant for training.  During the
-training of the SOM only the topology of the neurons is considered.
-
-
-Tessellation of the icosahedron results in a network of neurons, each of which
-have exactly six neighbors, save the original twelve which each have five.  This
-is very close to the ideal structure in which every neuron would have exactly
-six neighbors.  This structure has very low variances in both neuron spacing and
-neighbor size.  The literature has attached too much importance to the variance
-of neuron spacing, specifically as a metric to compare different network
-topologies.
+bordered by the same number of surrounding neurons, and we should maximize 
+that number.  The first condition in hugely important for visualization, but 
+irrelevant for training.  During the training of the SOM only the topology of the 
+neurons is considered.
 
 Based solely on measures of neuron spacing \cite{wu2005} dismissed a method
 proposed by \cite{Rakhmanov94} for distributing points on a sphere.  Similarly
@@ -174,11 +170,10 @@ Hexagonal&9x18&1&1.2138\\
 Tessellation&162&0.25319 - 0.31287& 0.0686\\
 Rakhmanov&162&0.15779 - 0.30069& 0.2908\\
 \hline
-
 \end{tabular}
 \end{center}
 \label{table1}
-\end{table}%
+\end{table}
 
 Methods, for distributing points on the sphere, which allow for fine grained
 control over network size produce slightly more irregular topologies.  However,
