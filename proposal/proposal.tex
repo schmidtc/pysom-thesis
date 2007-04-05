@@ -91,15 +91,17 @@ better represent the mean of the input-space.  This is arguably caused by
 outliers being pushed to the edges of the map, where they encounter fewer
 competing signals.
 
-The toroidal som was introduced by \cite{li1993} and removes this drawback.
-However, the torus is not hugely effective for visualization, as maps generated
-from a torus are not very intuitive \citep{ito2000,wu2006}.  \cite{ritter99}
-describes the torus as being topologically flat and suggests that a curved
-topology, such as that of a sphere, may better reflect directional data.  A
-sphere also results in a more intuitive map, since we are accustomed to looking
-at maps based on a sphere.
-
 \subsection{Spherical SOM}
+A natural way to elimnate the boundary effect is to wrap the latice around a
+three dimensional object such as a sphere or torus, therefor removing the edge
+entirly. The toroidal som was introduced by \cite{li1993}, however the torus
+is not hugely effective for visualization, as maps generated from a torus are
+not very intuitive \citep{ito2000,wu2006}.  \cite{ritter99} describes the
+torus as being topologically flat and suggests that a curved topology, such as
+that of a sphere, may better reflect directional data.  A sphere also results
+in a more intuitive map, since we are accustomed to looking at maps based on a
+sphere.
+
 \cite{ritter99} first introduced the spherical SOM and several enhancements have
 since been suggested \citep{boudjemai2003,sangole03,Nishio:2006fk,wu2006}.  A
 good comparison of these enhancements can be found in \citep{wu2006}.  All of
@@ -116,6 +118,10 @@ would have exactly six neighbors.  This structure has very low variances in both
 neuron spacing and neighbor size.  
 
 \subsection{Network Size}
+
+The cost of releying on \citeautor{ritter99}'s tesselation method is decreased
+control over network size.
+
 %Add background material on why Network Size is important.  The need for big and small networks.
 %Waiting for Kohonen Book!!!	
 The literature offers little theoretical guidance on network size
