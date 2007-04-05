@@ -13,20 +13,20 @@
 \date{\today} %\date{January 29th, 2007}
 \begin{document}
 \maketitle
-\begin{abstract}
-The development of the spherical SOM has been driven by the border effects
-observed in traditional SOM.  Two problems exist with the Spherical SOM. The
-first is the level of control over the network size. The second is the
-topologically induced errors caused by the arrangement of neurons on the sphere.
-Both of these problems stem from the problem of uniformly distributing points on
-a sphere. These problems will be investigated through the introduction of a new
-method for testing topologically induced errors. The method first analyzes  the
-neural network to find topological mis-matches, next we train the network with
-an overwhelming about of synthetic data.  Through a series of simple plots we
-can then compare each neurons internal variance as defined by the variance of
-the observations that best fit that neuron with suchs metrics as neighborhood
-influence, number of child observations, etc.
-\end{abstract}
+%\begin{abstract}
+%The development of the spherical SOM has been driven by the border effects
+%observed in traditional SOM.  Two problems exist with the Spherical SOM. The
+%first is the level of control over the network size. The second is the
+%topologically induced errors caused by the arrangement of neurons on the sphere.
+%Both of these problems stem from the problem of uniformly distributing points on
+%a sphere. These problems will be investigated through the introduction of a new
+%method for testing topologically induced errors. The method first analyzes  the
+%neural network to find topological mis-matches, next we train the network with
+%an overwhelming about of synthetic data.  Through a series of simple plots we
+%can then compare each neurons internal variance as defined by the variance of
+%the observations that best fit that neuron with suchs metrics as neighborhood
+%influence, number of child observations, etc.
+%\end{abstract}
 
 
 %\section{Problem Statement}
@@ -38,21 +38,21 @@ influence, number of child observations, etc.
 %\\4. Significance and Limitations (10\%)
 %\\5. Timetable
 
-\section{Introduction}
-Using a spherical lattice is widely suggested as a solution to the boundary
-effect found in the traditional Self-Organizing Maps \citep{ritter99, boudjemai2003,
-sangole03, wu2006, Nishio:2006fk}.  However, the use of the spherical lattice
-introduces a new problem.  Save the five platonic solids, distributing points on
-a sphere will always result in irregular topology \citep{ritter99}.  The classic
-method for generating a spherical lattice is to tessellate the sides a platonic
-solid.  When tessellating the icosahedron, as described by \cite{wu2006}, the
-resulting topology will always consist of \(12\) pentagons and \(N-12\) hexagons.
-Where \(N\) is the total number of sides, or neurons.  The main drawback of this
-method is the finite control over \(N\), which grows at a rate of \(f^2*10+2\),
-where \(f\) is the frequency of the tessellation \citep{wu2006}.  There has been
-little discussion on the effects of irregular topology in Spherical SOM. The goal of
-this research is to investigate these effects in order to determine the usefulness of
-slightly more irregular topologies which offer greater control over \(N\).
+%\section{Introduction}
+%Using a spherical lattice is widely suggested as a solution to the boundary
+%effect found in the traditional Self-Organizing Maps \citep{ritter99, boudjemai2003,
+%sangole03, wu2006, Nishio:2006fk}.  However, the use of the spherical lattice
+%introduces a new problem.  Save the five platonic solids, distributing points on
+%a sphere will always result in irregular topology \citep{ritter99}.  The classic
+%method for generating a spherical lattice is to tessellate the sides a platonic
+%solid.  When tessellating the icosahedron, as described by \cite{wu2006}, the
+%resulting topology will always consist of \(12\) pentagons and \(N-12\) hexagons.
+%Where \(N\) is the total number of sides, or neurons.  The main drawback of this
+%method is the finite control over \(N\), which grows at a rate of \(f^2*10+2\),
+%where \(f\) is the frequency of the tessellation \citep{wu2006}.  There has been
+%little discussion on the effects of irregular topology in Spherical SOM. The goal of
+%this research is to investigate these effects in order to determine the usefulness of
+%slightly more irregular topologies which offer greater control over \(N\).
 
 \section{Background and Lit Review}
 The Self-Organizing Map (SOM) is an unsupervised competitive learning process
@@ -121,9 +121,9 @@ neuron spacing and neighbor size.
 
 The cost of releying on \citeauthor{ritter99}'s tesselation method is decreased
 control over network size. \citeauthor{ritter99}'s tesselation methods results
-in a rework site that grows at a rate of N=blahblahblah. \cite{wu2006} offer a
+in a rework site that grows at a rate of \(N=2+10*4^f\). \cite{wu2006} offer a
 slight improvement, rather then recursivly subsidiveding the faces, they redivid
-the original icosehdron with each step resulting in N=blahblahblah.
+the original icosehdron with each step resulting in \(N=2+10*f^2\).
 
 The tessellation method used by the class of spherical SOMs based on Ritter's
 work results in a network size that is a function of the tessellation
