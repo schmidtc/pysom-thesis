@@ -71,10 +71,17 @@ two dimensional plane using either a rectangular or hexagonal topology.
 According to \cite{wu2006} the hexagonal structure is more uniform and
 generally preferred.
 
-\subsection{Boundary Effect}
+%\subsection{Boundary Effect}
+One obvious drawback of building the neural lattice in a discrete euclidean
+plane is the boundary of the resulting lattice.  A neuron located on the boundry
+has fewer neighbors and thus fewer chances of being updated \citep{wu2006}.  As
+observed in Figure \ref{figure1}, neurons in the center of the map tend to
+better represent the mean of the input-space.  This is arguably caused by
+outliers being pushed to the edges of the map, where they encounter fewer
+competing signals.
 \begin{figure}
 \centering
-\includegraphics[width=1\linewidth]{gridedge_grey.pdf}
+\includegraphics[width=.6\linewidth]{gridedge_grey.pdf}
 \caption{Fifty states plus D.C. mapped onto SOM trained with the first
 thirty-two census variables.  Darker neurons have a relatively large differences
 from the mean of the states, while lighter neurons are relatively closer.
@@ -83,18 +90,11 @@ show inputs that were better bit to the map.}
 \label{figure1}
 \end{figure}
 
-One obvious drawback of building the neural lattice in a discrete euclidean
-plane is the boundary of the resulting lattice.  A neuron located on the boundry
-has fewer neighbors and thus fewer chances of being updated \citep{wu2006}.  As
-observed in Figure \ref{figure1}, neurons in the center of the map tend to
-better represent the mean of the input-space.  This is arguably caused by
-outliers being pushed to the edges of the map, where they encounter fewer
-competing signals.
 
 \subsection{Spherical SOM}
-A natural way to elimnate the boundary effect is to wrap the latice around a
+A natural way to eliminate the boundary effect is to wrap the lattice around a
 three dimensional object such as a sphere or torus, therefor removing the edge
-entirly. The toroidal som was introduced by \cite{li1993}, however the torus
+entirely. The toroidal SOM was introduced by \cite{li1993}, however the torus
 is not hugely effective for visualization, as maps generated from a torus are
 not very intuitive \citep{ito2000,wu2006}.  \cite{ritter99} describes the
 torus as being topologically flat and suggests that a curved topology, such as
@@ -119,7 +119,7 @@ neuron spacing and neighbor size.
 
 \subsection{Network Size}
 
-The cost of releying on \citeautor{ritter99}'s tesselation method is decreased
+The cost of releying on \citeauthor{ritter99}'s tesselation method is decreased
 control over network size.
 
 %Add background material on why Network Size is important.  The need for big and small networks.
