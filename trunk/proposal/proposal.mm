@@ -1,7 +1,7 @@
 <map version="0.8.0">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
 <node CREATED="1175810210379" ID="Freemind_Link_741295560" MODIFIED="1175810941163" TEXT="Proposal">
-<node CREATED="1175810442467" FOLDED="true" ID="Freemind_Link_1278409952" MODIFIED="1175810445311" POSITION="left" TEXT="blah">
+<node CREATED="1175810442467" ID="Freemind_Link_1278409952" MODIFIED="1175810445311" POSITION="left" TEXT="blah">
 <node CREATED="1175810214635" ID="_" MODIFIED="1175810220582" TEXT="He Said She Said"/>
 <node CREATED="1175810221075" ID="Freemind_Link_1026086098" MODIFIED="1175810254325" TEXT="review of stregths and weaknesses"/>
 <node CREATED="1175810255242" ID="Freemind_Link_1167418268" MODIFIED="1175810268429" TEXT="my method and what it addresses"/>
@@ -60,5 +60,19 @@
 <node CREATED="1175810953663" ID="Freemind_Link_234116441" MODIFIED="1175811470430" TEXT="Determine the usefulness of more irregular topologies which offer greater control over network size."/>
 </node>
 <node CREATED="1175812388016" ID="Freemind_Link_1088356969" MODIFIED="1175812391971" POSITION="right" TEXT="new SSOM"/>
+<node CREATED="1169584470891" ID="Freemind_Link_989002075" MODIFIED="1169584489807" POSITION="left" TEXT="Sphereical SOM">
+<node CREATED="1175723952553" ID="Freemind_Link_624594766" MODIFIED="1175742111856" TEXT="background">
+<node CREATED="1175723955762" ID="Freemind_Link_1713100592" MODIFIED="1175741056172" TEXT="som"/>
+<node CREATED="1175723958050" ID="Freemind_Link_1682963691" MODIFIED="1175741062036" TEXT="has edge problem"/>
+<node CREATED="1175741062641" ID="Freemind_Link_811638692" MODIFIED="1175741076733" TEXT="sphereical som provides solution">
+<node CREATED="1175741336848" ID="Freemind_Link_1772283010" MODIFIED="1175741353588" TEXT="keep high regularity"/>
+<node CREATED="1175741354769" ID="Freemind_Link_1445550745" MODIFIED="1175741365269" TEXT="loose control of network size"/>
+</node>
+</node>
+<node CREATED="1175741178503" ID="Freemind_Link_1441631998" MODIFIED="1175741180898" TEXT="Problem">
+<node CREATED="1175741108082" ID="Freemind_Link_1288526033" MODIFIED="1175741122270" TEXT="size"/>
+<node CREATED="1175741094050" ID="Freemind_Link_45021999" MODIFIED="1175741209572" TEXT="irregular topology has unknown effects"/>
+</node>
+</node>
 </node>
 </map>
