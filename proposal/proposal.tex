@@ -283,58 +283,59 @@ the neuron in $1.505$ and the QError from Utah to Hawaii is $3.014$. In this
 case only Utah and Hawaii were mapped to that neuron.  In a case where multiple
 observations land on the same neuron it is possible to measure average pairwise
 QErrors between those observation.  This gives us a notion of internal variance for
-each neuron with multiple observations. It would be expected that in traditional
-SOM neurons closer to the edge will have higher internal variances. This can be
-extended to spherical SOM be looking at the degree of each neuron ($deg(m_i)$ or
-the number of adjacent neurons).
-
-The first-order adjacency ($A$) matrix for a given network topology will be
-utilized in the next two diagnostics. The column sums of $A$ tell use the size
-of each neurons first-order neighborhood.  A SOM with completely regular network
-topology (i.e. the torus) will have no variance in these column sums.  For
-irregular networks it will be useful the visualize these variances as a map.
-This will show us where topologically induced errors are occurring.
-
-Once the SOM is trained
+each neuron. It would be expected that in traditional SOM neurons closer to the
+edge will have higher internal variances. This can be extended to spherical SOM
+by comparing the degree of each neuron ($deg(m_i)$ or the number of adjacent
+neurons) to its internal variance.
 
 \subsubsection{Plot the internal variance of each neuron against the variance in neighborhood size for each topology}
+The degree of each neuron can easily be calculated by taking the column sums of
+the first-order adjacency matrix ($A$).  A completely regular network
+topology (i.e. the torus) will have no variance in these column sums.  For
+irregular networks the variance in these column sums give us a measure of how
+irregular our topology is.  For each topology type we can plot the internal
+variances as described above with the neighborhood size variance.  We should see
+what resembles multiple box plots higher means as the regularity decreases.  It
+may also be useful to visualize these variances as a map.  This will show us
+where topologically induced errors are occurring.
 
 \subsection{Empirical Analysis}
+In order to test the methods described above I will generate synthetic data with
+known properties.  To ensure that we can calculate an internal variance for
+each neuron I will generate overwhelm amounts of data, increasing the
+probability the each neuron will be occupied by more than one observation.
+Finally I will train a SOM for each of several topologies in order to apply the
+diagnostics.
+
 \subsubsection{Synthetic Data}
 \subsubsection{Train SOM}
-\subsubsection{Apply Diagnostics}
 
 
 
-The cost of relying on \citeauthor{ritter99}'s tessellation method is decreased control over network size. \citeauthor{ritter99}'s tessellation methods results in a network size that grows at a rate of \(N=2+10*4^f\), where $f$ is the frequency of tessellation. \cite{wu2006} offer a slight improvement. Rather than recursively subdividing the faces, they redivide the original icosahedron with each step resulting in \(N=2+10*f^2\).
+
+%The cost of relying on \citeauthor{ritter99}'s tessellation method is decreased control over network size. \citeauthor{ritter99}'s tessellation methods results in a network size that grows at a rate of \(N=2+10*4^f\), where $f$ is the frequency of tessellation. \cite{wu2006} offer a slight improvement. Rather than recursively subdividing the faces, they redivide the original icosahedron with each step resulting in \(N=2+10*f^2\).
 
 
-It is useful to represent our neural lattice as a graph, G.
-We know that any arrangement of neurons onto the surface of a sphere will as such the network can be effectively treated as a graph.  Doing so enables us to use the properties of the graph and the principles of graph theory to help us understand the relationship between neurons during training.
+%It is useful to represent our neural lattice as a graph, G.
+%We know that any arrangement of neurons onto the surface of a sphere will as such the network can be effectively treated as a graph.  Doing so enables us to use the properties of the graph and the principles of graph theory to help us understand the relationship between neurons during training.
 
-the variance in neuron spacing should be minimized.    The first condition ensures that each neuron will occupy is only of concern when visualizing the SOM.
+%the variance in neuron spacing should be minimized.    The first condition ensures that each neuron will occupy is only of concern when visualizing the SOM.
 
-
-
-The get at the second condition we must first define the degree of a neuron, deg(n) to be number of its direct neighbors.  Whit that in mind the second condition is that the variance in the degree of the neurons must also be minimized.
+%The get at the second condition we must first define the degree of a neuron, deg(n) to be number of its direct neighbors.  Whit that in mind the second condition is that the variance in the degree of the neurons must also be minimized.
 
 
-This statement may be somewhat misleading to those investigating alternative 
+%This statement may be somewhat misleading to those investigating alternative 
 
 
-For the purpose of SOM visualization it is important for each neuron to receive equal geometrical treatment.
+%For the purpose of SOM visualization it is important for each neuron to receive equal geometrical treatment.
 
 
-It is useful to represent the neural network as a graph, G, in order use the...
-In order to examine the irregularities in the neural network it is useful ....
+%It is useful to represent the neural network as a graph, G, in order use the...
+%In order to examine the irregularities in the neural network it is useful ....
 
 
 
-The basic problem of the "boundary effect" is that neurons on the edge have fewer neighbors. Yet there are only five possible arrangements of points on a sphere such that all points have the same number of neighbors.  Any spherical lattice consisting of more then twenty (dodecahedron) neurons will contain topological irregularities.  This is to say that not all neurons will have the same number of neighbors.  The importance of these irregularities and the magnitude of their effects on SOM training is not known.  This goal of this research is to determine whether more flexible network structures may be used in spherical in SOM without introducing significant errors. To accomplish this goal, basic methods in network analysis with be combined with the result from several empirical training runs each utilized different topology.  
-
-\subsection{Synthetic Data}
-In order to have a basis for comparison 
-
+%The basic problem of the "boundary effect" is that neurons on the edge have fewer neighbors. Yet there are only five possible arrangements of points on a sphere such that all points have the same number of neighbors.  Any spherical lattice consisting of more then twenty (dodecahedron) neurons will contain topological irregularities.  This is to say that not all neurons will have the same number of neighbors.  The importance of these irregularities and the magnitude of their effects on SOM training is not known.  This goal of this research is to determine whether more flexible network structures may be used in spherical in SOM without introducing significant errors. To accomplish this goal, basic methods in network analysis with be combined with the result from several empirical training runs each utilized different topology.  
 
 \bibliographystyle{apalike}
 \bibliography{som}
