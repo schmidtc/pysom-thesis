@@ -1,6 +1,7 @@
 \documentclass[10pt,titlepage]{article}
 \usepackage[dvips]{graphics} 
 \usepackage{graphicx}
+%\usepackage{subfigure}
 \usepackage{longtable}
 \usepackage{lscape}
 \usepackage[pdftex,colorlinks=TRUE]{hyperref}
@@ -93,23 +94,22 @@ of the boundary effect found in the traditional euclidean Self-Organizing Map
 (SOM) \citep{ritter99, boudjemai2003, sangole03, wu2006, Nishio:2006fk}.  The
 use of the spherical lattice, however, does not completely overcome this
 problem.  With the exception of the five platonic solids, distributing points on
-a sphere will always result in irregular network topology \citep{ritter99,
+a sphere will always result in irregular network topologies \citep{ritter99,
 harris2000}.  The classic method for minimizing this irregularity is to generate
 the spherical lattice by tessellating the sides of the icosahedron
 \citep{Nishio:2006fk}.  While this method will always result in a highly regular
 spherical topology, the main drawback is that the network size, \(N\), grows
 exponentially. Other methods for arranging neurons on the sphere allow for
 unlimited control over network size, but yield topologies with increased
-irregularity \citep{harris2000, wu2005, Nishio:2006fk}.  The goal of this
-research is to investigate the extent to which irregularity in the spherical
-topology effects the training of the SOM, in order to determine the suitability
-of irregular topologies for use in spherical SOM.
+irregularity \citep{harris2000, wu2005, Nishio:2006fk}.  In order to address the
+issue of network size we must first determine the degree to which it is
+necessary to minimize the irregularity in these spherical topologies.
 
 \section{Research Objectives}
-The objective of this research is to determine the usefulness of irregular
+The objective of this research is to determine the utility of irregular
 spherical topologies that offer greater control over network size. Towards that
-end, I will develop and test new diagnostics to measure and visualize topologically induced
-errors in SOM training.
+end, I will develop and test new diagnostics to measure and visualize
+topologically induced errors in SOM training.
 
 \begin{itemize}
 	\item Develop Diagnostics:
@@ -164,8 +164,8 @@ show inputs that were better bit to the map.}
 
 
 \subsection{Spherical SOM}
-A way to eliminate the boundary effect is to wrap the lattice around a three
-dimensional object such as a sphere or torus, therefor removing the edge
+One way to eliminate the boundary effect is to wrap the lattice around a three
+dimensional object such as a sphere or torus, thereby removing the edge
 entirely. The toroidal SOM was introduced by \cite{li1993}, however the torus is
 not hugely effective for visualization, as maps generated from a torus are not
 very intuitive \citep{ito2000,wu2006}.  \cite{ritter99} describes the torus as
@@ -175,9 +175,9 @@ intuitive map, since we are accustomed to looking at maps based on a sphere.
 
 \cite{ritter99} first introduced the spherical SOM and several enhancements have
 since been suggested \citep{boudjemai2003,sangole03,Nishio:2006fk,wu2006}.  A
-good comparison of these enhancements can be found in \citep{wu2006}.  All of
+good comparison of these enhancements can be found in \cite{wu2006}.  All of
 these methods derive their spherical structure through the tessellation of a
-polyhedron as originally proposed by \citeauthor{ritter99}.  \cite{wu2006} point
+polyhedron as originally proposed by \cite{ritter99}.  \cite{wu2006} point
 out the importance of a uniform distribution on the sphere and that it is
 preferable for all neurons to have an equal number of neighbors and to be
 equally spaced.  They find generally that the tessellation method best satisfies
@@ -186,30 +186,40 @@ point \citep{wu2005}. Tessellation of the icosahedron results in a network of
 neurons, each of which have exactly six neighbors, save the original twelve
 which each have five.  This is very close to the ideal structure in which every
 neuron would have exactly six neighbors.  This structure has very low variances
-in both neuron spacing and neighbor size.
+in both neuron spacing and neighborhood size.
+
 
 \subsection{Network Size}
-The tessellation method used by the class of spherical SOMs based on Ritter's
-work results in a network size that is a function of the tessellation frequency
-and therefore grows exponentially. In practice 2D Euclidean SOMs also offer
-limited control over network size, as it is undesirable to have one dimension
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{networkSize.pdf}
+\caption{This figure demonstrates the achievable network size using various
+spherical topologies.}
+\label{fig:nSize}
+\end{figure}
+The literature offers little theoretical guidance on network size
+\citep{cho1996}.  \cite{toolbox} suggests simply using a network size of
+\(5*\sqrt {n}\), where \(n\) is the number of observations. Given this lack of
+theoretical development, researchers should cautious when using methods that
+limit the control of network size.  As shown in Figure \ref{fig:nSize},
+methods for arranging an arbitrary number of points on a sphere provide a much
+higher degree of flexibility when choosing a network size.
+
+The cost of relying on \citeauthor{ritter99}'s tessellation method is decreased
+control over network size. \citeauthor{ritter99}'s tessellation methods results
+in a network size that grows at a rate of \(N=2+10*4^f\), where $f$ is the
+frequency of tessellation. \cite{wu2006} offer a slight improvement. Rather than
+recursively subdividing the faces, they redivide the original icosahedron with
+each step resulting in \(N=2+10*f^2\).  In practice 2D Euclidean SOMs also offer
+limited control over network size, because it is undesirable to have one dimension
 dramatically larger than the other.  \cite{Nishio:2006fk} try to address the
 issue of network size granularity by departing from the tessellation method and
 suggesting the use of a partitioned helix to uniformly distribute any number of
-neurons on a sphere.  A similar method was dismissed by \cite{wu2005} for
-failing to satisfy the uniformity conditions.  \citeauthor{Nishio:2006fk} seem
-to have addressed variance in nearest neighbor distances, but the issue of
-having a uniform number of direct neighbors is still not addressed.
-
-%Add background material on why Network Size is important.  The need for big
-%and small networks.
-%Waiting for Kohonen Book!!!	
-The literature offers little theoretical guidance on network size
-\citep{cho1996}.  \cite{toolbox} suggests simply using a network size of
-\(5*\sqrt {n}\), where \(n\) is the number of observations.
+neurons on a sphere.  A similar method proposed by \cite{Rakhmanov94} was
+dismissed by \cite{wu2005} for failing to satisfy the uniformity conditions
+described above.
 
 \subsection{Uniformity}
-%\subsubsection{Neuron Spacing and Neighborhood Size Variance}
 \citeauthor{wu2006} state that ``[f]or SOM, it is desirable to have all neurons
 receive equal geometrical treatment'' \cite[pp. 900]{wu2006}.  To satisfy this
 constraint two conditions must be met.  Firstly, each neuron should occupy the
@@ -230,7 +240,7 @@ variance in neighborhood size than the rectangular structure.  The torus by
 comparison would have variance in neuron spacing, yet no variance in
 neighborhood size.  The distance between two neurons is only considered during
 the formation of the neuronal network.  At this stage the spacing is significant
-as it plays a part in determining neuron adjacency. However using this measure
+as it plays a part in determining neuron adjacency. However, using this measure
 to evaluate potential topologies for use in SOM may be misleading.
 
 \begin{table}[htbp]
@@ -259,30 +269,32 @@ should not be overlooked. In particular for a larger SOM the ideal network size
 may not be achievable via tessellation of the icosahedron.
 
 \section{Data and Methodology}
+This section is composed of two parts.  The first of which describes each of
+the methods developed for testing network topologies.  The second describes an
+empirical study that will implement these methods as well as evaluate their
+utility. 
 
 \subsection{Diagnostics}
-% for each diagnostic discuss how it will be analyzed
 \subsubsection{Visualize reverse mapping}
 The quantization error (QError) of a SOM is a simple way to measure how well 
-data matches a trained SOM. The QError is measured by averaging
-the euclidean distance of each observation and its best match.  The QError can
+data matches a trained SOM \citep{Kohonen2000}. The QError is measured by averaging
+the euclidean distance between each observation and its best match.  The QError can
 be decomposed to show how well each observation fits the SOM.  For the first
 diagnostic tool I will find the euclidean distance between each neuron and its
 best matching observation.  The result will be a map that shows how well the
 neurons fit the data. This can be extended to produce a map that shows the
 distances of neurons to the mean (or median) of the input data.
 
-
 \subsubsection{Plot the internal variance of each neuron against its first-order neighborhood size}
-In tradition SOM outlying observations are pushed to the edge of the map where
+In traditional SOMs, outlying observations are pushed to the edge of the map where
 they encounter fewer competing signals. A prime example of this is the
 ``Utah-Hawaii'' case shown in figure \ref{figure1}.  Relying only on the SOM one
-would be left to believe that the two states are similar. At closer look we see
+would be left to believe that the two states are similar. Upon closer inspection we see
 that the QError from Utah to the neuron is $1.509$, the QError from Hawaii to
-the neuron in $1.505$ and the QError from Utah to Hawaii is $3.014$. In this
+the neuron in $1.505$, but the QError from Utah to Hawaii is $3.014$. In this
 case only Utah and Hawaii were mapped to that neuron.  In a case where multiple
 observations land on the same neuron it is possible to measure average pairwise
-QErrors between those observation.  This gives us a notion of internal variance for
+QErrors between those observations.  This gives us a notion of internal variance for
 each neuron. It would be expected that in traditional SOM neurons closer to the
 edge will have higher internal variances. This can be extended to spherical SOM
 by comparing the degree of each neuron ($deg(m_i)$ or the number of adjacent
@@ -292,29 +304,28 @@ neurons) to its internal variance.
 The degree of each neuron can easily be calculated by taking the column sums of
 the first-order adjacency matrix ($A$).  A completely regular network
 topology (i.e. the torus) will have no variance in these column sums.  For
-irregular networks the variance in these column sums give us a measure of how
-irregular our topology is.  For each topology type we can plot the internal
-variances as described above with the neighborhood size variance.  We should see
-what resembles multiple box plots higher means as the regularity decreases.  It
-may also be useful to visualize these variances as a map.  This will show us
-where topologically induced errors are occurring.
+irregular networks the variance in these column sums give us a measure of
+irregularity.  For each topology type we can plot the internal
+variances as described above versus the neighborhood size variance.  We should see
+what resembles multiple box plots with higher means as the regularity decreases. 
+%It may also be useful to visualize these variances as a map.  This will show us where topologically induced errors are occurring.
 
 \subsection{Empirical Analysis}
-In order to test the methods described above I will generate synthetic data with
-known properties.  To ensure that we can calculate an internal variance for
-each neuron I will generate overwhelm amounts of data, increasing the
-probability the each neuron will be occupied by more than one observation.
-Finally I will train a SOM for each of several topologies in order to apply the
+\begin{itemize}
+\item In order to test the methods described above I will generate synthetic data with
+known properties.
+\item I will train a SOM for each of several topologies in order to apply the
 diagnostics.
+\item Knowing the properties of the training data allow us to systematically
+compare the diagnostics under several different topologies.
+\item To ensure that we can calculate an internal variance for
+each neuron I will generate overwhelming amounts of data, increasing the
+probability that each neuron will be occupied by more than one observation.
+\end{itemize}
 
-\subsubsection{Synthetic Data}
-\subsubsection{Train SOM}
+%\subsubsection{Synthetic Data} I will take advantage of weights matrices to generate synthetic training data with known properties.  This data will be used to train the various SOMs in order to facilitate comparison.
 
-
-
-
-%The cost of relying on \citeauthor{ritter99}'s tessellation method is decreased control over network size. \citeauthor{ritter99}'s tessellation methods results in a network size that grows at a rate of \(N=2+10*4^f\), where $f$ is the frequency of tessellation. \cite{wu2006} offer a slight improvement. Rather than recursively subdividing the faces, they redivide the original icosahedron with each step resulting in \(N=2+10*f^2\).
-
+%\subsubsection{Train SOM}
 
 %It is useful to represent our neural lattice as a graph, G.
 %We know that any arrangement of neurons onto the surface of a sphere will as such the network can be effectively treated as a graph.  Doing so enables us to use the properties of the graph and the principles of graph theory to help us understand the relationship between neurons during training.
@@ -323,17 +334,12 @@ diagnostics.
 
 %The get at the second condition we must first define the degree of a neuron, deg(n) to be number of its direct neighbors.  Whit that in mind the second condition is that the variance in the degree of the neurons must also be minimized.
 
-
 %This statement may be somewhat misleading to those investigating alternative 
-
 
 %For the purpose of SOM visualization it is important for each neuron to receive equal geometrical treatment.
 
-
 %It is useful to represent the neural network as a graph, G, in order use the...
 %In order to examine the irregularities in the neural network it is useful ....
-
-
 
 %The basic problem of the "boundary effect" is that neurons on the edge have fewer neighbors. Yet there are only five possible arrangements of points on a sphere such that all points have the same number of neighbors.  Any spherical lattice consisting of more then twenty (dodecahedron) neurons will contain topological irregularities.  This is to say that not all neurons will have the same number of neighbors.  The importance of these irregularities and the magnitude of their effects on SOM training is not known.  This goal of this research is to determine whether more flexible network structures may be used in spherical in SOM without introducing significant errors. To accomplish this goal, basic methods in network analysis with be combined with the result from several empirical training runs each utilized different topology.  
 
