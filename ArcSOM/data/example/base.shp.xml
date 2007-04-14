@@ -1,0 +1,3 @@
+<?xml version="1.0"?>
+<!--<!DOCTYPE metadata SYSTEM "http://www.esri.com/metadata/esriprof80.dtd">-->
+<metadata xml:lang="en"><Esri><MetaID>{46776A43-33C1-4FD6-988B-11DCD2B98D56}</MetaID><CreaDate>20070413</CreaDate><CreaTime>23185500</CreaTime><SyncOnce>TRUE</SyncOnce><DataProperties><lineage><Process Name="COD to Polygon" ToolSource="Z:\svn\SOM Analyst.tbx\CODtoSHP" Date="20070413" Time="231855">CODtoSHP D:\svn\data\example\base.cod Z:\svn\data\example\base.shp polygon</Process></lineage></DataProperties></Esri></metadata>
