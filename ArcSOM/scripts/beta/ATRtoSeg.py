@@ -97,7 +97,7 @@ Mmin=0.0
 Mmax=0.0
 
 ####################MAIN FILE and INDEX File#######################
-contentLength=16+(4*len(centroids))
+contentLength=32
 ########Main File Header##########
 #BIG BYTE ORDER, integer
 #byte 0, File Code
@@ -114,7 +114,7 @@ shp.write(struct.pack('>i', 0))
 shp.write(struct.pack('>i', 0))
 #byte 24, File Length, total length of file in 16-bit words
 #this must be determined after file creation.
-shp.write(struct.pack('>i', 50+((4+contentLength)*1)))
+shp.write(struct.pack('>i', 50+((len(centroids)-1)*36)))
 #byte 28, Version, integer
 shp.write(struct.pack('<i', version))
 #byte 32, shape type
@@ -151,7 +151,7 @@ shx.write(struct.pack('>i', 0))
 #byte 20, Unused
 shx.write(struct.pack('>i', 0))
 #byte 24, File Length, total length of file in 16-bit words
-shx.write(struct.pack('>i', 50+(4*1)))
+shx.write(struct.pack('>i', 50+(4*(len(centroids)-1))))
 #byte 28, Version, integer
 shx.write(struct.pack('<i', version))
 #byte 32, shape type
@@ -174,43 +174,43 @@ shx.write(struct.pack('<d',Mmin))
 shx.write(struct.pack('<d',Mmax))
 #record header
 
-#record numbers start at 1
-shp.write(struct.pack('>i',0))
-#content length
-shp.write(struct.pack('>i',contentLength))
-#record contents
-#print float(i[0]),float(i[1])
-shp.write(struct.pack('<i',shapeType))
-#bound box for polygon         
-shp.write(struct.pack('<d',Xmin))
-shp.write(struct.pack('<d',Ymin))
-shp.write(struct.pack('<d',Xmax))
-shp.write(struct.pack('<d',Ymax))
-#number of parts        
-shp.write(struct.pack('<i',1))
-#number of points
-shp.write(struct.pack('<i',len(centroids)))
-#parts index
-shp.write(struct.pack('<i',0))
-
-#points
-for p in centroids:
-    #shape type for point
-    #shp.write(struct.pack('<i',1))
+for id,p in enumerate(centroids[0:-1]):
+    #record numbers start at 1
+    shp.write(struct.pack('>i',id))
+    #content length
+    shp.write(struct.pack('>i',contentLength))
+    #record contents
+    #print float(i[0]),float(i[1])
+    shp.write(struct.pack('<i',shapeType))
+    #bound box for polygon         
+    shp.write(struct.pack('<d',Xmin))
+    shp.write(struct.pack('<d',Ymin))
+    shp.write(struct.pack('<d',Xmax))
+    shp.write(struct.pack('<d',Ymax))
+    #number of parts        
+    shp.write(struct.pack('<i',1))
+    #number of points
+    shp.write(struct.pack('<i',2))
+    #parts index
+    shp.write(struct.pack('<i',0))
     #x coordinate
-    shp.write(struct.pack('<d',float(p[0])))
+    shp.write(struct.pack('<d',float(centroids[id][0])))
     #y coordinate
-    shp.write(struct.pack('<d',float(p[1])))
-    #print float(p[0]),float(p[1])
+    shp.write(struct.pack('<d',float(centroids[id][1])))
+    #x coordinate
+    shp.write(struct.pack('<d',float(centroids[id+1][0])))
+    #y coordinate
+    shp.write(struct.pack('<d',float(centroids[id+1][1])))
 
 
-#writing index records
-#size=record header+content length
-shx.write(struct.pack('>i',50))
-shx.write(struct.pack('>i',contentLength))
-    
-shp.close()
-shx.close()
+
+    #writing index records
+    #size=record header+content length
+    shx.write(struct.pack('>i',50))
+    shx.write(struct.pack('>i',id*contentLength))
+        
+    shp.close()
+    shx.close()
 ################DBF File###############
 
 fieldnames = ['Qerror']
