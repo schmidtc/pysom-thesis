@@ -90,7 +90,7 @@ A Thesis Proposal presented to the faculty of San Diego State University.\\
 
 \section{Introduction}
 The use of a spherical lattice is widely suggested as a solution to the problem
-of the boundary effect found in the traditional euclidean Self-Organizing Map
+of the boundary effect found in the traditional Euclidean Self-Organizing Map
 (SOM) \citep{ritter99, boudjemai2003, sangole03, wu2006, Nishio:2006fk}.  The
 use of the spherical lattice, however, does not completely overcome this
 problem.  With the exception of the five platonic solids, distributing points on
@@ -143,7 +143,7 @@ According to \cite{wu2006} the hexagonal structure is more uniform and generally
 preferred.
 
 %\subsection{Boundary Effect}
-One drawback of building the neural lattice in a discrete euclidean plane is the
+One drawback of building the neural lattice in a discrete Euclidean plane is the
 boundary of the resulting lattice.  A neuron located on the boundary has fewer
 neighbors and thus fewer chances of being updated \citep{wu2006}.  As observed
 in Figure \ref{figure1}, neurons in the center of the map tend to better
@@ -200,7 +200,7 @@ spherical topologies.}
 The literature offers little theoretical guidance on network size
 \citep{cho1996}.  \cite{toolbox} suggests simply using a network size of
 \(5*\sqrt {n}\), where \(n\) is the number of observations. Given this lack of
-theoretical development, researchers should cautious when using methods that
+theoretical development, researchers should be cautious when using methods that
 limit the control of network size.  As shown in Figure \ref{fig:nSize},
 methods for arranging an arbitrary number of points on a sphere provide a much
 higher degree of flexibility when choosing a network size.
@@ -269,7 +269,7 @@ should not be overlooked. In particular for a larger SOM the ideal network size
 may not be achievable via tessellation of the icosahedron.
 
 \section{Data and Methodology}
-This section is composed of two parts.  The first of which describes each of
+This section is composed of two parts.  The first describes each of
 the methods developed for testing network topologies.  The second describes an
 empirical study that will implement these methods as well as evaluate their
 utility. 
@@ -278,9 +278,9 @@ utility.
 \subsubsection{Visualize reverse mapping}
 The quantization error (QError) of a SOM is a simple way to measure how well 
 data matches a trained SOM \citep{Kohonen2000}. The QError is measured by averaging
-the euclidean distance between each observation and its best match.  The QError can
+the Euclidean distance between each observation and its best match.  The QError can
 be decomposed to show how well each observation fits the SOM.  For the first
-diagnostic tool I will find the euclidean distance between each neuron and its
+diagnostic tool I will find the Euclidean distance between each neuron and its
 best matching observation.  The result will be a map that shows how well the
 neurons fit the data. This can be extended to produce a map that shows the
 distances of neurons to the mean (or median) of the input data.
@@ -319,7 +319,7 @@ diagnostics.
 \item Knowing the properties of the training data allow us to systematically
 compare the diagnostics under several different topologies.
 \item To ensure that we can calculate an internal variance for
-each neuron I will generate overwhelming amounts of data, increasing the
+each neuron I will generate the data so as to increase the
 probability that each neuron will be occupied by more than one observation.
 \end{itemize}
 
