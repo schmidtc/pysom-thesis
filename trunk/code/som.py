@@ -341,13 +341,13 @@ if __name__=="__main__":
         s.tSteps = 10000
         s.alpha0 = 0.5
         f = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
-        print "init"
-        s.randInit()
-        print "save"
-        s.save('testResults/','test-10d-10c-no0_rand')
-        print "run t=10K"
-        s.run(f)
-        print "save"
-        s.save('testResults/','test-10d-10c-no0_10K')
+        #print "init"
+        #s.randInit()
+        #print "save"
+        #s.save('testResults/','test-10d-10c-no0_rand')
+        #print "run t=10K"
+        #s.run(f)
+        #print "save"
+        #s.save('testResults/','test-10d-10c-no0_10K')
 
-        f.close()
+        #f.close()

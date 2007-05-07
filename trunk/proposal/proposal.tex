@@ -89,13 +89,19 @@ A Thesis Proposal presented to the faculty of San Diego State University.\\
 %\end{abstract}
 
 \section{Introduction}
-The use of a spherical lattice is widely suggested as a solution to the problem
-of the boundary effect found in the traditional Euclidean Self-Organizing Map
-(SOM) \citep{ritter99, boudjemai2003, sangole03, wu2006, Nishio:2006fk}.  The
+The Self-Organizing Map (SOM) is an unsupervised competitive learning process
+developed by Teuvo Kohonen as a technique to analyze high dimensional data sets.
+As explained below, the SOM is a type of artificial neural network, which
+traditionally uses a rectangular or hexagonal grid or lattice of neurons.  When
+using one of these traditional lattices neurons near the edge of the grid have
+fewer neighbors, this creates a well known problem in SOM called the boundary
+effect. Using a spherical lattice is widely suggested as a solution to this problem
+\citep{ritter99, boudjemai2003, sangole03, wu2006, Nishio:2006fk}.  The
 use of the spherical lattice, however, does not completely overcome this
 problem.  With the exception of the five platonic solids, distributing points on
 a sphere will always result in irregular network topologies \citep{ritter99,
-harris2000}.  The classic method for minimizing this irregularity is to generate
+harris2000}.  In other words, not all neurons will have the same number of
+neurons.  The classic method for minimizing this irregularity is to generate
 the spherical lattice by tessellating the sides of the icosahedron
 \citep{Nishio:2006fk}.  While this method will always result in a highly regular
 spherical topology, the main drawback is that the network size, \(N\), grows
@@ -126,8 +132,6 @@ topologically induced errors in SOM training.
 \end{itemize}
 
 \section{Background and Lit Review}
-The Self-Organizing Map (SOM) is an unsupervised competitive learning process
-developed by Teuvo Kohonen as a technique to analyze high dimensional data sets.
 The SOM algorithm uses an artificial neural network to organize high dimensional
 data onto a low dimensional lattice, or map, of neurons.  Each neuron contains a
 reference vector that models the input data.  Before training, these
