@@ -111,7 +111,17 @@ irregularity \citep{harris2000, wu2005, Nishio:2006fk}.  In order to address the
 issue of network size we must first determine the degree to which it is
 necessary to minimize the irregularity in these spherical topologies.
 
-\section{Research Objectives}
+\section{Research Questions}
+\subsection{Question \#1}
+In traditional SOM do neurons closer to the edge of the grid have higher
+internal variances?
+\subsection{Hypothesis \#1}
+It is expected that 
+\subsection{Question \#2}
+Do traditional and spherical SOMs with higher neighborhood size variances 
+display higher rates of internal per neuron variance?
+\subsection{Hypothesis \#2}
+
 The objective of this research is to determine the utility of irregular
 spherical topologies that offer greater control over network size. Towards that
 end, I will develop and test new diagnostics to measure and visualize
@@ -198,7 +208,11 @@ in both neuron spacing and neighborhood size.
 \centering
 \includegraphics[width=\linewidth]{networkSize.pdf}
 \caption{This figure demonstrates the achievable network size using various
-spherical topologies.}
+spherical topologies.  The X axis represent a one unit increase in network size,
+while the Y axis represents the resulting network size.
+For the tessellation methods this means increasing the frequency of the tessellation
+by one.  For the traditional Kohonen methods I increased the dimensions of the
+grid proportionally, such that $X=Y$}
 \label{fig:nSize}
 \end{figure}
 The literature offers little theoretical guidance on network size
