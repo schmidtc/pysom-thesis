@@ -112,20 +112,27 @@ issue of network size we must first determine the degree to which it is
 necessary to minimize the irregularity in these spherical topologies.
 
 \section{Research Questions}
-\subsection{Question \#1}
-In traditional SOM do neurons closer to the edge of the grid have higher
-internal variances?
-\subsection{Hypothesis \#1}
-It is expected that 
-\subsection{Question \#2}
-Do traditional and spherical SOMs with higher neighborhood size variances 
-display higher rates of internal per neuron variance?
-\subsection{Hypothesis \#2}
-
 The objective of this research is to determine the utility of irregular
 spherical topologies that offer greater control over network size. Towards that
-end, I will develop and test new diagnostics to measure and visualize
-topologically induced errors in SOM training.
+end, I will develop and test the following research questions.
+\subsection{Question \#1}
+%In traditional SOM do neurons closer to the edge of the grid have higher internal variances?
+Does the internal variance of each neuron increase as its first-order
+neighborhood size, or degree, decreases?
+
+\subsection{Hypothesis \#1}
+%It is expected that in traditional SOM neurons closer to the edge will have higher internal variances.
+It is expected that the internal variance of a neuron will be larger then
+average when its degree is smaller than the degree of the network (average
+degree).
+
+\subsection{Question \#2}
+Do traditional and spherical SOMs with higher neighborhood size variance 
+display higher internal (per neuron) variance?
+\subsection{Hypothesis \#2}
+It is expected that both traditional and spherical SOMs with higher neighborhood
+size variance will display higher internal variance.
+
 
 \begin{itemize}
 	\item Develop Diagnostics:
