@@ -45,7 +45,7 @@ Committee Members\\
 Dr. Sergio Rey, Geography\\
 Dr. Andr{\'e} Skupin, Geography\\
 Dr. Robert Malouf, Linguistics\\\break
-A Thesis Proposal presented to the faculty of San Diego State University.\\
+A Thesis Proposal Presented to the Faculty of San Diego State University.\\
 \copyright~2007. Charles R. Schmidt. \\
 %\input{abstract}
 \\
@@ -97,14 +97,17 @@ dimensional data sets.  The applications of SOM are far reaching,
 applications of SOM.  Applications range from speech recognition and image
 classification to breast cancer detection and gene expression clustering.
 \cite{skupin07} outline the growing interest of SOM in the GISciences, and
-proposes that the relationship between SOM and GIScience should be
-bidirectional.  As explained below, the SOM is a type of artificial neural
+propose that the relationship between SOM and GIScience should be
+bidirectional. 
+
+As explained below, the SOM is a type of artificial neural
 network, which facilitates a self organizing process by allowing a set of
-training data to arrange themselves on a network of neurons.  Traditionally the
+training data to arrange themselves on a network of neurons. Traditionally the
 SOM uses a rectangular or hexagonal grid or lattice of neurons. The topology of
 these grids creates a well known problem in SOM called the boundary effect.
-Neurons on the boundary of the lattice have fewer neighbors, this becomes
-important during the self-organizing process.  Using a spherical lattice is
+Neurons on the boundary of the hexagonal and rectangular lattices have fewer
+neighbors, which reduces the their ability to interact with other neurons during
+the self-organizing process.  Using a spherical lattice is
 widely suggested as a solution to the problem \citep{ritter99, boudjemai2003,
 sangole03, wu2006, Nishio:2006fk}. The use of the spherical lattice, however,
 does not completely overcome the boundary problem and the choice of which spherical
@@ -116,16 +119,16 @@ With the exception of the five platonic solids, distributing points on a sphere 
 The objective of this research is to determine the utility of irregular
 spherical topologies that offer greater control over network size. Towards that
 end, I will develop and test new diagnostics to measure and visualize
-topologically induced errors in SOM. Specifically, these diagnostics
+topologically induced errors in SOM. The following diagnostics
 will be developed and implemented:
 
 \begin{enumerate}
 	\item Visualize the reverse quantization error by mapping neurons back on to the input data.
     	\item Compare internal variance of each neuron against its first-order neighborhood size.
-	\item Compare internal variance of each neuron against a measure of topological uniformity.
+	\item Compare internal variance of each neuron against a measure of topological regularity.
 \end{enumerate}
 
-These diagnostics will help facilitate the evaluation of both tradition and
+These diagnostics will help facilitate the evaluation of both traditional and
 spherical SOMs.  To satisfy the objective of this research, I will apply these
 diagnostics to a series of comparable SOMs.  Each SOM will be trained using the
 same synthetic data and training parameters, but will utilize different network
@@ -133,11 +136,19 @@ topologies.  By formally testing for difference of means and variance in the
 results of the diagnostics the following questions will be addressed:
 
 \begin{enumerate}
-	\item Does the internal variance of each neuron increase as its first-order neighborhood size, or degree, decreases?
-	\item Is the overall internal variance higher when a more irregular topology is used?
+	\item Does the internal variance of a neuron increase as its first-order neighborhood size, or degree, decreases?
+	\item Is the average internal variance of a SOM higher when a more irregular topology is used?
 \end{enumerate}
 
 \section{Background and Lit Review}
+This section is divided into four parts.  The first provides a general
+introduction to the SOM algorithm and the problems created by using irregular
+topology. The second reviews the current spherical topologies used with SOMs.
+The third examines the flexibility of the various topologies with regard to
+network size. The fourth takes a look at the problem with using ``uniformity''
+to evaluate potential topologies.
+
+\subsection{Training and the Boundary Effect}
 The SOM algorithm uses an artificial neural network to organize high dimensional
 data onto a low dimensional lattice, or map, of neurons.  Each neuron contains a
 reference vector that models the input data.  Before training, these
@@ -152,7 +163,6 @@ two dimensional plane using either a rectangular or hexagonal topology.
 According to \cite{wu2006} the hexagonal structure is more uniform and generally
 preferred.
 
-%\subsection{Boundary Effect}
 One drawback of building the neural lattice in a discrete Euclidean plane is the
 boundary of the resulting lattice.  A neuron located on the boundary has fewer
 neighbors and thus fewer chances of being updated \citep{wu2006}.  As observed
@@ -197,7 +207,6 @@ neurons, each of which have exactly six neighbors, save the original twelve
 which each have five.  This is very close to the ideal structure in which every
 neuron would have exactly six neighbors.  This structure has very low variances
 in both neuron spacing and neighborhood size.
-
 
 \subsection{Network Size}
 \begin{figure}
@@ -282,17 +291,17 @@ should not be overlooked. In particular for a larger SOM the ideal network size
 may not be achievable via tessellation of the icosahedron.
 
 \section{Data and Methodology}
-This section is composed of two parts.  The first describes each of
-the methods developed for testing network topologies.  The second describes an
-empirical study that will implement these methods as well as evaluate their
-utility. 
+This section is composed of two parts.  The first describes the diagnostics
+developed for evaluating network topologies.  The second describes an
+empirical study that will implement these methods in order to evaluate the
+utility of new and/or unfashionable topologies.
 
 \subsection{Diagnostics}
 Three diagnostics are developed to explore the effect of irregular topology on
 spherical SOM.  The first is purely exploratory and will give the researcher a
-good feel for how well a SOM fits the data.  It is a simple adaptation a
+good feel for how well a SOM fits the training data.  It is a simple adaptation a
 standard SOM diagnostic.  The second diagnostic will be used the address the
-first of two research questions. The third diagnostic will address the seconds.
+first of two research questions and the third diagnostic will address the second.
 
 \subsubsection{Visualize reverse mapping}
 The quantization error (QError) of a SOM is a simple way to measure how well 
@@ -316,55 +325,55 @@ observations land on the same neuron it is possible to measure average pairwise
 QErrors between those observations.  This gives us a notion of internal variance for
 each neuron. It would be expected that in traditional SOM neurons closer to the
 edge will have higher internal variances. This can be extended to spherical SOM
-by comparing the degree of each neuron ($deg(m_i)$ or the number of adjacent
+by comparing the degree of a neuron ($deg(m_i)$ or the number of adjacent
 neurons) to its internal variance.
 
 Once the internal variance ($var(m_i)$) and degree ($deg(m_i)$) of each neuron
 have been calculated the neurons can be separated into a small number of groups
-based on the degree \footnote{For most topologies their will only be a range of three or
-four in the degrees}.  For each of these groups a variance and mean will be calculated.
-The expected result is that variances and means will decrease as the degree
+based on the degree \footnote{For most topologies the number of different
+degrees will be limited to three or four.}. For each of these groups a variance
+and mean will be calculated.
+The expected result is that variances and means of the groups will decrease as the degree
 increases.  This hypothesis will be tested using a ratio of variances test and a
-difference of means test.  These results can also be visualized with a box plot.
+difference of means test.  The result will also be visualized with a box plot.
 
-\subsubsection{Compare internal variance of each neuron against a measure of topological uniformity.}
+\subsubsection{Compare internal variance of each neuron against a measure of topological regularity.}
 The degree of each neuron can easily be calculated by taking the column sums of
 the first-order adjacency matrix ($A$).  A completely regular network
 topology (i.e. the torus) will have no variance in these column sums.  For
 irregular networks the variance in these column sums give us a measure of
 irregularity. There are many alternative ways to classify the connectivity of a
-network, \cite{florax95} outlines four such summary measures, which will be
+network, \cite{florax95} outline four such summary measures, which will be
 evaluated for use in this diagnostic.  For each topology we can compare the internal
 variances as described above against a measure that summarizes the given
 topology's regularity.  
 
 This diagnostic is evaluated in much the same way as the last diagnostic.  
-The internal variances are this time classified by their topology.  We can then
-compare the variance of internal variances and the means of the internal
+The internal variances are this time grouped by their topology.  We can then
+compare the variances of internal variances and the means of the internal
 variances across topologies.  It is expected that the distribution of internal
-variances will be narrower when for groups trained on more regular topologies.
+variances will be narrower for groups trained on more regular topologies.
 It is further hypothesized that the means of these internal variances will
 decrease with more regularity.  As before these assumptions will be tested using
-a t-test on the means and f-test on the variances.
+a t-test on the means and an f-test on the variances.
 
 
 \subsection{Empirical Analysis}
 \begin{itemize}
-\item In order to test the methods described above I will generate synthetic data with
-known properties.
+\item In order to test the methods described above I will generate high
+dimensional synthetic data with known properties.
 \item I will train a SOM for each of several topologies in order to apply the
 diagnostics.\footnote{These topologies will include the traditional hexagon and
 rectangle type, along with \cite{Rakhmanov94}'s algorithm. Currently there is
-some uncertainty about the ability to implement the Geodesic and Helix type
-topologies given their complexity. An additional goal of this project to provide
-a framework on which new topologies can be easily implemented and test by future
-researchers.}
-complexities involved with implementing the Geodesic and Helix type 
+some uncertainty about the ability to include the Geodesic and Helix type
+topologies given the complexities involved with their implementation. An
+additional goal of this project to provide a framework on which new topologies
+can be easily implemented and tested by future researchers.}
 \item Knowing the properties of the training data allow us to systematically
 compare the diagnostics under several different topologies.
-\item To ensure that we can calculate an internal variance for
-each neuron I will generate the data so as to increase the
-probability that each neuron will be occupied by more than one observation.
+\item To ensure that we can calculate an internal variance for each neuron I
+will generate the data so as to increase the probability that each neuron will
+be occupied by more than one observation.
 \end{itemize}
 
 %\subsubsection{Synthetic Data} I will take advantage of weights matrices to generate synthetic training data with known properties.  This data will be used to train the various SOMs in order to facilitate comparison.
