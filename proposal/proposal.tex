@@ -1,5 +1,5 @@
 \documentclass[10pt,titlepage]{article}
-\usepackage[dvips]{graphics} 
+%\usepackage[dvips]{graphics} 
 \usepackage{graphicx}
 %\usepackage{subfigure}
 \usepackage{longtable}
@@ -25,7 +25,8 @@
 \addtolength\textheight{0.25in}
 \addtolength\headheight{6pt}
 \listfiles
-\title{Effects of Irregular Topology in Non-Planar SOM Variants}
+\title{Effects of Irregular Topology in Spherical Self-Organizing Maps}
+%\title{Effects of Irregular Topology in Non-Planar SOM Variants}
 \author{\sc{Charles R. Schmidt}\\Regional Analysis Laboratory\\Department of Geography\\San Diego State University}
 \date{\today}
 
@@ -33,7 +34,7 @@
 %\maketitle
 \break
 \begin{center}
-{\Large{\bf Effects of Irregular Topology in Non-Planar SOM Variants}}\\*[3mm]
+{\Large{\bf Effects of Irregular Topology in Spherical Self-Organizing Maps}}\\*[3mm]
 \end{center}
 Charles R. Schmidt\\
 MS Candidate\\
@@ -90,65 +91,61 @@ A Thesis Proposal presented to the faculty of San Diego State University.\\
 
 \section{Introduction}
 The Self-Organizing Map (SOM) is an unsupervised competitive learning process
-developed by Teuvo Kohonen as a technique to analyze high dimensional data sets.
+developed by Teuvo Kohonen as a technique to analyze and visualize high dimensional data sets.
 As explained below, the SOM is a type of artificial neural network, which
-traditionally uses a rectangular or hexagonal grid or lattice of neurons.  When
-using one of these traditional lattices neurons near the edge of the grid have
+traditionally uses a rectangular or hexagonal grid or lattice of neurons.  The
+SOM algorithm facilitates a self organizing process by allowing a set of training
+data to arrange themselves on neural network.  When
+using one of these traditional lattices neurons near the edge of the network have
 fewer neighbors, this creates a well known problem in SOM called the boundary
 effect. Using a spherical lattice is widely suggested as a solution to this problem
 \citep{ritter99, boudjemai2003, sangole03, wu2006, Nishio:2006fk}.  The
 use of the spherical lattice, however, does not completely overcome this
-problem.  With the exception of the five platonic solids, distributing points on
+problem and the choice of which spherical topology to use for the network is
+difficult make.
+
+With the exception of the five platonic solids, distributing points on
 a sphere will always result in irregular network topologies \citep{ritter99,
 harris2000}.  In other words, not all neurons will have the same number of
-neurons.  The classic method for minimizing this irregularity is to generate
+neighbors.  The classic method for minimizing this irregularity is to generate
 the spherical lattice by tessellating the sides of the icosahedron
 \citep{Nishio:2006fk}.  While this method will always result in a highly regular
 spherical topology, the main drawback is that the network size, \(N\), grows
 exponentially. Other methods for arranging neurons on the sphere allow for
 unlimited control over network size, but yield topologies with increased
-irregularity \citep{harris2000, wu2005, Nishio:2006fk}.  In order to address the
-issue of network size we must first determine the degree to which it is
-necessary to minimize the irregularity in these spherical topologies.
+irregularity \citep{harris2000, wu2005, Nishio:2006fk}.  To date the literature
+has largely ignored the more irregular methods in favor of the tessellation based
+methods.  A topology which yields a more flexible network size may be desirable.
+However, in order to address this issue of network size, we must first determine
+the degree to which irregularity effects the SOM.
 
-\section{Research Questions}
+\section{Research Objectives}
 The objective of this research is to determine the utility of irregular
 spherical topologies that offer greater control over network size. Towards that
-end, I will develop and test the following research questions.
-\subsection{Question \#1}
-%In traditional SOM do neurons closer to the edge of the grid have higher internal variances?
-Does the internal variance of each neuron increase as its first-order
-neighborhood size, or degree, decreases?
+end, I will develop and test new diagnostics to measure and visualize
+topologically induced errors in SOM. Specifically, these diagnostics
+will be developed and implemented:
 
-\subsection{Hypothesis \#1}
-%It is expected that in traditional SOM neurons closer to the edge will have higher internal variances.
-It is expected that the internal variance of a neuron will be larger then
-average when its degree is smaller than the degree of the network (average
-degree).
+\begin{enumerate}
+	\item Visualize the reverse quantization error by mapping neurons back on to the input data.
+    	\item Compare internal variance of each neuron against its first-order neighborhood size.
+	\item Compare internal variance of each neuron against a measure of topological uniformity.
+\end{enumerate}
 
-\subsection{Question \#2}
-Do traditional and spherical SOMs with higher neighborhood size variance 
-display higher internal (per neuron) variance?
-\subsection{Hypothesis \#2}
-It is expected that both traditional and spherical SOMs with higher neighborhood
-size variance will display higher internal variance.
+These diagnostics will help facilitate the evaluation of both tradition and
+spherical SOMs.  To satisfy the objective of this research, I will apply these
+diagnostics to a series of comparable SOMs.  Each SOM will be trained using the
+same synthetic data and training parameters, but will utilize different network
+topologies.  By formally testing for difference of means and variance in the
+results of the diagnostics the following questions will be addressed:
 
-
-\begin{itemize}
-	\item Develop Diagnostics:
-	\begin{enumerate}
-		\item Visualize the reverse quantization error by mapping neurons back on to the input data
-    		\item Plot: internal variance of each neuron against its first-order neighborhood size
-		\item Plot: internal variance of each neuron against the variance in neighborhood size for each topology
-	\end{enumerate}
-	\item Test Diagnostics with Various Network Topologies
-	\begin{enumerate}
-    		\item Generate synthetic data
-    		\item Train a SOM with comparable parameters for each topology
-	\end{enumerate}
-\end{itemize}
+\begin{enumerate}
+	\item Does the internal variance of each neuron increase as its first-order neighborhood size, or degree, decreases?
+	\item Is the overall internal variance higher when a more irregular topology is used?
+\end{enumerate}
 
 \section{Background and Lit Review}
+
 The SOM algorithm uses an artificial neural network to organize high dimensional
 data onto a low dimensional lattice, or map, of neurons.  Each neuron contains a
 reference vector that models the input data.  Before training, these
@@ -215,11 +212,10 @@ in both neuron spacing and neighborhood size.
 \centering
 \includegraphics[width=\linewidth]{networkSize.pdf}
 \caption{This figure demonstrates the achievable network size using various
-spherical topologies.  The X axis represent a one unit increase in network size,
+spherical topologies. The X axis represent a one unit increase in network size,
 while the Y axis represents the resulting network size.
 For the tessellation methods this means increasing the frequency of the tessellation
-by one.  For the traditional Kohonen methods I increased the dimensions of the
-grid proportionally, such that $X=Y$}
+by one.  For the traditional Kohonen methods the dimensions are increased proportionally, such that $X=Y$}
 \label{fig:nSize}
 \end{figure}
 The literature offers little theoretical guidance on network size
@@ -300,6 +296,12 @@ empirical study that will implement these methods as well as evaluate their
 utility. 
 
 \subsection{Diagnostics}
+Three diagnostics are developed to explore the effect of irregular topology on
+spherical SOM.  The first is purely exploratory and will give the researcher a
+good feel for how well a SOM fits the data.  It is a simple adaptation a
+standard SOM diagnostic.  The second diagnostic will be used the address the
+first of two research questions. The third diagnostic will address the seconds.
+
 \subsubsection{Visualize reverse mapping}
 The quantization error (QError) of a SOM is a simple way to measure how well 
 data matches a trained SOM \citep{Kohonen2000}. The QError is measured by averaging
@@ -310,7 +312,7 @@ best matching observation.  The result will be a map that shows how well the
 neurons fit the data. This can be extended to produce a map that shows the
 distances of neurons to the mean (or median) of the input data.
 
-\subsubsection{Plot the internal variance of each neuron against its first-order neighborhood size}
+\subsubsection{Compare internal variance of each neuron against its first-order neighborhood size.}
 In traditional SOMs, outlying observations are pushed to the edge of the map where
 they encounter fewer competing signals. A prime example of this is the
 ``Utah-Hawaii'' case shown in figure \ref{figure1}.  Relying only on the SOM one
@@ -325,22 +327,47 @@ edge will have higher internal variances. This can be extended to spherical SOM
 by comparing the degree of each neuron ($deg(m_i)$ or the number of adjacent
 neurons) to its internal variance.
 
-\subsubsection{Plot the internal variance of each neuron against the variance in neighborhood size for each topology}
+Once the internal variance ($var(m_i)$) and degree ($deg(m_i)$) of each neuron
+have been calculated the neurons can be separated into a small number of groups
+based on the degree \footnote{For most topologies their will only be a range of three or
+four in the degrees}.  For each of these groups a variance and mean will be calculated.
+The expected result is that variances and means will decrease as the degree
+increases.  This hypothesis will be tested using a ratio of variances test and a
+difference of means test.  These results can also be visualized with a box plot.
+
+\subsubsection{Compare internal variance of each neuron against a measure of topological uniformity.}
 The degree of each neuron can easily be calculated by taking the column sums of
 the first-order adjacency matrix ($A$).  A completely regular network
 topology (i.e. the torus) will have no variance in these column sums.  For
 irregular networks the variance in these column sums give us a measure of
-irregularity.  For each topology type we can plot the internal
-variances as described above versus the neighborhood size variance.  We should see
-what resembles multiple box plots with higher means as the regularity decreases. 
-%It may also be useful to visualize these variances as a map.  This will show us where topologically induced errors are occurring.
+irregularity. There are many alternative ways to classify the connectivity of a
+network, \cite{florax95} outlines four such summary measures, which will be
+evaluated for use in this diagnostic.  For each topology we can compare the internal
+variances as described above against a measure that summarizes the given
+topology's regularity.  
+
+This diagnostic is evaluated in much the same way as the last diagnostic.  
+The internal variances are this time classified by their topology.  We can then
+compare the variance of internal variances and the means of the internal
+variances across topologies.  It is expected that the distribution of internal
+variances will be narrower when for groups trained on more regular topologies.
+It is further hypothesized that the means of these internal variances will
+decrease with more regularity.  As before these assumptions will be tested using
+a t-test on the means and f-test on the variances.
+
 
 \subsection{Empirical Analysis}
 \begin{itemize}
 \item In order to test the methods described above I will generate synthetic data with
 known properties.
 \item I will train a SOM for each of several topologies in order to apply the
-diagnostics.
+diagnostics.\footnote{These topologies will include the traditional hexagon and
+rectangle type, along with \cite{Rakhmanov94}'s algorithm. Currently there is
+some uncertainty about the ability to implement the Geodesic and Helix type
+topologies given their complexity. An additional goal of this project to provide
+a framework on which new topologies can be easily implemented and test by future
+researchers.}
+complexities involved with implementing the Geodesic and Helix type 
 \item Knowing the properties of the training data allow us to systematically
 compare the diagnostics under several different topologies.
 \item To ensure that we can calculate an internal variance for
