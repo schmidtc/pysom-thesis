@@ -4,7 +4,7 @@
 %\usepackage{subfigure}
 \usepackage{longtable}
 \usepackage{lscape}
-\usepackage[pdftex,colorlinks=TRUE]{hyperref}
+\usepackage[pdftex,colorlinks=FALSE]{hyperref}
 \setlength{\belowcaptionskip}{0.5cm} % 0.5cm as an example
 \raggedbottom
 \usepackage[round]{natbib}
@@ -93,37 +93,24 @@ A Thesis Proposal presented to the faculty of San Diego State University.\\
 The Self-Organizing Map (SOM) is an unsupervised competitive learning process
 developed by Teuvo Kohonen as a technique to analyze and visualize high
 dimensional data sets.  The applications of SOM are far reaching,
-\cite{Kohonen2000} provides a thourgh overview of the lastest in general
-applications of SOM.  These range from speech recegnition and image
+\cite{Kohonen2000} provides a thorough review of the SOM literature including
+applications of SOM.  Applications range from speech recognition and image
 classification to breast cancer detection and gene expression clustering.
-\cite{skupin06} outlines the growing interest of SOM in GIScience, and
-proposes that the relationship between SOM and GIScience should be bidirectional.  
-As explained below, the SOM is a type of artificial neural network, which
-facilitates a self organizing process by allowing a set of training data to
-arrange themselves on a network of neurons.  Traditionally the SOM uses a
-rectangular or hexagonal grid or lattice of neurons. The topology of these
-grids creates a well known problem in SOM called the boundary effect.  Neurons
-on the boundary of the lattice have fewer neighbors, this becomes important
-durring the self-organizing process.  Using a spherical lattice is widely suggested as a
-solution to the problem \citep{ritter99, boudjemai2003, sangole03, wu2006,
-Nishio:2006fk}.  The use of the spherical lattice, however, does not
-completely overcome this problem and the choice of which spherical topology to
-use for the network is difficult make.
+\cite{skupin07} outline the growing interest of SOM in the GISciences, and
+proposes that the relationship between SOM and GIScience should be
+bidirectional.  As explained below, the SOM is a type of artificial neural
+network, which facilitates a self organizing process by allowing a set of
+training data to arrange themselves on a network of neurons.  Traditionally the
+SOM uses a rectangular or hexagonal grid or lattice of neurons. The topology of
+these grids creates a well known problem in SOM called the boundary effect.
+Neurons on the boundary of the lattice have fewer neighbors, this becomes
+important during the self-organizing process.  Using a spherical lattice is
+widely suggested as a solution to the problem \citep{ritter99, boudjemai2003,
+sangole03, wu2006, Nishio:2006fk}. The use of the spherical lattice, however,
+does not completely overcome the boundary problem and the choice of which spherical
+topology to use for the network can be difficult to make.
 
-With the exception of the five platonic solids, distributing points on
-a sphere will always result in irregular network topologies \citep{ritter99,
-harris2000}.  In other words, not all neurons will have the same number of
-neighbors.  The classic method for minimizing this irregularity is to generate
-the spherical lattice by tessellating the sides of the icosahedron
-\citep{Nishio:2006fk}.  While this method will always result in a highly regular
-spherical topology, the main drawback is that the network size, \(N\), grows
-exponentially. Other methods for arranging neurons on the sphere allow for
-unlimited control over network size, but yield topologies with increased
-irregularity \citep{harris2000, wu2005, Nishio:2006fk}.  To date the literature
-has largely ignored the more irregular methods in favor of the tessellation based
-methods.  A topology which yields a more flexible network size may be desirable.
-However, in order to address this issue of network size, we must first determine
-the degree to which irregularity effects the SOM.
+With the exception of the five platonic solids, distributing points on a sphere will always result in irregular network topologies \citep{ritter99, harris2000}.  In other words, not all neurons will have the same number of neighbors.  The classic method for minimizing this irregularity is to generate the spherical lattice by tessellating the sides of the icosahedron \citep{Nishio:2006fk}.  While this method will always result in a highly regular spherical topology, the main drawback is that the network size, \(N\), grows exponentially. Other methods for arranging neurons on the sphere allow for unlimited control over network size, but yield topologies with increased irregularity \citep{harris2000, wu2005, Nishio:2006fk}.  To date the literature has largely ignored the more irregular methods in favor of the tessellation based methods.  A topology which yields a more flexible network size may be desirable.  However, in order to address this issue of network size, we must first determine the degree to which irregularity effects the SOM.
 
 \section{Research Objectives}
 The objective of this research is to determine the utility of irregular
@@ -151,7 +138,6 @@ results of the diagnostics the following questions will be addressed:
 \end{enumerate}
 
 \section{Background and Lit Review}
-
 The SOM algorithm uses an artificial neural network to organize high dimensional
 data onto a low dimensional lattice, or map, of neurons.  Each neuron contains a
 reference vector that models the input data.  Before training, these
