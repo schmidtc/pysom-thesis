@@ -91,18 +91,24 @@ A Thesis Proposal presented to the faculty of San Diego State University.\\
 
 \section{Introduction}
 The Self-Organizing Map (SOM) is an unsupervised competitive learning process
-developed by Teuvo Kohonen as a technique to analyze and visualize high dimensional data sets.
+developed by Teuvo Kohonen as a technique to analyze and visualize high
+dimensional data sets.  The applications of SOM are far reaching,
+\cite{Kohonen2000} provides a thourgh overview of the lastest in general
+applications of SOM.  These range from speech recegnition and image
+classification to breast cancer detection and gene expression clustering.
+\cite{skupin06} outlines the growing interest of SOM in GIScience, and
+proposes that the relationship between SOM and GIScience should be bidirectional.  
 As explained below, the SOM is a type of artificial neural network, which
-traditionally uses a rectangular or hexagonal grid or lattice of neurons.  The
-SOM algorithm facilitates a self organizing process by allowing a set of training
-data to arrange themselves on neural network.  When
-using one of these traditional lattices neurons near the edge of the network have
-fewer neighbors, this creates a well known problem in SOM called the boundary
-effect. Using a spherical lattice is widely suggested as a solution to this problem
-\citep{ritter99, boudjemai2003, sangole03, wu2006, Nishio:2006fk}.  The
-use of the spherical lattice, however, does not completely overcome this
-problem and the choice of which spherical topology to use for the network is
-difficult make.
+facilitates a self organizing process by allowing a set of training data to
+arrange themselves on a network of neurons.  Traditionally the SOM uses a
+rectangular or hexagonal grid or lattice of neurons. The topology of these
+grids creates a well known problem in SOM called the boundary effect.  Neurons
+on the boundary of the lattice have fewer neighbors, this becomes important
+durring the self-organizing process.  Using a spherical lattice is widely suggested as a
+solution to the problem \citep{ritter99, boudjemai2003, sangole03, wu2006,
+Nishio:2006fk}.  The use of the spherical lattice, however, does not
+completely overcome this problem and the choice of which spherical topology to
+use for the network is difficult make.
 
 With the exception of the five platonic solids, distributing points on
 a sphere will always result in irregular network topologies \citep{ritter99,
