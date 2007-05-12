@@ -103,13 +103,13 @@ should be bidirectional.
 The SOM is a type of artificial neural network which facilitates the self
 organization of training data onto a network of neurons. Traditionally the SOM
 uses a rectangular or hexagonal grid of neurons. The topology of these grids
-creates a well known problem in SOM called the boundary effect.  Neurons on
+creates a well-known problem in SOM called the boundary effect.  Neurons on
 the boundary of the hexagonal and rectangular lattices have fewer neighbors,
 which reduces the their ability to interact with other neurons during the
 self-organizing process.  Using a spherical lattice is widely suggested as a
 solution to the problem \citep{ritter99, boudjemai2003, sangole03,
 Nishio:2006fk, wu2006}. The use of the spherical lattice, however, does not
-completely overcome the boundary problem and the choice of which spherical
+completely overcome the boundary problem, and the choice of which spherical
 topology to use for the network can be difficult to make.
 
 With the exception of the five platonic solids, distributing points on a
@@ -122,8 +122,8 @@ regular spherical topology, the main drawback is that the network size, \(N\),
 grows exponentially. Other methods for arranging neurons on the sphere allow
 for unlimited control over network size, but yield topologies with increased
 irregularity \citep{harris2000, wu2005, Nishio:2006fk}.  To date the
-literature has largely ignored the more irregular methods in favor of the
-tessellation based methods.  A topology which yields a more flexible network
+literature has largely ignored the more irregular methods in favor of
+tessellation-based methods.  A topology which yields a more flexible network
 size may be desirable.  However, in order to address this issue of network
 size, we must first determine the degree to which irregularity effects the
 SOM.
@@ -132,11 +132,11 @@ SOM.
 The objective of this research is to determine the utility of irregular
 spherical topologies that offer greater control over network size. Toward that
 end, I will develop and test new diagnostics to measure and visualize
-topologically induced errors in SOM. The following diagnostics
+topologically-induced errors in SOM. The following diagnostics
 will be developed and implemented:
 
 \begin{enumerate}
-	\item Visualize the reverse quantization error by mapping neurons back on to the input data.
+	\item Visualize the reverse quantization error by mapping neurons back onto the input data.
     	\item Compare internal variance of each neuron against its first-order neighborhood size.
 	\item Compare internal variance of each neuron against a measure of topological regularity.
 \end{enumerate}
@@ -146,7 +146,7 @@ spherical SOMs.  To satisfy the objective of this research, I will apply these
 diagnostics to a series of comparable SOMs.  Each SOM will be trained using the
 same synthetic data and training parameters, but will utilize different network
 topologies.  By formally testing for difference of means and variance in the
-results of the diagnostics the following questions will be addressed:
+results of the diagnostics, the following questions will be addressed:
 
 %topologies.  By formally testing for statistical differences in the
 %results of the diagnostics the following questions will be addressed:
@@ -188,8 +188,8 @@ signals.
 
 \begin{figure}
 \centering
-\includegraphics[width=.6\linewidth]{gridedge_grey.pdf}
-\caption{The fifty American states and The District of Columbia mapped onto a
+\includegraphics[width=\linewidth]{gridedge_grey.pdf}
+\caption{The fifty United States and The District of Columbia mapped onto a
 SOM trained with the first thirty-two census variables.  Darker neurons have a
 relatively larger difference from the mean of the states, while lighter
 neurons are relatively closer.  Larger dots represent inputs that were poorly
@@ -317,9 +317,9 @@ Three diagnostics are developed to explore the effect of irregular topology on
 spherical SOM.  The first is purely exploratory and will give the researcher a
 good feel for how well a SOM fits the training data.  It is a simple
 adaptation of a standard SOM diagnostic.  The second diagnostic will be used
-to address the reseach question regarding the internal varience and
+to address the research question regarding the internal variance and
 neighborhood size.  The third diagnostic will address the question concerning
-internal variance and topological iregularity.
+internal variance and topological irregularity.
 
 \subsubsection{Visualize reverse mapping}
 The quantization error (QError) of a SOM is a simple way to measure how well 
@@ -336,20 +336,20 @@ This diagnostic will compare the internal variance of each neuron against its
 first-order neighborhood size.  In traditional SOMs, outlying observations are
 pushed to the edge of the map where they encounter fewer competing signals. A
 prime example of this is the ``Utah-Hawaii'' case shown in figure
-\ref{figure1}.  Relying only on the SOM one would be left to believe that the
+\ref{figure1}.  Relying only on the SOM, one would be left to believe that the
 two states are similar. Upon closer inspection we see that the QError from
 Utah to the neuron is $1.509$, the QError from Hawaii to the neuron in
 $1.505$, but the QError from Utah to Hawaii is $3.014$. In this case only Utah
 and Hawaii were mapped to that neuron.  In a case where multiple observations
-land on the same neuron it is possible to measure average pairwise QErrors
+land on the same neuron, it is possible to measure average pairwise QErrors
 between those observations.  This gives us a notion of internal variance for
-each neuron. It would be expected that in traditional SOM neurons closer to
+each neuron. It would be expected that in traditional SOMs neurons closer to
 the edge will have higher internal variances. This can be extended to
-spherical SOM by comparing the degree of a neuron ($deg(m_i)$ or the number of
+spherical SOMs by comparing the degree of a neuron ($deg(m_i)$ or the number of
 adjacent neurons) to its internal variance.
 
 Once the internal variance ($var(m_i)$) and degree ($deg(m_i)$) of each neuron
-have been calculated the neurons can be separated into a small number of
+have been calculated, the neurons can be separated into a small number of
 groups based on the degree \footnote{For most topologies the number of
 different degrees will be limited to three or four.}.  The variance and mean
 will be calculated for each of these groups.  The expected result is that
@@ -376,13 +376,13 @@ compare the variances of internal variances and the means of the internal
 variances across topologies.  It is expected that the distribution of internal
 variances will be narrower for groups trained on more regular topologies.
 It is further hypothesized that the means of these internal variances will
-decrease with more regularity.  As before these assumptions will be tested using
+decrease with more regularity.  These assumptions will be tested using
 a \emph{t-test} on the means and an \emph{F-test} on the variances.
 
 \subsection{Empirical Analysis}
 \begin{itemize}
-\item In order to test the methods described above I will generate high
-dimensional synthetic data with known properties.
+\item In order to test the methods described above, I will generate
+high-dimensional synthetic data with known properties.
 \item I will train a SOM for each of several topologies in order to apply the
 diagnostics.\footnote{These topologies will include the traditional hexagon and
 rectangle type, along with \cite{Rakhmanov94}'s algorithm. Currently there is
@@ -392,7 +392,7 @@ additional goal of this project to provide a framework on which new topologies
 can be easily implemented and tested by future researchers.}
 \item Knowing the properties of the training data allow us to systematically
 compare the diagnostics under several different topologies.
-\item To ensure that we can calculate an internal variance for each neuron I
+\item To ensure that we can calculate an internal variance for each neuron, I
 will generate the data so as to increase the probability that each neuron will
 be occupied by more than one observation.
 \end{itemize}
