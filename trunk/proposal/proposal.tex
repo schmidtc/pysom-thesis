@@ -105,7 +105,7 @@ self-organization of training data onto a network of neurons. The traditional
 SOM uses a rectangular or hexagonal network topology \citep{Kohonen2000}.  These topologies 
 create a well-known problem in SOM called the boundary effect.  Neurons on
 the boundary of the hexagonal and rectangular lattices have fewer neighbors,
-which reduces the their ability to interact with other neurons during the
+which reduces their ability to interact with other neurons during the
 self-organizing process.  Using a spherical lattice is widely suggested as a
 solution to the problem \citep{ritter99, boudjemai2003, sangole03,
 Nishio:2006fk, wu2006}. The use of the spherical lattice, however, does not
@@ -199,8 +199,10 @@ signals.
 \caption{The fifty United States and The District of Columbia mapped onto a
 SOM trained with the first thirty-two census variables.  Darker neurons have a
 relatively larger difference from the mean of the states, while lighter
-neurons are relatively closer.  Larger dots represent inputs that were poorly
-fit to the map, while smaller dots show inputs that were better fit to the map.}
+neurons are relatively closer.  Smaller dots show states that are closer to the
+mean, while large dots show outliers. The five most average states are shown
+with underlined labels and the five states furthest from the mean are shown with
+bold labels.}
 \label{figure1}
 \end{figure}
 
@@ -235,16 +237,18 @@ in both neuron spacing and neighborhood size.
 \centering
 \includegraphics[width=\linewidth]{networkSize.pdf}
 \caption{This figure demonstrates the achievable network size using various
-spherical topologies. The X-axis represents a one unit increase in network
-size, while the Y-axis represents the resulting network size.  For the
-tessellation methods this means increasing the frequency of the tessellation
-by one.  For the traditional Kohonen methods the dimensions are increased
-proportionally, such that $X=Y$.}
+spherical topologies. The Y-axis represents the achievable network size, the
+meaning of the X-axis is dependent on the topology. For the tessellation
+methods the X-axis represents the frequency of the tessellation. For the
+traditional Kohonen methods the X-axis represents the size of both dimensions of
+the grid, for comparability the ratio between the dimensions was fixed at one
+($X_{dim}=Y_{dim}$).  For the \cite{Rakhmanov94} and \cite{Nishio:2006fk} methods the X-axis
+represents the exact network size.}
 \label{fig:nSize}
 \end{figure}
 The literature offers little theoretical guidance on network size
 \citep{cho1996}.  \cite{toolbox} suggests simply using a network size of
-\(5*\sqrt {n}\), where \(n\) is the number of observations. Given this lack of
+\(5\sqrt {n}\), where \(n\) is the number of observations. Given this lack of
 theoretical development, researchers should be cautious when using methods that
 limit the control of network size.  As shown in Figure \ref{fig:nSize},
 methods for arranging an arbitrary number of points on a sphere provide a much
@@ -266,7 +270,7 @@ described above.
 
 \subsection{Uniformity}
 \citeauthor{wu2006} state that ``[f]or SOM, it is desirable to have all neurons
-receive equal geometrical treatment'' \cite[pp. 900]{wu2006}.  To satisfy this
+receive equal geometrical treatment'' \cite[p. 900]{wu2006}.  To satisfy this
 constraint, two conditions must be met.  First, each neuron should occupy the
 same amount of space on the given surface.  Second, each neuron should be
 bordered by the same number of surrounding neurons, and we should maximize that
@@ -331,7 +335,7 @@ between internal variance and topology.
 This diagnostic will compare the internal variance of each neuron against its
 first-order neighborhood size.  In traditional SOMs, outlying observations are
 pushed to the edge of the map where they encounter fewer competing signals. A
-prime example of this is the ``Utah-Hawaii'' case shown in figure
+prime example of this is the ``Utah-Hawaii'' case shown in Figure
 \ref{figure1}.  Relying only on the SOM, one would be left to believe that the
 two states are similar. Upon closer inspection we see that the QError from
 Utah to the neuron is $1.509$, the QError from Hawaii to the neuron in
@@ -361,7 +365,7 @@ adjacency matrix ($A$).  A completely regular network topology (i.e. the
 torus) will have no variance between these column sums.  For irregular
 networks the variance between these column sums gives us a measure of
 irregularity. There are many alternative ways to classify the connectivity of
-a network, \cite{florax95} outline four such summary measures, which will be
+a network; \cite{florax95} outline four such summary measures, which will be
 evaluated for use in this diagnostic.  For each topology we can compare the
 internal variances as described above against a measure that summarizes the
 given topology's regularity.
@@ -400,25 +404,27 @@ The diagnostics must be given a trained SOM for each topology to be compared. To
 yield any meaningful results those SOMs must be trained with comparable
 parameters. Most parameters can simply be set to the same value for each SOM.
 However, special consideration must be given to network size.  As shown in
-figure \ref{fig:nSize}, topologies differ in terms of achievable network size.
+Figure \ref{fig:nSize}, topologies differ in terms of achievable network size.
 This analysis will include the following topologies:
 \begin{itemize}
 \item Rectangular
 \item Hexagonal
 \item A topology based off \cite{Rakhmanov94}
+\item The Helix topology proposed by \cite{Nishio:2006fk}\footnote{Currently
+there is some uncertainty about the ability to include the Geodesic and Helix
+type topologies given the complexities involved with their implementation.
+However, an additional goal of this project to provide a framework on which new
+topologies can be easily implemented and tested by future researchers.}
+\item The Geodesic topology proposed by \cite{wu2006}\footnotemark[2]
 \end{itemize}
-Currently there is some uncertainty about the ability to include the Geodesic
-and Helix type topologies given the complexities involved with their
-implementation. However, an additional goal of this project to provide a framework on
-which new topologies can be easily implemented and tested by future
-researchers.
+
 \subsubsection{Diagnostics}
 The first diagnostic will yield a set of results for each topology test.  These
 results will be analyzed in order to address the first research question of this
 paper.  The second diagnostic provides one set of results.  These results will
 be analyzed to address the second research question.  The final diagnostic will
 return a visualization for each topology tested.  The usefulness of these
-visualization is a research question in itself.  The expectation is that the
+visualizations is a research question in itself.  The expectation is that the
 visualizations will show patterns of internal variance related to irregularities
 in the network topology.
 
