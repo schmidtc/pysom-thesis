@@ -98,24 +98,27 @@ applications of SOM.  SOM has been used in applications ranging from speech
 recognition and image classification to breast cancer detection and gene
 expression clustering.  \cite{skupin07} outline the growing interest of SOM in
 the GISciences, and propose that the relationship between SOM and GIScience
-should be bidirectional.  The SOM is a powerful method for exploring and
-visualizing geographic data.  GIScience offers a wide array of tools
-and methods to enable the exploration of the SOM itself.  This thesis seeks to 
+should be bidirectional.  The SOM offers a powerful method for exploring and
+visualizing geographic data and GIScience offers a wide array of tools
+and methods to enable the exploration of the SOM itself.  This thesis will take
+advantage of GeoVisualization and GeoCompution in order to explore some of the basic
+properties of the SOM.
 
-The SOM is a type of artificial neural network which facilitates the
-self-organization of training data onto a network of neurons. The traditional
+The SOM is a type of artificial neural network in which neurons are "organized"
+in such a way as to project the high-dimensional relationships of a set of
+training data onto a low-dimensional network structure.  The traditional
 SOM uses a rectangular or hexagonal network topology \citep{Kohonen2000}.  These topologies 
-create a well-known problem in SOM called the boundary effect.  Neurons on
+create a well-known problem in SOM called the boundary or edge effect.  Neurons on
 the boundary of the hexagonal and rectangular lattices have fewer neighbors,
 which reduces their ability to interact with other neurons during the
-self-organizing process.  Using a spherical lattice is widely suggested as a
+self-organizing process.  Using a spherical lattice has been widely suggested as a
 solution to the problem \citep{ritter99, boudjemai2003, sangole03,
 Nishio:2006fk, wu2006}. The use of the spherical lattice, however, does not
 completely overcome the boundary problem, and the choice of which spherical
 topology to use for the network can be difficult to make.
 
-A regular network topology is one in which every node on the network has the
-exact same number of adjacent nodes.  Any topology with an edge is irregular.
+A regular network topology is one in which every node on the network has exactly the
+same number of adjacent nodes.  Any topology involving an edge is irregular.
 Arranging our lattice on the surface of a sphere seems to be an obvious
 way to overcome the edge.  However, there exist only five arrangements on the
 sphere which are completely regular; these are the five platonic solids \citep{ritter99,
@@ -125,8 +128,9 @@ neighbors.  The classic method for minimizing this irregularity is to generate
 the spherical lattice by tessellating the sides of the icosahedron
 \citep{Nishio:2006fk}.  While this method will always result in a highly
 regular spherical topology, the main drawback is that the number of neurons in
-the network (the network size), \(N\),
-grows exponentially. Other methods for arranging neurons on the sphere allow
+the network (the network size), \(N\), grows exponentially as tessellations are
+applied. That results in only very coarse control over network size.
+ Other methods for arranging neurons on the sphere allow
 for unlimited control over network size, but yield topologies with increased
 irregularity \citep{harris2000, wu2005, Nishio:2006fk}.  To date the
 literature has largely ignored the more irregular methods in favor of the
@@ -145,7 +149,7 @@ will be developed and implemented:
 \begin{enumerate}
     	\item Compare the internal variance of observations captured by a given neuron to that neuron's first-order neighborhood size.
 	\item For different topologies, compare the internal variance of each neuron against a composite measure of topological regularity.
-	\item Develop a SOM based visualization of the internal variance.
+	\item Develop a SOM-based visualization of the internal variance.
 	%\item Develop a reverse quantization error visualization by mapping neurons back onto the input data.
 \end{enumerate}
 
@@ -161,7 +165,7 @@ results of the diagnostics, the following questions will be addressed:
 \begin{enumerate}
 	\item Does the internal variance of a neuron decrease as its first-order neighborhood size, or degree, increases?
 	\item Is the average internal variance of a SOM higher when a more irregular topology is used?
-	\item Which insights, if any, can be gained from a SOM based visualization of internal variance.
+	\item Which insights, if any, can be gained from a SOM-based visualization of internal variance?
 \end{enumerate}
 
 \section{Background}
@@ -178,7 +182,7 @@ data onto a low-dimensional lattice, or map, of neurons.  Each neuron contains a
 reference vector that models the input data.  Before training, these
 neuron-vectors are initialized, most commonly to random values.  During the
 training process a randomly selected observation (input vector $x$) searches
-each neuron (reference vector $m_i$) to find the one to which it is most
+all neurons (reference vectors $m_i$) to find the one to which it is most
 similar, referred to as its Best Matching Unit (BMU $c$).  The BMU and its
 neighborhood ($N_c$) are then adjusted to better match that observation
 \citep{Kohonen2000}.  The training process is repeated a predefined number of
@@ -194,15 +198,17 @@ in Figure \ref{figure1}, neurons in the center of the map tend to better
 represent the mean of the input-space.  This is arguably caused by outliers
 being pushed to the edges of the map, where they encounter fewer competing
 signals.
+% Skupin's Comment here is not addressed.  Not sure if it needs a response or
+% simply an acknowledgement.
 
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth]{gridedge_grey.pdf}
-\caption{The fifty United States and The District of Columbia mapped onto a
-SOM trained with the first thirty-two census variables.  Darker neurons have a
+\caption{Fifty States and the District of Columbia mapped onto a
+SOM trained with thirty-two population census variables.  Darker neurons have a
 relatively larger difference from the mean of the states, while lighter
-neurons are relatively closer.  Smaller dots show states that are closer to the
-mean, while large dots show outliers. The five most average states are shown
+neurons are relatively closer.  Smaller point symbols show states that are closer to the
+mean, while large symbols show outliers. The five states closest to the average are shown
 with underlined labels and the five states furthest from the mean are shown with
 bold labels.}
 \label{figure1}
@@ -217,7 +223,7 @@ not effective for visualization, as maps generated from a torus are not
 very intuitive \citep{ito2000,wu2006}.  \cite{ritter99} describes the torus as
 being topologically flat and suggests that a curved topology, such as that of a
 sphere, may better reflect directional data.  A sphere also results in a more
-intuitive map, since we are accustomed to looking at maps based on a sphere.
+intuitive map, since we are accustomed to looking at geographic maps based on a sphere.
 
 \cite{ritter99} first introduced the spherical SOM, and several enhancements have
 since been suggested \citep{boudjemai2003,sangole03,Nishio:2006fk,wu2006}.  A
@@ -229,8 +235,8 @@ preferable for all neurons to have an equal number of neighbors and to be
 equally spaced.  They find generally that the tessellation method best satisfies
 these conditions, and specifically that the icosahedron is the best starting
 point \citep{wu2005}. Tessellation of the icosahedron results in a network of
-neurons, each of which have exactly six neighbors, save the original twelve
-which each have five.  This is very close to the ideal structure in which every
+neurons, each of which having exactly six neighbors, save the original twelve
+which each have five neighbors.  This is very close to the ideal structure in which every
 neuron would have exactly six neighbors.  This structure has very low variances
 in both neuron spacing and neighborhood size.
 
@@ -239,16 +245,17 @@ in both neuron spacing and neighborhood size.
 \centering
 \includegraphics[width=\linewidth]{networkSize.pdf}
 \caption{This figure demonstrates the achievable network size using various
-spherical topologies. The Y-axis represents the achievable network size, the
+spherical topologies, in comparison with the traditional SOM. The Y-axis represents the achievable network size, the
 meaning of the X-axis is dependent on the topology. For the tessellation
 methods the X-axis represents the frequency of the tessellation. For the
-traditional Kohonen methods the X-axis represents the size of both dimensions of
-the grid, for comparability the ratio between the dimensions was fixed at one
+traditional Kohonen method the X-axis represents the size of both dimensions of
+the grid; for comparability the ratio between the dimensions was fixed at one
 ($X_{dim}=Y_{dim}$).  For the \cite{Rakhmanov94} and \cite{Nishio:2006fk} methods the X-axis
 represents the exact network size.}
 \label{fig:nSize}
 \end{figure}
-The literature offers little theoretical guidance on network size
+The literature offers little theoretical guidance on choosing an appropriate
+network size for a given dataset
 \citep{cho1996}.  \cite{toolbox} suggests simply using a network size of
 \(5\sqrt {n}\), where \(n\) is the number of observations. Given this lack of
 theoretical development, researchers should be cautious when using methods that
@@ -261,7 +268,7 @@ control over network size. \citeauthor{ritter99}'s tessellation method results
 in a network size that grows at a rate of \(N=2+10*4^f\), where $f$ is the
 frequency of tessellation. \cite{wu2006} offer a slight improvement. Rather than
 recursively subdividing the faces, they redivide the original icosahedron with
-each step, resulting in \(N=2+10*f^2\).  In practice 2D Euclidean SOMs also offer
+each step, resulting in \(N=2+10*f^2\).  In practice, 2D Euclidean SOMs also offer
 limited control over network size because it is undesirable to have one dimension
 dramatically larger than the other. \cite{Nishio:2006fk} try to address the
 issue of network size granularity by departing from the tessellation method and
@@ -276,7 +283,7 @@ receive equal geometrical treatment'' \cite[p. 900]{wu2006}.  To satisfy this
 constraint, two conditions must be met.  First, each neuron should occupy the
 same amount of space on the given surface.  Second, each neuron should be
 bordered by the same number of surrounding neurons, and we should maximize that
-number.  The first condition is important for visualization, but
+number.  The first condition may be important for visualization, but is
 irrelevant for training.  During the training of the SOM only the topology of
 the neurons is considered.
 
@@ -284,7 +291,8 @@ Based solely on measures of neuron spacing, \cite{wu2005} dismissed a method
 proposed by \cite{Rakhmanov94} for distributing points on a sphere.  Similarly
 \cite{Nishio:2006fk} use these variance measures to support their helix
 algorithm for distributing points on a sphere.  Table \ref{table1} shows that
-these metrics can be misleading and may not be comparable across topologies.
+these metrics can be misleading and comparison across topologies may not be
+consistent.
 The traditional rectangular and hexagonal topologies have no variance in neuron
 spacing, and the generally preferred hexagonal structure displays greater
 variance in neighborhood size than the rectangular structure.  The torus, by
