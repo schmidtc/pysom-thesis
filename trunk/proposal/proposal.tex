@@ -331,7 +331,7 @@ may not be achievable via tessellation of the icosahedron.
 This section is composed of two parts.  The first describes the diagnostics
 developed for evaluating network topologies.  The second describes an
 empirical study that will implement these methods in order to evaluate the
-utility of new and/or unfashionable topologies.
+utility of topologies that allow for greater control over network size.
 
 \subsection{Diagnostics}
 Three diagnostics are developed to explore the effect of irregular topology on
@@ -356,7 +356,9 @@ between those observations.  This gives us a notion of internal variance for
 each neuron. It would be expected that in traditional SOMs neurons closer to
 the edge will have higher internal variances. This can be extended to
 spherical SOMs by comparing the degree of a neuron ($deg(m_i)$ or the number of
-adjacent neurons) to its internal variance.
+adjacent neurons) to its internal variance.  The degree of each neuron can
+easily be calculated by taking the column sums of the first-order adjacency
+matrix ($A$).
 
 Once the internal variance ($var(m_i)$) and degree ($deg(m_i)$) of each neuron
 have been calculated, the neurons can be separated into a small number of
@@ -369,16 +371,15 @@ means test.  The result will also be visualized using a box plot.
 
 \subsubsection{Internal variance vs. topological regularity}
 This diagnostic will compare the internal variance of each neuron against a
-measure of regularity for its associated topology.  The degree of each neuron
-can easily be calculated by taking the column sums of the first-order
-adjacency matrix ($A$).  A completely regular network topology (i.e. the
-torus) will have no variance between these column sums.  For irregular
-networks the variance between these column sums gives us a measure of
-irregularity. There are many alternative ways to classify the connectivity of
-a network; \cite{florax95} outline four such summary measures, which will be
-evaluated for use in this diagnostic.  For each topology we can compare the
-internal variances as described above against a measure that summarizes the
-given topology's regularity.
+measure of regularity for its associated topology.  As mentioned above the
+degree of each neuron can be calculated by taking the column sums of $A$.  A
+completely regular network topology (i.e. the torus) will have no variance
+between these column sums.  For irregular networks the variance between these
+column sums gives us a measure of irregularity. There are many alternative
+ways to classify the connectivity of a network; \cite{florax95} outline four
+such summary measures, which will be evaluated for use in this diagnostic.
+For each topology we can compare the internal variances as described above
+against a measure that summarizes the given topology's regularity.
 
 This diagnostic is evaluated in much the same way as the last diagnostic.  
 The internal variances are this time grouped by their topology.  We can then
@@ -386,7 +387,8 @@ compare the variances of internal variances and the means of the internal
 variances across topologies.  It is expected that the distribution of internal
 variances will be narrower for groups trained on more regular topologies.
 It is further hypothesized that the means of these internal variances will
-decrease with more regularity.  These assumptions will be tested using
+decrease when the network is more regular, or when there is less variance in
+the column sums of $A$.  These assumptions will be tested using
 a \emph{t-test} on the means and an \emph{F-test} on the variances.
 
 \subsubsection{Visualize internal variance mapping}
@@ -403,6 +405,10 @@ to train multiple SOMs, each of with a different topology type. The third task
 will be to apply the diagnostics and interpret the results.
 
 \subsubsection{Synthetic Data}
+%Comment from Skupin...
+%This section is obviously leaving most of the specifics of the synthetic data
+%generation out, which is problematic. I'm willing to go along with this for
+%the proposal though, unless it gets raised by the third committee member
 In order to test the methods described above, I will generate high-dimensional
 synthetic data with known properties.  Knowing the properties of the training
 data allow us to systematically compare the diagnostics under several different
