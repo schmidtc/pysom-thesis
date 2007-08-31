@@ -116,6 +116,7 @@ class som:
         print "\nRun compleated in %f seconds"%(time.time()-t1)
 
     def map(self,obsf,outFileName):
+        """ This function needs an overhall #5"""
         outf = file(outFileName,'w')
         outf.write("#BMU LNG LAT QError\n")
         pts = []
@@ -132,8 +133,6 @@ class som:
         qerror = qerror/counter
         outf.close()
         return qerror
-
-
 
 class Topology(som):
     """ Template class for topology Copy this class to create a new topology for som"""
