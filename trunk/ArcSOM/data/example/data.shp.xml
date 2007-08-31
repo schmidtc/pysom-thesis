@@ -1,3 +1,0 @@
-<?xml version="1.0"?>
-<!--<!DOCTYPE metadata SYSTEM "http://www.esri.com/metadata/esriprof80.dtd">-->
-<metadata xml:lang="en"><Esri><MetaID>{28EB383F-C528-4A04-B7E4-295497EC488D}</MetaID><CreaDate>20070415</CreaDate><CreaTime>18523200</CreaTime><SyncOnce>TRUE</SyncOnce><DataProperties><lineage><Process Name="BMUtoSHP_1" ToolSource="Z:\svn\SOM Analyst.tbx\BMUtoSHP" Date="20070415" Time="185232">BMUtoSHP Z:\svn\data\example\BMUdata.txt Z:\svn\data\example\data.shp point</Process></lineage></DataProperties></Esri></metadata>
