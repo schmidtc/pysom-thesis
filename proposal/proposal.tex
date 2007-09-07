@@ -104,7 +104,7 @@ and methods to enable the exploration of the SOM itself.  This thesis will take
 advantage of GeoVisualization and GeoCompution in order to explore some of the basic
 properties of the SOM.
 
-The SOM is a type of artificial neural network in which neurons are "organized"
+The SOM is a type of artificial neural network in which neurons are ``organized''
 in such a way as to project the high-dimensional relationships of a set of
 training data onto a low-dimensional network structure.  The traditional
 SOM uses a rectangular or hexagonal network topology \citep{Kohonen2000}.  These topologies 
@@ -214,7 +214,6 @@ bold labels.}
 \label{figure1}
 \end{figure}
 
-
 \subsection{Spherical SOM}
 One way to eliminate the boundary effect is to wrap the lattice around a
 three-dimensional object such as a sphere or torus, thereby removing the edge
@@ -255,13 +254,18 @@ represents the exact network size.}
 \label{fig:nSize}
 \end{figure}
 The literature offers little theoretical guidance on choosing an appropriate
-network size for a given dataset
-\citep{cho1996}.  \cite{toolbox} suggests simply using a network size of
-\(5\sqrt {n}\), where \(n\) is the number of observations. Given this lack of
-theoretical development, researchers should be cautious when using methods that
-limit the control of network size.  As shown in Figure \ref{fig:nSize},
-methods for arranging an arbitrary number of points on a sphere provide a much
-higher degree of flexibility when choosing a network size.
+network size for a given dataset \citep{cho1996}.  \cite{toolbox} suggests
+simply using a network size of \(5\sqrt {n}\), where \(n\) is the number of
+observations. Given this lack of theoretical development, researchers should be
+cautious when using methods that limit the control of network size.  The size of
+the network represents a continuum along which data reduction occurs.
+\cite{skupin07} demonstrate this when they use the same data to train two SOMs
+of different sizes.  In the three-by-three case the neurons act as containers clustering
+similar states, while in the twenty-by-twenty case the observations are mapped in a way
+that represents their relationship to other states in higher dimensions.  As
+shown in Figure \ref{fig:nSize}, methods for arranging an arbitrary number of
+points on a sphere provide a much higher degree of flexibility when choosing a
+network size.
 
 The cost of relying on \citeauthor{ritter99}'s tessellation method is decreased
 control over network size. \citeauthor{ritter99}'s tessellation method results
@@ -276,6 +280,7 @@ suggesting the use of a partitioned helix to uniformly distribute any number of
 neurons on a sphere.  A similar method proposed by \cite{Rakhmanov94} was
 dismissed by \cite{wu2005} for failing to satisfy the uniformity conditions
 described above.
+
 
 \subsection{Uniformity}
 \citeauthor{wu2006} state that ``[f]or SOM, it is desirable to have all neurons
@@ -484,7 +489,7 @@ needed to address these issues in visualization.
 %It is useful to represent the neural network as a graph, G, in order use the...
 %In order to examine the irregularities in the neural network it is useful ....
 
-%The basic problem of the "boundary effect" is that neurons on the edge have fewer neighbors. Yet there are only five possible arrangements of points on a sphere such that all points have the same number of neighbors.  Any spherical lattice consisting of more then twenty (dodecahedron) neurons will contain topological irregularities.  This is to say that not all neurons will have the same number of neighbors.  The importance of these irregularities and the magnitude of their effects on SOM training is not known.  This goal of this research is to determine whether more flexible network structures may be used in spherical in SOM without introducing significant errors. To accomplish this goal, basic methods in network analysis with be combined with the result from several empirical training runs each utilized different topology.  
+%The basic problem of the ``boundary effect'' is that neurons on the edge have fewer neighbors. Yet there are only five possible arrangements of points on a sphere such that all points have the same number of neighbors.  Any spherical lattice consisting of more then twenty (dodecahedron) neurons will contain topological irregularities.  This is to say that not all neurons will have the same number of neighbors.  The importance of these irregularities and the magnitude of their effects on SOM training is not known.  This goal of this research is to determine whether more flexible network structures may be used in spherical in SOM without introducing significant errors. To accomplish this goal, basic methods in network analysis with be combined with the result from several empirical training runs each utilized different topology.  
 
 \bibliographystyle{apalike}
 \bibliography{som}
