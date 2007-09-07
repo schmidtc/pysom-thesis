@@ -257,15 +257,16 @@ The literature offers little theoretical guidance on choosing an appropriate
 network size for a given dataset \citep{cho1996}.  \cite{toolbox} suggests
 simply using a network size of \(5\sqrt {n}\), where \(n\) is the number of
 observations. Given this lack of theoretical development, researchers should be
-cautious when using methods that limit the control of network size.  The size of
-the network represents a continuum along which data reduction occurs.
+cautious when using methods that limit the control of network size.  Having a
+high level of control over network size allows support for such very
+different SOM applications as clustering versus low-dimensional spatial layout.
 \cite{skupin07} demonstrate this when they use the same data to train two SOMs
-of different sizes.  In the three-by-three case the neurons act as containers clustering
-similar states, while in the twenty-by-twenty case the observations are mapped in a way
-that represents their relationship to other states in higher dimensions.  As
-shown in Figure \ref{fig:nSize}, methods for arranging an arbitrary number of
-points on a sphere provide a much higher degree of flexibility when choosing a
-network size.
+of different sizes.  In the three-by-three (9) case the neurons act as
+containers clustering similar states, while in the twenty-by-twenty (400) case
+relationships betweens are expressed with much finer granularity. As shown in
+Figure \ref{fig:nSize}, methods for arranging an arbitrary number of points on a
+sphere provide a much higher degree of flexibility when choosing a network
+size.
 
 The cost of relying on \citeauthor{ritter99}'s tessellation method is decreased
 control over network size. \citeauthor{ritter99}'s tessellation method results
