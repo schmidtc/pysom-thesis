@@ -1,9 +1,9 @@
 \documentclass[10pt,titlepage]{article}
 %\usepackage[dvips]{graphics} 
 \usepackage{graphicx}
-%\usepackage{subfigure}
 \usepackage{longtable}
 \usepackage{lscape}
+\usepackage{setspace}
 \usepackage[pdftex,colorlinks=FALSE]{hyperref}
 \setlength{\belowcaptionskip}{0.5cm} % 0.5cm as an example
 \raggedbottom
@@ -75,18 +75,32 @@ A Thesis Proposal Presented to the Faculty of San Diego State University.\\
 %\begin{document}
 %\maketitle
 %\begin{abstract}
-%The development of the spherical SOM has been driven by the border effects
-%observed in traditional SOM.  Two problems exist with the Spherical SOM. The
-%first is the level of control over the network size. The second is the
-%topologically induced errors caused by the arrangement of neurons on the sphere.
-%Both of these problems stem from the problem of uniformly distributing points on
-%a sphere. These problems will be investigated through the introduction of a new
-%method for testing topologically induced errors. The method first analyzes  the
-%neural network to find topological mis-matches, next we train the network with
-%an overwhelming about of synthetic data.  Through a series of simple plots we
-%can then compare each neurons internal variance as defined by the variance of
-%the observations that best fit that neuron with such metrics as neighborhood
-%influence, number of child observations, etc.
+\doublespacing
+\newpage
+\begin{center}
+{\Large{\bf PROJECT SUMMARY}}\\*[3mm]
+\end{center}
+The development of the spherical Self-Organizing Map (SOM) has been driven by the border effects
+observed in traditional SOM.  Two problems exist with the Spherical SOM. The
+first is the level of control over the network size. The second is the
+topologically induced errors caused by the arrangement of neurons on the sphere.
+Both of these stem from the problem of uniformly distributing points on
+a sphere. 
+
+\noindent
+\\
+These problems will be investigated through the introduction of a new
+method for testing topologically induced errors. The method first analyzes the
+neural network to find topological mis-matches, next we train the network with
+an overwhelming about of synthetic data.  I can then compare each neuron's
+internal variance, defined by the variance of the observations that best fit
+that neuron, as an attempt to discover the effects of topological
+irregularity.    
+
+\singlespacing
+\newpage
+
+
 %\end{abstract}
 
 \section{Introduction}
