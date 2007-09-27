@@ -159,8 +159,8 @@ class Topology(som):
     def neighborhood(self,bmu,kernalWidth):
         """
         This function must return the ID's of the nodes inside the neighborhood, 
-        NumNeighbors is defined by kernalWidth and is express in number of neurons.
-        bmu is the id of the best match
+        NumNeighbors is defined by kernalWidth and is expressed as an order.
+        bmu is the id of the best match, or neighborhood center.
         """
         pass
     
@@ -279,8 +279,6 @@ class SphereTopoTest(Sphere):
             delta = part+hc*(2)  # 2 is the value we through at the grid
             put(self.nodes[nodeID],0,delta)
     def run(self):
-        print "clearing Cache"
-        self.clearCache()
         print "Running..."
         t1 = time.time()
         for nodeID in xrange(self.Size):
