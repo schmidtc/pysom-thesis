@@ -36,5 +36,9 @@ def parseDelaunay(filename):
     return G
 if __name__=="__main__":
     import sys
+    import som
     filename = sys.argv[1]
     G = parseDelaunay(filename)
+
+    S = som.GraphTopology(G)
+

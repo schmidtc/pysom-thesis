@@ -12,6 +12,7 @@ Version 2, you should check.
 import random,math,time,sys,os
 from numpy import array,empty,take,put
 from math import acos,sqrt,pi,degrees,sin,cos,asin
+import neighbors as nf
 
 class som:
     ''' Base class for the Self-Organizing Map,
@@ -164,6 +165,61 @@ class Topology(som):
         """
         pass
     
+class GraphTopology(som):
+    """ Template class for topology Copy this class to create a new topology for som"""
+    def __init__(self,G):
+        som.__init__(self)
+        self.G = G
+        self.Size = G.order()
+
+        # if findWidth is not given a seed it will brute force the total network
+        # width, this could take a long time. For the spherical network, one of
+        # the polls should yeild the correct width. Or possible the node with
+        # lowest degree.
+        self.Width = nf.findWidth(G,G.nodes()[-1]) 
+        self.maxW = 0.5
+
+    def save(self,path,name):
+        #som.save(self,path,name)
+        pass
+    def load(self,path,name):
+        #som.load(self,path,name)
+        pass
+    def randInit(self):
+        som.randInit(self)
+    def kernalWidth(self,t):
+        """
+        kernalWidth returns the width of the neighborhood in terms of order
+        """
+        r = round((self.Width*self.maxW) * (1 - (t/float(self.tSteps))))
+        r = int(r)
+        if r == 0: r = 1
+        return r
+    def odist(n):
+        """
+        n is the nth neuron in the in neighborhood, return's order
+        example the 3rd neuron in the set is 1 order from the 0th.
+        """
+        pass
+    def neighborhood(self,bmu,kernalWidth):
+        """
+        This function returns a dictionary containing the neighbors of bmu as
+        keys and their dist (as an order) as values.
+        """
+        return nf.neighborhood(self.G,bmu,kernalWidth)
+    def merge(self,t,ind,v):
+        """
+        imporved neighborhood function eliminates the need for odist function.
+        """
+        bmu = self.findBMU(ind,v)
+        sigma = self.kernalWidth(t)
+        results = self.neighborhood( bmu , sigma )
+        alteredNodes = [(node,self.hci(t,odist)) for node,odist in results.iteritems()]
+        #alteredNodes = [(results[i],self.hci(t,self.odist(i))) for i in xrange(len(results))]
+        for nodeID,hc in alteredNodes:
+            part = take(self.nodes[nodeID],ind)
+            delta = part+hc*(v-part)
+            put(self.nodes[nodeID],ind,delta)
 class Sphere(som):
     def __init__(self):
         som.__init__(self)
