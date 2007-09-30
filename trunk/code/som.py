@@ -177,21 +177,19 @@ class GraphTopology(som):
         # the polls should yeild the correct width. Or possible the node with
         # lowest degree.
         self.Width = nf.findWidth(G,G.nodes()[-1]) 
-        self.maxW = 0.5
+        self.maxN = 0.5
 
     def save(self,path,name):
-        #som.save(self,path,name)
-        pass
+        som.save(self,path,name)
     def load(self,path,name):
-        #som.load(self,path,name)
-        pass
+        som.load(self,path,name)
     def randInit(self):
         som.randInit(self)
     def kernalWidth(self,t):
         """
         kernalWidth returns the width of the neighborhood in terms of order
         """
-        r = round((self.Width*self.maxW) * (1 - (t/float(self.tSteps))))
+        r = round((self.Width*self.maxN) * (1 - (t/float(self.tSteps))))
         r = int(r)
         if r == 0: r = 1
         return r
@@ -200,7 +198,7 @@ class GraphTopology(som):
         n is the nth neuron in the in neighborhood, return's order
         example the 3rd neuron in the set is 1 order from the 0th.
         """
-        pass
+        raise "not implemented"
     def neighborhood(self,bmu,kernalWidth):
         """
         This function returns a dictionary containing the neighbors of bmu as
@@ -220,6 +218,7 @@ class GraphTopology(som):
             part = take(self.nodes[nodeID],ind)
             delta = part+hc*(v-part)
             put(self.nodes[nodeID],ind,delta)
+
 class Sphere(som):
     def __init__(self):
         som.__init__(self)
@@ -393,22 +392,68 @@ class ObsFile:
     def close(self):
         self.fileObj.close()
 
-if __name__=="__main__":
-    import sys,time
+
+
+def sphereTest():
     s = Sphere()
-    s.Size = 100
+    s.Size = 500
     s.Dims = 10
     s.maxN = 0.5 
-    s.tSteps = 10000
-    s.alpha0 = 0.5
+    s.tSteps = 1
+    s.alpha0 = 1.0
     f = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
     print "init"
     s.randInit()
+    print "save"
+    s.save('testResults/','test-10d-10c-no0_rand')
+    print "run t=1K"
+    #s.run(f)
     #print "save"
-    #s.save('testResults/','test-10d-10c-no0_rand')
-    print "run t=10K"
-    s.run(f)
-    #print "save"
-    #s.save('testResults/','test-10d-10c-no0_10K')
+    #s.save('testResults/','sphere')
+    #f.close()
+    return s
+def graphTest():
+    import delaunay
+    G = delaunay.parseDelaunay("delaunay/500_delaunay.xyz")
+    s = GraphTopology(G)
+    s.Dims = 10
+    s.maxN = 0.5
+    s.tSteps = 1
+    s.alpha0 = 1.0
+    f = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
+    print "init"
+    s.load('testResults/','test-10d-10c-no0_rand')
+    #print "run t=1K"
+    #s.run(f)
+    #s.save('testResults/','graph')
+    #f.close()
+    return s
+def rookGraphTest():
+    from grid2rook import grid2Rook
+    import networkx as NX
+    g = grid2Rook(10,10,binary=1)
+    G = NX.Graph()
+    
+    for node in g:
+        for neighbor in g[node][1]:
+            G.add_edge((node,neighbor))
 
-    f.close()
+    s = GraphTopology(G)
+    s.Dims = 10
+    s.maxN = 0.5
+    s.tSteps = 1
+    s.alpha0 = 1.0
+    f = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
+    print "init"
+    s.load('testResults/','test-10d-10c-no0_rand')
+    #print "run t=1K"
+    #s.run(f)
+    #s.save('testResults/','graph')
+    #f.close()
+    return s
+
+
+if __name__=="__main__":
+    s = sphereTest()
+    g = graphTest()
+    r = rookGraphTest()
