@@ -11,6 +11,7 @@ class graph:
         self.ids = {}
         self.order = 1
         self.A = self.G
+        self.S = S.sparse.dok_matrix(size)
         
     def set_order(self,order):
         if not self.order == order:
@@ -18,6 +19,8 @@ class graph:
             self.A = self.G
             for i in range(order-1):
                 self.A = self.A * self.G
+                # Use S to sum non-zero element.
+                
     def add_node(self,node):
         if node not in self.nodes:
             id = len(self.nodes)
@@ -46,9 +49,23 @@ class graph:
 
 
 if __name__=='__main__':
-    G = graph((6,6))
-    for i in range(1,7):
-        G.add_node(str(i))
+#    G = graph((6,6))
+#    for i in range(1,7):
+#        G.add_node(str(i))
+    G = NX.Graph()
+    
+    def neighborhood(G,n,o):
+        base = G[n]
+        neighbors = {}
+        neighbors[n] = 0
+        for i in range(1,o+1):
+            for node in neighbors.keys():
+                branch = G[node]
+                for node in branch:
+                    if node not in neighbors:
+                        neighbors[node]=i
+        return neighbors
+    
 
     G.add_edge(('1','2'))
     G.add_edge(('1','4'))
