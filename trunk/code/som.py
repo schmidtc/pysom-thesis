@@ -414,30 +414,36 @@ def sphereTest():
     return s
 def graphTest():
     import delaunay
-    G = delaunay.parseDelaunay("delaunay/500_delaunay.xyz")
+    G = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
     s = GraphTopology(G)
     s.Dims = 10
     s.maxN = 0.5
-    s.tSteps = 1
-    s.alpha0 = 1.0
+    s.tSteps = 10000
+    s.alpha0 = 0.04
     f = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
     print "init"
-    s.load('testResults/','test-10d-10c-no0_rand')
-    #print "run t=1K"
-    #s.run(f)
-    #s.save('testResults/','graph')
-    #f.close()
+    #s.load('testResults/','test-10d-10c-no0_rand')
+    s.randInit()
+    print "run t=10K"
+    s.run(f)
+    s.save('testResults/','graph_10k')
+    f.reset()
+    s.maxN = 0.333
+    s.tSteps = 100000
+    s.alpha0 = 0.03
+
+    s.save('testResults/','graph_100k')
+    f.close()
+
     return s
 def rookGraphTest():
     from grid2rook import grid2Rook
     import networkx as NX
-    g = grid2Rook(10,10,binary=1)
+    g = grid2Rook(23,28,binary=1)
     G = NX.Graph()
-    
     for node in g:
         for neighbor in g[node][1]:
             G.add_edge((node,neighbor))
-
     s = GraphTopology(G)
     s.Dims = 10
     s.maxN = 0.5
@@ -452,8 +458,7 @@ def rookGraphTest():
     #f.close()
     return s
 
-
 if __name__=="__main__":
-    s = sphereTest()
+    #s = sphereTest() # This is probably no good anymore (or ever)
     g = graphTest()
-    r = rookGraphTest()
+    #r = rookGraphTest()
