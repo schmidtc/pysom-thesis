@@ -111,9 +111,20 @@ class som:
         print ""
         print "Running..."
         t1 = time.time()
+        #s = ''
+        T = self.tSteps
         for t in xrange(self.tSteps):
             id,ind,v = obsf.stream()
             self.merge(t,ind,v)
+            ### 
+            #if t%100 == 0:
+            #    if len(s) > 60:
+            #        print '\r'+s
+            #        s = ''
+            #    s += '%d...'%t
+            #sys.stdout.write("\r%s%d"%(s,t))
+            sys.stdout.write("\r%.2f%%"%(100*float(t)/T))
+            sys.stdout.flush()
         print "\nRun compleated in %f seconds"%(time.time()-t1)
 
     def map(self,obsf,outFileName):
@@ -427,10 +438,11 @@ def graphTest():
     print "run t=10K"
     s.run(f)
     s.save('testResults/','graph_10k')
-    f.reset()
     s.maxN = 0.333
     s.tSteps = 100000
     s.alpha0 = 0.03
+    f.reset()
+    s.run(f)
 
     s.save('testResults/','graph_100k')
     f.close()
