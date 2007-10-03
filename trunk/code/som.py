@@ -13,6 +13,7 @@ import random,math,time,sys,os
 from numpy import array,empty,take,put
 from math import acos,sqrt,pi,degrees,sin,cos,asin
 import neighbors as nf
+import networkx as NX
 
 class som:
     ''' Base class for the Self-Organizing Map,
@@ -127,24 +128,22 @@ class som:
             sys.stdout.flush()
         print "\nRun compleated in %f seconds"%(time.time()-t1)
 
-    def map(self,obsf,outFileName):
+    def map(self,obsf):
         """ This function needs an overhall #5"""
-        outf = file(outFileName,'w')
-        outf.write("#BMU LNG LAT QError\n")
-        pts = []
         qerror = 0
         counter = 0 
+        daMap = {} # keys are node ID's, values are lists of observation ID's.
         for id,dimIds,obs in obsf:
             bm,err = self.findBMU(dimIds,obs,ReturnDist=True)
             qerror += err
-            pt = self.grid[bm]
-            outf.write("%d %f %f %f\n"%(bm,degrees(pt[0]),degrees(pt[1]),err))
+            if not bm in daMap:
+                daMap[bm] = []
+            daMap[bm].append(id)
             sys.stdout.write(".%d,%f.\r"%(counter,err))
             sys.stdout.flush()
             counter += 1
         qerror = qerror/counter
-        outf.close()
-        return qerror
+        return daMap,qerror
 
 class Topology(som):
     """ Template class for topology Copy this class to create a new topology for som"""
@@ -443,14 +442,22 @@ def graphTest():
     s.alpha0 = 0.03
     f.reset()
     s.run(f)
-
     s.save('testResults/','graph_100k')
     f.close()
-
     return s
+
+def graphTestMap():
+    import delaunay
+    G = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
+    s = GraphTopology(G)
+    s.Dims = 10
+    f = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
+    s.load('testResults/','graph_100k')
+    results = s.map(f)
+    return results
+
 def rookGraphTest():
     from grid2rook import grid2Rook
-    import networkx as NX
     g = grid2Rook(23,28,binary=1)
     G = NX.Graph()
     for node in g:
@@ -459,18 +466,28 @@ def rookGraphTest():
     s = GraphTopology(G)
     s.Dims = 10
     s.maxN = 0.5
-    s.tSteps = 1
-    s.alpha0 = 1.0
+    s.tSteps = 10000
+    s.alpha0 = 0.04
     f = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
     print "init"
-    s.load('testResults/','test-10d-10c-no0_rand')
-    #print "run t=1K"
-    #s.run(f)
-    #s.save('testResults/','graph')
-    #f.close()
+    s.randInit()
+    #s.load('testResults/','test-10d-10c-no0_rand')
+    print "run t=10K"
+    s.run(f)
+    s.save('testResults/','rook_10k')
+
+    s.maxN = 0.333
+    s.tSteps = 100000
+    s.alpha0 = 0.03
+    f.reset()
+    print "run t=100K"
+    s.run(f)
+    s.save('testResults/','rook_100k')
+    f.close()
     return s
 
 if __name__=="__main__":
     #s = sphereTest() # This is probably no good anymore (or ever)
-    g = graphTest()
+    #g = graphTest()
+    daMap,qerror = graphTestMap()
     #r = rookGraphTest()
