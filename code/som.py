@@ -436,47 +436,6 @@ class ObsFile:
     def close(self):
         self.fileObj.close()
 
-def sphereTest():
-    s = Sphere()
-    s.Size = 500
-    s.Dims = 10
-    s.maxN = 0.5 
-    s.tSteps = 1
-    s.alpha0 = 1.0
-    f = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
-    print "init"
-    s.randInit()
-    print "save"
-    s.save('testResults/','test-10d-10c-no0_rand')
-    print "run t=1K"
-    #s.run(f)
-    #print "save"
-    #s.save('testResults/','sphere')
-    #f.close()
-    return s
-def graphTest():
-    #import delaunay
-    G = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
-    s = GraphTopology(G)
-    s.Dims = 15
-    s.maxN = 0.5
-    s.tSteps = 10000
-    s.alpha0 = 0.04
-    f = ObsFile('testData/15d-40c-no0_scaled.dat','complete')
-    print "init"
-    #s.load('testResults/','test-10d-10c-no0_rand')
-    s.randInit()
-    print "run t=10K"
-    s.run(f)
-    s.save('testResults/','graph_10k')
-    s.maxN = 0.333
-    s.tSteps = 100000
-    s.alpha0 = 0.03
-    f.reset()
-    s.run(f)
-    s.save('testResults/','graph_100k')
-    f.close()
-    return s
 
 def pairWiseDist(ids,lines):
     """returns a non-symtric sq. dist matrix, diag = 0, below diag = 0"""
@@ -554,8 +513,34 @@ def graphTestMapIV():
     
     return {'sphere':(ivData),'rook':(ivData2)}
 
+### The Training
+def graphTest():
+    G = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
+    s = GraphTopology(G)
+    s.Dims = 15
+    s.maxN = 0.5
+    s.tSteps = 100000
+    s.alpha0 = 0.04
+    f = ObsFile('testData/15d-40c-no0_scaled.dat','complete')
+    print "init"
+    s.randInit()
+    print "run t=10K"
+    s.run(f)
+    s.save('testResults/','graph_100k')
+    s.maxN = 0.333
+    s.tSteps = 1000000
+    s.alpha0 = 0.03
+    f.reset()
+    s.run(f)
+    s.save('testResults/','graph_1m')
+
+    f.reset()
+    s.map(f)
+    s.save('testResults/','graph_1m')
+
+    f.close()
+    return s
 def rookGraphTest():
-    #from grid2rook import grid2Rook
     g = grid2Rook(23,28,binary=1)
     G = NX.Graph()
     for node in g:
@@ -564,36 +549,41 @@ def rookGraphTest():
     s = GraphTopology(G)
     s.Dims = 15
     s.maxN = 0.5
-    s.tSteps = 10000
+    s.tSteps = 100000
     s.alpha0 = 0.04
     f = ObsFile('testData/15d-40c-no0_scaled.dat','complete')
     print "init"
     s.randInit()
-    #s.load('testResults/','test-10d-10c-no0_rand')
     print "run t=10K"
     s.run(f)
-    s.save('testResults/','rook_10k')
+    s.save('testResults/','rook_100k')
 
     s.maxN = 0.333
-    s.tSteps = 100000
+    s.tSteps = 1000000
     s.alpha0 = 0.03
     f.reset()
     print "run t=100K"
     s.run(f)
-    s.save('testResults/','rook_100k')
+    s.save('testResults/','rook_1m')
+
+    f.reset()
+    s.map(f)
+    s.save('testResults/','rook_1m')
+
     f.close()
     return s
+### End Training
 
 if __name__=="__main__":
     ### Step one, train the soms
-    #g = graphTest()
+    g = graphTest()
     #r = rookGraphTest()
     #s = sphereTest() # This is probably no good anymore (or ever)
 
     ### Step two, find internal variance, plot against degree
-    q1 = graphTestMapIV()
-    ivData = q1['sphere']
-    ivData2 = q1['rook']
-    groups,degrees = boxIV(ivData)
-    groups2,degrees2 = boxIV(ivData2)
+    #q1 = graphTestMapIV()
+    #ivData = q1['sphere']
+    #ivData2 = q1['rook']
+    #groups,degrees = boxIV(ivData)
+    #groups2,degrees2 = boxIV(ivData2)
     #daMap,qerror = graphTestMap()
