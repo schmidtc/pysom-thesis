@@ -15,6 +15,7 @@ import numpy as N
 from math import acos,sqrt,pi,degrees,sin,cos,asin
 import networkx as NX
 import pylab
+import pickle
 from utils import *
 
 class som:
@@ -29,9 +30,21 @@ class som:
         self.maxN = 0
         self.alpha0 = 0
         self.nodes = []
+        self.daMap = {}
 
-    def load(self,path,name):
-        dataf = open(path+name+'.txt','r')
+    def load(self,path,name=None):
+        if not name:
+            name = '%ds_%dd_%dr_%fa'%(self.Size,self.Dims,self.tSteps,self.alpha0)
+        codname = path+name+'.txt'
+        mapname = path+name+'.map'
+        if os.path.exists(mapname):
+            try:
+                f = open(mapname,'r')
+                self.daMap = pickle.load(f)
+                f.close()
+            except:
+                self.daMap = {}
+        dataf = open(codname,'r')
         header = dataf.next()
         Dims,Size = header.split()
         self.Dims = int(Dims)
@@ -43,8 +56,16 @@ class som:
             data = map(float,data)
             self.nodes[i] = data
 
-    def save(self,path,name):
-        outf = open(path+name+'.txt','w')
+    def save(self,path=None,name=None):
+        if not name:
+            name = '%ds_%dd_%dr_%fa'%(self.Size,self.Dims,self.tSteps,self.alpha0)
+        codname = path+name+'.txt'
+        mapname = path+name+'.map'
+        if self.daMap:
+            mapfile = open(mapname,'w')
+            pickle.dump(self.daMap,mapfile)
+            mapfile.close()
+        outf = open(codname,'w')
         outf.write("%d %d\n"%(self.Dims,self.Size))
         for i in xrange(self.Size):
             outf.write(' '.join(str(self.nodes[i].tolist())[1:-1].split(', '))+'\n')
@@ -146,7 +167,8 @@ class som:
             counter += 1
         print ""
         qerror = qerror/counter
-        return daMap,qerror
+        self.daMap = daMap
+        return qerror
 
 class Topology(som):
     """ Template class for topology Copy this class to create a new topology for som"""
@@ -468,7 +490,11 @@ def pairWiseDist(ids,lines):
 
 def getIVdata(s,f):
     """ takes a som and a obsFile """
-    daMap,qerror = s.map(f)
+    if not s.daMap:
+        qerror = s.map(f)
+    else: 
+        qerror = None
+    daMap = s.daMap
     l = f.listolists()
     results = []
     for node,ids in daMap.iteritems():
@@ -495,7 +521,7 @@ def boxIV(ivData):
     for deg in degs:
         l.append(data[deg])
     #data = N.array(zip(*l))
-    pylab.boxplot(l)
+    pylab.boxplot(l,positions=degs)
     pylab.show()
     return l,degs
         
@@ -521,12 +547,12 @@ def graphTestMapIV():
 
     print "finding IV for sphereical case"
     ivData = getIVdata(s,f)
-    groups,degrees = boxIV(ivData)
+    s.save('testResults/','graph_100k')
     print "finding IV for rook case"
     ivData2 = getIVdata(s2,f2)
-    groups2,degrees2 = boxIV(ivData2)
+    s2.save('testResults/','rook_100k')
     
-    return {'sphere':(ivData,groups,degrees),'rook':(ivData2,groups2,degrees2)}
+    return {'sphere':(ivData),'rook':(ivData2)}
 
 def rookGraphTest():
     #from grid2rook import grid2Rook
@@ -559,11 +585,15 @@ def rookGraphTest():
     return s
 
 if __name__=="__main__":
-    #f = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
-    #l = f.listolists()
+    ### Step one, train the soms
+    #g = graphTest()
+    #r = rookGraphTest()
     #s = sphereTest() # This is probably no good anymore (or ever)
-    g = graphTest()
-    r = rookGraphTest()
-    #q1 = graphTestMapIV()
-    
+
+    ### Step two, find internal variance, plot against degree
+    q1 = graphTestMapIV()
+    ivData = q1['sphere']
+    ivData2 = q1['rook']
+    groups,degrees = boxIV(ivData)
+    groups2,degrees2 = boxIV(ivData2)
     #daMap,qerror = graphTestMap()
