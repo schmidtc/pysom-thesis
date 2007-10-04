@@ -144,6 +144,7 @@ class som:
             sys.stdout.write(".%d,%f.\r"%(counter,err))
             sys.stdout.flush()
             counter += 1
+        print ""
         qerror = qerror/counter
         return daMap,qerror
 
@@ -439,7 +440,7 @@ def graphTest():
     s.maxN = 0.5
     s.tSteps = 10000
     s.alpha0 = 0.04
-    f = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
+    f = ObsFile('testData/15d-40c-no0_scaled.dat','complete')
     print "init"
     #s.load('testResults/','test-10d-10c-no0_rand')
     s.randInit()
@@ -465,19 +466,13 @@ def pairWiseDist(ids,lines):
             ivMatrix[i,j] = sqrt(sum((lines[i]-lines[j])**2))
     return ivMatrix
 
-def graphTestMapIV():
-    #import delaunay
-    G = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
-    s = GraphTopology(G)
-    s.Dims = 10
-    f = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
-    s.load('testResults/','graph_100k')
+def getIVdata(s,f):
+    """ takes a som and a obsFile """
     daMap,qerror = s.map(f)
-    print "\nfinding IV"
     l = f.listolists()
     results = []
     for node,ids in daMap.iteritems():
-        degree = G.degree(node)
+        degree = s.G.degree(node)
         size = len(ids)
         if size > 1:
             distMatrix = pairWiseDist(ids,l)
@@ -505,6 +500,33 @@ def boxIV(ivData):
     return l,degs
         
     
+def graphTestMapIV():
+    #Load spherical som.
+    G = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
+    s = GraphTopology(G)
+    s.Dims = 10
+    f = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
+    s.load('testResults/','graph_100k')
+
+    #Load rook test
+    f2 = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
+    g = grid2Rook(23,28,binary=1)
+    G2 = NX.Graph()
+    for node in g:
+        for neighbor in g[node][1]:
+            G2.add_edge((node,neighbor))
+    s2 = GraphTopology(G2)
+    s2.Dims = 10
+    s2.load('testResults/','rook_100k')
+
+    print "finding IV for sphereical case"
+    ivData = getIVdata(s,f)
+    groups,degrees = boxIV(ivData)
+    print "finding IV for rook case"
+    ivData2 = getIVdata(s2,f2)
+    groups2,degrees2 = boxIV(ivData2)
+    
+    return {'sphere':(ivData,groups,degrees),'rook':(ivData2,groups2,degrees2)}
 
 def rookGraphTest():
     #from grid2rook import grid2Rook
@@ -518,7 +540,7 @@ def rookGraphTest():
     s.maxN = 0.5
     s.tSteps = 10000
     s.alpha0 = 0.04
-    f = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
+    f = ObsFile('testData/15d-40c-no0_scaled.dat','complete')
     print "init"
     s.randInit()
     #s.load('testResults/','test-10d-10c-no0_rand')
@@ -540,9 +562,8 @@ if __name__=="__main__":
     #f = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
     #l = f.listolists()
     #s = sphereTest() # This is probably no good anymore (or ever)
-    #g = graphTest()
-    q1 = graphTestMapIV()
-    boxData = boxIV(q1)
+    g = graphTest()
+    r = rookGraphTest()
+    #q1 = graphTestMapIV()
     
     #daMap,qerror = graphTestMap()
-    #r = rookGraphTest()
