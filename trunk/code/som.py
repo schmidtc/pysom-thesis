@@ -433,10 +433,10 @@ def sphereTest():
     #f.close()
     return s
 def graphTest():
-    import delaunay
+    #import delaunay
     G = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
     s = GraphTopology(G)
-    s.Dims = 10
+    s.Dims = 15
     s.maxN = 0.5
     s.tSteps = 10000
     s.alpha0 = 0.04
@@ -505,18 +505,18 @@ def graphTestMapIV():
     G = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
     s = GraphTopology(G)
     s.Dims = 10
-    f = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
+    f = ObsFile('testData/15d-40c-no0_scaled.dat','complete')
     s.load('testResults/','graph_100k')
 
     #Load rook test
-    f2 = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
+    f2 = ObsFile('testData/15d-40c-no0_scaled.dat','complete')
     g = grid2Rook(23,28,binary=1)
     G2 = NX.Graph()
     for node in g:
         for neighbor in g[node][1]:
             G2.add_edge((node,neighbor))
     s2 = GraphTopology(G2)
-    s2.Dims = 10
+    s2.Dims = 15
     s2.load('testResults/','rook_100k')
 
     print "finding IV for sphereical case"
@@ -536,7 +536,7 @@ def rookGraphTest():
         for neighbor in g[node][1]:
             G.add_edge((node,neighbor))
     s = GraphTopology(G)
-    s.Dims = 10
+    s.Dims = 15
     s.maxN = 0.5
     s.tSteps = 10000
     s.alpha0 = 0.04
