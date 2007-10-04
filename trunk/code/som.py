@@ -10,10 +10,12 @@ Version 2, you should check.
 ======================================================================
 """
 import random,math,time,sys,os
-from numpy import array,empty,take,put
+from numpy import array,empty,take,put,zeros
+import numpy as N
 from math import acos,sqrt,pi,degrees,sin,cos,asin
-import neighbors as nf
 import networkx as NX
+import pylab
+from utils import *
 
 class som:
     ''' Base class for the Self-Organizing Map,
@@ -359,6 +361,15 @@ class ObsFile:
         self.reset()
     def __iter__(self):
         return self
+    def listolists(self):
+        self.fileObj.seek(0)
+        lines = self.fileObj.readlines()
+        dims = lines.pop(0)
+        dims = int(dims)
+        lines = [line.split() for line in lines]
+        lines = [line[:dims] for line in lines]
+        lines = [array(map(float,line),'float') for line in lines]
+        return lines
     def Snext(self):
         line = self.fileObj.next()
         id,line = line.split(':')
@@ -375,7 +386,7 @@ class ObsFile:
     def Cnext(self):
         line = self.fileObj.next()
         line = line.split()
-        id = self.nextLine
+        id = self.nextLine-1
         for n in xrange(0,self.Dims):
             self.values[n] = float(line[n])
         self.nextLine+=1
@@ -401,8 +412,6 @@ class ObsFile:
             return self.next()
     def close(self):
         self.fileObj.close()
-
-
 
 def sphereTest():
     s = Sphere()
@@ -446,18 +455,59 @@ def graphTest():
     f.close()
     return s
 
-def graphTestMap():
-    import delaunay
+def pairWiseDist(ids,lines):
+    """returns a non-symtric sq. dist matrix, diag = 0, below diag = 0"""
+    size = len(ids)
+    ivMatrix = zeros((size,size),'float')
+    lines = [lines[id] for id in ids]
+    for i in xrange(size):
+        for j in xrange(i,size):
+            ivMatrix[i,j] = sqrt(sum((lines[i]-lines[j])**2))
+    return ivMatrix
+
+def graphTestMapIV():
+    #import delaunay
     G = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
     s = GraphTopology(G)
     s.Dims = 10
     f = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
     s.load('testResults/','graph_100k')
-    results = s.map(f)
+    daMap,qerror = s.map(f)
+    print "\nfinding IV"
+    l = f.listolists()
+    results = []
+    for node,ids in daMap.iteritems():
+        degree = G.degree(node)
+        size = len(ids)
+        if size > 1:
+            distMatrix = pairWiseDist(ids,l)
+            # for a sq. dist martix, the number of the pairWise distances is
+            # equal to the totalsize (size in 1d)**2 - the number of diagonals
+            # (size) over 2
+            averageIV = distMatrix.sum() / (((size**2)-size)/2)
+            results.append((node,size,degree,averageIV))
     return results
 
+def boxIV(ivData):
+    data = {}
+    for node,size,degree,aiv in ivData:
+        if degree not in data:
+            data[degree] = []
+        data[degree].append(aiv)
+    degs = data.keys()
+    degs.sort()
+    l = []
+    for deg in degs:
+        l.append(data[deg])
+    #data = N.array(zip(*l))
+    pylab.boxplot(l)
+    pylab.show()
+    return l,degs
+        
+    
+
 def rookGraphTest():
-    from grid2rook import grid2Rook
+    #from grid2rook import grid2Rook
     g = grid2Rook(23,28,binary=1)
     G = NX.Graph()
     for node in g:
@@ -487,7 +537,12 @@ def rookGraphTest():
     return s
 
 if __name__=="__main__":
+    #f = ObsFile('testData/10d-10c-no0_scaled.dat','complete')
+    #l = f.listolists()
     #s = sphereTest() # This is probably no good anymore (or ever)
     #g = graphTest()
-    daMap,qerror = graphTestMap()
+    q1 = graphTestMapIV()
+    boxData = boxIV(q1)
+    
+    #daMap,qerror = graphTestMap()
     #r = rookGraphTest()
