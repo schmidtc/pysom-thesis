@@ -556,7 +556,7 @@ def rookGraphTest():
     f = ObsFile('testData/15d-40c-no0_scaled.dat','complete')
     print "init"
     s.randInit()
-    print "run t=10K"
+    print "run t=100K"
     s.run(f)
     s.save('testResults/','rook_100k')
 
@@ -564,7 +564,7 @@ def rookGraphTest():
     s.tSteps = 1000000
     s.alpha0 = 0.03
     f.reset()
-    print "run t=100K"
+    print "run t=1M"
     s.run(f)
     s.save('testResults/','rook_1m')
 
@@ -583,9 +583,10 @@ if __name__=="__main__":
     #s = sphereTest() # This is probably no good anymore (or ever)
 
     ### Step two, find internal variance, plot against degree
-    q1 = graphTestMapIV()
-    ivData = q1['sphere']
-    ivData2 = q1['rook']
+    #q1 = graphTestMapIV()
+    #ivData = q1['sphere']
+    #ivData2 = q1['rook']
+    '''
     groups,degrees = boxIV(ivData)
     print "Sphere:"
     for i,group in enumerate(groups):
@@ -598,4 +599,15 @@ if __name__=="__main__":
         print "group size: ", degrees2[i]
         print "mean: ", N.mean(group)
         print "variance: ", N.var(group)
+    ''' 
+    #f = open('testResults/graph_1m.iv','w')
+    #f.write('node,size,degree,averageIV\n')
+    #f.writelines([','.join(map(str,line))+'\n' for line in ivData])
+    #f.close()
+    #f = open('testResults/rook_1m.iv','w')
+    #f.write('node,size,degree,averageIV\n')
+    #f.writelines([','.join(map(str,line))+'\n' for line in ivData2])
+    #f.close()
+
+
     #daMap,qerror = graphTestMap()
