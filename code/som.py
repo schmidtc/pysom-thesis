@@ -450,7 +450,8 @@ def pairWiseDist(ids,lines):
 def getIVdata(s,f):
     """ takes a som and a obsFile """
     if not s.daMap:
-        qerror = s.map(f)
+        print "no map"
+        #qerror = s.map(f)
     else: 
         qerror = None
     daMap = s.daMap
@@ -489,9 +490,9 @@ def graphTestMapIV():
     #Load spherical som.
     G = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
     s = GraphTopology(G)
-    s.Dims = 10
+    s.Dims = 15
     f = ObsFile('testData/15d-40c-no0_scaled.dat','complete')
-    s.load('testResults/','graph_100k')
+    s.load('testResults/','graph_1m')
 
     #Load rook test
     f2 = ObsFile('testData/15d-40c-no0_scaled.dat','complete')
@@ -502,14 +503,14 @@ def graphTestMapIV():
             G2.add_edge((node,neighbor))
     s2 = GraphTopology(G2)
     s2.Dims = 15
-    s2.load('testResults/','rook_100k')
+    s2.load('testResults/','rook_1m')
 
     print "finding IV for sphereical case"
     ivData = getIVdata(s,f)
-    s.save('testResults/','graph_100k')
+    #s.save('testResults/','graph_100k')
     print "finding IV for rook case"
     ivData2 = getIVdata(s2,f2)
-    s2.save('testResults/','rook_100k')
+    #s2.save('testResults/','rook_100k')
     
     return {'sphere':(ivData),'rook':(ivData2)}
 
@@ -524,13 +525,14 @@ def graphTest():
     f = ObsFile('testData/15d-40c-no0_scaled.dat','complete')
     print "init"
     s.randInit()
-    print "run t=10K"
+    print "run t=100K"
     s.run(f)
     s.save('testResults/','graph_100k')
     s.maxN = 0.333
     s.tSteps = 1000000
     s.alpha0 = 0.03
     f.reset()
+    print "run t=1M"
     s.run(f)
     s.save('testResults/','graph_1m')
 
@@ -576,14 +578,24 @@ def rookGraphTest():
 
 if __name__=="__main__":
     ### Step one, train the soms
-    g = graphTest()
+    #g = graphTest()
     #r = rookGraphTest()
     #s = sphereTest() # This is probably no good anymore (or ever)
 
     ### Step two, find internal variance, plot against degree
-    #q1 = graphTestMapIV()
-    #ivData = q1['sphere']
-    #ivData2 = q1['rook']
-    #groups,degrees = boxIV(ivData)
-    #groups2,degrees2 = boxIV(ivData2)
+    q1 = graphTestMapIV()
+    ivData = q1['sphere']
+    ivData2 = q1['rook']
+    groups,degrees = boxIV(ivData)
+    print "Sphere:"
+    for i,group in enumerate(groups):
+        print "group size: ", degrees[i]
+        print "mean: ", N.mean(group)
+        print "variance: ", N.var(group)
+    groups2,degrees2 = boxIV(ivData2)
+    print "Rook:"
+    for i,group in enumerate(groups2):
+        print "group size: ", degrees2[i]
+        print "mean: ", N.mean(group)
+        print "variance: ", N.var(group)
     #daMap,qerror = graphTestMap()
