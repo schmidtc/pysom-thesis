@@ -450,10 +450,8 @@ def pairWiseDist(ids,lines):
 def getIVdata(s,f):
     """ takes a som and a obsFile """
     if not s.daMap:
-        print "no map"
+        print "Please map first"
         #qerror = s.map(f)
-    else: 
-        qerror = None
     daMap = s.daMap
     l = f.listolists()
     results = []
