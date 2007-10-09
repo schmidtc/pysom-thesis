@@ -340,42 +340,6 @@ class Sphere(som):
             self.neighborhoodCache[bmu] = pts
             return pts
 
-class SphereTopoTest(Sphere):
-    def __init__(self):
-        Sphere.__init__(self)
-    def randInit(self):
-        Sphere.randInit(self)
-        self.nodes = zeros((int(self.Size),1))
-    def neighborhood(self,bmu,sigma):
-        NumNeighbors = sigma
-        pt0 = self.grid[bmu]
-        dists = {}
-        for i in xrange(self.Size):
-            dists[self.sdist(self.grid[i],pt0)] = i
-        keys = dists.keys()
-        keys.sort() 
-        pts = [dists[keys[i]] for i in xrange(NumNeighbors)]
-        return pts
-    def hci(self,dist):
-        if dist == 0:
-            return 1.0
-        else:
-            return 0.5
-    def merge(self,nodeID):
-        results = self.neighborhood( nodeID , 7 ) # 1 for me plus 6 neighbors
-        alteredNodes = [(results[i],self.hci(i)) for i in xrange(len(results))]
-        for nodeID,hc in alteredNodes:
-            part = self.nodes[nodeID][0]
-            delta = part+hc*(2)  # 2 is the value we through at the grid
-            put(self.nodes[nodeID],0,delta)
-    def run(self):
-        print "Running..."
-        t1 = time.time()
-        for nodeID in xrange(self.Size):
-            self.merge(nodeID)
-        print "\nRun compleated in %f seconds"%(time.time()-t1)
-
-
 class ObsFile:
     def __init__(self,filename,fileType = 'complete'):
         self.filename = filename
