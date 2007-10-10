@@ -26,6 +26,7 @@ class som:
     def __init__(self):
         self.Dims = 0
         self.Size = 0
+        self.Type = 'none'
         self.tSteps = 0
         self.maxN = 0
         self.alpha0 = 0
@@ -35,7 +36,7 @@ class som:
     def load(self,path='',name=None):
         if not name:
             name = '%ds_%dd_%dr_%fa'%(self.Size,self.Dims,self.tSteps,self.alpha0)
-        codname = path+name+'.txt'
+        codname = path+name+'.cod'
         mapname = path+name+'.map'
         if os.path.exists(mapname):
             try:
@@ -46,8 +47,9 @@ class som:
                 self.daMap = {}
         dataf = open(codname,'r')
         header = dataf.next()
-        Dims,Size = header.split()
+        Dims,Type,Size,Size = header.split()
         self.Dims = int(Dims)
+        self.Type = Type
         self.Size = int(Size)
         self.nodes = array([[0.0 for i in xrange(self.Dims)] for j in xrange(self.Size)])
         for i in xrange(self.Size):
@@ -59,14 +61,14 @@ class som:
     def save(self,path='',name=None):
         if not name:
             name = '%ds_%dd_%dr_%fa'%(self.Size,self.Dims,self.tSteps,self.alpha0)
-        codname = path+name+'.txt'
+        codname = path+name+'.cod'
         mapname = path+name+'.map'
         if self.daMap:
             mapfile = open(mapname,'w')
             pickle.dump(self.daMap,mapfile)
             mapfile.close()
         outf = open(codname,'w')
-        outf.write("%d %d\n"%(self.Dims,self.Size))
+        outf.write("%d %s %d %d gaussian\n"%(self.Dims,self.Type,self.Size,self.Size))
         for i in xrange(self.Size):
             outf.write(' '.join(str(self.nodes[i].tolist())[1:-1].split(', '))+'\n')
         outf.close()
@@ -202,8 +204,9 @@ class Topology(som):
     
 class GraphTopology(som):
     """ Template class for topology Copy this class to create a new topology for som"""
-    def __init__(self,G=None):
+    def __init__(self,G=None,Type='Graph'):
         som.__init__(self)
+        self.Type = Type
         if G:
             self.G = G
             self.Size = G.order()
