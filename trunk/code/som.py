@@ -32,7 +32,7 @@ class som:
         self.nodes = []
         self.daMap = {}
 
-    def load(self,path,name=None):
+    def load(self,path='',name=None):
         if not name:
             name = '%ds_%dd_%dr_%fa'%(self.Size,self.Dims,self.tSteps,self.alpha0)
         codname = path+name+'.txt'
@@ -56,7 +56,7 @@ class som:
             data = map(float,data)
             self.nodes[i] = data
 
-    def save(self,path=None,name=None):
+    def save(self,path='',name=None):
         if not name:
             name = '%ds_%dd_%dr_%fa'%(self.Size,self.Dims,self.tSteps,self.alpha0)
         codname = path+name+'.txt'
@@ -202,22 +202,38 @@ class Topology(som):
     
 class GraphTopology(som):
     """ Template class for topology Copy this class to create a new topology for som"""
-    def __init__(self,G):
+    def __init__(self,G=None):
         som.__init__(self)
-        self.G = G
-        self.Size = G.order()
-
-        # if findWidth is not given a seed it will brute force the total network
-        # width, this could take a long time. For the spherical network, one of
-        # the polls should yeild the correct width. Or possible the node with
-        # lowest degree.
-        self.Width = nf.findWidth(G,G.nodes()[-1]) 
-        self.maxN = 0.5
+        if G:
+            self.G = G
+            self.Size = G.order()
+            # if findWidth is not given a seed it will brute force the total network
+            # width, this could take a long time. For the spherical network, one of
+            # the polls should yeild the correct width. Or possible the node with
+            # lowest degree.
+            self.Width = nf.findWidth(G,G.nodes()[-1]) 
+            self.maxN = 0.5
 
     def save(self,path,name):
         som.save(self,path,name)
+        if not name:
+            name = '%ds_%dd_%dr_%fa'%(self.Size,self.Dims,self.tSteps,self.alpha0)
+        graphFile = path+name+'.graph'
+        f = open(graphFile,'w')
+        pickle.dump(self.G,f)
+        f.close()
     def load(self,path,name):
         som.load(self,path,name)
+        if not name:
+            name = '%ds_%dd_%dr_%fa'%(self.Size,self.Dims,self.tSteps,self.alpha0)
+        graphFile = path+name+'.graph'
+        if os.path.exists(graphFile):
+            f = open(graphFile,'r')
+            self.G = G = pickle.load(f)
+            self.Size = G.order()
+            self.Width = nf.findWidth(G,G.nodes()[-1]) 
+            f.close()
+
     def randInit(self):
         som.randInit(self)
     def kernalWidth(self,t):
