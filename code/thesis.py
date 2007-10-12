@@ -85,6 +85,9 @@ if __name__=="__main__":
         print "group size: ", rDegs[i]
         print "mean: ", N.mean(group)
         print "variance: ", N.var(group)
+
+    boxIV(sGroups,sDegs)
+    boxIV(rGroups,rDegs)
     #f = open('testResults/graph_1m.iv','w')
     #f.write('node,size,degree,averageIV\n')
     #f.writelines([','.join(map(str,line))+'\n' for line in ivData])
