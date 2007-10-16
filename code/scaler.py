@@ -45,7 +45,7 @@ def scaler(data_file_name,out_file_name,delim=None,minList=None,maxList=None):
         maxList = [float(line[n]) for n in xrange(dim)]
         line = data.readline()
         while line:
-            print line
+            #print line
             line = line.strip('\n')
             line = line.split(delim)
             for n in xrange(dim):

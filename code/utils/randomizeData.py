@@ -1,3 +1,4 @@
+#!/usr/local/bin/python
 import sys,random
 
 fname = sys.argv[1]
