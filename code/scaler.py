@@ -1,3 +1,4 @@
+#!/usr/local/bin/python
 """
 Data scaler for use with Python Self-Organizing Maps
 ----------------------------------------------------------------------
