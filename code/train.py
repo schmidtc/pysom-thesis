@@ -9,7 +9,7 @@ def graphTest(dims,clusters,testNum):
     s.maxN = 0.5
     s.tSteps = 100000
     s.alpha0 = 0.04
-    f = ObsFile('testData/%dd-%dc-no%d_scaled.dat'%(dims,clusters,testNum),'complete')
+    f = ObsFile('testData/%dd-%dc-no%d_rs.dat'%(dims,clusters,testNum),'complete')
     print "init"
     s.randInit()
     print "run t=100K"
@@ -40,7 +40,7 @@ def rookGraphTest(dims,clusters,testNum):
     s.maxN = 0.5
     s.tSteps = 100000
     s.alpha0 = 0.04
-    f = ObsFile('testData/%dd-%dc-no%d_scaled.dat'%(dims,clusters,testNum),'complete')
+    f = ObsFile('testData/%dd-%dc-no%d_rs.dat'%(dims,clusters,testNum),'complete')
     print "init"
     s.randInit()
     print "run t=100K"
