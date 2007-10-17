@@ -25,6 +25,8 @@ class som:
     '''
     def __init__(self):
         self.Dims = 0
+        self.X = 0
+        self.Y = 0
         self.Size = 0
         self.Type = 'none'
         self.tSteps = 0
@@ -60,6 +62,9 @@ class som:
             self.nodes[i] = data
 
     def save(self,path='',name=None):
+        if self.X == 0 or self.Y == 0:
+            self.X = self.Size
+            self.Y = 1
         if not name:
             name = '%ds_%dd_%dr_%fa'%(self.Size,self.Dims,self.tSteps,self.alpha0)
         codname = path+name+'.cod'
