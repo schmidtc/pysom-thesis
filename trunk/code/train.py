@@ -5,7 +5,7 @@ from som import *
 def graphTest(dims,clusters,testNum):
     G = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
     s = GraphTopology(G)
-    s.Dims = 15
+    s.Dims = dims
     s.maxN = 0.5
     s.tSteps = 100000
     s.alpha0 = 0.04
@@ -36,7 +36,7 @@ def rookGraphTest(dims,clusters,testNum):
         for neighbor in g[node][1]:
             G.add_edge((node,neighbor))
     s = GraphTopology(G)
-    s.Dims = 15
+    s.Dims = dims
     s.maxN = 0.5
     s.tSteps = 100000
     s.alpha0 = 0.04
@@ -79,6 +79,20 @@ if __name__=="__main__":
     graphTest(20,2,0)
     graphTest(20,2,1)
 
+    graphTest(5,10,0)
+    graphTest(5,10,1)
+    graphTest(10,10,0)
+    graphTest(10,10,1)
+    graphTest(20,10,0)
+    graphTest(20,10,1)
+
+    graphTest(5,20,0)
+    graphTest(5,20,1)
+    graphTest(10,20,0)
+    graphTest(10,20,1)
+    graphTest(20,20,0)
+    graphTest(20,20,1)
+
     rookGraphTest(5,0,0)
     rookGraphTest(5,0,1)
     rookGraphTest(10,0,0)
@@ -92,3 +106,17 @@ if __name__=="__main__":
     rookGraphTest(10,2,1)
     rookGraphTest(20,2,0)
     rookGraphTest(20,2,1)
+
+    rookGraphTest(5,10,0)
+    rookGraphTest(5,10,1)
+    rookGraphTest(10,10,0)
+    rookGraphTest(10,10,1)
+    rookGraphTest(20,10,0)
+    rookGraphTest(20,10,1)
+
+    rookGraphTest(5,20,0)
+    rookGraphTest(5,20,1)
+    rookGraphTest(10,20,0)
+    rookGraphTest(10,20,1)
+    rookGraphTest(20,20,0)
+    rookGraphTest(20,20,1)
