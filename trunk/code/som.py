@@ -49,7 +49,7 @@ class som:
                 self.daMap = {}
         dataf = open(codname,'r')
         header = dataf.next()
-        Dims,Type,x,y = header.split()
+        Dims,Type,x,y,nType= header.split()
         self.Dims = int(Dims)
         self.Type = Type
         self.X, self.Y = int(x),int(y)
