@@ -1,3 +1,4 @@
+import sys
 from som import *
 # Research Question 1...
 # Calculate the internal variance for each nueon in the network.
@@ -56,45 +57,21 @@ def q2(ivDataList):
         reg.append(N.var(degree))
     return groups,reg
     
-if __name__=="__main__":
-    #Get the data file ready.
-    f = ObsFile('testData/15d-40c-no0_scaled.dat','complete')
 
-    #  Load spherical som.
+def gload(dims,clusters,testNum=0,type='graph',path='testResults/'):
+    f = ObsFile('testData/%sd-%dc-no%d_rs.dat'%(dims,clusters,testNum),'complete')
     s = GraphTopology()
-    s.load('testResults/','graph_1m')
-    # Load rook som.
-    s2 = GraphTopology()
-    s2.load('testResults/','rook_1m')
-
-    ### Step two, find internal variance, plot against degree
-    # map(N.mean,sGroups)
-    # map(N.var,sGroups)
-    print "finding IV for spherical case"
+    s.load(path,'%s_%dd-%dc-no%d_1m'%(type,dims,clusters,testNum))
+    return s,f
+def stats(dims,clusters,testNum=0,type='graph',path='testResults/'):
+    s,f = gload(dims,clusters,testNum)
     sIV,sGroups,sDegs = getIVdata(s,f)
-    print "Sphere:"
-    for i,group in enumerate(sGroups):
-        print "group size: ", sDegs[i]
-        print "mean: ", N.mean(group)
-        print "variance: ", N.var(group)
-
-    print "finding IV for rook case"
-    rIV,rGroups,rDegs = getIVdata(s2,f)
-    print "Rook:"
-    for i,group in enumerate(rGroups):
-        print "group size: ", rDegs[i]
-        print "mean: ", N.mean(group)
-        print "variance: ", N.var(group)
-
     boxIV(sGroups,sDegs)
-    boxIV(rGroups,rDegs)
-    #f = open('testResults/graph_1m.iv','w')
-    #f.write('node,size,degree,averageIV\n')
-    #f.writelines([','.join(map(str,line))+'\n' for line in ivData])
-    #f.close()
-    #f = open('testResults/rook_1m.iv','w')
-    #f.write('node,size,degree,averageIV\n')
-    #f.writelines([','.join(map(str,line))+'\n' for line in ivData2])
-    #f.close()
+    #print dims,clusters,testNum,type,
+    #for i,group in enumerate(sGroups):
+    #    print "group size: ", sDegs[i]
+    #    print "mean: ", N.mean(group)
+    #    print "variance: ", N.var(group)
 
-    
+if __name__=="__main__":
+    stats(5,2,0)
