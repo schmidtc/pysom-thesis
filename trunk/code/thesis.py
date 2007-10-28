@@ -66,12 +66,47 @@ def gload(dims,clusters,testNum=0,type='graph',path='testResults/'):
 def stats(dims,clusters,testNum=0,type='graph',path='testResults/'):
     s,f = gload(dims,clusters,testNum)
     sIV,sGroups,sDegs = getIVdata(s,f)
-    boxIV(sGroups,sDegs)
-    #print dims,clusters,testNum,type,
-    #for i,group in enumerate(sGroups):
+    #boxIV(sGroups,sDegs)
+    sys.stdout.write("%d,%d,%d,%s"%(dims,clusters,testNum,type))
+    for i,group in enumerate(sGroups):
+        sys.stdout.write(",%d,%f,%f"%(sDegs[i],N.mean(group),N.var(group)))
     #    print "group size: ", sDegs[i]
     #    print "mean: ", N.mean(group)
     #    print "variance: ", N.var(group)
+    sys.stdout.write('\n')
+    sys.stdout.flush()
 
 if __name__=="__main__":
+    print "Dims,Cluster,TestNum,Type,d,m,v,d2,m2,v2,d3,m3,v3"
+    stats(5,0,0)
+    stats(10,0,0)
+    stats(20,0,0)
+
     stats(5,2,0)
+    stats(10,2,0)
+    stats(20,2,0)
+
+    stats(5,10,0)
+    stats(10,10,0)
+    stats(20,10,0)
+
+    stats(5,20,0)
+    stats(10,20,0)
+    stats(20,20,0)
+
+
+    stats(5,0,0,'rook')
+    stats(10,0,0,'rook')
+    stats(20,0,0,'rook')
+
+    stats(5,2,0,'rook')
+    stats(10,2,0,'rook')
+    stats(20,2,0,'rook')
+
+    stats(5,10,0,'rook')
+    stats(10,10,0,'rook')
+    stats(20,10,0,'rook')
+
+    stats(5,20,0,'rook')
+    stats(10,20,0,'rook')
+    stats(20,20,0,'rook')
