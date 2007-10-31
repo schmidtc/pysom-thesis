@@ -64,7 +64,7 @@ def gload(dims,clusters,testNum=0,type='graph',path='testResults/'):
     s.load(path,'%s_%dd-%dc-no%d_1m'%(type,dims,clusters,testNum))
     return s,f
 def stats(dims,clusters,testNum=0,type='graph',path='testResults/'):
-    out = open('q1.txt','w')
+    out = open('q1.txt','a')
     s,f = gload(dims,clusters,testNum)
     sIV,sGroups,sDegs = getIVdata(s,f)
     #boxIV(sGroups,sDegs)
@@ -79,8 +79,10 @@ def stats(dims,clusters,testNum=0,type='graph',path='testResults/'):
     #sys.stdout.flush()
     out.close()
 
-if __name__=="__main__":
-    print "Dims,Cluster,TestNum,Type,d,m,v"#,d2,m2,v2,d3,m3,v3"
+def q1():
+    out = open('q1.txt','w')
+    out.write("Dims,Cluster,TestNum,Type,d,m,v\n")
+    out.close()
     stats(5,0,0)
     stats(10,0,0)
     stats(20,0,0)
@@ -113,3 +115,15 @@ if __name__=="__main__":
     stats(5,20,0,'rook')
     stats(10,20,0,'rook')
     stats(20,20,0,'rook')
+
+def q1p():
+    f = open('q1.txt','r')
+    header = f.readline()
+    lines = f.readlines()
+    lines  = [l.strip().split(',') for l in lines]
+    [l.pop(3) for l in lines]
+    return lines
+
+if __name__=="__main__":
+    #q1()
+    data = q1p()
