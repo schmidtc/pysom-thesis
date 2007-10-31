@@ -6,10 +6,10 @@ def pairWiseDist(ids,lines):
     """returns a non-symtric sq. dist matrix, diag = 0, below diag = 0"""
     size = len(ids)
     ivMatrix = zeros((size,size),'float')
-    lines = [lines[id] for id in ids]
+    data = [lines[id] for id in ids]
     for i in xrange(size):
         for j in xrange(i,size):
-            ivMatrix[i,j] = sqrt(sum((lines[i]-lines[j])**2))
+            ivMatrix[i,j] = sqrt(sum((data[i]-data[j])**2))
     return ivMatrix
 def getIVdata(s,f):
     """ takes a som """
@@ -64,20 +64,23 @@ def gload(dims,clusters,testNum=0,type='graph',path='testResults/'):
     s.load(path,'%s_%dd-%dc-no%d_1m'%(type,dims,clusters,testNum))
     return s,f
 def stats(dims,clusters,testNum=0,type='graph',path='testResults/'):
+    out = open('q1.txt','w')
     s,f = gload(dims,clusters,testNum)
     sIV,sGroups,sDegs = getIVdata(s,f)
     #boxIV(sGroups,sDegs)
-    sys.stdout.write("%d,%d,%d,%s"%(dims,clusters,testNum,type))
+    #sys.stdout.write("%d,%d,%d,%s"%(dims,clusters,testNum,type))
     for i,group in enumerate(sGroups):
-        sys.stdout.write(",%d,%f,%f"%(sDegs[i],N.mean(group),N.var(group)))
+        out.write("%d,%d,%d,%s"%(dims,clusters,testNum,type))
+        out.write(",%d,%f,%f\n"%(sDegs[i],N.mean(group),N.var(group)))
     #    print "group size: ", sDegs[i]
     #    print "mean: ", N.mean(group)
     #    print "variance: ", N.var(group)
-    sys.stdout.write('\n')
-    sys.stdout.flush()
+    #sys.stdout.write('\n')
+    #sys.stdout.flush()
+    out.close()
 
 if __name__=="__main__":
-    print "Dims,Cluster,TestNum,Type,d,m,v,d2,m2,v2,d3,m3,v3"
+    print "Dims,Cluster,TestNum,Type,d,m,v"#,d2,m2,v2,d3,m3,v3"
     stats(5,0,0)
     stats(10,0,0)
     stats(20,0,0)
