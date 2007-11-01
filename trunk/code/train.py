@@ -70,7 +70,7 @@ def Test():
     s = GraphTopology(G)
     s.Dims = 5
     s.maxN = 0.5
-    s.tSteps = 100000
+    s.tSteps = 10000
     s.alpha0 = 0.04
     f = ObsFile('testData/test.dat','complete')
     print "init"
@@ -84,18 +84,18 @@ def Test():
     s.alpha0 = 0.03
     f.reset()
     print "run t=1M"
-    s.run(f)
-    s.save('testResults/','test_1m')
+    #s.run(f)
+    #s.save('testResults/','test_1m')
 
     f.reset()
     s.map(f)
-    s.save('testResults/','test_1m')
+    #s.save('testResults/','test_1m')
 
     f.close()
     return s
 
 if __name__=="__main__":
-    Test()
+    s = Test()
 if __name__=="__joe__":
     ### Step one, train the soms
     graphTest(5,0,0)
