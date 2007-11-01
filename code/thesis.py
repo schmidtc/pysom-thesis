@@ -66,18 +66,19 @@ def gload(dims,clusters,testNum=0,type='graph',path='testResults/'):
 def stats(dims,clusters,testNum=0,type='graph',path='testResults/'):
     out = open('q1.txt','a')
     s,f = gload(dims,clusters,testNum)
-    sIV,sGroups,sDegs = getIVdata(s,f)
+    IV,Groups,Degs = getIVdata(s,f)
     #boxIV(sGroups,sDegs)
     #sys.stdout.write("%d,%d,%d,%s"%(dims,clusters,testNum,type))
-    for i,group in enumerate(sGroups):
+    for i,group in enumerate(Groups):
         out.write("%d,%d,%d,%s"%(dims,clusters,testNum,type))
-        out.write(",%d,%f,%f\n"%(sDegs[i],N.mean(group),N.var(group)))
+        out.write(",%d,%f,%f\n"%(Degs[i],N.mean(group),N.var(group)))
     #    print "group size: ", sDegs[i]
     #    print "mean: ", N.mean(group)
     #    print "variance: ", N.var(group)
     #sys.stdout.write('\n')
     #sys.stdout.flush()
     out.close()
+    return (IV,Groups,Degs)
 
 def q1():
     out = open('q1.txt','w')
@@ -126,4 +127,7 @@ def q1p():
 
 if __name__=="__main__":
     #q1()
-    data = q1p()
+    #data = q1p()
+    a = stats(5,0,0)
+    b = stats(5,2,0)
+    
