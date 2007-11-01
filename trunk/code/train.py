@@ -62,8 +62,41 @@ def rookGraphTest(dims,clusters,testNum):
     f.close()
     return s
 ### End Training
+def Test():
+    g = grid2Rook(23,28,binary=1)
+    G = NX.Graph()
+    G.add_edge(0,1)
+    G.add_edge(1,2)
+    s = GraphTopology(G)
+    s.Dims = 5
+    s.maxN = 0.5
+    s.tSteps = 100000
+    s.alpha0 = 0.04
+    f = ObsFile('testData/test.dat','complete')
+    print "init"
+    s.randInit()
+    print "run t=100K"
+    s.run(f)
+    s.save('testResults/','test_100k')
+
+    s.maxN = 0.5
+    s.tSteps = 1000000
+    s.alpha0 = 0.03
+    f.reset()
+    print "run t=1M"
+    s.run(f)
+    s.save('testResults/','test_1m')
+
+    f.reset()
+    s.map(f)
+    s.save('testResults/','test_1m')
+
+    f.close()
+    return s
 
 if __name__=="__main__":
+    Test()
+if __name__=="__joe__":
     ### Step one, train the soms
     graphTest(5,0,0)
     graphTest(5,0,1)

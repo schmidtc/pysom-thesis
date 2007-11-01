@@ -218,10 +218,11 @@ class GraphTopology(som):
             self.Size = G.order()
             # if findWidth is not given a seed it will brute force the total network
             # width, this could take a long time. For the spherical network, one of
-            # the polls should yeild the correct width. Or possible the node with
+            # the polls should yield the correct width. Or possibly the node with
             # lowest degree.
             self.Width = nf.findWidth(G,G.nodes()[-1]) 
-            self.maxN = 0.5
+            #WHY WHY WHY WHY WHY!!!!
+            #self.maxN = 0.5
 
     def save(self,path,name):
         som.save(self,path,name)
@@ -285,7 +286,8 @@ class Sphere(som):
         # The Cache cache only works if the Neighborhood size is decreasing!
         # If you increase the maxN clear the cache!
         self.neighborhoodCache = {}
-        self.maxN = 0.5
+        # WHY WHY WHY WHY!!!!!
+        # self.maxN = 0.5
     def clearCache(self):
         self.neighborhoodCache = {}
     def randInit(self):
@@ -398,7 +400,7 @@ class ObsFile:
     def Cnext(self):
         line = self.fileObj.next()
         line = line.split()
-        id = self.nextLine-1
+        id = self.nextLine
         for n in xrange(0,self.Dims):
             self.values[n] = float(line[n])
         self.nextLine+=1
@@ -411,7 +413,6 @@ class ObsFile:
             self.Dims = int(self.fileObj.next())
             self.indices = array(range(self.Dims),'int16') 
             self.values = empty(self.Dims,'float') 
-            self.nextLine += 1
         elif self.fileType == 'sparse':
             self.next = self.Snext
         else:
