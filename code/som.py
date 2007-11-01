@@ -68,19 +68,26 @@ class som:
         if not name:
             name = '%ds_%dd_%dr_%fa'%(self.Size,self.Dims,self.tSteps,self.alpha0)
         codname = path+name+'.cod'
+        cxdname = path+name+'.cxd'
         mapname = path+name+'.map'
         if self.daMap:
             mapfile = open(mapname,'w')
             pickle.dump(self.daMap,mapfile)
             mapfile.close()
         outf = open(codname,'w')
+        outx = open(cxdname,'w')
         outf.write("%d %s %d %d gaussian\n"%(self.Dims,self.Type,self.X,self.Y))
+        outx.write("%d %s %d %d gaussian CUM DIFF FILE\n"%(self.Dims,self.Type,self.X,self.Y))
         for i in xrange(self.Size):
             outf.write(' '.join(str(self.nodes[i].tolist())[1:-1].split(', '))+'\n')
+            outx.write(' '.join(str(self.diffs[i].tolist())[1:-1].split(', '))+'\n')
         outf.close()
+        outx.close()
 
     def randInit(self):
         self.nodes = array([[random.random() for j in xrange(self.Dims)] for i in xrange(self.Size)])
+        # This diffs will define your walls!
+        self.diffs = array([[0.0 for i in xrange(self.Dims)] for j in xrange(self.Size)])
 
     def findBMU(self,ind,v,ReturnDist = False):
         minDist = self.diff(0,ind,v)
@@ -125,8 +132,9 @@ class som:
         alteredNodes = [(results[i],self.hci(t,self.odist(i))) for i in xrange(len(results))]
         for nodeID,hc in alteredNodes:
             part = take(self.nodes[nodeID],ind)
-            delta = part+hc*(v-part)
-            put(self.nodes[nodeID],ind,delta)
+            delta = hc*(v-part)
+            put(self.nodes[nodeID],ind,part+delta)
+            self.diffs[nodeID] += abs(delta)
 
     def run(self,obsf):
         self.neighborhoodCache = {}
@@ -273,12 +281,13 @@ class GraphTopology(som):
         bmu = self.findBMU(ind,v)
         sigma = self.kernalWidth(t)
         results = self.neighborhood( bmu , sigma )
-        alteredNodes = [(node,self.hci(t,odist)) for node,odist in results.iteritems()]
         #alteredNodes = [(results[i],self.hci(t,self.odist(i))) for i in xrange(len(results))]
+        alteredNodes = [(node,self.hci(t,odist)) for node,odist in results.iteritems()]
         for nodeID,hc in alteredNodes:
             part = take(self.nodes[nodeID],ind)
-            delta = part+hc*(v-part)
-            put(self.nodes[nodeID],ind,delta)
+            delta = hc*(v-part)
+            put(self.nodes[nodeID],ind,part+delta)
+            self.diffs[nodeID] += abs(delta)
 
 class Sphere(som):
     def __init__(self):
