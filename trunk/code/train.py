@@ -67,17 +67,25 @@ def Test():
     G = NX.Graph()
     G.add_edge(0,1)
     G.add_edge(1,2)
+    G.add_edge(2,3)
+    G.add_edge(3,4)
+    G.add_edge(4,5)
+    G.add_edge(5,6)
+    G.add_edge(6,7)
+    G.add_edge(7,8)
+    G.add_edge(8,9)
+    #G.add_edge(9,0)
     s = GraphTopology(G)
-    s.Dims = 5
-    s.maxN = 0.5
-    s.tSteps = 10000
+    s.Dims = 1
+    s.maxN = 0.7
+    s.tSteps = 1000000
     s.alpha0 = 0.04
     f = ObsFile('testData/test.dat','complete')
     print "init"
     s.randInit()
     print "run t=100K"
     s.run(f)
-    s.save('testResults/','test_100k')
+    s.save('testResults/','testl_100k')
 
     s.maxN = 0.5
     s.tSteps = 1000000
