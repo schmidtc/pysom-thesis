@@ -103,7 +103,10 @@ def Test():
     return s
 
 if __name__=="__main__":
-    s = Test()
+    #s = Test()
+    graphTest(5,0,0)
+    graphTest(5,2,0)
+    graphTest(5,10,0)
 if __name__=="__joe__":
     ### Step one, train the soms
     graphTest(5,0,0)
