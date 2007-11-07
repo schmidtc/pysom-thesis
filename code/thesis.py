@@ -43,6 +43,31 @@ def getIVdata(s,f):
     for deg in degs:
         groups.append(data[deg])
     return ivData,groups,degs
+def mapClusters(s,f):
+    daMap = s.daMap
+    f.reset()
+    l = f.listolists(comments=True)
+    for node,ids in daMap.iteritems():
+        c = []
+        for id in ids:
+            c.append(l[id][0])
+        daMap[node] = c
+    return daMap
+def mapCA(d,size):
+    s = '1\n'
+    nodes = range(size)
+    for node in nodes:
+        try:
+            ids = d[node]
+            if len(set(ids)) > 1:
+                s += '98\n'
+                print node,ids
+            else:
+                s += str(set(ids).pop())
+                s += '\n'
+        except:
+            s+= '99\n'
+    return s
 def boxIV(groups,degs):
     #data = N.array(zip(*l))
     pylab.boxplot(groups,positions=degs)
@@ -65,7 +90,7 @@ def gload(dims,clusters,testNum=0,type='graph',path='testResults/'):
     return s,f
 def stats(dims,clusters,testNum=0,type='graph',path='testResults/'):
     out = open('q1.txt','a')
-    s,f = gload(dims,clusters,testNum)
+    s,f = gload(dims,clusters,testNum,type)
     IV,Groups,Degs = getIVdata(s,f)
     #boxIV(sGroups,sDegs)
     #sys.stdout.write("%d,%d,%d,%s"%(dims,clusters,testNum,type))
@@ -84,38 +109,64 @@ def q1():
     out = open('q1.txt','w')
     out.write("Dims,Cluster,TestNum,Type,d,m,v\n")
     out.close()
+    i = 24
+    print i;i-=1
     stats(5,0,0)
+    print i;i-=1
     stats(10,0,0)
+    print i;i-=1
     stats(20,0,0)
+    print i;i-=1
 
     stats(5,2,0)
+    print i;i-=1
     stats(10,2,0)
+    print i;i-=1
     stats(20,2,0)
+    print i;i-=1
 
     stats(5,10,0)
+    print i;i-=1
     stats(10,10,0)
+    print i;i-=1
     stats(20,10,0)
+    print i;i-=1
 
     stats(5,20,0)
+    print i;i-=1
     stats(10,20,0)
+    print i;i-=1
     stats(20,20,0)
+    print i;i-=1
 
 
     stats(5,0,0,'rook')
+    print i;i-=1
     stats(10,0,0,'rook')
+    print i;i-=1
     stats(20,0,0,'rook')
+    print i;i-=1
 
     stats(5,2,0,'rook')
+    print i;i-=1
     stats(10,2,0,'rook')
+    print i;i-=1
     stats(20,2,0,'rook')
+    print i;i-=1
 
     stats(5,10,0,'rook')
+    print i;i-=1
     stats(10,10,0,'rook')
+    print i;i-=1
     stats(20,10,0,'rook')
+    print i;i-=1
 
     stats(5,20,0,'rook')
+    print i;i-=1
     stats(10,20,0,'rook')
+    print i;i-=1
     stats(20,20,0,'rook')
+    print i;i-=1
 
 def q1p():
     f = open('q1.txt','r')
@@ -126,8 +177,8 @@ def q1p():
     return lines
 
 if __name__=="__main__":
-    #q1()
+    q1()
     #data = q1p()
-    a = stats(5,0,0)
-    b = stats(5,2,0)
+    #a = stats(5,0,0)
+    #b = stats(5,0,0,'rook')
     

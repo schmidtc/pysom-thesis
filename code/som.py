@@ -384,14 +384,17 @@ class ObsFile:
         self.reset()
     def __iter__(self):
         return self
-    def listolists(self):
+    def listolists(self,comments=False):
         self.fileObj.seek(0)
         lines = self.fileObj.readlines()
         dims = lines.pop(0)
         dims = int(dims)
         lines = [line.split() for line in lines]
-        lines = [line[:dims] for line in lines]
-        lines = [array(map(float,line),'float') for line in lines]
+        if not comments:
+            lines = [line[:dims] for line in lines]
+            lines = [array(map(float,line),'float') for line in lines]
+        else:
+            lines = [line[dims:] for line in lines]
         return lines
     def Snext(self):
         line = self.fileObj.next()
