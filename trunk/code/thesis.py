@@ -2,6 +2,8 @@ import sys
 from som import *
 # Research Question 1...
 # Calculate the internal variance for each nueon in the network.
+# Need to group all neurons by their topology and by their degree.
+
 def pairWiseDist(ids,lines):
     """returns a non-symtric sq. dist matrix, diag = 0, below diag = 0"""
     size = len(ids)
@@ -89,84 +91,60 @@ def gload(dims,clusters,testNum=0,type='graph',path='testResults/'):
     s.load(path,'%s_%dd-%dc-no%d_1m'%(type,dims,clusters,testNum))
     return s,f
 def stats(dims,clusters,testNum=0,type='graph',path='testResults/'):
-    out = open('q1.txt','a')
+    #out = open('q1.txt','a')
+    print type,dims,clusters
     s,f = gload(dims,clusters,testNum,type)
     IV,Groups,Degs = getIVdata(s,f)
-    #boxIV(sGroups,sDegs)
-    #sys.stdout.write("%d,%d,%d,%s"%(dims,clusters,testNum,type))
-    for i,group in enumerate(Groups):
-        out.write("%d,%d,%d,%s"%(dims,clusters,testNum,type))
-        out.write(",%d,%f,%f\n"%(Degs[i],N.mean(group),N.var(group)))
-    #    print "group size: ", sDegs[i]
-    #    print "mean: ", N.mean(group)
-    #    print "variance: ", N.var(group)
-    #sys.stdout.write('\n')
-    #sys.stdout.flush()
-    out.close()
-    return (IV,Groups,Degs)
+    f.close()
+    for i,d in enumerate(Degs):
+        f = open('q1Results/%s_%d.txt'%(type,d),'a')
+        f.write('\n'.join(map(str,Groups[i])))
+        f.write('\n')
+        f.close()
+    #boxIV(Groups,Degs)
+    #for i,group in enumerate(Groups):
+    #    out.write("%d,%d,%d,%s"%(dims,clusters,testNum,type))
+    #    out.write(",%d,%f,%f\n"%(Degs[i],N.mean(group),N.var(group)))
+    #out.close()
+    #return (IV,Groups,Degs)
 
 def q1():
-    out = open('q1.txt','w')
-    out.write("Dims,Cluster,TestNum,Type,d,m,v\n")
-    out.close()
-    i = 24
-    print i;i-=1
-    stats(5,0,0)
-    print i;i-=1
-    stats(10,0,0)
-    print i;i-=1
-    stats(20,0,0)
-    print i;i-=1
+    #out = open('q1.txt','w')
+    #out.write("Dims,Cluster,TestNum,Type,d,m,v\n")
+    #out.close()
+    
+    #stats(5,0,0)
+    #stats(10,0,0)
+    #stats(20,0,0)
 
     stats(5,2,0)
-    print i;i-=1
     stats(10,2,0)
-    print i;i-=1
     stats(20,2,0)
-    print i;i-=1
 
     stats(5,10,0)
-    print i;i-=1
     stats(10,10,0)
-    print i;i-=1
     stats(20,10,0)
-    print i;i-=1
 
     stats(5,20,0)
-    print i;i-=1
     stats(10,20,0)
-    print i;i-=1
     stats(20,20,0)
-    print i;i-=1
 
 
-    stats(5,0,0,'rook')
-    print i;i-=1
-    stats(10,0,0,'rook')
-    print i;i-=1
-    stats(20,0,0,'rook')
-    print i;i-=1
+    #stats(5,0,0,'rook')
+    #stats(10,0,0,'rook')
+    #stats(20,0,0,'rook')
 
     stats(5,2,0,'rook')
-    print i;i-=1
     stats(10,2,0,'rook')
-    print i;i-=1
     stats(20,2,0,'rook')
-    print i;i-=1
 
     stats(5,10,0,'rook')
-    print i;i-=1
     stats(10,10,0,'rook')
-    print i;i-=1
     stats(20,10,0,'rook')
-    print i;i-=1
 
     stats(5,20,0,'rook')
-    print i;i-=1
     stats(10,20,0,'rook')
-    print i;i-=1
     stats(20,20,0,'rook')
-    print i;i-=1
 
 def q1p():
     f = open('q1.txt','r')
@@ -176,8 +154,33 @@ def q1p():
     [l.pop(3) for l in lines]
     return lines
 
+def q1BOX(path='q1Results'):
+    files = os.listdir(path)
+    topos = {}
+    for file in files:
+        tType,rest = file.split('_')
+        dims,rest = rest.split('.')
+        if tType not in topos:
+            topos[tType] = {}
+        f = open(os.path.join(path,file),'r')
+        d = f.read()
+        d = map(float,d.split())
+        topos[tType][int(dims)] = d
+
+    for tType,d in topos.iteritems():
+        degs = d.keys()
+        degs.sort()
+        groups = []
+        for deg in degs:
+            groups.append(d[deg])
+        boxIV(groups,degs)
+    return topos
+
+        
+
 if __name__=="__main__":
     q1()
+    data = q1BOX()
     #data = q1p()
     #a = stats(5,0,0)
     #b = stats(5,0,0,'rook')
