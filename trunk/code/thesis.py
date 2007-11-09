@@ -179,7 +179,7 @@ def q1BOX(path='q1Results'):
         
 
 if __name__=="__main__":
-    q1()
+    #q1()
     data = q1BOX()
     #data = q1p()
     #a = stats(5,0,0)
