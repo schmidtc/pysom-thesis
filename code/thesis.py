@@ -34,17 +34,18 @@ def getIVdata(s,f):
             averageIV = distMatrix.sum() / (((size**2)-size)/2)
             ivData.append((node,size,degree,averageIV))
     
-    data = {}
-    for node,size,degree,aiv in ivData:
-        if degree not in data:
-            data[degree] = []
-        data[degree].append(aiv)
-    degs = data.keys()
-    degs.sort()
-    groups = []
-    for deg in degs:
-        groups.append(data[deg])
-    return ivData,groups,degs
+    #data = {}
+    #for node,size,degree,aiv in ivData:
+    #    if degree not in data:
+    #        data[degree] = []
+    #    data[degree].append(aiv)
+    #degs = data.keys()
+    #degs.sort()
+    #groups = []
+    #for deg in degs:
+    #    groups.append(data[deg])
+    #return ivData,groups,degs
+    return ivData,None,None
 def mapClusters(s,f):
     daMap = s.daMap
     f.reset()
@@ -96,11 +97,13 @@ def stats(dims,clusters,testNum=0,type='graph',path='testResults/'):
     s,f = gload(dims,clusters,testNum,type)
     IV,Groups,Degs = getIVdata(s,f)
     f.close()
-    for i,d in enumerate(Degs):
-        f = open('q1Results/%s_%d.txt'%(type,d),'a')
-        f.write('\n'.join(map(str,Groups[i])))
-        f.write('\n')
-        f.close()
+
+    f = open('q1Results/%s_%dd_%dc_no%d.iv'%(type,dims,clusters,testNum),'w')
+    data = [map(str,line) for line in IV]
+    data = [','.join(line) for line in data]
+    data = '\n'.join(data)+'\n'
+    f.write(data)
+    f.close()
     #boxIV(Groups,Degs)
     #for i,group in enumerate(Groups):
     #    out.write("%d,%d,%d,%s"%(dims,clusters,testNum,type))
@@ -113,9 +116,9 @@ def q1():
     #out.write("Dims,Cluster,TestNum,Type,d,m,v\n")
     #out.close()
     
-    #stats(5,0,0)
-    #stats(10,0,0)
-    #stats(20,0,0)
+    stats(5,0,0)
+    stats(10,0,0)
+    stats(20,0,0)
 
     stats(5,2,0)
     stats(10,2,0)
@@ -130,9 +133,9 @@ def q1():
     stats(20,20,0)
 
 
-    #stats(5,0,0,'rook')
-    #stats(10,0,0,'rook')
-    #stats(20,0,0,'rook')
+    stats(5,0,0,'rook')
+    stats(10,0,0,'rook')
+    stats(20,0,0,'rook')
 
     stats(5,2,0,'rook')
     stats(10,2,0,'rook')
@@ -156,31 +159,34 @@ def q1p():
 
 def q1BOX(path='q1Results'):
     files = os.listdir(path)
-    topos = {}
-    for file in files:
-        tType,rest = file.split('_')
-        dims,rest = rest.split('.')
-        if tType not in topos:
-            topos[tType] = {}
-        f = open(os.path.join(path,file),'r')
-        d = f.read()
-        d = map(float,d.split())
-        topos[tType][int(dims)] = d
 
-    for tType,d in topos.iteritems():
-        degs = d.keys()
-        degs.sort()
-        groups = []
-        for deg in degs:
-            groups.append(d[deg])
-        boxIV(groups,degs)
-    return topos
+ 
+    for fname in files:
+        f = open(os.path.join(path,files[0]),'r')
+        data = f.readlines()
+        data = [l.strip().split(',') for l in data]
+        data = [[int(i[2]),float(i[3])] for i in data]
+        data = N.array(data)
+        x = data[:,0]
+        y = data[:,1]
+        #return x,y
+        pylab.scatter(x,y)
+    
+    #for tType,d in topos.iteritems():
+    #    degs = d.keys()
+    #    degs.sort()
+    #    groups = []
+    #    for deg in degs:
+    #        groups.append(d[deg])
+    #    boxIV(groups,degs)
+    #return topos
 
         
 
 if __name__=="__main__":
+    pass
     #q1()
-    data = q1BOX()
+    #data = q1BOX()
     #data = q1p()
     #a = stats(5,0,0)
     #b = stats(5,0,0,'rook')
