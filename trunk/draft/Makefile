@@ -1,4 +1,4 @@
-all: thesis.ps
+all: thesis.pdf
 
 view: thesis.ps
 	gv thesis.ps
