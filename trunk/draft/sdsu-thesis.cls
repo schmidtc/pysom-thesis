@@ -801,12 +801,12 @@ don't use the twocolumn option}
 % Signatures
   %\vspace*{-
   \rule{3.75in}{1pt}\\
-  {\@committeechair}, Chair \\
+  {\@committeechair}, Co-Chair \\
   {\@committeechairdept}
   \par\vspace*{2\baselineskip}
 %
   \rule{3.75in}{1pt}\\
-  {\@committeesecond} \\
+  {\@committeesecond}, Co-Chair \\
   {\@committeeseconddept}
   \par\vspace*{2\baselineskip}
 %
