@@ -17,7 +17,9 @@
  \documentclass{sdsu-thesis}
 %
 % For early printouts to save paper use the savepaper option as
+
 %\documentclass[savepaper]{sdsu-thesis}
+
 % This will make things single spaced, use small font and smaller margins.
 % Stuff will be formatted differently if you don't use this option but it's
 % useful to basically see (read) what you typed so far on paper without
@@ -32,15 +34,18 @@
 %\documentclass[doublespace]{sdsu-thesis}
 
 % For pictures, include these
-%\usepackage{epic}
-%\usepackage{eepic}
-%\usepackage{color}
-%\usepackage{graphics}
+\usepackage{epic}
+\usepackage{eepic}
+\usepackage{color}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+% what is natbib anyway?
+\usepackage[square]{natbib}
 
 % For chemistry use this.  We've included it because of the chemistry examples.
 \usepackage{dchem}
 % For including encapsulated postscript figures use
-\usepackage{epsfig}
+%\usepackage{epsfig}
 
 % Since this is a math thesis, you quite likely want these:
 \usepackage{amsmath}
@@ -56,6 +61,7 @@
 
 % For commutative diagrams.
 \usepackage[matrix,arrow]{xy}
+
 
 % The style of theorems and such that you want to use.  You can change the
 % style by modifying the second argument (for example prepending '\sc ' as
@@ -154,12 +160,13 @@ Charles R. Schmidt
 % to make it center on the page if desired, see
 % the thesis manual)
 % Or just delete this if you don't have a dedication
-%\begin{dedication}
-%\vspace{3in}
-%\centering
+\begin{dedication}
+\vspace{3in}
+\centering
+Dedicated to the Utah-Hawaii case.
 %Dedicated to quality public education:  May the State of California
 %appreciate its value.
-%\end{dedication}
+\end{dedication}
 
 % Epigraph (make sure to format this correctly, it
 % will just be centered on the page, see the manual)
@@ -203,7 +210,12 @@ Charles R. Schmidt
 %\end{acknowledgements}
 
 % This includes body.tex
-\input{body}
+\input{intro}
+\input{background}
+\input{methods}
+\input{results}
+\input{conclusions}
+%\input{body}
 
 %
 % The bibliography page, must be between main body and appendices
@@ -214,7 +226,7 @@ Charles R. Schmidt
 \bibliography{thbib}
 
 % This includes append.tex
-\input{append}
+%\input{append}
 
 %
 % Make the library abstract page
