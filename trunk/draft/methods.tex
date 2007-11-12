@@ -1,0 +1,120 @@
+\chapter{METHODOLOGY}
+This section is composed of two parts.  The first describes the diagnostics
+developed for evaluating network topologies.  The second describes an
+empirical study that will implement these methods in order to evaluate the
+utility of topologies that allow for greater control over network size.
+
+\section{Diagnostics}
+Three diagnostics are developed to explore the effect of irregular topology on
+spherical SOM.  The first diagnostic will be used to address the research
+question regarding the internal variance and neighborhood size.  The second
+diagnostic will address the question concerning internal variance and
+topological irregularity.  The third tool will help visualize the patterns
+between internal variance and topology.
+
+\subsection{Internal variance vs. first-order neighborhood size}
+This diagnostic will compare the internal variance of each neuron against its
+first-order neighborhood size.  In traditional SOMs, outlying observations are
+pushed to the edge of the map where they encounter fewer competing signals. A
+prime example of this is the ``Utah-Hawaii'' case shown in Figure
+\ref{figure1}.  Relying only on the SOM, one would be left to believe that the
+two states are similar. Upon closer inspection we see that the QError from
+Utah to the neuron is $1.509$, the QError from Hawaii to the neuron in
+$1.505$, but the QError from Utah to Hawaii is $3.014$. In this case only Utah
+and Hawaii were mapped to that neuron.  In a case where multiple observations
+land on the same neuron, it is possible to measure average pairwise QErrors
+between those observations.  This gives us a notion of internal variance for
+each neuron. It would be expected that in traditional SOMs neurons closer to
+the edge will have higher internal variances. This can be extended to
+spherical SOMs by comparing the degree of a neuron ($deg(m_i)$ or the number of
+adjacent neurons) to its internal variance.  The degree of each neuron can
+easily be calculated by taking the column sums of the first-order adjacency
+matrix ($A$).
+
+Once the internal variance ($var(m_i)$) and degree ($deg(m_i)$) of each neuron
+have been calculated, the neurons can be separated into a small number of
+groups based on the degree \footnote{For most topologies the number of
+different degrees will be limited to three or four.}.  The variance and mean
+will be calculated for each of these groups.  The expected result is that
+variances and means of the groups will decrease as the degree increases.  This
+hypothesis will be tested using a ratio of variances test and a difference of
+means test.  The result will also be visualized using a box plot.
+
+\subsection{Internal variance vs. topological regularity}
+This diagnostic will compare the internal variance of each neuron against a
+measure of regularity for its associated topology.  As mentioned above the
+degree of each neuron can be calculated by taking the column sums of $A$.  A
+completely regular network topology (i.e. the torus) will have no variance
+between these column sums.  For irregular networks the variance between these
+column sums gives us a measure of irregularity. There are many alternative
+ways to classify the connectivity of a network; \cite{florax95} outline four
+such summary measures, which will be evaluated for use in this diagnostic.
+For each topology we can compare the internal variances as described above
+against a measure that summarizes the given topology's regularity.
+
+This diagnostic is evaluated in much the same way as the last diagnostic.  
+The internal variances are this time grouped by their topology.  We can then
+compare the variances of internal variances and the means of the internal
+variances across topologies.  It is expected that the distribution of internal
+variances will be narrower for groups trained on more regular topologies.
+It is further hypothesized that the means of these internal variances will
+decrease when the network is more regular, or when there is less variance in
+the column sums of $A$.  These assumptions will be tested using
+a \emph{t-test} on the means and an \emph{F-test} on the variances.
+
+\subsection{Visualize internal variance mapping}
+Visualizing the internal variance may yield insight into how irregular topology
+effects the SOM.  Once the internal variance of each neuron has been calculated
+we can use the values to color or shade a map of the given topology.  The degree
+of the neurons can be visualized using proportional symbols to help show
+patterns between internal variance and irregularity.
+
+\section{Empirical Analysis}
+The empirical analysis consists of three main tasks.  The first is to create
+synthetic data suitable for the diagnostics described above.  The second task is
+to train multiple SOMs, each of with a different topology type. The third task
+will be to apply the diagnostics and interpret the results.
+
+\subsection{Synthetic Data}
+%Comment from Skupin...
+%This section is obviously leaving most of the specifics of the synthetic data
+%generation out, which is problematic. I'm willing to go along with this for
+%the proposal though, unless it gets raised by the third committee member
+In order to test the methods described above, I will generate high-dimensional
+synthetic data with known properties.  Knowing the properties of the training
+data allow us to systematically compare the diagnostics under several different
+topologies.  To ensure that we can calculate an internal variance for each
+neuron, I will generate the data so as to increase the probability that each
+neuron will be occupied by more than one observation.
+
+\subsection{Training}
+The diagnostics must be given a trained SOM for each topology to be compared. To
+yield any meaningful results those SOMs must be trained with comparable
+parameters. Most parameters can simply be set to the same value for each SOM.
+However, special consideration must be given to network size.  As shown in
+Figure \ref{fig:nSize}, topologies differ in terms of achievable network size.
+This analysis will include the following topologies:
+\begin{itemize}
+\item Rectangular
+% Comment by Skupin note addressed here.  Need to come up with better
+% name...
+\item Hexagonal
+\item A topology based on \cite{Rakhmanov94}
+\item The Helix topology proposed by \cite{Nishio:2006fk}\footnote{Currently
+there is some uncertainty about the ability to include the Geodesic and Helix
+type topologies given the complexities involved with their implementation.
+However, an additional goal of this project to provide a framework on which new
+topologies can be easily implemented and tested by future researchers.}
+\item The Geodesic topology proposed by \cite{wu2006}\footnotemark[2]
+\end{itemize}
+
+\subsection{Diagnostics}
+The first diagnostic will yield a set of results for each topology tested.  These
+results will be analyzed in order to address the first research question of this
+paper.  The second diagnostic provides one set of results.  These results will
+be analyzed to address the second research question.  The final diagnostic will
+return a visualization for each topology tested.  The usefulness of these
+visualizations is a research question in itself.  The expectation is that the
+visualizations will show patterns of internal variance related to irregularities
+in the network topology.
+

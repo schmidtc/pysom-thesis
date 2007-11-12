@@ -4,92 +4,6 @@
 % you can use \dsp.  \nsp is normally 1.5 spacing unless you
 % use the doublespace option (or savepaper option)
 
-\chapter{INTRODUCTION}
-\label{c:intro}
-
-This is the long example thesis produced by the  Department of
-Mathematics and Statistics at San Diego State University
-as a guide to using the \LaTeX\ template created by the Department.
-It complies with the SDSU Thesis Manual produced in 2004
-\cite{SDSUthesismanual}. 
-The Department has created a \LaTeX\ class file that automatically
-handles the formatting requirements of the SDSU Thesis Manual.  The
-class file, the source file for this example thesis and for a shorter,
-example thesis with more basic information, along with several other
-materials are bundled together and available for distribution at
-\cite{SDSUMath_thesis}. 
-
-\section{Purpose}
-\label{s:purpose}
-This document  illustrates some of the more complex typesetting tasks
-that are commonly encountered in a thesis containing mathematics.
-The student should consult the  short example thesis
-accompanying this distribution for information on more basic questions 
-concerning the use of \LaTeX. All theses 
-must follow the guidelines of the  SDSU Thesis Manual for formating. 
-Most formating issues will be automatically handled by the \LaTeX\
-class file included with the source file for this document, but there
-may be some special circumstances that will require some tinkering
-with spacing, pagebreaks, etc.
-
-For a general reference it is recommended that the
-student obtain the user's guide and reference manual of Leslie Lamport
-\cite{LAM}. Another book that has been recommended is {\em Math into
-  \LaTeX\ } \cite{Gra}. 
-There are also numerous online resources:  For a general and polished
-introduction see \cite{indian_tutorial}; For a focus on mathematics
-see \cite{uiuc_tutorial}; For a focus on chemistry and biology see
-\cite{microbio_resources}.
- The student should obtain copies of the files used to
-generate this document and compare the ASCII source files with 
-the \LaTeX\ output.
-
-\section{The long example thesis}
-\label{s:long}
-The files for this long example
-thesis are the following.
-\begin{itemize}
-\item {\tt sdsu-thesis.cls}: Defines the layout and formatting.
-\item {\tt dchem.sty}: A package for doing chemistry.
-\item {\tt thesis.tex}: 
-\begin{enumerate}
-\item  Contains information for the title page, and other
-front-matter.
-\item Contains a command to include the material from  the files 
-{\tt abstract.tex},  {\tt body.tex}, and {\tt append.tex}.
-\item Defines the bibliographical style (``plain'' in this example)
-  and creates the bibliography using the file {\tt thbib.tex}. 
-\end{enumerate}
-\item {\tt abstract.tex}: Contains the abstract.
-\item {\tt body.tex}: Contains all the text for chapters. 
-\item {\tt append.tex}: Contains all the text for appendices.
-\item {\tt thbib.bib}:  Contains a bibliographical database.
-\item {\tt somb.eps}, {\tt cos.eps}, {\tt plot2.eps}, {\tt
-  mol.cloud.ps}:  
-Encapsulated postscript files 
-that are included by {\tt body.tex}.
-\item {\tt Makefile} This can be used on a unix/linux platform to
-simplify the processing of \LaTeX/ files.
-\end{itemize}
-
-After processing these files the format of the thesis should comply
-with the SDSU Thesis Manual.  The numbering of chapters, sections,
-theorems, and bibliographical entries and any referencing to these
-items should be correct.  Tables and figures are automatically placed
-by \LaTeX, subject to certain constraints that you can provide.  
-Occasionally, you may find  \LaTeX\ does not break a page or line  you
-want it too, or you'd like to add vertical or horizontal space.
-The command {\tt $\backslash$hspace\{1in\}} adds horizontal space and
-{\tt $\backslash$vspace\{1in\}} adds vertical space.  You may also use
-{\tt pt} (points) or {\tt cm} as 
-measurements.  The  starred form {\tt $\backslash$hspace*\{12pt\}} of the command
-is more persuasive than the unstarred form.  For breaking a line
-{\tt $\backslash$newline} or {\tt $\backslash$linebreak} and for
-breaking a page {\tt $\backslash$clearpage}, {\tt $\backslash$pagebreak}, {\tt
-  $\backslash$newpage} are used, with subtle differences between these
-commands (see a good reference). 
-
-
 \chapter{THE EXCITING WORLD OF EQUATIONS,
 THEOREMS, FIGURES AND TABLES}
 \label{c:main}
@@ -280,7 +194,7 @@ by either Fig.~\ref{fig1} or by Figure~\ref{fig1}.
 \begin{figure}[htb]
 \centering
 \begin{minipage}{4.5in}
-\epsfig{file=plot2.eps,width=4.5in}
+%\epsfig{file=plot2.eps,width=4.5in}
 \caption{This is a graph of the above equation, where the
 circular frequency is taken as $\omega = 2$.\label{fig1}}
 \end{minipage}

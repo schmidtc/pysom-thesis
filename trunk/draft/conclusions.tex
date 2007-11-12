@@ -1,0 +1,40 @@
+%\chapter{Significance and Limitations}
+\chapter{CONCLUSIONS}
+\section{Significance}
+The commonly used tessellated icosahedron based topology offers the most
+regular topology.   However, the main disadvantage of this topology type is that it
+offers a limited control over network size.  Alternative methods for generating
+the spherical topology, which can create a network of any size, have been
+reviewed or suggested by \cite{wu2005} and \cite{Nishio:2006fk}.  These
+alternative methods produce network structures that are more irregular.  This
+research will take a closer look at the impact that the irregularity has on the
+training process in an attempt to address the suitability of these topologies
+for use in SOM.
+
+\section{Limitations}
+This research will look at the relationship between regularity in neuron connectedness
+and the training of a SOM. The relationship between topology and SOM visualization is not
+addressed. The topology chosen for a SOM has a direct link with how that SOM is
+visualized.  When representing the topology on the surface of a sphere issues
+arise with the uniformity in neuron spacing and sizing.  Future work may be
+needed to address these issues in visualization.
+
+%\subsubsection{Synthetic Data} I will take advantage of weights matrices to generate synthetic training data with known properties.  This data will be used to train the various SOMs in order to facilitate comparison.
+
+%\subsubsection{Train SOM}
+
+%It is useful to represent our neural lattice as a graph, G.
+%We know that any arrangement of neurons onto the surface of a sphere will as such the network can be effectively treated as a graph.  Doing so enables us to use the properties of the graph and the principles of graph theory to help us understand the relationship between neurons during training.
+
+%the variance in neuron spacing should be minimized.    The first condition ensures that each neuron will occupy is only of concern when visualizing the SOM.
+
+%The get at the second condition we must first define the degree of a neuron, deg(n) to be number of its direct neighbors.  Whit that in mind the second condition is that the variance in the degree of the neurons must also be minimized.
+
+%This statement may be somewhat misleading to those investigating alternative 
+
+%For the purpose of SOM visualization it is important for each neuron to receive equal geometrical treatment.
+
+%It is useful to represent the neural network as a graph, G, in order use the...
+%In order to examine the irregularities in the neural network it is useful ....
+
+%The basic problem of the ``boundary effect'' is that neurons on the edge have fewer neighbors. Yet there are only five possible arrangements of points on a sphere such that all points have the same number of neighbors.  Any spherical lattice consisting of more then twenty (dodecahedron) neurons will contain topological irregularities.  This is to say that not all neurons will have the same number of neighbors.  The importance of these irregularities and the magnitude of their effects on SOM training is not known.  This goal of this research is to determine whether more flexible network structures may be used in spherical in SOM without introducing significant errors. To accomplish this goal, basic methods in network analysis with be combined with the result from several empirical training runs each utilized different topology.  
