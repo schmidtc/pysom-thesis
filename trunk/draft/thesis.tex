@@ -14,11 +14,11 @@
 %
 % See the README file for more information
 %
- \documentclass{sdsu-thesis}
+% \documentclass{sdsu-thesis}
 %
 % For early printouts to save paper use the savepaper option as
 
-%\documentclass[savepaper]{sdsu-thesis}
+\documentclass[savepaper]{sdsu-thesis}
 
 % This will make things single spaced, use small font and smaller margins.
 % Stuff will be formatted differently if you don't use this option but it's
@@ -40,7 +40,7 @@
 \usepackage{graphicx}
 \graphicspath{{figures/}}
 % what is natbib anyway?
-\usepackage[square]{natbib}
+\usepackage[round]{natbib}
 
 % For chemistry use this.  We've included it because of the chemistry examples.
 \usepackage{dchem}
@@ -143,30 +143,32 @@
 \maketitle
 
 % Signature page (mandatory for SDSU thesis)
-\makesignature
+%\makesignature
 
 % If you want a copyright page, give the year and name
 % It will be centered vertically and horizontally
 % This seems to be mandatory in the revision 11 of the
 % SDSU thesis style
-\begin{copyrightpage}
-Copyright 2007 \\
-by \\
-Charles R. Schmidt
-\end{copyrightpage}
+
+
+%\begin{copyrightpage}
+%Copyright 2007 \\
+%by \\
+%Charles R. Schmidt
+%\end{copyrightpage}
 
 % Dedication (make sure to format this correctly
 % including a vspace (say \vspace{3in} or using vfill)
 % to make it center on the page if desired, see
 % the thesis manual)
 % Or just delete this if you don't have a dedication
-\begin{dedication}
-\vspace{3in}
-\centering
-Dedicated to the Utah-Hawaii case.
+%\begin{dedication}
+%\vspace{3in}
+%\centering
+%Dedicated to the Utah-Hawaii case.
 %Dedicated to quality public education:  May the State of California
 %appreciate its value.
-\end{dedication}
+%\end{dedication}
 
 % Epigraph (make sure to format this correctly, it
 % will just be centered on the page, see the manual)
@@ -182,21 +184,21 @@ Dedicated to the Utah-Hawaii case.
 
 % Here type the abstract of your thesis.  This is mandatory for
 % the SDSU thesis style
-\begin{abstract}
+%\begin{abstract}
 % This just inserts the the abstract.tex file
-\input{abstract}
-\end{abstract}
+%\input{abstract}
+%\end{abstract}
 
 % Table of contents (this is mandatory in the SDSU thesis style)
-\tableofcontents
+%\tableofcontents
 
 % If you don't want a list of tables page, delete or comment out
 % this line
-\listoftables
+%\listoftables
 
 % If you don't want a list of figures page, delete or comment out
 % this line
-\listoffigures
+%\listoffigures
 
 % Your acknowledgments go here
 % Or just delete this if you don't have acknowledgments
@@ -222,7 +224,8 @@ Dedicated to the Utah-Hawaii case.
 %
 % You must have thbib.bib file in the current directory 
 %
-\bibliographystyle{plain}
+%\bibliographystyle{plain}
+\bibliographystyle{apalike}
 \bibliography{thbib}
 
 % This includes append.tex
@@ -231,9 +234,9 @@ Dedicated to the Utah-Hawaii case.
 %
 % Make the library abstract page
 %
-\begin{libraryabstract}
+%\begin{libraryabstract}
 % This just inserts the the abstract.tex file
-\input{abstract}
-\end{libraryabstract}
+%\input{abstract}
+%\end{libraryabstract}
 
 \end{document}
