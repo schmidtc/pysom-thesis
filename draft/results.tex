@@ -1,2 +1,23 @@
 \chapter{RESULTS AND DISCUSSION}
-working on it.
+
+
+
+\section{I.V. v. deg^1}
+
+As stated in the objectives serveral SOMs are to be trained with the same
+training data and the same parameters.  The first step is to justify the
+parameters I choose, and the training data I use.
+
+The data will be genorated with the common technique of rejection sampeling,
+where n high dimmensional seeds are choosen at random, samples will be taken
+at random from a uniform distrobution, if the sample falls with in radius r of
+any seed it is accepted, if it does not, single random number is drawn, if that
+number is < 0.05\% the sample is accepted as noise, else the sample is rejected.
+
+Currently implemented are the rectangular and sphereical topologies, the hexagon
+and geodesic are to be implmented only as graphs.  I.E. the topologies will be
+generated externally and turned into a networkX graph, for use in the graph
+based SOM. The spherical topology also relies on extranal programs to generate
+the graph structure (sphereical voronii).
+
+
