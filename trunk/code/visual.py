@@ -13,7 +13,7 @@ names.extend(['DIM'+str(i+1) for i in range(dims)])
 specs = [('N', 10, 0)]
 specs.extend([('N', 19, 11) for i in range(dims)])
 
-data = [map(float,l.split()) for l in data]
+data = [map(float,l.split(',')) for l in data]
 records = []
 for i,d in enumerate(data):
     rec = [i]
