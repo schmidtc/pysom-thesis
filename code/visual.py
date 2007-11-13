@@ -21,9 +21,9 @@ for i,d in enumerate(data):
     records.append(rec)
 
 if 'graph' in fname:
-    f = open('testResults/shapes/graph.dbf','wb')
+    f = open('../shapes/graph.dbf','wb')
 if 'rook' in fname:
-    f = open('testResults/shapes/rook.dbf','wb')
+    f = open('../shapes/rook.dbf','wb')
 #names = ['ID','AFIELD','BFIELD','CFIELD','DFIELD','EFIELD','GFIELD']
 #specs = [('N', 10, 0), ('N', 19, 11), ('N', 19, 11), ('N', 19,11), ('N', 19,11), ('N', 19,11), ('N', 19, 11)]
 dbf.dbfwriter(f,names,specs,records)
