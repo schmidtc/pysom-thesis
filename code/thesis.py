@@ -157,20 +157,55 @@ def q1p():
     [l.pop(3) for l in lines]
     return lines
 
+class SomName:
+    def __init__(self,nameStr):
+        type,dims,clusters,number = nameStr.split('_')
+        self.type = type
+        self.dims = int(dims[:-1])
+        self.clusters = int(clusters[:-1])
+
 def q1BOX(path='q1Results'):
     files = os.listdir(path)
 
  
+    d = {}
     for fname in files:
-        f = open(os.path.join(path,files[0]),'r')
-        data = f.readlines()
-        data = [l.strip().split(',') for l in data]
-        data = [[int(i[2]),float(i[3])] for i in data]
-        data = N.array(data)
-        x = data[:,0]
-        y = data[:,1]
+        dims = SomName(fname).dims
+        clusters = SomName(fname).clusters
+        if dims not in d:
+            d[dims] = {}
+        d[dims][clusters] = 0
+    for fname in files:
+        f = open(os.path.join(path,fname),'r')
+        if 'graph' in fname:
+            dims = SomName(fname).dims
+            clusters = SomName(fname).clusters
+            data = f.readlines()
+            f.close()
+            data = [l.strip().split(',') for l in data]
+            data = [[int(i[2]),float(i[3])] for i in data]
+            data = N.array(data)
+            x = data[:,0]
+            y = data[:,1]
+            d[dims][clusters] = y.mean()
+            #print fname,y.mean()
         #return x,y
-        pylab.scatter(x,y)
+
+        #pylab.scatter(x,y)
+    
+    dims = d.keys()
+    dims.sort()
+    print 'Clusters & '+' & '.join(map(str,dims)) + '\\\\'
+    clusters = [0,2,5,10,20]
+    for c in clusters:
+        val = '%d '%c
+        for dim in dims:
+            try: val += '& %.3f'%d[dim][c]
+            except: val += '& no test'
+        print '\hline'
+        print val+' \\\\'
+        
+    return d
     
     #for tType,d in topos.iteritems():
     #    degs = d.keys()
@@ -186,8 +221,8 @@ def q1BOX(path='q1Results'):
 if __name__=="__main__":
     pass
     #q1()
-    #data = q1BOX()
     #data = q1p()
-    #a = stats(5,0,0)
-    #b = stats(5,0,0,'rook')
+    #a = stats(2,0,0)
+    #b = stats(2,0,0,'rook')
+    data = q1BOX()
     
