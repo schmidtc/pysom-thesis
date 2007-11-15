@@ -164,7 +164,7 @@ class SomName:
         self.dims = int(dims[:-1])
         self.clusters = int(clusters[:-1])
 
-def q1BOX(path='q1Results'):
+def q1BOX(path='q1Results',ttype='graph'):
     files = os.listdir(path)
 
  
@@ -177,7 +177,7 @@ def q1BOX(path='q1Results'):
         d[dims][clusters] = 0
     for fname in files:
         f = open(os.path.join(path,fname),'r')
-        if 'rook' in fname:
+        if ttype in fname:
             dims = SomName(fname).dims
             clusters = SomName(fname).clusters
             data = f.readlines()
@@ -187,7 +187,7 @@ def q1BOX(path='q1Results'):
             data = N.array(data)
             x = data[:,0]
             y = data[:,1]
-            d[dims][clusters] = y.max() - y.min()
+            d[dims][clusters] = y.mean()
             #print fname,y.mean()
         #return x,y
 
@@ -198,11 +198,11 @@ def q1BOX(path='q1Results'):
     line = ['\\multicolumn{1}{c}{\\textbf{%d}}'%dim for dim in dims]
     line[-1] = '\\multicolumn{1}{c|}{\\textbf{%d}}'%dims[-1]
     print '''\\begin{table}
-\\caption{Mean Internal Variane for the entire som}
+\\caption{Mean Internal Variane for the entire som %s}
 \\label{ivtable1}
 \\begin{tabular}{|c||c|c|c|c|}
 \\hline
-&\\multicolumn{4}{c|}{\\textbf{Dimmensions}}\\\\'''
+&\\multicolumn{4}{c|}{\\textbf{Dimmensions}}\\\\'''%ttype.upper()
     print '\\textbf{Clusters} & '+' & '.join(line) + '\\\\'
     print '\\hline'
     clusters = [0,2,5,10,20]
@@ -233,7 +233,11 @@ if __name__=="__main__":
     pass
     #q1()
     #data = q1p()
-    #a = stats(2,0,0)
-    #b = stats(2,0,0,'rook')
-    data = q1BOX()
+    #a = stats(2,2,0)
+    #b = stats(2,2,0,'rook')
+    graph = q1BOX()
+    print
+    print
+    print
+    rook = q1BOX(ttype='rook')
     
