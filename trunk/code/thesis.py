@@ -177,7 +177,7 @@ def q1BOX(path='q1Results'):
         d[dims][clusters] = 0
     for fname in files:
         f = open(os.path.join(path,fname),'r')
-        if 'graph' in fname:
+        if 'rook' in fname:
             dims = SomName(fname).dims
             clusters = SomName(fname).clusters
             data = f.readlines()
@@ -187,7 +187,7 @@ def q1BOX(path='q1Results'):
             data = N.array(data)
             x = data[:,0]
             y = data[:,1]
-            d[dims][clusters] = y.mean()
+            d[dims][clusters] = y.max() - y.min()
             #print fname,y.mean()
         #return x,y
 
@@ -195,15 +195,26 @@ def q1BOX(path='q1Results'):
     
     dims = d.keys()
     dims.sort()
-    print 'Clusters & '+' & '.join(map(str,dims)) + '\\\\'
+    line = ['\\multicolumn{1}{c}{\\textbf{%d}}'%dim for dim in dims]
+    line[-1] = '\\multicolumn{1}{c|}{\\textbf{%d}}'%dims[-1]
+    print '''\\begin{table}
+\\caption{Mean Internal Variane for the entire som}
+\\label{ivtable1}
+\\begin{tabular}{|c||c|c|c|c|}
+\\hline
+&\\multicolumn{4}{c|}{\\textbf{Dimmensions}}\\\\'''
+    print '\\textbf{Clusters} & '+' & '.join(line) + '\\\\'
+    print '\\hline'
     clusters = [0,2,5,10,20]
     for c in clusters:
-        val = '%d '%c
+        val = '\\textbf{%d} '%c
         for dim in dims:
-            try: val += '& %.3f'%d[dim][c]
+            try: val += '& %.3f'%(d[dim][c])
             except: val += '& no test'
-        print '\hline'
+        print '\\hline'
         print val+' \\\\'
+    print '\\hline'
+    print "\end{tabular} \end{table}"
         
     return d
     
