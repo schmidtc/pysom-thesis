@@ -112,42 +112,55 @@ def stats(dims,clusters,testNum=0,type='graph',path='testResults/'):
     #return (IV,Groups,Degs)
 
 def q1():
+    files = os.listdir('testResults')
+    for file in files:
+        if file[-4:] == '.cod':
+            type,dcn,rest = file.split('_')
+            d,c,n = dcn.split('-')
+            d = int(d[:-1])
+            c = int(c[:-1])
+            n = int(n[2:])
+            if os.path.exists('q1Results/%s_%dd_%dc_no%d.iv'%(type,d,c,n)):
+                pass
+            else:
+                stats(d,c,n,type)
+
     #out = open('q1.txt','w')
     #out.write("Dims,Cluster,TestNum,Type,d,m,v\n")
     #out.close()
     
-    stats(5,0,0)
-    stats(10,0,0)
-    stats(20,0,0)
+    #stats(5,0,0)
+    #stats(10,0,0)
+    #stats(20,0,0)
 
-    stats(5,2,0)
-    stats(10,2,0)
-    stats(20,2,0)
+    #stats(5,2,0)
+    #stats(10,2,0)
+    #stats(20,2,0)
 
-    stats(5,10,0)
-    stats(10,10,0)
-    stats(20,10,0)
+    #stats(5,10,0)
+    #stats(10,10,0)
+    #stats(20,10,0)
 
-    stats(5,20,0)
-    stats(10,20,0)
-    stats(20,20,0)
+    #stats(5,20,0)
+    #stats(10,20,0)
+    #stats(20,20,0)
 
 
-    stats(5,0,0,'rook')
-    stats(10,0,0,'rook')
-    stats(20,0,0,'rook')
+    #stats(5,0,0,'rook')
+    #stats(10,0,0,'rook')
+    #stats(20,0,0,'rook')
 
-    stats(5,2,0,'rook')
-    stats(10,2,0,'rook')
-    stats(20,2,0,'rook')
+    #stats(5,2,0,'rook')
+    #stats(10,2,0,'rook')
+    #stats(20,2,0,'rook')
 
-    stats(5,10,0,'rook')
-    stats(10,10,0,'rook')
-    stats(20,10,0,'rook')
+    #stats(5,10,0,'rook')
+    #stats(10,10,0,'rook')
+    #stats(20,10,0,'rook')
 
-    stats(5,20,0,'rook')
-    stats(10,20,0,'rook')
-    stats(20,20,0,'rook')
+    #stats(5,20,0,'rook')
+    #stats(10,20,0,'rook')
+    #stats(20,20,0,'rook')
 
 def q1p():
     f = open('q1.txt','r')
@@ -231,10 +244,12 @@ def q1BOX(path='q1Results',ttype='graph'):
 
 if __name__=="__main__":
     pass
-    #q1()
+    q1()
     #data = q1p()
-    #a = stats(2,2,0)
-    #b = stats(2,2,0,'rook')
+    #a = stats(2,10,0)
+    #a = stats(2,20,0)
+    #b = stats(2,10,0,'rook')
+    #b = stats(2,20,0,'rook')
     graph = q1BOX()
     print
     print
