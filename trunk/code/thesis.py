@@ -114,7 +114,7 @@ def stats(dims,clusters,testNum=0,type='graph',path='testResults/'):
 def q1():
     files = os.listdir('testResults')
     for file in files:
-        if file[-4:] == '.cod':
+        if '_1m.' in file and '5d-10c' in file and file[-4:] == '.cod':
             type,dcn,rest = file.split('_')
             d,c,n = dcn.split('-')
             d = int(d[:-1])
@@ -176,6 +176,7 @@ class SomName:
         self.type = type
         self.dims = int(dims[:-1])
         self.clusters = int(clusters[:-1])
+        self.number = int(number.split('.')[0][2:])
 
 def q1BOX(path='q1Results',ttype='graph'):
     files = os.listdir(path)
