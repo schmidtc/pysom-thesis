@@ -93,7 +93,11 @@ class som:
     def findBMU(self,ind,v,ReturnDist = False):
         d = ((self.nodes-v)**2).sum(1)
         minI = d.argmin()
-        return minI
+        if ReturnDist:
+            minD = d[minI]
+            return minI,minD
+        else:
+            return minI
 
     def diff(self,nodeid,ind,v):
         node = take(self.nodes[nodeid],ind)
