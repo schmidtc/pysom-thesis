@@ -60,6 +60,7 @@ class som:
             data = data.split()
             data = map(float,data)
             self.nodes[i] = data
+        self.diffs = array([[0.0 for i in xrange(self.Dims)] for j in xrange(self.Size)])
 
     def save(self,path='',name=None):
         if self.X == 0 or self.Y == 0:
