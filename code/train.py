@@ -103,6 +103,7 @@ def Test():
     return s
 
 def neve():
+    print "running neve training"
     graphTest(5,10,0)
     graphTest(5,10,1)
     graphTest(5,10,2)
@@ -111,6 +112,7 @@ def neve():
     graphTest(5,10,5)
     graphTest(5,10,6)
 def haar():
+    print "running haar training"
     rookGraphTest(5,10,0)
     rookGraphTest(5,10,1)
     rookGraphTest(5,10,2)
@@ -118,6 +120,7 @@ def haar():
     rookGraphTest(5,10,4)
     rookGraphTest(5,10,5)
 def bora():
+    print "running bora training"
     graphTest(5,10,7)
     graphTest(5,10,8)
     graphTest(5,10,9)
@@ -126,6 +129,8 @@ def bora():
     rookGraphTest(5,10,8)
     rookGraphTest(5,10,9)
 if __name__=="__main__":
-    bora()
-    #s = Test()
-    #graphTest(5,10,0)
+    import socket
+    hostname = socket.gethostname()
+    host = hostname.split('.')[0]
+    dispatch = {'bora':bora,'neve':neve,'haar':haar}
+    dispatch[host]()
