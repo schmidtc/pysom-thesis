@@ -179,15 +179,14 @@ class SomName:
 
 def q1BOX(path='q1Results',ttype='graph'):
     files = os.listdir(path)
-
- 
     d = {}
     for fname in files:
         dims = SomName(fname).dims
         clusters = SomName(fname).clusters
-        if dims not in d:
-            d[dims] = {}
-        d[dims][clusters] = 0
+        if SomName(fname).type == ttype:
+            if dims not in d:
+                d[dims] = {}
+            d[dims][clusters] = 0
     for fname in files:
         f = open(os.path.join(path,fname),'r')
         if ttype in fname:
@@ -222,7 +221,7 @@ def q1BOX(path='q1Results',ttype='graph'):
     for c in clusters:
         val = '\\textbf{%d} '%c
         for dim in dims:
-            try: val += '& %.3f'%(d[dim][c])
+            try: val += '& %.4f'%(d[dim][c])
             except: val += '& no test'
         print '\\hline'
         print val+' \\\\'
@@ -243,7 +242,6 @@ def q1BOX(path='q1Results',ttype='graph'):
         
 
 if __name__=="__main__":
-    pass
     q1()
     #data = q1p()
     #a = stats(2,10,0)
