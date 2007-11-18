@@ -91,17 +91,9 @@ class som:
         self.diffs = array([[0.0 for i in xrange(self.Dims)] for j in xrange(self.Size)])
 
     def findBMU(self,ind,v,ReturnDist = False):
-        minDist = self.diff(0,ind,v)
-        BMU = 0 
-        for i in xrange(1,self.Size):
-            d = self.diff(i,ind,v)
-            if d < minDist:
-                minDist = d
-                BMU = i 
-        if ReturnDist:
-            return BMU,minDist
-        else:
-            return BMU
+        d = ((self.nodes-v)**2).sum(1)
+        minI = d.argmin()
+        return minI
 
     def diff(self,nodeid,ind,v):
         node = take(self.nodes[nodeid],ind)
