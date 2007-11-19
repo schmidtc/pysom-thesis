@@ -92,7 +92,6 @@ def gload(dims,clusters,testNum=0,type='graph',path='testResults/'):
     s.load(path,'%s_%dd-%dc-no%d_1m'%(type,dims,clusters,testNum))
     return s,f
 def stats(dims,clusters,testNum=0,type='graph',path='testResults/'):
-    #out = open('q1.txt','a')
     print type,dims,clusters
     s,f = gload(dims,clusters,testNum,type)
     IV,Groups,Degs = getIVdata(s,f)
@@ -104,12 +103,6 @@ def stats(dims,clusters,testNum=0,type='graph',path='testResults/'):
     data = '\n'.join(data)+'\n'
     f.write(data)
     f.close()
-    #boxIV(Groups,Degs)
-    #for i,group in enumerate(Groups):
-    #    out.write("%d,%d,%d,%s"%(dims,clusters,testNum,type))
-    #    out.write(",%d,%f,%f\n"%(Degs[i],N.mean(group),N.var(group)))
-    #out.close()
-    #return (IV,Groups,Degs)
 
 def q1():
     files = os.listdir('testResults')
@@ -125,74 +118,80 @@ def q1():
             else:
                 stats(d,c,n,type)
 
-    #out = open('q1.txt','w')
-    #out.write("Dims,Cluster,TestNum,Type,d,m,v\n")
-    #out.close()
-    
-    #stats(5,0,0)
-    #stats(10,0,0)
-    #stats(20,0,0)
-
-    #stats(5,2,0)
-    #stats(10,2,0)
-    #stats(20,2,0)
-
-    #stats(5,10,0)
-    #stats(10,10,0)
-    #stats(20,10,0)
-
-    #stats(5,20,0)
-    #stats(10,20,0)
-    #stats(20,20,0)
-
-
-    #stats(5,0,0,'rook')
-    #stats(10,0,0,'rook')
-    #stats(20,0,0,'rook')
-
-    #stats(5,2,0,'rook')
-    #stats(10,2,0,'rook')
-    #stats(20,2,0,'rook')
-
-    #stats(5,10,0,'rook')
-    #stats(10,10,0,'rook')
-    #stats(20,10,0,'rook')
-
-    #stats(5,20,0,'rook')
-    #stats(10,20,0,'rook')
-    #stats(20,20,0,'rook')
-
-def q1p():
-    f = open('q1.txt','r')
-    header = f.readline()
-    lines = f.readlines()
-    lines  = [l.strip().split(',') for l in lines]
-    [l.pop(3) for l in lines]
-    return lines
-
-class SomName:
+class IVName:
     def __init__(self,nameStr):
+        print nameStr
         type,dims,clusters,number = nameStr.split('_')
         self.type = type
         self.dims = int(dims[:-1])
         self.clusters = int(clusters[:-1])
         self.number = int(number.split('.')[0][2:])
+    def tdcn(self):
+        return (self.type,self.dims,self.clusters,self.number)
+
+def q1TableSet2(path='q1Results',dims=5,clusters=10,noMean=False):
+    files = os.listdir(path)
+    print files.pop(0)
+    d = {}
+    for fname in files:
+        finfo = IVName(fname)
+        type,dims,clusters,number = finfo.tdcn()
+        if type not in d:
+            d[type]={}
+        f = open(os.path.join(path,fname),'r')
+        data = f.readlines()
+        f.close()
+        data = [l.strip().split(',') for l in data]
+        data = [[int(i[2]),float(i[3])] for i in data]
+        data = N.array(data)
+        x = data[:,0]
+        y = data[:,1]
+        if noMean:
+            d[type][number] = zip(x,y)
+        else:
+            d[type][number] = y.mean()
+    return d
+
+def q1Joins(path='q1Results',dims=5,clusters=10):
+    files = os.listdir(path)
+    print files.pop(0)
+    d = {}
+    for fname in files:
+        finfo = IVName(fname)
+        type,dims,clusters,number = finfo.tdcn()
+        if type not in d:
+            if type == 'graph':
+                d[type]={5:[],6:[],7:[]}
+            else:
+                d[type]={2:[],3:[],4:[]}
+        f = open(os.path.join(path,fname),'r')
+        data = f.readlines()
+        f.close()
+        data = [l.strip().split(',') for l in data]
+        data = [[int(i[2]),float(i[3])] for i in data]
+        for dim,iv in data:
+            d[type][dim].append(iv)
+    for type,data in d.iteritems():
+        for dim,l in data.iteritems():
+            d[type][dim] = array(l)
+    return d
 
 def q1BOX(path='q1Results',ttype='graph'):
+    """ This function produces a table. It scans the contents of the q1Results folder, which should contain the internal variance results for all the trained soms.  It calcs the mean IV for each and puts them in a latex table (for the given topology)"""
     files = os.listdir(path)
     d = {}
     for fname in files:
-        dims = SomName(fname).dims
-        clusters = SomName(fname).clusters
-        if SomName(fname).type == ttype:
+        dims = IVName(fname).dims
+        clusters = IVName(fname).clusters
+        if IVName(fname).type == ttype:
             if dims not in d:
                 d[dims] = {}
             d[dims][clusters] = 0
     for fname in files:
         f = open(os.path.join(path,fname),'r')
         if ttype in fname:
-            dims = SomName(fname).dims
-            clusters = SomName(fname).clusters
+            dims = IVName(fname).dims
+            clusters = IVName(fname).clusters
             data = f.readlines()
             f.close()
             data = [l.strip().split(',') for l in data]
@@ -201,11 +200,7 @@ def q1BOX(path='q1Results',ttype='graph'):
             x = data[:,0]
             y = data[:,1]
             d[dims][clusters] = y.mean()
-            #print fname,y.mean()
-        #return x,y
 
-        #pylab.scatter(x,y)
-    
     dims = d.keys()
     dims.sort()
     line = ['\\multicolumn{1}{c}{\\textbf{%d}}'%dim for dim in dims]
@@ -231,17 +226,6 @@ def q1BOX(path='q1Results',ttype='graph'):
         
     return d
     
-    #for tType,d in topos.iteritems():
-    #    degs = d.keys()
-    #    degs.sort()
-    #    groups = []
-    #    for deg in degs:
-    #        groups.append(d[deg])
-    #    boxIV(groups,degs)
-    #return topos
-
-        
-
 if __name__=="__main__":
     q1()
     #data = q1p()
@@ -249,9 +233,11 @@ if __name__=="__main__":
     #a = stats(2,20,0)
     #b = stats(2,10,0,'rook')
     #b = stats(2,20,0,'rook')
-    graph = q1BOX()
+    #graph = q1BOX()
     print
     print
     print
-    rook = q1BOX(ttype='rook')
+    #rook = q1BOX(ttype='rook')
+    #data = q1TableSet2()
+    d= q1Joins()
     

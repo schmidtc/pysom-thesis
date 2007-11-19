@@ -14,7 +14,7 @@ from numpy import array,empty,take,put,zeros
 import numpy as N
 from math import acos,sqrt,pi,degrees,sin,cos,asin
 import networkx as NX
-import pylab
+#import pylab
 import pickle
 from utils import *
 
