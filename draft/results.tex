@@ -114,3 +114,47 @@ compare accross topologies.
 \textbf{9} & 0.0897 & 0.0910 \\
 \hline
 \end{tabular} \end{table}
+
+
+this table shoes the means ands variances for the degree groups, \ref{meanvar1}
+
+
+\begin{table}
+\caption{Mean \& (var) IV for degree groups in test cases, graph vs. rook}
+\label{meanvar1}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Degree Size} & \textbf{Graph} & \textbf{Rook} \\
+\hline
+\textbf{2}   (40) & & 0.1123 (0.00074) \\
+\textbf{3}  (918) & & 0.0997 (0.00095) \\
+\textbf{4} (5138) & & 0.0875 (0.00089) \\
+\textbf{5}  (557) & 0.0886 (0.00087) &\\
+\textbf{6} (5034) & 0.0883 (0.00087) &\\
+\textbf{7}  (437) & 0.0873 (0.00092) &\\
+\hline
+\end{tabular} \end{table}
+
+
+
+here are the box plots for the IV. \ref{fRookIV} \ref{fGraphIV}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{rook_iv_box.png}
+\caption{This shows 3 box plots, each representing one group of neurons in a set
+of SOMs trained with the same paremeters.}
+\label{fRookIV}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{graph_iv_box.png}
+\caption{This shows 3 box plots, each representing one group of neurons in a set
+of SOMs trained with the same paremeters.}
+\label{fGraphIV}
+\end{figure}
+
+
+
