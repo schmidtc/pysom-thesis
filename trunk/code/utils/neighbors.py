@@ -12,7 +12,7 @@ def neighborhood(G,n,o):
                     neighbors[node]=i
     return neighbors
 
-def findWidth(G,seed=None):
+def findWidth(G,seed=None,returnWidths=False):
     widths = []
     if not seed == None:
         nodes = [seed]
@@ -31,7 +31,8 @@ def findWidth(G,seed=None):
             else:
                 break
         widths.append(maxW)
-    return max(widths)
+    if returnWidths: return widths
+    else: return max(widths)
 
 if __name__=='__main__':
 #    G = graph((6,6))
