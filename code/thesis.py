@@ -1,5 +1,6 @@
 import sys
 from som import *
+from numpy.random import shuffle
 # Research Question 1...
 # Calculate the internal variance for each nueon in the network.
 # Need to group all neurons by their topology and by their degree.
@@ -226,6 +227,43 @@ def q1BOX(path='q1Results',ttype='graph'):
         
     return d
     
+def rLabelMean(a,b,t=999):
+    c = list(a); c.extend(b)
+    c = array(c)
+    na = len(a)
+    nb = len(b)
+    deltas = []
+    for i in range(t):
+        shuffle(c)
+        delta = c[:na].mean() - c[na:].mean()
+        deltas.append(delta)
+    realMean = a.mean()-b.mean()
+    deltas.append(realMean)
+    deltas.sort()
+    i = deltas.index(realMean)
+    p = (t+1 - i)/float(t+1)
+    return realMean,p
+
+def rLabelTables(topoData):
+    degs = topoData.keys()
+    degs.sort()
+    format = '|'.join(['c' for d in degs])
+    print '''\\begin{table}
+\\caption{Random Labeling Mean Tests,  delta (p-Value)}
+\\label{randomLabelTable}
+\\begin{tabular}{|c|%s|}'''%format
+    print "&" + "&".join(map(str,degs)) + '\\\\'
+    for a in degs:
+        s = str(a)
+        for b in degs:
+            if a==b:
+                s+="& "
+            else:
+                s+='& %f (%f)'%rLabelMean(topoData[a],topoData[b],t=9999)
+        print s+'\\\\'
+    print "\end{tabular} \end{table}"
+            
+
 if __name__=="__main__":
     q1()
     #data = q1p()
@@ -240,4 +278,5 @@ if __name__=="__main__":
     #rook = q1BOX(ttype='rook')
     #data = q1TableSet2()
     d= q1Joins()
+    rLabelTables(d['rook'])
     

@@ -2,22 +2,23 @@
 
 
 
+
 \section{I.V. v. degree}
 
-As stated in the objectives serveral SOMs are to be trained with the same
+As stated in the objectives several SOMs are to be trained with the same
 training data and the same parameters.  The first step is to justify the
 parameters I choose, and the training data I use.
 
-The data will be genorated with the common technique of rejection sampeling,
-where n high dimmensional seeds are choosen at random, samples will be taken
-at random from a uniform distrobution, if the sample falls with in radius r of
+The data will be generated with the common technique of rejection sampling,
+where n high dimensional seeds are chosen at random, samples will be taken
+at random from a uniform distribution, if the sample falls with in radius r of
 any seed it is accepted, if it does not, single random number is drawn, if that
 number is < 0.05\% the sample is accepted as noise, else the sample is rejected.
 
-Currently implemented are the rectangular and sphereical topologies, the hexagon
-and geodesic are to be implmented only as graphs.  I.E. the topologies will be
+Currently implemented are the rectangular and spherical topologies, the hexagon
+and geodesic are to be implemented only as graphs.  I.E. the topologies will be
 generated externally and turned into a networkX graph, for use in the graph
-based SOM. The spherical topology also relies on extranal programs to generate
+based SOM. The spherical topology also relies on external programs to generate
 the graph structure (spherical voronoi).
 
 How do we decide which parameters to use?
@@ -79,10 +80,10 @@ show \ref{ivtable2}
 
 
 ok after adding these tables we find that 5dims and 10clusters is a reasonable
-choice. 5 dims are easier to work with and yeild more information the 2dims.
-After running 10 simulations for both the rook and grpah case we find that the
+choice. 5 dims are easier to work with and yield more information the 2dims.
+After running 10 simulations for both the rook and graph case we find that the
 IV seems to remain fairly stable, this suggests that we can combine these to
-compare accross topologies.
+compare across topologies.
 \ref{ivtable3}
 
 \begin{table}
@@ -126,12 +127,12 @@ this table shoes the means ands variances for the degree groups, \ref{meanvar1}
 \hline
 \textbf{Degree Size} & \textbf{Graph} & \textbf{Rook} \\
 \hline
-\textbf{2}   (40) & & 0.1123 (0.00074) \\
-\textbf{3}  (918) & & 0.0997 (0.00095) \\
-\textbf{4} (5138) & & 0.0875 (0.00089) \\
-\textbf{5}  (557) & 0.0886 (0.00087) &\\
-\textbf{6} (5034) & 0.0883 (0.00087) &\\
-\textbf{7}  (437) & 0.0873 (0.00092) &\\
+\textbf{2}   (40) & & 0.1123 (0.00074)  \\
+\textbf{3}  (918) & & 0.0997 (0.00095)  \\
+\textbf{4} (5138) & & 0.0875 (0.00089)  \\
+\textbf{5}  (557) &   0.0886 (0.00087) &\\
+\textbf{6} (5034) &   0.0883 (0.00087) &\\
+\textbf{7}  (437) &   0.0873 (0.00092) &\\
 \hline
 \end{tabular} \end{table}
 
@@ -155,6 +156,47 @@ of SOMs trained with the same paremeters.}
 of SOMs trained with the same paremeters.}
 \label{fGraphIV}
 \end{figure}
+
+
+
+\section{Restate the Questions}
+\textbf{Objective}, Compare the internal variance of observations captured by a given
+neuron to that neuron's first-order neighborhood size.
+
+\textbf{Question}, Does the internal variance of a neuron decrease as its first-order
+neighborhood size, or degree, increases?
+
+
+To answer this question we need to setup a distance matrix (the distance of the
+means) between each set of groups with in a given topology.  The table should
+look like this...... 
+
+  2 3 4
+2 0 + +
+3 - 0 +
+4 - - 0
+
+differance of means test\ldots
+\ref{randomLabelTable}
+
+\begin{table}
+\caption{Random Labeling Mean Tests,  delta (p-Value)}
+\label{randomLabelTable}
+\begin{tabular}{|c||c|c|c|}
+\hline
+&2&3&4\\
+\hline
+\hline
+2& & 0.012681 (0.006600)& 0.024790 (0.000100)\\
+\hline
+3& -0.012681 (0.991400)& & 0.012109 (0.000100)\\
+\hline
+4& -0.024790 (1.000000)& -0.012109 (1.000000)& \\
+\hline
+\end{tabular} \end{table}
+
+
+
 
 
 
