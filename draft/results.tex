@@ -13,7 +13,7 @@ The data will be generated with the common technique of rejection sampling,
 where n high dimensional seeds are chosen at random, samples will be taken
 at random from a uniform distribution, if the sample falls with in radius r of
 any seed it is accepted, if it does not, single random number is drawn, if that
-number is < 0.05\% the sample is accepted as noise, else the sample is rejected.
+number is \(<\) 0.05\% the sample is accepted as noise, else the sample is rejected.
 
 Currently implemented are the rectangular and spherical topologies, the hexagon
 and geodesic are to be implemented only as graphs.  I.E. the topologies will be
@@ -117,7 +117,7 @@ compare across topologies.
 \end{tabular} \end{table}
 
 
-this table shoes the means ands variances for the degree groups, \ref{meanvar1}
+this table shows the means and variances for the degree groups, \ref{meanvar1}
 
 
 \begin{table}
@@ -170,24 +170,24 @@ neighborhood size, or degree, increases?
 To answer this question we need to setup a distance matrix (the distance of the
 means) between each set of groups with in a given topology.  The table should
 look like this...... 
-
-  2 3 4
-2 0 + +
-3 - 0 +
-4 - - 0
-
+\\
+  2 3 4\\
+2 0 + +\\
+3 - 0 +\\
+4 - - 0\\
+\\
 differance of means test\ldots
 \ref{randomLabelTable}
 
 \begin{table}
-\caption{Random Labeling Mean Tests,  delta (p-Value)}
+\caption{Random Labeling Mean Tests for rook case,  delta (p-Value)}
 \label{randomLabelTable}
 \begin{tabular}{|c||c|c|c|}
 \hline
 &2&3&4\\
 \hline
 \hline
-2& & 0.012681 (0.006600)& 0.024790 (0.000100)\\
+2& & 0.012681 (0.008600)& 0.024790 (0.000100)\\
 \hline
 3& -0.012681 (0.991400)& & 0.012109 (0.000100)\\
 \hline
