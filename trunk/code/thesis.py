@@ -259,7 +259,7 @@ def rLabelTables(topoData):
             if a==b:
                 s+="& "
             else:
-                s+='& %f (%f)'%rLabelMean(topoData[a],topoData[b],t=9999)
+                s+='& %f (%f)'%rLabelMean(topoData[a],topoData[b],t=999)
         print s+'\\\\'
     print "\end{tabular} \end{table}"
             
