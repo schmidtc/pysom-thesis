@@ -26,8 +26,8 @@ def result2kml(inFileName,outFileName):
         c = 0
         for line in f:
                 line = line.split()
-                lng = line[0]
-                lat = line[1]
+                lng = line[5]
+                lat = line[2]
                 #err = line[2]
                 err = 0
                 o.write(place%(lng,lat,c,err,lng,lat))
