@@ -45,6 +45,8 @@ if __name__=="__main__":
     #graphtest(sphere,'Sphere',5,10,0)
     #graphtest(rook,'Rook',5,10,0)
     #graphtest(hex,'Hex',5,10,0)
+    for i in range(10):
+        graphtest(hex,'hex',5,10,i)
 
     #import socket
     #hostname = socket.gethostname()

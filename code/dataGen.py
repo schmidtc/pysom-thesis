@@ -2,6 +2,18 @@ import numpy as N
 import sys
 import pylab
 import random
+
+
+#def gaussian(nDims=10,nClusters=10,minClusterSize=100,maxClusterSize=1000):
+#    size = [random.randint(minClusterSize,maxClusterSize) for i in xrange(nClusters)]
+#    #Generate mean values
+#    mean = [[random.random() for j in xrange(nDims)] for i in xrange(nClusters)]
+#    for i in xrange(nClusters):
+#        for j in xrange(nDims):
+#            #mean[j] = -MAXMU + random.random() * (MAXMU-MINMU);
+#            mean[j] = random.random()
+        
+    
 def gen(n,clusters,dims,noise):
     """ 
     eg.
