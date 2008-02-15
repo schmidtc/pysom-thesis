@@ -235,9 +235,9 @@ def rLabelMean(a,b,t=999):
     deltas = []
     for i in range(t):
         shuffle(c)
-        delta = c[:na].mean() - c[na:].mean()
+        delta = abs(c[:na].mean() - c[na:].mean())
         deltas.append(delta)
-    realMean = a.mean()-b.mean()
+    realMean = abs(a.mean()-b.mean())
     deltas.append(realMean)
     deltas.sort()
     i = deltas.index(realMean)
