@@ -3,7 +3,7 @@ all: thesis.pdf
 view: thesis.pdf
 	open thesis.pdf
 
-thesis.pdf: *.bib *.tex *.cls
+thesis.pdf: ../bib/*.bib *.tex *.cls
 	( pdflatex thesis || rm -f thesis.pdf ) && \
 	bibtex thesis && \
 	( pdflatex thesis || rm -f thesis.pdf ) && \
