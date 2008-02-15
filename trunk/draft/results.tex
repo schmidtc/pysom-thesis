@@ -1,13 +1,7 @@
 \chapter{RESULTS AND DISCUSSION}
-
-
-
-
-\section{I.V. v. Degree}
-
-As stated in the objectives several SOMs are to be trained with the same
-training data and the same parameters.  The first step is to justify the
-parameters I choose, and the training data I use.
+\section{Data}
+The training data will be generated using a Gaussian cluster generator as
+described by \citep{handl}.
 
 The data will be generated with the common technique of rejection sampling,
 where n high dimensional seeds are chosen at random, samples will be taken
@@ -15,16 +9,29 @@ at random from a uniform distribution, if the sample falls with in radius r of
 any seed it is accepted, if it does not, single random number is drawn, if that
 number is \(<\) 0.05\% the sample is accepted as noise, else the sample is rejected.
 
-Currently implemented are the rectangular and spherical topologies, the hexagon
-and geodesic are to be implemented only as graphs.  I.E. the topologies will be
-generated externally and turned into a networkX graph, for use in the graph
-based SOM. The spherical topology also relies on external programs to generate
-the graph structure (spherical voronoi).
+The two parameters that must be set to generate the training data are the
+number of dimmension and the number of clusters.
 
-How do we decide which parameters to use?
+\section{Training Parameters}
+There are a number of parameters that must be choosen before we can train the
+SOMS.  These include, the size of the network, the number of dimmension, the
+number clusters.
+As stated in the objectives several SOMs are to be trained with the same
+training data and the same parameters.  The first step is to justify the
+parameters I choose.  To accomplish this I will locate at how the internal
+variance responds to changes in the training parameters.
 
-The number of dimensions is largely an arbitrary decision no?
-5dims is easier to work with
+For each topology I will train several SOMs, each time making an icremental
+change to the parameters.
+
+
+\section{I.V. v. Degree}
+%Currently implemented are the rectangular and spherical topologies, the hexagon
+%and geodesic are to be implemented only as graphs.  I.E. the topologies will be
+%generated externally and turned into a networkX graph, for use in the graph
+%based SOM. The spherical topology also relies on external programs to generate
+%the graph structure (spherical voronoi).
+
 
 show \ref{ivtable1}
 show \ref{ivtable2}
@@ -177,25 +184,41 @@ look like this......
 4 - - 0\\
 \\
 differance of means test\ldots
-\ref{randomLabelTable}
+\ref{randomLabelTableRook}
+\ref{randomLabelTableGraph}
 
 \begin{table}
 \caption{Random Labeling Mean Tests for rook case,  delta (p-Value)}
-\label{randomLabelTable}
+\label{randomLabelTableRook}
 \begin{tabular}{|c||c|c|c|}
 \hline
 &2&3&4\\
 \hline
 \hline
-2& & 0.012681 (0.008600)& 0.024790 (0.000100)\\
+2& & 0.012681 (0.009000)& 0.024790 (0.001000)\\
 \hline
-3& -0.012681 (0.991400)& & 0.012109 (0.000100)\\
+3& 0.012681 (0.011000)& & 0.012109 (0.001000)\\
 \hline
-4& -0.024790 (1.000000)& -0.012109 (1.000000)& \\
+4& 0.024790 (0.001000)& 0.012109 (0.001000)& \\
 \hline
 \end{tabular} \end{table}
 
 
+\begin{table}
+\caption{Random Labeling Mean Tests for graph case,  delta (p-Value)}
+\label{randomLabelTableGraph}
+\begin{tabular}{|c||c|c|c|}
+\hline
+&5&6&7\\
+\hline
+\hline
+5& & 0.000362 (0.786000)& 0.001358 (0.480000)\\
+\hline
+6& 0.000362 (0.752000)& & 0.000996 (0.484000)\\
+\hline
+7& 0.001358 (0.503000)& 0.000996 (0.514000)& \\
+\hline
+\end{tabular} \end{table}
 
 
 
