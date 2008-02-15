@@ -121,7 +121,7 @@ def q1():
 
 class IVName:
     def __init__(self,nameStr):
-        print nameStr
+        #print nameStr
         type,dims,clusters,number = nameStr.split('_')
         self.type = type
         self.dims = int(dims[:-1])
@@ -251,8 +251,11 @@ def rLabelTables(topoData):
     print '''\\begin{table}
 \\caption{Random Labeling Mean Tests,  delta (p-Value)}
 \\label{randomLabelTable}
-\\begin{tabular}{|c|%s|}'''%format
+\\begin{tabular}{|c||%s|}'''%format
+    print '\\hline'
     print "&" + "&".join(map(str,degs)) + '\\\\'
+    print '\\hline'
+    print '\\hline'
     for a in degs:
         s = str(a)
         for b in degs:
@@ -261,6 +264,7 @@ def rLabelTables(topoData):
             else:
                 s+='& %f (%f)'%rLabelMean(topoData[a],topoData[b],t=999)
         print s+'\\\\'
+        print '\\hline'
     print "\end{tabular} \end{table}"
             
 
@@ -279,4 +283,5 @@ if __name__=="__main__":
     #data = q1TableSet2()
     d= q1Joins()
     rLabelTables(d['rook'])
+    rLabelTables(d['graph'])
     
