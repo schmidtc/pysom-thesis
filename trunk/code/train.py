@@ -2,7 +2,7 @@ from som import *
 ### The Training
 ### Current, 642, 23*28
 ### Future, 4842, 70*69
-def graphTest(G,type,dims,clusters,testNum):
+def graphTrain(G,type,dims,clusters,testNum):
     s = GraphTopology(G)
     s.Dims = dims
     s.maxN = 0.5
@@ -42,11 +42,11 @@ if __name__=="__main__":
             rook.add_edge((node,neighbor))
     hex = hexGraph(23,28)
 
-    #graphtest(sphere,'Sphere',5,10,0)
-    #graphtest(rook,'Rook',5,10,0)
-    #graphtest(hex,'Hex',5,10,0)
+    #graphTrain(sphere,'Sphere',5,10,0)
+    #graphTrain(rook,'Rook',5,10,0)
+    #graphTrain(hex,'Hex',5,10,0)
     for i in range(10):
-        graphtest(hex,'hex',5,10,i)
+        graphTrain(hex,'hex',5,10,i)
 
     #import socket
     #hostname = socket.gethostname()
