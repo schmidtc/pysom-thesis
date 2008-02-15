@@ -3,7 +3,9 @@ from math import sqrt
 
 
 
-def hexGraph(x,y):
+def hexGraph(cols,rows):
+    x = rows
+    y = cols
     grid = []
     c = 0
     for i in range(y):
@@ -32,7 +34,9 @@ def hexGraph(x,y):
                     g.add_edge(ptID,grid[i][j+1]) #my right neighbor
     return g
 
-def hexPts(x,y):
+def hexPts(cols,rows):
+    x = rows
+    y = cols
     deltaX = 1.0
     deltaY = sqrt(3.0/4.0)
     hexX=0-deltaX
@@ -55,8 +59,8 @@ if __name__=='__main__':
     c = tk.Canvas(root, width=800,height=800)
     c.pack()
     
-    g = hexGraph(5,5)
-    pts = hexPts(5,5)
+    g = hexGraph(3,5)
+    pts = hexPts(3,5)
 
     for a,b in g.edges():
         x1,y1 = pts[a]
