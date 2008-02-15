@@ -1,40 +1,29 @@
 \chapter{RESULTS AND DISCUSSION}
 \section{Data}
+%The data will be generated with the common technique of rejection sampling,
+%where n high dimensional seeds are chosen at random, samples will be taken
+%at random from a uniform distribution, if the sample falls with in radius r of
+%any seed it is accepted, if it does not, single random number is drawn, if that
+%number is \(<\) 0.05\% the sample is accepted as noise, else the sample is rejected.
 The training data will be generated using a Gaussian cluster generator as
-described by \citep{handl}.
+described by \cite{handl}. To generate the data we have to decide how many
+clusters to create and how many dimmension to use.  In order to set these
+parameters appropiatly we will first explore how the internal variance
+responds to adjustments in their value.
 
-The data will be generated with the common technique of rejection sampling,
-where n high dimensional seeds are chosen at random, samples will be taken
-at random from a uniform distribution, if the sample falls with in radius r of
-any seed it is accepted, if it does not, single random number is drawn, if that
-number is \(<\) 0.05\% the sample is accepted as noise, else the sample is rejected.
+To accomplish this twenty test data sets are genorated and used to train both
+the rook and sphereical SOMs. As shown in tables \ref{ivtable1} and
+\ref{ivtable2} both topologies seem to respond similarly. The internal
+variance of the SOM increases as we add dimmeniosn and decreases as we add
+clusters. Based on these tables, it was decided that five dimmensions and ten
+clusters was a reasonable choice. Five dimmeniosn is easier to work with than
+large numbers and should yield more information than two dimmensions. 
 
-The two parameters that must be set to generate the training data are the
-number of dimmension and the number of clusters.
-
-\section{Training Parameters}
-There are a number of parameters that must be choosen before we can train the
-SOMS.  These include, the size of the network, the number of dimmension, the
-number clusters.
-As stated in the objectives several SOMs are to be trained with the same
-training data and the same parameters.  The first step is to justify the
-parameters I choose.  To accomplish this I will locate at how the internal
-variance responds to changes in the training parameters.
-
-For each topology I will train several SOMs, each time making an icremental
-change to the parameters.
-
-
-\section{I.V. v. Degree}
-%Currently implemented are the rectangular and spherical topologies, the hexagon
-%and geodesic are to be implemented only as graphs.  I.E. the topologies will be
-%generated externally and turned into a networkX graph, for use in the graph
-%based SOM. The spherical topology also relies on external programs to generate
-%the graph structure (spherical voronoi).
-
-
-show \ref{ivtable1}
-show \ref{ivtable2}
+With these paramaters choosen ten data sets are generated and used to train
+SOMs for each topology.  After running ten simulations for both the rook and
+sphereical toplogies we find that the mean internal variance seems to remain
+fairly stable, this suggests that we can combine these to compare across
+topologies. As shown in table \ref{ivtable3}.
 
 \begin{table}
 \caption{Mean Internal Variane for the entire som GRAPH}
@@ -58,8 +47,6 @@ show \ref{ivtable2}
 \textbf{20} & 0.0123& 0.0844& 0.1989& 0.4017 \\
 \hline
 \end{tabular} \end{table}
-
-
 
 \begin{table}
 \caption{Mean Internal Variane for the entire som ROOK}
@@ -86,12 +73,7 @@ show \ref{ivtable2}
 
 
 
-ok after adding these tables we find that 5dims and 10clusters is a reasonable
-choice. 5 dims are easier to work with and yield more information the 2dims.
-After running 10 simulations for both the rook and graph case we find that the
-IV seems to remain fairly stable, this suggests that we can combine these to
-compare across topologies.
-\ref{ivtable3}
+
 
 \begin{table}
 \caption{Mean IV for test case, graph vs. rook}
@@ -122,6 +104,22 @@ compare across topologies.
 \textbf{9} & 0.0897 & 0.0910 \\
 \hline
 \end{tabular} \end{table}
+
+
+
+\section{I.V. v. Degree}
+%Currently implemented are the rectangular and spherical topologies, the hexagon
+%and geodesic are to be implemented only as graphs.  I.E. the topologies will be
+%generated externally and turned into a networkX graph, for use in the graph
+%based SOM. The spherical topology also relies on external programs to generate
+%the graph structure (spherical voronoi).
+\subsection{Restate the Questions}
+\textbf{Objective}, Compare the internal variance of observations captured by a given
+neuron to that neuron's first-order neighborhood size.
+
+\textbf{Question}, Does the internal variance of a neuron decrease as its first-order
+neighborhood size, or degree, increases?
+
 
 
 this table shows the means and variances for the degree groups, \ref{meanvar1}
@@ -166,12 +164,6 @@ of SOMs trained with the same paremeters.}
 
 
 
-\section{Restate the Questions}
-\textbf{Objective}, Compare the internal variance of observations captured by a given
-neuron to that neuron's first-order neighborhood size.
-
-\textbf{Question}, Does the internal variance of a neuron decrease as its first-order
-neighborhood size, or degree, increases?
 
 
 To answer this question we need to setup a distance matrix (the distance of the
