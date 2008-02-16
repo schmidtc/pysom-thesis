@@ -6,26 +6,22 @@
 %any seed it is accepted, if it does not, single random number is drawn, if that
 %number is \(<\) 0.05\% the sample is accepted as noise, else the sample is rejected.
 The training data will be generated using a Gaussian cluster generator as
-described by \cite{handl}. To generate the data we have to decide how many
-clusters to create and how many dimmension to use.  In order to set these
-parameters appropiatly we will first explore how the internal variance
+described by \cite{handl}.  To generate the data we have to decide how many
+clusters to create and how many dimensions to use.  In order to set these
+parameters appropriately we will first explore how the internal variance
 responds to adjustments in their value.
 
-To accomplish this twenty test data sets are genorated and used to train both
-the rook and sphereical SOMs. As shown in tables \ref{ivtable1} and
+To accomplish this twenty test data sets are generated and used to train both
+the rook and spherical SOMs. As shown in tables \ref{ivtable1} and
 \ref{ivtable2} both topologies seem to respond similarly. The internal
-variance of the SOM increases as we add dimmeniosn and decreases as we add
-clusters. Based on these tables, it was decided that five dimmensions and ten
-clusters was a reasonable choice. Five dimmeniosn is easier to work with than
-large numbers and should yield more information than two dimmensions. 
+variance of the SOM increases as we add dimensions and decreases as we add
+clusters. Based on these tables, it was decided that five dimensions and ten
+clusters was a reasonable choice. Five dimensions is easier to work with than
+larger numbers and should yield more information than two dimensions. 
 
-With these paramaters choosen ten data sets are generated and used to train
-SOMs for each topology.  After running ten simulations for both the rook and
-sphereical toplogies we find that the mean internal variance seems to remain
-fairly stable, this suggests that we can combine these to compare across
-topologies. As shown in table \ref{ivtable3}.
 
 \begin{table}
+\centering
 \caption{Mean Internal Variane for the entire som GRAPH}
 \label{ivtable1}
 \begin{tabular}{|c||c|c|c|c|}
@@ -48,7 +44,9 @@ topologies. As shown in table \ref{ivtable3}.
 \hline
 \end{tabular} \end{table}
 
+
 \begin{table}
+\centering
 \caption{Mean Internal Variane for the entire som ROOK}
 \label{ivtable2}
 \begin{tabular}{|c||c|c|c|c|}
@@ -72,42 +70,46 @@ topologies. As shown in table \ref{ivtable3}.
 \end{tabular} \end{table}
 
 
-
-
+\section{I.V. v. Degree}
+With these parameters chosen ten data sets are generated and used to train
+SOMs for each topology.  After running ten simulations for the spherical,
+hexagonal and rook topologies we find that the mean internal variance seems to
+remain fairly stable, this suggests that we can combine the results of each
+simulation to compare across topologies. As shown in table \ref{ivtable3}.
 
 \begin{table}
-\caption{Mean IV for test case, graph vs. rook}
+\centering
+\caption{Mean IV for each simulation, by topology}
 \label{ivtable3}
-\begin{tabular}{|c||c|c|c|c|}
+\begin{tabular}{|c||c|c|c|}
 \hline
-\textbf{Test Number} & Graph & Rook \\
+\textbf{Simulation Number} & Graph & Hex & Rook \\
 \hline
 \hline
-\textbf{0} & 0.0910 & 0.0920 \\
+\textbf{1} & 0.0910 & 0.0927 & 0.0920 \\
 \hline
-\textbf{1} & 0.0874 & 0.0886 \\
+\textbf{2} & 0.0874 & 0.0887 & 0.0886 \\
 \hline
-\textbf{2} & 0.0809 & 0.0814 \\
+\textbf{3} & 0.0809 & 0.0813 & 0.0814 \\
 \hline
-\textbf{3} & 0.0812 & 0.0823 \\
+\textbf{4} & 0.0812 & 0.0834 & 0.0823 \\
 \hline
-\textbf{4} & 0.0907 & 0.0929 \\
+\textbf{5} & 0.0907 & 0.0927 & 0.0929 \\
 \hline
-\textbf{5} & 0.0938 & 0.0944 \\
+\textbf{6} & 0.0938 & 0.0966 & 0.0944 \\
 \hline
-\textbf{6} & 0.0908 & 0.0929 \\
+\textbf{7} & 0.0908 & 0.0916 & 0.0929 \\
 \hline
-\textbf{7} & 0.0792 & 0.0797 \\
+\textbf{8} & 0.0792 & 0.0798 & 0.0797 \\
 \hline
-\textbf{8} & 0.0974 & 0.1001 \\
+\textbf{9} & 0.0974 & 0.0994 & 0.1001 \\
 \hline
-\textbf{9} & 0.0897 & 0.0910 \\
+\textbf{10} & 0.0897 & 0.0917 & 0.0910 \\
 \hline
 \end{tabular} \end{table}
 
 
 
-\section{I.V. v. Degree}
 %Currently implemented are the rectangular and spherical topologies, the hexagon
 %and geodesic are to be implemented only as graphs.  I.E. the topologies will be
 %generated externally and turned into a networkX graph, for use in the graph
@@ -126,24 +128,25 @@ this table shows the means and variances for the degree groups, \ref{meanvar1}
 
 
 \begin{table}
-\caption{Mean \& (var) IV for degree groups in test cases, graph vs. rook}
+\centering
+\caption{n, Mean, (var) IV for degree groups in test cases, graph vs. rook}
 \label{meanvar1}
 \begin{tabular}{|l|c|c|}
 \hline
 \textbf{Degree Size} & \textbf{Graph} & \textbf{Rook} \\
 \hline
-\textbf{2}   (40) & & 0.1123 (0.00074)  \\
-\textbf{3}  (918) & & 0.0997 (0.00095)  \\
-\textbf{4} (5138) & & 0.0875 (0.00089)  \\
-\textbf{5}  (557) &   0.0886 (0.00087) &\\
-\textbf{6} (5034) &   0.0883 (0.00087) &\\
-\textbf{7}  (437) &   0.0873 (0.00092) &\\
+\textbf{2} & &  40 , 0.1123 (0.00074)  \\
+\textbf{3} & &  918 , 0.0997 (0.00095)  \\
+\textbf{4} & &5138 , 0.0875 (0.00089)  \\
+\textbf{5} & 557  ,  0.0886 (0.00087) &\\
+\textbf{6} & 5034 ,  0.0883 (0.00087) &\\
+\textbf{7} & 437 ,  0.0873 (0.00092) &\\
 \hline
 \end{tabular} \end{table}
 
 
 
-here are the box plots for the IV. \ref{fRookIV} \ref{fGraphIV}
+here are the box plots for the IV. \ref{fRookIV} \ref{fGraphIV} \ref{fHexIV}
 
 
 \begin{figure}
@@ -152,6 +155,14 @@ here are the box plots for the IV. \ref{fRookIV} \ref{fGraphIV}
 \caption{This shows 3 box plots, each representing one group of neurons in a set
 of SOMs trained with the same paremeters.}
 \label{fRookIV}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{hex_iv_box.png}
+\caption{This shows 5 box plots, each representing one group of neurons in a set
+of SOMs trained with the same paremeters.}
+\label{fHexIV}
 \end{figure}
 
 \begin{figure}
@@ -180,6 +191,7 @@ differance of means test\ldots
 \ref{randomLabelTableGraph}
 
 \begin{table}
+\centering
 \caption{Random Labeling Mean Tests for rook case,  delta (p-Value)}
 \label{randomLabelTableRook}
 \begin{tabular}{|c||c|c|c|}
@@ -197,7 +209,8 @@ differance of means test\ldots
 
 
 \begin{table}
-\caption{Random Labeling Mean Tests for graph case,  delta (p-Value)}
+\centering
+\caption{Random Labeling Mean Tests for spherical case,  delta (p-Value)}
 \label{randomLabelTableGraph}
 \begin{tabular}{|c||c|c|c|}
 \hline
@@ -211,6 +224,33 @@ differance of means test\ldots
 7& 0.001358 (0.503000)& 0.000996 (0.514000)& \\
 \hline
 \end{tabular} \end{table}
+
+\begin{table}
+\centering
+\caption{Random Labeling Mean Tests for Hexgonal Lattice,  delta (p-Value)}
+\label{randomLabelTable}
+\begin{tabular}{|c||c|c|c|c|c|}
+\hline
+&2&3&4&5&6\\
+\hline
+\hline
+2& & 0.004463 (0.525000)& 0.011735 (0.083000)& 0.017665 (0.011000)& 0.021821
+(0.003000)\\
+\hline
+3& 0.004463 (0.548000)& & 0.007272 (0.006000)& 0.013202 (0.001000)& 0.017357
+(0.001000)\\
+\hline
+4& 0.011735 (0.095000)& 0.007272 (0.002000)& & 0.005930 (0.014000)& 0.010086
+(0.001000)\\
+\hline
+5& 0.017665 (0.012000)& 0.013202 (0.001000)& 0.005930 (0.019000)& & 0.004155
+(0.060000)\\
+\hline
+6& 0.021821 (0.002000)& 0.017357 (0.001000)& 0.010086 (0.001000)& 0.004155
+(0.056000)& \\
+\hline
+\end{tabular} \end{table}
+
 
 
 
