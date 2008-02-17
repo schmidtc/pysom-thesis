@@ -45,8 +45,9 @@ if __name__=="__main__":
     #graphTrain(sphere,'Sphere',5,10,0)
     #graphTrain(rook,'Rook',5,10,0)
     #graphTrain(hex,'Hex',5,10,0)
-    for i in range(10):
-        graphTrain(hex,'hex',5,10,i)
+    for dims in [2,5,10,20]:
+        for clusters in [0,2,5,10,20]:
+            graphTrain(hex,'hex',dims,clusters,0)
 
     #import socket
     #hostname = socket.gethostname()
