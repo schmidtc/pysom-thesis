@@ -88,6 +88,15 @@ topologies.  To ensure that we can calculate an internal variance for each
 neuron, I will generate the data so as to increase the probability that each
 neuron will be occupied by more than one observation.
 
+The data will be generated using a Gaussian cluster generator as described by
+\cite{handl}. The generator creates clusters by pulling from multivariate
+normal distributions.  Cluster are not allowed to overlap and no random noise
+is introduced into the data.  The properties such as the number of clusters
+and the number of dimensions will be decided through experimentation.  We will
+create a number of different data sets and use them to train various SOMs.
+The mean internal variance of each SOM will be looked at to determine how it
+responds to the properties of the training data.
+
 \subsection{Training}
 The diagnostics must be given a trained SOM for each topology to be compared. To
 yield any meaningful results those SOMs must be trained with comparable
