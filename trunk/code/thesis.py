@@ -89,7 +89,9 @@ def q1():
     """
     files = os.listdir('testResults')
     for file in files:
-        if '_1m.' in file and '5d-10c' in file and file[-4:] == '.cod':
+        #if '_1m.' in file and '5d-10c' in file and file[-4:] == '.cod':
+        if '_1m.' in file and file[-4:] == '.cod':
+            print file
             type,dcn,rest = file.split('_')
             d,c,n = dcn.split('-')
             d = int(d[:-1])
@@ -197,6 +199,7 @@ def q1BOX(path='q1Results',ttype='graph'):
         dims = IVName(fname).dims
         clusters = IVName(fname).clusters
         if IVName(fname).type == ttype:
+            print fname
             if dims not in d:
                 d[dims] = {}
             d[dims][clusters] = 0
@@ -379,10 +382,10 @@ if __name__=="__main__":
     print
     #graph = q1BOX(ttype='graph')
     #rook = q1BOX(ttype='rook')
-    #hex = q1BOX(ttype='hex')
+    hex = q1BOX(ttype='hex')
     #data = q1TableSet2()
-    q1Data = q1Joins()
-    createGroupBasedMeanIVTable(q1Data)
+    #q1Data = q1Joins()
+    #createGroupBasedMeanIVTable(q1Data)
     #createBoxPlots(q1Data)
     #rLabelTables(d['rook'])
     #rLabelTables(d['graph'])

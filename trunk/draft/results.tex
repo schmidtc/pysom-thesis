@@ -1,4 +1,9 @@
 \chapter{RESULTS AND DISCUSSION}
+This chapter describes the implementation and results of the empirical analysis
+outlined above.  Each section of this chapter details one of the three main
+tasks of the empirical analysis.  The first task is to create synthetic data,
+the second to train the SOMs and finally to apply the diagnostics.
+
 \section{Data}
 %The data will be generated with the common technique of rejection sampling,
 %where n high dimensional seeds are chosen at random, samples will be taken
@@ -13,7 +18,7 @@ responds to adjustments in their value.
 
 To accomplish this twenty test data sets are generated and used to train both
 the rook and spherical SOMs. As shown in tables \ref{ivtable1} and
-\ref{ivtable2} both topologies seem to respond similarly. The internal
+\ref{ivtable2} and \ref{ivtablehex} both topologies seem to respond similarly. The internal
 variance of the SOM increases as we add dimensions and decreases as we add
 clusters. Based on these tables, it was decided that five dimensions and ten
 clusters was a reasonable choice. Five dimensions is easier to work with than
@@ -68,6 +73,32 @@ larger numbers and should yield more information than two dimensions.
 \textbf{20} & 0.0120& 0.0851& 0.2020& 0.4059 \\
 \hline
 \end{tabular} \end{table}
+
+\begin{table}
+\caption{Mean Internal Variane for the entire som HEX}
+\label{ivtablehex}
+\begin{tabular}{|c||c|c|c|c|}
+\hline
+&\multicolumn{4}{c|}{\textbf{Dimmensions}}\\
+\textbf{Clusters} & \multicolumn{1}{c}{\textbf{2}} &
+\multicolumn{1}{c}{\textbf{5}} & \multicolumn{1}{c|}{\textbf{10}}\\
+\hline
+\hline
+\textbf{0} & 0.0205& 0.2784& 0.7336 \\
+\hline
+\textbf{2} & 0.0109& 0.1134& 0.2585 \\
+\hline
+\textbf{5} & 0.0111& 0.0997& no test \\
+\hline
+\textbf{10} & 0.0114& 0.0917& no test \\
+\hline
+\textbf{20} & 0.0117& 0.0860& no test \\
+\hline
+\end{tabular} \end{table}
+
+
+
+
 
 
 \section{Internal variance vs. first-order neighborhood size}
