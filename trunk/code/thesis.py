@@ -1,12 +1,14 @@
 import sys
 from som import *
 from numpy.random import shuffle
+import pylab
 # Research Question 1...
 # Calculate the internal variance for each nueon in the network.
 # Need to group all neurons by their topology and by their degree.
 
 def pairWiseDist(ids,lines):
-    """returns a non-symtric sq. dist matrix, diag = 0, below diag = 0"""
+    """returns a non-symtric sq. dist matrix, diag = 0, below diag = 0
+    utility function called by getIVdata"""
     size = len(ids)
     ivMatrix = zeros((size,size),'float')
     data = [lines[id] for id in ids]
@@ -47,35 +49,7 @@ def getIVdata(s,f):
     #    groups.append(data[deg])
     #return ivData,groups,degs
     return ivData,None,None
-def mapClusters(s,f):
-    daMap = s.daMap
-    f.reset()
-    l = f.listolists(comments=True)
-    for node,ids in daMap.iteritems():
-        c = []
-        for id in ids:
-            c.append(l[id][0])
-        daMap[node] = c
-    return daMap
-def mapCA(d,size):
-    s = '1\n'
-    nodes = range(size)
-    for node in nodes:
-        try:
-            ids = d[node]
-            if len(set(ids)) > 1:
-                s += '98\n'
-                print node,ids
-            else:
-                s += str(set(ids).pop())
-                s += '\n'
-        except:
-            s+= '99\n'
-    return s
-def boxIV(groups,degs):
-    #data = N.array(zip(*l))
-    pylab.boxplot(groups,positions=degs)
-    pylab.show()
+
 
 def q2(ivDataList):
     groups = []
@@ -88,11 +62,14 @@ def q2(ivDataList):
     
 
 def gload(dims,clusters,testNum=0,type='graph',path='testResults/'):
+    """ Utility Function for loading a SOM that uses the networkx Graph Topology"""
     f = ObsFile('testData/%sd-%dc-no%d_rs.dat'%(dims,clusters,testNum),'complete')
     s = GraphTopology()
     s.load(path,'%s_%dd-%dc-no%d_1m'%(type,dims,clusters,testNum))
     return s,f
 def stats(dims,clusters,testNum=0,type='graph',path='testResults/'):
+    """ Utility function Called by q1 
+        this function wraps getIVdata function."""
     print type,dims,clusters
     s,f = gload(dims,clusters,testNum,type)
     IV,Groups,Degs = getIVdata(s,f)
@@ -106,6 +83,10 @@ def stats(dims,clusters,testNum=0,type='graph',path='testResults/'):
     f.close()
 
 def q1():
+    """Calculating the IV of each neuron is rather time consuming.
+        This function simply ensures that the IV has been calculated
+        and saved in the q1Results folder.
+    """
     files = os.listdir('testResults')
     for file in files:
         if '_1m.' in file and '5d-10c' in file and file[-4:] == '.cod':
@@ -131,6 +112,9 @@ class IVName:
         return (self.type,self.dims,self.clusters,self.number)
 
 def q1TableSet2(path='q1Results',dims=5,clusters=10,noMean=False):
+    """ This function produces a latex Table showing the mean IV for each som by topology and test number.
+
+    It returns a dictionary object containing these mean IV values organizing by, topology and test number.  This may be useful in the future."""
     files = os.listdir(path)
     print files.pop(0)
     d = {}
@@ -151,9 +135,37 @@ def q1TableSet2(path='q1Results',dims=5,clusters=10,noMean=False):
             d[type][number] = zip(x,y)
         else:
             d[type][number] = y.mean()
+
+    table = """\\begin{table}
+\\centering
+\\caption{Mean IV for each simulation, by topology}
+\\label{ivtable3}
+\\begin{tabular}{|c||%(formating)s|}
+\\hline
+\\textbf{Simulation Number} & %(header)s \\\\
+\\hline
+\\hline
+%(table_data)s
+\\hline
+\\end{tabular} \\end{table}"""
+    values = {}
+    types = d.keys()
+    types.sort()
+    tests = d[types[0]].keys()
+    values['formating'] = "|".join(['c' for type in types])
+    values['header'] = ' & '.join([type.title() for type in types])
+    values['table_data'] = "\n\\hline\n".join( ['\\textbf{%d} & '%(test+1) + ' & '.join(['%.4f'%d[type][test] for type in types]) +' \\\\' for test in tests])
+    
+    print table%values
+
+
     return d
 
 def q1Joins(path='q1Results',dims=5,clusters=10):
+    """ This function creates the main data structure for questions related to
+        research question 1.
+
+        The structure is a dictionary keys by topology type, and dim size."""
     files = os.listdir(path)
     print files.pop(0)
     d = {}
@@ -161,16 +173,15 @@ def q1Joins(path='q1Results',dims=5,clusters=10):
         finfo = IVName(fname)
         type,dims,clusters,number = finfo.tdcn()
         if type not in d:
-            if type == 'graph':
-                d[type]={5:[],6:[],7:[]}
-            else:
-                d[type]={2:[],3:[],4:[]}
+            d[type] = {}
         f = open(os.path.join(path,fname),'r')
         data = f.readlines()
         f.close()
         data = [l.strip().split(',') for l in data]
         data = [[int(i[2]),float(i[3])] for i in data]
         for dim,iv in data:
+            if dim not in d[type]:
+                d[type][dim] = []
             d[type][dim].append(iv)
     for type,data in d.iteritems():
         for dim,l in data.iteritems():
@@ -180,6 +191,7 @@ def q1Joins(path='q1Results',dims=5,clusters=10):
 def q1BOX(path='q1Results',ttype='graph'):
     """ This function produces a table. It scans the contents of the q1Results folder, which should contain the internal variance results for all the trained soms.  It calcs the mean IV for each and puts them in a latex table (for the given topology)"""
     files = os.listdir(path)
+    files.pop(0)
     d = {}
     for fname in files:
         dims = IVName(fname).dims
@@ -267,9 +279,95 @@ def rLabelTables(topoData):
         print '\\hline'
     print "\end{tabular} \end{table}"
             
+def createBoxPlots(q1DataStruct):
+    """This function will creat the box plots for question one."""
+    c = 1
+    for topo in q1DataStruct:
+        pylab.figure(c)
+        print "Creating box plot for topology type: ",topo
+        degs = q1DataStruct[topo].keys()
+        degs.sort()
+        groups = [q1DataStruct[topo][deg] for deg in degs]
+        pylab.boxplot(groups,notch=1,positions=degs)
+        c += 1
+    pylab.show()
+
+def createGroupBasedMeanIVTable(q1DataStruct):
+    data = q1DataStruct
+    topos = data.keys()
+    print topos
+    topos.sort()
+    degs = set()
+    for topo in topos:
+        for deg in data[topo].keys():
+            degs.add(deg)
+    degs = list(degs)
+    degs.sort()
+
+    tableValues = {}
+    tableValues['format'] = '||'.join(['|'.join(['c' for i in range(3)]) for topo in topos])
+    s = ["\\multicolumn{3}{c||}{\\textbf{%s}}"%topo.title() for topo in topos]
+    tableValues['header'] = ' & '.join(s)
+    tableValues['header2']= ' & '.join(['N & MeanIV & VarIV' for topo in topos])
+
+    rows = ""
+    for deg in degs:
+        row = str(deg)
+        for topo in topos:
+            try:
+                n = len(data[topo][deg])
+                m = data[topo][deg].mean()
+                v = data[topo][deg].var()
+                row += '& %d'%n
+                row += '& %.4f'%m
+                row += '& %.4f'%v
+            except:
+                row += '&&&'
+        row += '\\\\ \n'
+        rows += row
+
+    rows += '\\hline \n'
+    row = 'Combined'
+    for topo in topos:
+        nodes = []
+        for deg,values in data[topo].iteritems():
+            nodes.extend(list(values))
+        nodes = N.array(nodes)
+        n = len(nodes)
+        m = nodes.mean()
+        v = nodes.var()
+        row += '& %d'%n
+        row += '& %.4f'%m
+        row += '& %.4f'%v
+    
+    rows += row + '\\\\ \n'
+
+
+    tableValues['rows'] = rows
+    table= """
+\\begin{table}
+\\caption{Mean IV grouped by a neurons degree for each topology}
+\\label{meanvar1}
+\\begin{tabular}{|c||%(format)s|}
+\\hline
+\\textbf{Degree Size} & %(header)s \\\\
+\\hline
+& %(header2)s \\\\
+\\hline
+%(rows)s\\hline
+\\end{tabular} \\end{table}
+"""
+    print table%tableValues
+
 
 if __name__=="__main__":
-    q1()
+    #This function should always be run.
+    # It does nothing unless the IV files have been removed,
+    # or new test cases have been added.
+    q1() 
+
+
+
     #data = q1p()
     #a = stats(2,10,0)
     #a = stats(2,20,0)
@@ -279,9 +377,14 @@ if __name__=="__main__":
     print
     print
     print
+    #graph = q1BOX(ttype='graph')
     #rook = q1BOX(ttype='rook')
+    #hex = q1BOX(ttype='hex')
     #data = q1TableSet2()
-    d= q1Joins()
-    rLabelTables(d['rook'])
-    rLabelTables(d['graph'])
+    q1Data = q1Joins()
+    createGroupBasedMeanIVTable(q1Data)
+    #createBoxPlots(q1Data)
+    #rLabelTables(d['rook'])
+    #rLabelTables(d['graph'])
+    #rLabelTables(d['hex'])
     

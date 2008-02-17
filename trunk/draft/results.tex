@@ -70,7 +70,17 @@ larger numbers and should yield more information than two dimensions.
 \end{tabular} \end{table}
 
 
-\section{I.V. v. Degree}
+\section{Internal variance vs. first-order neighborhood size}
+As outlined in section \ref{q1} we can look at how the internal variance
+changes with with respect the degree of a neuron.  
+
+In order to compare the IV accross groups it it necessary to train multiple
+soms 
+To setup this experiment we
+first generate ten synthetic data sets using the method desribed above.  These
+data sets will be used to train ten SOMs for each topology.  The reason we
+train multiple SOMs for each to is to ensure that we have large enough groups to 
+As mentioned in section \ref{q1} the neurons.
 With these parameters chosen ten data sets are generated and used to train
 SOMs for each topology.  After running ten simulations for the spherical,
 hexagonal and rook topologies we find that the mean internal variance seems to
@@ -124,25 +134,32 @@ neighborhood size, or degree, increases?
 
 
 
-this table shows the means and variances for the degree groups, \ref{meanvar1}
-
+this table shows the means and variances for the degree groups,
+\ref{meanvar1}. \footnote{The Combined sizes may not add up to expeded amount.
+This is because we can only calculate an IV for neurons which are the BMU of
+two or more observations.}
 
 \begin{table}
-\centering
-\caption{n, Mean, (var) IV for degree groups in test cases, graph vs. rook}
+\caption{Mean IV grouped by a neurons degree for each topology}
 \label{meanvar1}
-\begin{tabular}{|l|c|c|}
+\begin{tabular}{|c||c|c|c||c|c|c||c|c|c|}
 \hline
-\textbf{Degree Size} & \textbf{Graph} & \textbf{Rook} \\
+\textbf{Degree Size} & \multicolumn{3}{c||}{\textbf{Graph}} &
+\multicolumn{3}{c||}{\textbf{Hex}} & \multicolumn{3}{c|}{\textbf{Rook}} \\
 \hline
-\textbf{2} & &  40 , 0.1123 (0.00074)  \\
-\textbf{3} & &  918 , 0.0997 (0.00095)  \\
-\textbf{4} & &5138 , 0.0875 (0.00089)  \\
-\textbf{5} & 557  ,  0.0886 (0.00087) &\\
-\textbf{6} & 5034 ,  0.0883 (0.00087) &\\
-\textbf{7} & 437 ,  0.0873 (0.00092) &\\
+& N & MeanIV & VarIV & N & MeanIV & VarIV & N & MeanIV & VarIV \\
+\hline
+2&&&& 20& 0.1099& 0.0009& 40& 0.1123& 0.0007\\ 
+3&&&& 222& 0.1055& 0.0010& 918& 0.0997& 0.0009\\ 
+4&&&& 510& 0.0982& 0.0009& 5138& 0.0875& 0.0009\\ 
+5& 557& 0.0886& 0.0009& 208& 0.0923& 0.0008&&&\\ 
+6& 5034& 0.0883& 0.0009& 5180& 0.0881& 0.0010&&&\\ 
+7& 437& 0.0873& 0.0009&&&&&&\\ 
+\hline 
+Combined& 6028& 0.0882& 0.0009& 6140& 0.0898& 0.0010& 6096& 0.0895& 0.0009\\ 
 \hline
 \end{tabular} \end{table}
+
 
 
 
