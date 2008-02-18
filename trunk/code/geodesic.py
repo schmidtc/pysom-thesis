@@ -10,7 +10,7 @@ import networkx
 import random
 import sys
 import os
-from math import pi,cos,sin
+from math import pi,cos,sin,asin,
 
 
 def toXYZ(pt):
@@ -58,10 +58,89 @@ def grid2delaunay(g):
     os.system('rm %s'%fname)
     
 
+def geodesic(f):
+    RADIUS = 1
+    diff = 0 #assumption
+    points = []
+    #f = frequency of tessleation
+    noc = f * f * 10 + 2
+    newnoc = f * f * 10 + 2
+    if f==1:
+        angle = 72
+        angle_d = [0 for i in range(noc)]
+        if noc <= 6:
+            numsp = noc
+        else:
+            numsp = 6
+            numinner = noc-numsp
+        for i in range(5):
+            angle_d[i] = (angle + diff) * pi / 180
+            diff += angle
+    else: #f>1
+        angle = 72
+        angle_d = [0 for i in range(5)]
+        angle_nd = [0 for i in range(6)]
+        for i in range(5):
+            angle_d[i]  = (angle+diff) * pi/180
+        diff = 0
+        angle = 60
+        for i in range(6):
+            angle_nd[i] = (angle+diff)* pi/180
+        numsp = 6*f
+        numinner = 6
+        numremain = noc - numsp - numinner
+        numremain -= 1
+    circum = 2 * pi * RADIUS
+    initial_distance = circum / numsp
+    distance = initial_distance
+    totald = circum/6.0
 
-if __name__=='__main__':
-    geodesic = sys.argv[1]
-    grid = txtGeo2grid(geodesic)
-    grid2delaunay(grid)
+    j = 0
+    latitude = [0 for i in range(noc*2)]
+    longitude = [0 for i in range(noc*2)]
+    latitude[j] = 90.0
+    longitude[j] = 0
+    j+=1
+    noc -= 1
+    
+    if f==1:
+        diff_upper = 0
+        diff_lower = 36
+        for i in range(5):
+            lat = (90 * pi/180)
+            lon = (0 * pi/180)
+        
+            degree = asin(sin(lat)*cos(distance)+cos(lat)*sin(distance)*cos(angle))
+            latitude[j] = degree*180/pi
+            longitude[j] = diff_lower
+            j += 1
+            noc -= 1
+
+            if noc == 0:
+                break
+        if diff_upper < 144 and diff_lower >= 0:
+            diff_upper += 72
+        elif diff_upper == 144:
+            diff_upper = -72
+        elif diff_upper > -144 and diff_upper < 0:
+            diff_upper += -72
+
+        if diff_lower<180 and diff_lower >= 0:
+            diff_lower += 72
+        elif diff_lower==180:
+            diff_lower=-36
+        elif diff_lower>-180 and diff_lower<0:
+            diff_lower += -72
+
+
+
+    
+    
+
+
+#if __name__=='__main__':
+#    geodesic = sys.argv[1]
+#    grid = txtGeo2grid(geodesic)
+#    grid2delaunay(grid)
     
     

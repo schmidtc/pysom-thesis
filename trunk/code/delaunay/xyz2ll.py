@@ -21,6 +21,7 @@ def parseDelaunay(filename):
             line = line.strip().split()
             line = map(float,line)
             pt = toLngLat(line)
+            pt = map(degrees,pt)
             print pt
         except:
             print
