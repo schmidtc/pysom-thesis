@@ -56,9 +56,6 @@ if __name__=="__main__":
     def haar():
         dimSet = [20]
 
-    for dims in dimSet:
-        for clusters in [0,2,5,10,20]:
-            graphTrain(geodesic,'geodesic',dims,clusters,0)
 
     import socket
     hostname = socket.gethostname()
@@ -68,4 +65,7 @@ if __name__=="__main__":
 
 
 
+    for dims in dimSet:
+        for clusters in [0,2,5,10,20]:
+            graphTrain(geodesic,'geodesic',dims,clusters,0)
 
