@@ -34,6 +34,7 @@ if __name__=="__main__":
     from hex import hexGraph
 
     #build graphs
+    geodesic = delaunay.parseDelaunay("geodesic/geodesic_642_delaunay.xyz")
     sphere = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
     g = grid2Rook(23,28,binary=1)
     rook = NX.Graph()
@@ -45,15 +46,25 @@ if __name__=="__main__":
     #graphTrain(sphere,'Sphere',5,10,0)
     #graphTrain(rook,'Rook',5,10,0)
     #graphTrain(hex,'Hex',5,10,0)
-    for dims in [2,5,10,20]:
-        for clusters in [0,2,5,10,20]:
-            graphTrain(hex,'hex',dims,clusters,0)
 
-    #import socket
-    #hostname = socket.gethostname()
-    #host = hostname.split('.')[0]
-    #dispatch = {'bora':bora,'neve':neve,'haar':haar}
-    #dispatch[host]()
+    def bora():
+        dimSet = [2]
+    def neve():
+        dimSet = [5]
+    def sheldon():
+        dimSet = [10]
+    def haar():
+        dimSet = [20]
+
+    for dims in dimSet:
+        for clusters in [0,2,5,10,20]:
+            graphTrain(geodesic,'geodesic',dims,clusters,0)
+
+    import socket
+    hostname = socket.gethostname()
+    host = hostname.split('.')[0]
+    dispatch = {'bora':bora,'neve':neve,'haar':haar}
+    dispatch[host]()
 
 
 
