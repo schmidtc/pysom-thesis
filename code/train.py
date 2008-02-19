@@ -48,20 +48,20 @@ if __name__=="__main__":
     #graphTrain(hex,'Hex',5,10,0)
 
     def bora():
-        dimSet = [2]
+        return [2]
     def neve():
-        dimSet = [5]
+        return [5]
     def sheldon():
-        dimSet = [10]
+        return [10]
     def haar():
-        dimSet = [20]
+        return [20]
 
 
     import socket
     hostname = socket.gethostname()
     host = hostname.split('.')[0]
-    dispatch = {'bora':bora,'neve':neve,'haar':haar}
-    dispatch[host]()
+    dispatch = {'bora':bora,'neve':neve,'haar':haar,'sheldon':sheldon}
+    dimSet = dispatch[host]()
 
 
 
