@@ -6,13 +6,42 @@ def toLngLat(xyz):
         phi = 0
     else:
         phi = atan2(y,x)
-        if phi > 0:
+        if phi == pi:
+            pass
+        elif phi > 0:
             phi = phi-pi
         elif phi < 0:
             phi = phi+pi
     theta = acos(z)-(pi/2)
     return phi,theta
 
+def altParseDel(filename):
+    xyz = set()
+    def line2pt(line):
+        pt = line.strip().split()
+        pt = map(float,pt)
+        xyz.add(tuple(pt))
+        pt = toLngLat(pt)
+        return pt
+    f = open(filename,'r')
+    lines = f.readlines()
+    G = NX.Graph()
+    nodes = {}
+    edge = []
+    c = 0
+    for i,line in enumerate(lines):
+        if '#' in line:
+            pass
+        elif len(line.strip().split()) == 3:
+            pt = line2pt(line)
+            if pt not in nodes:
+                nodes[pt] = c
+                c += 1
+            if i < len(lines)-1 and len(lines[i+1].strip().split()) == 3:
+                G.add_edge(pt,line2pt(lines[i+1]))
+    print len(nodes),len(xyz)
+    return G,nodes,xyz
+    
 def parseDelaunay(filename):
     f = open(filename,'r')
     G = NX.Graph()
