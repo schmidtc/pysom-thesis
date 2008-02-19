@@ -48,13 +48,19 @@ if __name__=="__main__":
     #graphTrain(hex,'Hex',5,10,0)
 
     def bora():
-        return [2]
+        #graphTrain(geodesic,'geodesic',5,10,0)
+        graphTrain(geodesic,'geodesic',5,10,1)
+        graphTrain(geodesic,'geodesic',5,10,2)
     def neve():
-        return [5]
+        graphTrain(geodesic,'geodesic',5,10,3)
+        graphTrain(geodesic,'geodesic',5,10,4)
     def sheldon():
-        return [10]
+        graphTrain(geodesic,'geodesic',5,10,5)
+        graphTrain(geodesic,'geodesic',5,10,6)
+        graphTrain(geodesic,'geodesic',5,10,7)
     def haar():
-        return [20]
+        graphTrain(geodesic,'geodesic',5,10,8)
+        graphTrain(geodesic,'geodesic',5,10,9)
 
 
     import socket
@@ -65,7 +71,7 @@ if __name__=="__main__":
 
 
 
-    for dims in dimSet:
-        for clusters in [0,2,5,10,20]:
-            graphTrain(geodesic,'geodesic',dims,clusters,0)
+    #for dims in dimSet:
+    #    for clusters in [0,2,5,10,20]:
+    #        graphTrain(geodesic,'geodesic',dims,clusters,0)
 
