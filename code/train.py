@@ -49,18 +49,29 @@ if __name__=="__main__":
 
     def bora():
         #graphTrain(geodesic,'geodesic',5,10,0)
-        graphTrain(geodesic,'geodesic',5,10,1)
-        graphTrain(geodesic,'geodesic',5,10,2)
+        #graphTrain(geodesic,'geodesic',5,10,1)
+        #graphTrain(geodesic,'geodesic',5,10,2)
     def neve():
-        graphTrain(geodesic,'geodesic',5,10,3)
-        graphTrain(geodesic,'geodesic',5,10,4)
+        #graphTrain(geodesic,'geodesic',5,10,3)
+        #graphTrain(geodesic,'geodesic',5,10,4)
     def sheldon():
-        graphTrain(geodesic,'geodesic',5,10,5)
-        graphTrain(geodesic,'geodesic',5,10,6)
-        graphTrain(geodesic,'geodesic',5,10,7)
+        hex = hexGraph(23,28)
+        graphTrain(hex,'size_test_23_28',5,10,0)
+        hex = hexGraph(23,23)
+        graphTrain(hex,'size_test_23_23',5,10,0)
+        hex = hexGraph(20,20)
+        graphTrain(hex,'size_test_20_20',5,10,0)
+        hex = hexGraph(15,15)
+        graphTrain(hex,'size_test_15_15',5,10,0)
+        hex = hexGraph(10,10)
+        graphTrain(hex,'size_test_10_10',5,10,0)
+        hex = hexGraph(5,5)
+        graphTrain(hex,'size_test_5_5',5,10,0)
+        #graphTrain(geodesic,'geodesic',5,10,6)
+        #graphTrain(geodesic,'geodesic',5,10,7)
     def haar():
-        graphTrain(geodesic,'geodesic',5,10,8)
-        graphTrain(geodesic,'geodesic',5,10,9)
+        #graphTrain(geodesic,'geodesic',5,10,8)
+        #graphTrain(geodesic,'geodesic',5,10,9)
 
 
     import socket
