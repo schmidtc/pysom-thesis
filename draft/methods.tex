@@ -38,8 +38,8 @@ groups based on the degree \footnote{For most topologies the number of
 different degrees will be limited to three or four.}.  The variance and mean
 will be calculated for each of these groups.  The expected result is that
 variances and means of the groups will decrease as the degree increases.  This
-hypothesis will be tested using a ratio of variances test and a difference of
-means test.  The result will also be visualized using a box plot.
+hypothesis will be tested using random labeling as described by \cite{serge}.
+The result will also be visualized using a box plot.
 
 \subsection{Internal variance vs. topological regularity}
 This diagnostic will compare the internal variance of each neuron against a
@@ -90,12 +90,13 @@ neuron will be occupied by more than one observation.
 
 The data will be generated using a Gaussian cluster generator as described by
 \cite{handl}. The generator creates clusters by pulling from multivariate
-normal distributions.  Cluster are not allowed to overlap and no random noise
+normal distributions.  Clusters are not allowed to overlap and no random noise
 is introduced into the data.  The properties such as the number of clusters
-and the number of dimensions will be decided through experimentation.  We will
-create a number of different data sets and use them to train various SOMs.
-The mean internal variance of each SOM will be looked at to determine how it
-responds to the properties of the training data.
+and the number of dimensions will be decided through experimentation.  After
+the data is generated, it is scaled from zero to one and the order of
+randomized.  We will create a number of different data sets and use them to
+train various SOMs.  The mean internal variance of each SOM will be looked at
+to determine how it responds to the properties of the training data.
 
 \subsection{Training}
 The diagnostics must be given a trained SOM for each topology to be compared. To

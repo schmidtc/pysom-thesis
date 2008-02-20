@@ -17,17 +17,22 @@ parameters appropriately we will first explore how the internal variance
 responds to adjustments in their value.
 
 To accomplish this twenty test datasets are generated and used to train each
-topology, for a total of eighty SOMs. As shown in table \ref{ivtable1} all topologies
-seem to respond similarly. The internal variance of the SOM increases as we
-add dimensions and decreases as we add clusters. Based on these results, it was
-decided that five dimensions and ten clusters was a reasonable choice. Five
-dimensions is easier to work with than larger numbers and should yield more
-information than two dimensions.
+topology, for a total of eighty SOMs. Table \ref{ivtable1} shows the average
+internal variance of each SOM.  All topologies seem to respond similarly. The
+internal variance of the SOM increases as we add dimensions and decreases as
+we add clusters. Based on these results, it was decided that five dimensions
+and ten clusters was a reasonable choice. Five dimensions is easier to work
+with than larger numbers and should yield more information than two
+dimensions.
 
-The results shown in \ref{ivtable1} are in line with what one would expect.
+The results shown in table \ref{ivtable1} are in line with what one would expect.
 The SOM has a hard time organizing the random datasets (the datasets with no
-clusters) resulting more competition between neurons and high internal
-variances.
+clusters) resulting more competition between neurons and higher internal
+variances. It has a much easier time organizing data with some kind of
+structure (i.e. clusters).  Somewhat surprising however, is how similar the
+results are between topology types.  We'll examine this in more detail later.
+% it would be interesting to try unformly distiburted data here, the SOM could
+% be used to decide if your data is clustered, uniform or random.
 
 \begin{table}
 \caption{Mean Internal Variance}
@@ -125,27 +130,34 @@ variances.
 }
 \end{table}
 
-
-
-
-
-
 \section{Internal variance vs. first-order neighborhood size}
-As outlined in section \ref{q1} we can look at how the internal variance
-changes with with respect the degree of a neuron.  
+Now that the parameters of the data have been decided on we can start to
+address the first research question. The question asks whether or not the
+internal variance of a neuron is related to its first-order neighborhood size.
+This question will be looked at for each topology.  One problem with testing
+this question is that within a given topology there tend to be few neurons
+that have few neighbors.  For example in the rook topology there are only four
+neurons that have only two neighbors. The rest of the neurons have three or
+four neighbors depending on whether they are on the edge or not. To deal with
+this problem we will try to increase the sample size by combining the results
+of many SOMs trained with similar data.
 
-In order to compare the IV accross groups it it necessary to train multiple
-soms 
-To setup this experiment we
-first generate ten synthetic data sets using the method desribed above.  These
-data sets will be used to train ten SOMs for each topology.  The reason we
-train multiple SOMs for each to is to ensure that we have large enough groups to 
-As mentioned in section \ref{q1} the neurons.
-With these parameters chosen ten data sets are generated and used to train
-SOMs for each topology.  After running ten simulations for the spherical,
-hexagonal and rook topologies we find that the mean internal variance seems to
-remain fairly stable, this suggests that we can combine the results of each
-simulation to compare across topologies. As shown in table \ref{ivtable3}.
+Ten synthetic datasets are generated using the parameters described above. The
+datasets are used to train SOMs for each topology resulting in another forty
+SOMs. The average internal variance of these SOMs are summarized in Table
+\ref{ivtable3}.  We find that the mean internal variance seems to remain
+fairly stable, this suggests that we can combine the results of each
+simulation within a given topology. In the rook topology we will now have up
+to forty\footnote{We can only measure the internal variance when a neuron
+captures two or more observations from the training data.} internal variance
+measurements for neurons with only two neighbors.
+
+After the internal variance and degree of each neuron are calculated we
+group the neurons for a given topology by their degree. The number for groups
+we end up with varies by topology. Figure \ref{boxplot} offers a visualization
+of these groups for each topology.  It was originally expected that the
+internal variances would be lower for groups with larger degrees. This figure
+suggests that is only true for the ``flat'' topologies.
 
 \begin{table}
 \centering
@@ -156,7 +168,7 @@ simulation to compare across topologies. As shown in table \ref{ivtable3}.
 \textbf{Simulation Number} & Geodesic & Graph & Hex & Rook \\
 \hline
 \hline
-\textbf{1} & 0.0966 & 0.0968 & 0.0997 & 0.0989 \\
+\textbf{1} & 0.0908 & 0.0910 & 0.0922 & 0.0920 \\
 \hline
 \textbf{2} & 0.0875 & 0.0874 & 0.0887 & 0.0886 \\
 \hline
@@ -231,35 +243,26 @@ here are the box plots for the IV. \ref{fRookIV} \ref{fGraphIV} \ref{fHexIV}
 
 
 \begin{figure}
+\label{boxplot}
 \centering
-\includegraphics[width=\linewidth]{rook_iv_box.png}
+\subfigure[Rook Topology]{
+  \label{boxplot:rook}
+  \includegraphics[width=.45\linewidth]{rook_iv_box.png}
+}
+\subfigure[Hexagonal Topology]{
+  \label{boxplot:hex}
+  \includegraphics[width=.45\linewidth]{hex_iv_box.png}
+}
+\subfigure[Spherical Topology]{
+  \label{boxplot:graph}
+  \includegraphics[width=.45\linewidth]{graph_iv_box.png}
+}
+\subfigure[Geodesic Sphere Topology]{
+  \label{boxplot:geodesic}
+  \includegraphics[width=.45\linewidth]{geodesic_iv_box.png}
+}
 \caption{This shows 4 box plots, each representing one group of neurons in a set
 of SOMs trained with the same paremeters.}
-\label{fRookIV}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=\linewidth]{hex_iv_box.png}
-\caption{This shows 4 box plots, each representing one group of neurons in a set
-of SOMs trained with the same paremeters.}
-\label{fHexIV}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=\linewidth]{graph_iv_box.png}
-\caption{This shows 4 box plots, each representing one group of neurons in a set
-of SOMs trained with the same paremeters.}
-\label{fGraphIV}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=\linewidth]{geodesic_iv_box.png}
-\caption{This shows 4 box plots, each representing one group of neurons in a set
-of SOMs trained with the same paremeters.}
-\label{fGeodesicIV}
 \end{figure}
 
 
