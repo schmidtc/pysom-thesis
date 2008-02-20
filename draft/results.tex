@@ -18,7 +18,7 @@ responds to adjustments in their value.
 
 To accomplish this twenty test data sets are generated and used to train both
 the rook and spherical SOMs. As shown in tables \ref{ivtable1} and
-\ref{ivtable2} and \ref{ivtablehex} both topologies seem to respond similarly. The internal
+\ref{ivtable2} and \ref{ivtablehex} and \ref{ivtablegeodesic} both topologies seem to respond similarly. The internal
 variance of the SOM increases as we add dimensions and decreases as we add
 clusters. Based on these tables, it was decided that five dimensions and ten
 clusters was a reasonable choice. Five dimensions is easier to work with than
@@ -81,18 +81,44 @@ larger numbers and should yield more information than two dimensions.
 \hline
 &\multicolumn{4}{c|}{\textbf{Dimmensions}}\\
 \textbf{Clusters} & \multicolumn{1}{c}{\textbf{2}} &
-\multicolumn{1}{c}{\textbf{5}} & \multicolumn{1}{c|}{\textbf{10}}\\
+\multicolumn{1}{c}{\textbf{5}} & \multicolumn{1}{c}{\textbf{10}} &
+\multicolumn{1}{c|}{\textbf{20}}\\
 \hline
 \hline
-\textbf{0} & 0.0205& 0.2784& 0.7336 \\
+\textbf{0} & 0.0205& 0.2784& 0.7336& 1.4192 \\
 \hline
-\textbf{2} & 0.0109& 0.1134& 0.2585 \\
+\textbf{2} & 0.0109& 0.1134& 0.2585& 0.4930 \\
 \hline
-\textbf{5} & 0.0111& 0.0997& no test \\
+\textbf{5} & 0.0111& 0.0997& 0.2229& 0.4598 \\
 \hline
-\textbf{10} & 0.0114& 0.0917& no test \\
+\textbf{10} & 0.0114& 0.0917& 0.2085& 0.4236 \\
 \hline
-\textbf{20} & 0.0117& 0.0860& no test \\
+\textbf{20} & 0.0117& 0.0860& 0.2008& 0.4041 \\
+\hline
+\end{tabular} \end{table}
+
+
+
+\begin{table}
+\caption{Mean Internal Variane for the entire som GEODESIC}
+\label{ivtablegeodesic}
+\begin{tabular}{|c||c|c|c|c|}
+\hline
+&\multicolumn{4}{c|}{\textbf{Dimmensions}}\\
+\textbf{Clusters} & \multicolumn{1}{c}{\textbf{2}} &
+\multicolumn{1}{c}{\textbf{5}} & \multicolumn{1}{c}{\textbf{10}} &
+\multicolumn{1}{c|}{\textbf{20}}\\
+\hline
+\hline
+\textbf{0} & 0.0207& 0.2657& 0.7140& 1.3981 \\
+\hline
+\textbf{2} & 0.0111& 0.1110& 0.2553& 0.4870 \\
+\hline
+\textbf{5} & 0.0112& 0.0966& 0.2204& 0.4546 \\
+\hline
+\textbf{10} & 0.0117& 0.0789& 0.2058& 0.4183 \\
+\hline
+\textbf{20} & 0.0120& 0.0857& 0.1995& 0.3994 \\
 \hline
 \end{tabular} \end{table}
 
