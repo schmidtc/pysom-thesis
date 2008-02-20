@@ -16,111 +16,114 @@ clusters to create and how many dimensions to use.  In order to set these
 parameters appropriately we will first explore how the internal variance
 responds to adjustments in their value.
 
-To accomplish this twenty test data sets are generated and used to train both
-the rook and spherical SOMs. As shown in tables \ref{ivtable1} and
-\ref{ivtable2} and \ref{ivtablehex} and \ref{ivtablegeodesic} both topologies seem to respond similarly. The internal
-variance of the SOM increases as we add dimensions and decreases as we add
-clusters. Based on these tables, it was decided that five dimensions and ten
-clusters was a reasonable choice. Five dimensions is easier to work with than
-larger numbers and should yield more information than two dimensions. 
+To accomplish this twenty test datasets are generated and used to train each
+topology, for a total of eighty SOMs. As shown in table \ref{ivtable1} all topologies
+seem to respond similarly. The internal variance of the SOM increases as we
+add dimensions and decreases as we add clusters. Based on these results, it was
+decided that five dimensions and ten clusters was a reasonable choice. Five
+dimensions is easier to work with than larger numbers and should yield more
+information than two dimensions.
 
+The results shown in \ref{ivtable1} are in line with what one would expect.
+The SOM has a hard time organizing the random datasets (the datasets with no
+clusters) resulting more competition between neurons and high internal
+variances.
 
 \begin{table}
-\centering
-\caption{Mean Internal Variane for the entire som GRAPH}
+\caption{Mean Internal Variance}
 \label{ivtable1}
-\begin{tabular}{|c||c|c|c|c|}
-\hline
-&\multicolumn{4}{c|}{\textbf{Dimmensions}}\\
-\textbf{Clusters} & \multicolumn{1}{c}{\textbf{2}} &
-\multicolumn{1}{c}{\textbf{5}} & \multicolumn{1}{c}{\textbf{10}} &
-\multicolumn{1}{c|}{\textbf{20}}\\
-\hline
-\hline
-\textbf{0} & 0.0207& 0.2661& 0.7131& 1.3997 \\
-\hline
-\textbf{2} & 0.0106& 0.1106& 0.2550& 0.4872 \\
-\hline
-\textbf{5} & 0.0117& 0.0968& 0.2194& 0.4557 \\
-\hline
-\textbf{10} & 0.0118& 0.0839& 0.2051& 0.4174 \\
-\hline
-\textbf{20} & 0.0123& 0.0844& 0.1989& 0.4017 \\
-\hline
-\end{tabular} \end{table}
-
-
-\begin{table}
 \centering
-\caption{Mean Internal Variane for the entire som ROOK}
-\label{ivtable2}
-\begin{tabular}{|c||c|c|c|c|}
-\hline
-&\multicolumn{4}{c|}{\textbf{Dimmensions}}\\
-\textbf{Clusters} & \multicolumn{1}{c}{\textbf{2}} &
-\multicolumn{1}{c}{\textbf{5}} & \multicolumn{1}{c}{\textbf{10}} &
-\multicolumn{1}{c|}{\textbf{20}}\\
-\hline
-\hline
-\textbf{0} & 0.0206& 0.2796& 0.7300& 1.4173 \\
-\hline
-\textbf{2} & 0.0114& 0.1140& 0.2598& 0.4930 \\
-\hline
-\textbf{5} & 0.0116& 0.0989& 0.2213& 0.4623 \\
-\hline
-\textbf{10} & 0.0117& 0.0873& 0.2071& 0.4207 \\
-\hline
-\textbf{20} & 0.0120& 0.0851& 0.2020& 0.4059 \\
-\hline
-\end{tabular} \end{table}
 
-\begin{table}
-\caption{Mean Internal Variane for the entire som HEX}
-\label{ivtablehex}
-\begin{tabular}{|c||c|c|c|c|}
-\hline
-&\multicolumn{4}{c|}{\textbf{Dimmensions}}\\
-\textbf{Clusters} & \multicolumn{1}{c}{\textbf{2}} &
-\multicolumn{1}{c}{\textbf{5}} & \multicolumn{1}{c}{\textbf{10}} &
-\multicolumn{1}{c|}{\textbf{20}}\\
-\hline
-\hline
-\textbf{0} & 0.0205& 0.2784& 0.7336& 1.4192 \\
-\hline
-\textbf{2} & 0.0109& 0.1134& 0.2585& 0.4930 \\
-\hline
-\textbf{5} & 0.0111& 0.0997& 0.2229& 0.4598 \\
-\hline
-\textbf{10} & 0.0114& 0.0917& 0.2085& 0.4236 \\
-\hline
-\textbf{20} & 0.0117& 0.0860& 0.2008& 0.4041 \\
-\hline
-\end{tabular} \end{table}
+\subtable[Rook Topology]{
+  \begin{tabular}{|c||c|c|c|c|}
+  \hline
+  &\multicolumn{4}{c|}{\textbf{Dimensions}}\\
+  \textbf{Clusters} & \multicolumn{1}{c}{\textbf{2}} &
+  \multicolumn{1}{c}{\textbf{5}} & \multicolumn{1}{c}{\textbf{10}} &
+  \multicolumn{1}{c|}{\textbf{20}}\\
+  \hline
+  \hline
+  \textbf{0} & 0.0206& 0.2796& 0.7300& 1.4173 \\
+  \hline
+  \textbf{2} & 0.0114& 0.1140& 0.2598& 0.4930 \\
+  \hline
+  \textbf{5} & 0.0116& 0.0989& 0.2213& 0.4623 \\
+  \hline
+  \textbf{10} & 0.0117& 0.0920& 0.2071& 0.4207 \\
+  \hline
+  \textbf{20} & 0.0120& 0.0851& 0.2020& 0.4059 \\
+  \hline
+  \end{tabular}
+  \label{ivtable:rook}
+}
+\subtable[Hexagonal Topology]{
+  \begin{tabular}{|c||c|c|c|c|}
+  \hline
+  &\multicolumn{4}{c|}{\textbf{Dimmensions}}\\
+  \textbf{Clusters} & \multicolumn{1}{c}{\textbf{2}} &
+  \multicolumn{1}{c}{\textbf{5}} & \multicolumn{1}{c}{\textbf{10}} &
+  \multicolumn{1}{c|}{\textbf{20}}\\
+  \hline
+  \hline
+  \textbf{0} & 0.0205& 0.2784& 0.7336& 1.4192 \\
+  \hline
+  \textbf{2} & 0.0109& 0.1134& 0.2585& 0.4930 \\
+  \hline
+  \textbf{5} & 0.0111& 0.0997& 0.2229& 0.4598 \\
+  \hline
+  \textbf{10} & 0.0114& 0.0922& 0.2085& 0.4236 \\
+  \hline
+  \textbf{20} & 0.0117& 0.0860& 0.2008& 0.4041 \\
+  \hline
+  \end{tabular}
+  \label{ivtable1:hex}
+}
+\subtable[Spherical Topology]{
+  \begin{tabular}{|c||c|c|c|c|}
+  \hline
+  &\multicolumn{4}{c|}{\textbf{Dimensions}}\\
+  \textbf{Clusters} & \multicolumn{1}{c}{\textbf{2}} &
+  \multicolumn{1}{c}{\textbf{5}} & \multicolumn{1}{c}{\textbf{10}} &
+  \multicolumn{1}{c|}{\textbf{20}}\\
+  \hline
+  \hline
+  \textbf{0} & 0.0207& 0.2661& 0.7131& 1.3997 \\
+  \hline
+  \textbf{2} & 0.0106& 0.1106& 0.2550& 0.4872 \\
+  \hline
+  \textbf{5} & 0.0117& 0.0968& 0.2194& 0.4557 \\
+  \hline
+  \textbf{10} & 0.0118& 0.0910& 0.2051& 0.4174 \\
 
-
-
-\begin{table}
-\caption{Mean Internal Variane for the entire som GEODESIC}
-\label{ivtablegeodesic}
-\begin{tabular}{|c||c|c|c|c|}
-\hline
-&\multicolumn{4}{c|}{\textbf{Dimmensions}}\\
-\textbf{Clusters} & \multicolumn{1}{c}{\textbf{2}} &
-\multicolumn{1}{c}{\textbf{5}} & \multicolumn{1}{c}{\textbf{10}} &
-\multicolumn{1}{c|}{\textbf{20}}\\
-\hline
-\hline
-\textbf{0} & 0.0207& 0.2657& 0.7140& 1.3981 \\
-\hline
-\textbf{2} & 0.0111& 0.1110& 0.2553& 0.4870 \\
-\hline
-\textbf{5} & 0.0112& 0.0966& 0.2204& 0.4546 \\
-\hline
-\textbf{10} & 0.0117& 0.0789& 0.2058& 0.4183 \\
-\hline
-\textbf{20} & 0.0120& 0.0857& 0.1995& 0.3994 \\
-\hline
-\end{tabular} \end{table}
+  \hline
+  \textbf{20} & 0.0123& 0.0844& 0.1989& 0.4017 \\
+  \hline
+  \end{tabular} 
+  \label{ivtable1:graph}
+} 
+\subtable[Geodesic Sphere Topology]{
+  \begin{tabular}{|c||c|c|c|c|}
+  \hline
+  &\multicolumn{4}{c|}{\textbf{Dimmensions}}\\
+  \textbf{Clusters} & \multicolumn{1}{c}{\textbf{2}} &
+  \multicolumn{1}{c}{\textbf{5}} & \multicolumn{1}{c}{\textbf{10}} &
+  \multicolumn{1}{c|}{\textbf{20}}\\
+  \hline
+  \hline
+  \textbf{0} & 0.0207& 0.2657& 0.7140& 1.3981 \\
+  \hline
+  \textbf{2} & 0.0111& 0.1110& 0.2553& 0.4870 \\
+  \hline
+  \textbf{5} & 0.0112& 0.0966& 0.2204& 0.4546 \\
+  \hline
+  \textbf{10} & 0.0117& 0.0908& 0.2058& 0.4183 \\
+  \hline
+  \textbf{20} & 0.0120& 0.0857& 0.1995& 0.3994 \\
+  \hline
+  \end{tabular}
+  \label{ivtable1:geodesic}
+}
+\end{table}
 
 
 

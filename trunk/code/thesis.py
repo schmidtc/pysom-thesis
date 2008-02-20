@@ -200,13 +200,13 @@ def q1BOX(path='q1Results',ttype='graph'):
         dims = IVName(fname).dims
         clusters = IVName(fname).clusters
         if IVName(fname).type == ttype:
-            print fname
             if dims not in d:
                 d[dims] = {}
             d[dims][clusters] = 0
     for fname in files:
         f = open(os.path.join(path,fname),'r')
         if ttype in fname:
+            number = IVName(fname).number
             dims = IVName(fname).dims
             clusters = IVName(fname).clusters
             data = f.readlines()
@@ -216,7 +216,8 @@ def q1BOX(path='q1Results',ttype='graph'):
             data = N.array(data)
             x = data[:,0]
             y = data[:,1]
-            d[dims][clusters] = y.mean()
+            if number == 0:
+                d[dims][clusters] = y.mean()
 
     dims = d.keys()
     dims.sort()
@@ -381,11 +382,11 @@ if __name__=="__main__":
     print
     print
     print
-    #graph = q1BOX(ttype='graph')
-    #rook = q1BOX(ttype='rook')
-    #hex = q1BOX(ttype='hex')
-    #geodesic = q1BOX(ttype='geodesic')
-    data = q1TableSet2()
+    graph = q1BOX(ttype='graph')
+    rook = q1BOX(ttype='rook')
+    hex = q1BOX(ttype='hex')
+    geodesic = q1BOX(ttype='geodesic')
+    #data = q1TableSet2()
     #q1Data = q1Joins()
     #createGroupBasedMeanIVTable(q1Data)
     #createBoxPlots(q1Data)
