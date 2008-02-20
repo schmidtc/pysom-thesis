@@ -91,7 +91,7 @@ def q1():
     for file in files:
         #if '_1m.' in file and '5d-10c' in file and file[-4:] == '.cod':
         if '_1m.' in file and file[-4:] == '.cod':
-            print file
+            #print file
             type,dcn,rest = file.split('_')
             d,c,n = dcn.split('-')
             d = int(d[:-1])
@@ -122,21 +122,22 @@ def q1TableSet2(path='q1Results',dims=5,clusters=10,noMean=False):
     d = {}
     for fname in files:
         finfo = IVName(fname)
-        type,dims,clusters,number = finfo.tdcn()
-        if type not in d:
-            d[type]={}
-        f = open(os.path.join(path,fname),'r')
-        data = f.readlines()
-        f.close()
-        data = [l.strip().split(',') for l in data]
-        data = [[int(i[2]),float(i[3])] for i in data]
-        data = N.array(data)
-        x = data[:,0]
-        y = data[:,1]
-        if noMean:
-            d[type][number] = zip(x,y)
-        else:
-            d[type][number] = y.mean()
+        type,dim,c,number = finfo.tdcn()
+        if dim == dims and c == clusters:
+            if type not in d:
+                d[type]={}
+            f = open(os.path.join(path,fname),'r')
+            data = f.readlines()
+            f.close()
+            data = [l.strip().split(',') for l in data]
+            data = [[int(i[2]),float(i[3])] for i in data]
+            data = N.array(data)
+            x = data[:,0]
+            y = data[:,1]
+            if noMean:
+                d[type][number] = zip(x,y)
+            else:
+                d[type][number] = y.mean()
 
     table = """\\begin{table}
 \\centering
@@ -173,8 +174,8 @@ def q1Joins(path='q1Results',dims=5,clusters=10):
     d = {}
     for fname in files:
         finfo = IVName(fname)
-        type,dg,c,number = finfo.tdcn()
-        if dg == dims and c == clusters:
+        type,dim,c,number = finfo.tdcn()
+        if dim == dims and c == clusters:
             if type not in d:
                 d[type] = {}
             f = open(os.path.join(path,fname),'r')
@@ -382,11 +383,11 @@ if __name__=="__main__":
     print
     print
     print
-    graph = q1BOX(ttype='graph')
-    rook = q1BOX(ttype='rook')
-    hex = q1BOX(ttype='hex')
-    geodesic = q1BOX(ttype='geodesic')
-    #data = q1TableSet2()
+    #graph = q1BOX(ttype='graph')
+    #rook = q1BOX(ttype='rook')
+    #hex = q1BOX(ttype='hex')
+    #geodesic = q1BOX(ttype='geodesic')
+    data = q1TableSet2()
     #q1Data = q1Joins()
     #createGroupBasedMeanIVTable(q1Data)
     #createBoxPlots(q1Data)
