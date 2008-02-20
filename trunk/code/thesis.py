@@ -382,12 +382,14 @@ if __name__=="__main__":
     print
     #graph = q1BOX(ttype='graph')
     #rook = q1BOX(ttype='rook')
-    hex = q1BOX(ttype='hex')
+    #hex = q1BOX(ttype='hex')
+    #geodesic = q1BOX(ttype='geodesic')
     #data = q1TableSet2()
-    #q1Data = q1Joins()
-    #createGroupBasedMeanIVTable(q1Data)
-    #createBoxPlots(q1Data)
+    q1Data = q1Joins()
+    createGroupBasedMeanIVTable(q1Data)
+    createBoxPlots(q1Data)
     #rLabelTables(d['rook'])
     #rLabelTables(d['graph'])
     #rLabelTables(d['hex'])
+    rLabelTables(d['geodesic'])
     
