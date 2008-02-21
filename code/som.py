@@ -277,20 +277,25 @@ class GraphTopology(som):
         keys and their dist (as an order) as values.
         """
         return nf.neighborhood(self.G,bmu,kernalWidth)
+
+    def hci2(self, sigma, a, dist):
+        top = dist**2
+        bottom = (2*(float(sigma)**2))
+        return a * math.exp(-top/bottom)
     def merge(self,t,ind,v):
         """
         imporved neighborhood function eliminates the need for odist function.
         """
         bmu = self.findBMU(ind,v)
+        a = self.alpha(t)
         sigma = self.kernalWidth(t)
         results = self.neighborhood( bmu , sigma )
         #alteredNodes = [(results[i],self.hci(t,self.odist(i))) for i in xrange(len(results))]
-        alteredNodes = [(node,self.hci(t,odist)) for node,odist in results.iteritems()]
-        for nodeID,hc in alteredNodes:
-            part = take(self.nodes[nodeID],ind)
-            delta = hc*(v-part)
-            put(self.nodes[nodeID],ind,part+delta)
-            self.diffs[nodeID] += abs(delta)
+        alteredNodes = [(node,(v-self.nodes[node])*self.hci2(sigma,a,odist)) for node,odist in results.iteritems()]
+        for nodeID,node in alteredNodes:
+            self.nodes[nodeID] = node
+        # trackking diffs slows us down. a lot.
+        #    self.diffs[nodeID] += abs(delta)
 
 class Sphere(som):
     def __init__(self):
