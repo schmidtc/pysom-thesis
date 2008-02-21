@@ -280,7 +280,7 @@ class GraphTopology(som):
 
     def hci2(self, sigma, a, dist):
         top = dist**2
-        bottom = (2*(float(sigma)**2))
+        bottom = (2*(sigma**2))
         return a * math.exp(-top/bottom)
     def merge(self,t,ind,v):
         """
@@ -290,8 +290,9 @@ class GraphTopology(som):
         a = self.alpha(t)
         sigma = self.kernalWidth(t)
         results = self.neighborhood( bmu , sigma )
-        #alteredNodes = [(results[i],self.hci(t,self.odist(i))) for i in xrange(len(results))]
-        alteredNodes = [(node,(v-self.nodes[node])*self.hci2(sigma,a,odist)) for node,odist in results.iteritems()]
+        sigma = float(sigma)
+        alteredNodes = [(node,(v-self.nodes[node])*(a*math.exp(-(odist*odist)/(2*sigma*sigma)))) for node,odist in results.iteritems()]
+        #alteredNodes = [(node,(v-self.nodes[node])*self.hci2(sigma,a,odist)) for node,odist in results.iteritems()]
         for nodeID,node in alteredNodes:
             self.nodes[nodeID] = node
         # trackking diffs slows us down. a lot.
