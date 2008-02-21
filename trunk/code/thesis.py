@@ -311,10 +311,10 @@ def createGroupBasedMeanIVTable(q1DataStruct):
     degs.sort()
 
     tableValues = {}
-    tableValues['format'] = '||'.join(['|'.join(['c' for i in range(3)]) for topo in topos])
-    s = ["\\multicolumn{3}{c||}{\\textbf{%s}}"%topo.title() for topo in topos]
+    tableValues['format'] = '||'.join(['|'.join(['c' for i in range(2)]) for topo in topos])
+    s = ["\\multicolumn{2}{c||}{\\textbf{%s}}"%topo.title() for topo in topos]
     tableValues['header'] = ' & '.join(s)
-    tableValues['header2']= ' & '.join(['N & MeanIV & VarIV' for topo in topos])
+    tableValues['header2']= ' & '.join(['N & MeanIV' for topo in topos])
 
     rows = ""
     for deg in degs:
@@ -323,12 +323,12 @@ def createGroupBasedMeanIVTable(q1DataStruct):
             try:
                 n = len(data[topo][deg])
                 m = data[topo][deg].mean()
-                v = data[topo][deg].var()
+                #v = data[topo][deg].var()
                 row += '& %d'%n
                 row += '& %.4f'%m
-                row += '& %.4f'%v
+                #row += '& %.4f'%v
             except:
-                row += '&&&'
+                row += '&&'
         row += '\\\\ \n'
         rows += row
 
@@ -341,10 +341,10 @@ def createGroupBasedMeanIVTable(q1DataStruct):
         nodes = N.array(nodes)
         n = len(nodes)
         m = nodes.mean()
-        v = nodes.var()
+        #v = nodes.var()
         row += '& %d'%n
         row += '& %.4f'%m
-        row += '& %.4f'%v
+        #row += '& %.4f'%v
     
     rows += row + '\\\\ \n'
 
@@ -370,7 +370,7 @@ if __name__=="__main__":
     #This function should always be run.
     # It does nothing unless the IV files have been removed,
     # or new test cases have been added.
-    q1() 
+    #q1() 
 
 
 
@@ -387,9 +387,9 @@ if __name__=="__main__":
     #rook = q1BOX(ttype='rook')
     #hex = q1BOX(ttype='hex')
     #geodesic = q1BOX(ttype='geodesic')
-    data = q1TableSet2()
-    #q1Data = q1Joins()
-    #createGroupBasedMeanIVTable(q1Data)
+    #data = q1TableSet2()
+    q1Data = q1Joins()
+    createGroupBasedMeanIVTable(q1Data)
     #createBoxPlots(q1Data)
     #rLabelTables(d['rook'])
     #rLabelTables(d['graph'])
