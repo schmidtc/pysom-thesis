@@ -4,11 +4,16 @@ def neighborhood(G,n,o):
     base = G[n]
     neighbors = {}
     neighbors[n] = 0
+    newNodes = set(neighbors.keys())
     for i in range(1,o+1):
-        for node in neighbors.keys():
+        #for node in neighbors.keys():
+        nodes = newNodes.copy()
+        newNodes = set()
+        for node in nodes:
             branch = G[node]
             for node in branch:
                 if node not in neighbors:
+                    newNodes.add(node)
                     neighbors[node]=i
     return neighbors
 
