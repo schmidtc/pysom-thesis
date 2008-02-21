@@ -99,7 +99,6 @@ results are between topology types.  We'll examine this in more detail later.
   \textbf{5} & 0.0117& 0.0968& 0.2194& 0.4557 \\
   \hline
   \textbf{10} & 0.0118& 0.0910& 0.2051& 0.4174 \\
-
   \hline
   \textbf{20} & 0.0123& 0.0844& 0.1989& 0.4017 \\
   \hline
@@ -155,9 +154,24 @@ measurements for neurons with only two neighbors.
 After the internal variance and degree of each neuron are calculated we
 group the neurons for a given topology by their degree. The number for groups
 we end up with varies by topology. Figure \ref{boxplot} offers a visualization
-of these groups for each topology.  It was originally expected that the
-internal variances would be lower for groups with larger degrees. This figure
-suggests that is only true for the ``flat'' topologies.
+of these groups for each topology.  Each subfigure shows a series of box
+plots, each representing the distibution of internal variance within each
+group.  It was originally expected that the internal variances would be lower
+for groups with larger degrees. This figure suggests that is only true for the
+``flat'' topologies.
+
+Table \ref{meanvar1} shows the mean internal variance for each group for each
+topology. Again we see that the internal variances seem to respond as expected
+in the ``flat'' topologies, but not in the spherical topologies.  I suspect a
+better measure would be to use the minimum number of steps to reach every
+neuron on the network.  This would vary significantly on the rook and hexagon
+topolgoies, but not very much in the spherical topologies.
+
+
+this table shows the means and variances for the degree groups,
+\ref{meanvar1}. \footnote{The Combined sizes may not add up to expeded amount.
+This is because we can only calculate an IV for neurons which are the BMU of
+two or more observations.}
 
 \begin{table}
 \centering
@@ -206,37 +220,26 @@ neighborhood size, or degree, increases?
 
 
 
-this table shows the means and variances for the degree groups,
-\ref{meanvar1}. \footnote{The Combined sizes may not add up to expeded amount.
-This is because we can only calculate an IV for neurons which are the BMU of
-two or more observations.}
 
 \begin{table}
 \caption{Mean IV grouped by a neurons degree for each topology}
 \label{meanvar1}
-\begin{tabular}{|c||c|c|c||c|c|c||c|c|c||c|c|c|}
+\begin{tabular}{|c||c|c||c|c||c|c||c|c|}
 \hline
-\textbf{Degree Size} & \multicolumn{3}{c||}{\textbf{Geodesic}} &
-\multicolumn{3}{c||}{\textbf{Graph}} & \multicolumn{3}{c||}{\textbf{Hex}} &
-\multicolumn{3}{c||}{\textbf{Rook}} \\
+\textbf{Degree Size} & \multicolumn{2}{c||}{\textbf{Geodesic}} &
+\multicolumn{2}{c||}{\textbf{Graph}} & \multicolumn{2}{c||}{\textbf{Hex}} &
+\multicolumn{2}{c|}{\textbf{Rook}} \\
 \hline
-& N & MeanIV & VarIV & N & MeanIV & VarIV & N & MeanIV & VarIV & N & MeanIV &
-VarIV \\
+& N & MeanIV & N & MeanIV & N & MeanIV & N & MeanIV \\
 \hline
-2&&&&&&& 20& 0.1109& 0.0010& 40& 0.1123& 0.0007\\ 
-3&&&&&&& 223& 0.1054& 0.0010& 918& 0.0997& 0.0009\\ 
-4&&&&&&& 507& 0.0980& 0.0009& 5138& 0.0875& 0.0009\\ 
-5& 115& 0.0898& 0.0009& 557& 0.0886& 0.0009& 208& 0.0921& 0.0008&&&\\ 
-6& 5929& 0.0884& 0.0009& 5034& 0.0883& 0.0009& 5184& 0.0881& 0.0009&&&\\ 
-7&&&& 437& 0.0873& 0.0009&&&&&&\\ 
-\hline 
-Combined& 6044& 0.0884& 0.0009& 6028& 0.0882& 0.0009& 6142& 0.0897& 0.0010&
-6096& 0.0895& 0.0009\\ 
+2&&&&& 20& 0.1109& 40& 0.1123\\ 
+3&&&&& 223& 0.1054& 918& 0.0997\\ 
+4&&&&& 507& 0.0980& 5138& 0.0875\\ 
+5& 115& 0.0898& 557& 0.0886& 208& 0.0921&&\\ 
+6& 5929& 0.0884& 5034& 0.0883& 5184& 0.0881&&\\ 
+7&&& 437& 0.0873&&&&\\ 
 \hline
 \end{tabular} \end{table}
-
-
-
 
 here are the box plots for the IV. \ref{fRookIV} \ref{fGraphIV} \ref{fHexIV}
 \ref{fGeodesicIV}
