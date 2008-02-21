@@ -128,10 +128,16 @@ class som:
         results = self.neighborhood( bmu , sigma )
         alteredNodes = [(results[i],self.hci(t,self.odist(i))) for i in xrange(len(results))]
         for nodeID,hc in alteredNodes:
-            part = take(self.nodes[nodeID],ind)
-            delta = hc*(v-part)
-            put(self.nodes[nodeID],ind,part+delta)
-            self.diffs[nodeID] += abs(delta)
+            if len(ind) == self.Dims:
+                part = self.nodes[nodeID]
+                delta = hc*(v-part)
+                self.nodes[nodeID] = part+delta
+                self.diffs[nodeID] += abs(delta)
+            else:
+                part = take(self.nodes[nodeID],ind)
+                delta = hc*(v-part)
+                put(self.nodes[nodeID],ind,part+delta)
+                self.diffs[nodeID] += abs(delta)
 
     def run(self,obsf):
         self.neighborhoodCache = {}
