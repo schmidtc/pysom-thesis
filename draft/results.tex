@@ -132,28 +132,37 @@ internal variance responds to uniformly distributed data.
 }
 \end{table}
 
-\section{Internal variance vs. first-order neighborhood size}
-Now that the parameters of the data have been decided on we can start to
-address the first research question. The question asks whether or not the
-internal variance of a neuron is related to its first-order neighborhood size.
-This question will be looked at for each topology.  One problem with testing
-this question is that within a given topology there tend to be few neurons
-that have few neighbors.  For example in the rook topology there are only four
-neurons that have only two neighbors. The rest of the neurons have three or
-four neighbors depending on whether they are on the edge or not. To deal with
-this problem we will try to increase the sample size by combining the results
-of many SOMs trained with similar data.
+\section{Training}
+Before we can go on to addressing the research questions we need to train a
+series of SOMs. One problem that we will face is a small group size when the
+neurons of a given SOM are grouped by their degree.  For example in the rook
+topology there are only four neurons that have a degree of two, the four
+corners. The rest of the neurons have three or four neighbors depending on
+whether they are on the edge or not. To deal with this problem we will try to
+increase the sample size by combining the results of many SOMs trained with
+similar data.
 
-Ten synthetic datasets are generated using the parameters described above. The
-datasets are used to train SOMs for each topology resulting in another forty
-SOMs. The average internal variance of these SOMs are summarized in Table
-\ref{ivtable3}.  We find that the mean internal variance seems to remain
-fairly stable, this suggests that we can combine the results of each
-simulation within a given topology. In the rook topology we will now have up
-to forty\footnote{We can only measure the internal variance when a neuron
-captures two or more observations from the training data. Therefore, it would
-be possible to have less than forty measurements.} internal variance
-measurements for neurons with only two neighbors.
+The four topologies are tested. These are the Rook, Hexagonal, Geodesic Sphere
+and a forth topology based on a \cite{Rakhmanov94}. As mentioned before
+\cite{Rakhmanov94} suggest a method for distributing an arbitrary number of
+point on to the surface of a sphere.  Delaunay triangulation is applied to the
+result of this method producing a topological structure for the points.  This
+topology shall be is referred to simply as ``spherical.''  As shown in figure
+\ref{fig:nSize} the achievable network size is rather limited in the geodesic
+SOM.  An eight frequency geodesic sphere has 642 nodes. The hexagon and rook
+topologies can achieve 644 nodes when the dimensions set to 28 by 23. The
+spherical topology will be set to 642 nodes.
+
+Ten synthetic datasets are generated using the parameters described in the
+previous section. The datasets are used to train SOMs for each topology
+resulting in another forty SOMs. The average internal variance of these SOMs
+are summarized in Table \ref{ivtable3}.  We find that the mean internal
+variance seems to remain fairly stable, this suggests that we can combine the
+results of each simulation within a given topology. In the rook topology we
+will now have up to forty\footnote{We can only measure the internal variance
+when a neuron captures two or more observations from the training data.
+Therefore, it would be possible to have less than forty measurements.}
+internal variance measurements for neurons with only two neighbors.
 
 \begin{table}[hbt]
 \centering
@@ -161,7 +170,7 @@ measurements for neurons with only two neighbors.
 \label{ivtable3}
 \begin{tabular}{|c||c|c|c|c|}
 \hline
-\textbf{Simulation Number} & Geodesic & Graph & Hex & Rook \\
+\textbf{Simulation Number} & Geodesic & Spherical & Hex & Rook \\
 \hline
 \hline
 \textbf{1} & 0.0908 & 0.0910 & 0.0922 & 0.0920 \\
@@ -186,6 +195,7 @@ measurements for neurons with only two neighbors.
 \hline
 \end{tabular} \end{table}
 
+\section{Internal variance vs. first-order neighborhood size}
 After the internal variance and degree of each neuron are calculated we
 group the neurons for a given topology by their degree. The number for groups
 we end up with varies by topology. Figure \ref{boxplot} offers a visualization
@@ -240,7 +250,7 @@ different between in the groups.
 \begin{tabular}{|c||c|c||c|c||c|c||c|c|}
 \hline
 \textbf{Degree} & \multicolumn{2}{c||}{\textbf{Geodesic}} &
-\multicolumn{2}{c||}{\textbf{Graph}} & \multicolumn{2}{c||}{\textbf{Hex}} &
+\multicolumn{2}{c||}{\textbf{Spherical}} & \multicolumn{2}{c||}{\textbf{Hex}} &
 \multicolumn{2}{c|}{\textbf{Rook}} \\
 \hline
 %& N & MeanIV & N & MeanIV & N & MeanIV & N & MeanIV \\
