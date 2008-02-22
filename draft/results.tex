@@ -23,14 +23,17 @@ internal variance of the SOM increases as we add dimensions and decreases as
 we add clusters. Based on these results, it was decided that five dimensions
 and ten clusters was a reasonable choice. Five dimensions is easier to work
 with than larger numbers and should yield more information than two
-dimensions.
+dimensions. Ten clusters was chosen because, the internal variances seemed to
+level out near this number.
 
-The results shown in table \ref{ivtable1} are in line with what one would expect.
-The SOM has a hard time organizing the random datasets (the datasets with no
-clusters) resulting more competition between neurons and higher internal
-variances. It has a much easier time organizing data with some kind of
-structure (i.e. clusters).  Somewhat surprising however, is how similar the
-results are between topology types.  We'll examine this in more detail later.
+The results shown in table \ref{ivtable1} are in line with what one would
+expect.  The SOM has a hard time organizing the random datasets (the datasets
+with no clusters are just random data) resulting more competition between
+neurons and higher internal variances. It has a much easier time organizing
+data with some kind of structure (i.e. clusters).  Somewhat surprising
+however, is how similar the results are between topology types.  We'll examine
+this in more detail later.  In the future it may be of interest to look at how the
+internal variance responds to uniformly distributed data.
 % it would be interesting to try unformly distiburted data here, the SOM could
 % be used to decide if your data is clustered, uniform or random.
 
@@ -64,7 +67,7 @@ results are between topology types.  We'll examine this in more detail later.
 \subtable[Hexagonal Topology]{
   \begin{tabular}{|c||c|c|c|c|}
   \hline
-  &\multicolumn{4}{c|}{\textbf{Dimmensions}}\\
+  &\multicolumn{4}{c|}{\textbf{Dimensions}}\\
   \textbf{Clusters} & \multicolumn{1}{c}{\textbf{2}} &
   \multicolumn{1}{c}{\textbf{5}} & \multicolumn{1}{c}{\textbf{10}} &
   \multicolumn{1}{c|}{\textbf{20}}\\
@@ -148,32 +151,11 @@ SOMs. The average internal variance of these SOMs are summarized in Table
 fairly stable, this suggests that we can combine the results of each
 simulation within a given topology. In the rook topology we will now have up
 to forty\footnote{We can only measure the internal variance when a neuron
-captures two or more observations from the training data.} internal variance
+captures two or more observations from the training data. Therefore, it would
+be possible to have less than forty measurements.} internal variance
 measurements for neurons with only two neighbors.
 
-After the internal variance and degree of each neuron are calculated we
-group the neurons for a given topology by their degree. The number for groups
-we end up with varies by topology. Figure \ref{boxplot} offers a visualization
-of these groups for each topology.  Each subfigure shows a series of box
-plots, each representing the distibution of internal variance within each
-group.  It was originally expected that the internal variances would be lower
-for groups with larger degrees. This figure suggests that is only true for the
-``flat'' topologies.
-
-Table \ref{meanvar1} shows the mean internal variance for each group for each
-topology. Again we see that the internal variances seem to respond as expected
-in the ``flat'' topologies, but not in the spherical topologies.  I suspect a
-better measure would be to use the minimum number of steps to reach every
-neuron on the network.  This would vary significantly on the rook and hexagon
-topolgoies, but not very much in the spherical topologies.
-
-
-this table shows the means and variances for the degree groups,
-\ref{meanvar1}. \footnote{The Combined sizes may not add up to expeded amount.
-This is because we can only calculate an IV for neurons which are the BMU of
-two or more observations.}
-
-\begin{table}
+\begin{table}[hbt]
 \centering
 \caption{Mean IV for each simulation, by topology}
 \label{ivtable3}
@@ -204,48 +186,16 @@ two or more observations.}
 \hline
 \end{tabular} \end{table}
 
+After the internal variance and degree of each neuron are calculated we
+group the neurons for a given topology by their degree. The number for groups
+we end up with varies by topology. Figure \ref{boxplot} offers a visualization
+of these groups for each topology.  Each sub-figure shows a series of box
+plots, each representing the distribution of internal variance within a given
+group.  It was originally expected that the internal variances would be lower
+for groups with larger degrees. This figure suggests that is only true for the
+``flat'' topologies.
 
-
-%Currently implemented are the rectangular and spherical topologies, the hexagon
-%and geodesic are to be implemented only as graphs.  I.E. the topologies will be
-%generated externally and turned into a networkX graph, for use in the graph
-%based SOM. The spherical topology also relies on external programs to generate
-%the graph structure (spherical voronoi).
-\subsection{Restate the Questions}
-\textbf{Objective}, Compare the internal variance of observations captured by a given
-neuron to that neuron's first-order neighborhood size.
-
-\textbf{Question}, Does the internal variance of a neuron decrease as its first-order
-neighborhood size, or degree, increases?
-
-
-
-
-\begin{table}
-\caption{Mean IV grouped by a neurons degree for each topology}
-\label{meanvar1}
-\begin{tabular}{|c||c|c||c|c||c|c||c|c|}
-\hline
-\textbf{Degree Size} & \multicolumn{2}{c||}{\textbf{Geodesic}} &
-\multicolumn{2}{c||}{\textbf{Graph}} & \multicolumn{2}{c||}{\textbf{Hex}} &
-\multicolumn{2}{c|}{\textbf{Rook}} \\
-\hline
-& N & MeanIV & N & MeanIV & N & MeanIV & N & MeanIV \\
-\hline
-2&&&&& 20& 0.1109& 40& 0.1123\\ 
-3&&&&& 223& 0.1054& 918& 0.0997\\ 
-4&&&&& 507& 0.0980& 5138& 0.0875\\ 
-5& 115& 0.0898& 557& 0.0886& 208& 0.0921&&\\ 
-6& 5929& 0.0884& 5034& 0.0883& 5184& 0.0881&&\\ 
-7&&& 437& 0.0873&&&&\\ 
-\hline
-\end{tabular} \end{table}
-
-here are the box plots for the IV. \ref{fRookIV} \ref{fGraphIV} \ref{fHexIV}
-\ref{fGeodesicIV}
-
-
-\begin{figure}
+\begin{figure}[hbt]
 \label{boxplot}
 \centering
 \subfigure[Rook Topology]{
@@ -265,103 +215,108 @@ here are the box plots for the IV. \ref{fRookIV} \ref{fGraphIV} \ref{fHexIV}
   \includegraphics[width=.45\linewidth]{geodesic_iv_box.png}
 }
 \caption{This shows 4 box plots, each representing one group of neurons in a set
-of SOMs trained with the same paremeters.}
+of SOMs trained with the same parameters.}
 \end{figure}
 
+Table \ref{meanvar1} shows the mean internal variance for each group for each
+topology. Again we see that the internal variances seem to respond as expected
+in the ``flat'' topologies, but not in the spherical topologies.  This is not
+necessarily bad, as it may suggest that the spherical topologies are
+effectively overcoming the edge problem.  The difference between these means
+and their significance is presented in tables \ref{rlt}.  For the rook
+topology table \ref{rlt:rook} shows that its three groups are significantly
+different from each other. Results are similar for the hexagonal topology. For
+the Spherical and Geodesic Topologies however there is no significant
+different between in the groups.
+%I suspect a better measure would be to use the minimum number of steps for a
+%given nueron to reach every other neuron on the network.  This would vary
+%significantly on the rook and hexagon topolgoies, but not very much in the
+%spherical topologies.
 
+\begin{table}[hbt]
+\centering
+\caption{Mean IV and Var(IV) grouped by a neurons degree for each topology}
+\label{meanvar1}
+\begin{tabular}{|c||c|c||c|c||c|c||c|c|}
+\hline
+\textbf{Degree} & \multicolumn{2}{c||}{\textbf{Geodesic}} &
+\multicolumn{2}{c||}{\textbf{Graph}} & \multicolumn{2}{c||}{\textbf{Hex}} &
+\multicolumn{2}{c|}{\textbf{Rook}} \\
+\hline
+%& N & MeanIV & N & MeanIV & N & MeanIV & N & MeanIV \\
+& N & Mean (Var) & N & Mean (Var) & N & Mean (Var) & N & Mean (Var) \\
 
+\hline
+2&&&&& 20& 0.1109 (0.0010)& 40& 0.1123 (0.0007)\\ 
+3&&&&& 223& 0.1054 (0.0010)& 918& 0.0997 (0.0009)\\ 
+4&&&&& 507& 0.0980 (0.0009)& 5138& 0.0875 (0.0009)\\ 
+5& 115& 0.0898 (0.0009)& 557& 0.0886 (0.0009)& 208& 0.0921 (0.0008)&&\\ 
+6& 5929& 0.0884 (0.0009)& 5034& 0.0883 (0.0009)& 5184& 0.0881 (0.0009)&&\\ 
+7&&& 437& 0.0873 (0.0009)&&&&\\ 
+%2&&&&& 20& 0.1109& 40& 0.1123\\ 
+%3&&&&& 223& 0.1054& 918& 0.0997\\ 
+%4&&&&& 507& 0.0980& 5138& 0.0875\\ 
+%5& 115& 0.0898& 557& 0.0886& 208& 0.0921&&\\ 
+%6& 5929& 0.0884& 5034& 0.0883& 5184& 0.0881&&\\ 
+%7&&& 437& 0.0873&&&&\\ 
+\hline
+\end{tabular} \end{table}
 
-To answer this question we need to setup a distance matrix (the distance of the
-means) between each set of groups with in a given topology.  The table should
-look like this...... 
-\\
-  2 3 4\\
-2 0 + +\\
-3 - 0 +\\
-4 - - 0\\
-\\
-differance of means test\ldots
-\ref{randomLabelTableRook}
-\ref{randomLabelTableGraph}
-\ref{randomLabelTableHex}
-\ref{randomLabelTableGeodesic}
+%\subsection{Restate the Questions}
+%\textbf{Objective}, Compare the internal variance of observations captured by a given
+%neuron to that neuron's first-order neighborhood size.
+%\textbf{Question}, Does the internal variance of a neuron decrease as its first-order
+%neighborhood size, or degree, increases?
+
 
 \begin{table}
 \centering
-\caption{Random Labeling Mean Tests for rook case,  delta (p-Value)}
-\label{randomLabelTableRook}
-\begin{tabular}{|c||c|c|c|}
-\hline
-&2&3&4\\
-\hline
-\hline
-2& & 0.012681 (0.009000)& 0.024790 (0.001000)\\
-\hline
-3& 0.012681 (0.011000)& & 0.012109 (0.001000)\\
-\hline
-4& 0.024790 (0.001000)& 0.012109 (0.001000)& \\
-\hline
-\end{tabular} \end{table}
+\caption{These tables show the difference in means between each group of a
+given topology and the significance of the difference,  delta (p-Value), t=9999}
+\label{rlt}
+  \subtable[Rook Topology]{
+    \label{rlt:rook}
+    \begin{tabular}{|c||c|c|c|}
+    \hline
+    &3&4\\\hline
+    \hline
+    2& 0.0127 (0.0060)& 0.0248 (0.0010)\\\hline
+    3& & 0.0121 (0.0010)\\\hline
+  \end{tabular}
+  }
 
+  \subtable[Hexagonal Topology]{
+    \label{rlt:hex}
+    \begin{tabular}{|c||c|c|c|c|}
+    \hline
+    &3&4&5&6\\ \hline
+    \hline
+    2& 0.0055 (0.2270)& 0.0130 (0.0370)& 0.0189 (0.0030)& 0.0229 (0.0030)\\\hline
+    3& & 0.0075 (0.0040)& 0.0134 (0.0010)& 0.0173 (0.0010)\\\hline
+    4& & & 0.0059 (0.0120)& 0.0099 (0.0010)\\\hline
+    5& & & & 0.0040 (0.0400)\\\hline
+    \end{tabular}
+  }
 
-\begin{table}
-\centering
-\caption{Random Labeling Mean Tests for spherical case,  delta (p-Value)}
-\label{randomLabelTableGraph}
-\begin{tabular}{|c||c|c|c|}
-\hline
-&5&6&7\\
-\hline
-\hline
-5& & 0.000362 (0.786000)& 0.001358 (0.480000)\\
-\hline
-6& 0.000362 (0.752000)& & 0.000996 (0.484000)\\
-\hline
-7& 0.001358 (0.503000)& 0.000996 (0.514000)& \\
-\hline
-\end{tabular} \end{table}
+  \subtable[Spherical Topology]{
+    \label{rlt:graph}
+    \begin{tabular}{|c||c|c|}
+    \hline
+    &6&7\\ \hline
+    \hline
+    5& 0.0004 (0.4180)& 0.0014 (0.2380)\\\hline
+    6& & 0.0010 (0.2450)\\\hline
+    \end{tabular}
+  }
 
-\begin{table}
-\centering
-\caption{Random Labeling Mean Tests for Hexgonal Lattice,  delta (p-Value)}
-\label{randomLabelTableHex}
-\begin{tabular}{|c||c|c|c|c|c|}
-\hline
-&2&3&4&5&6\\
-\hline
-\hline
-2& & 0.004463 (0.525000)& 0.011735 (0.083000)& 0.017665 (0.011000)& 0.021821
-(0.003000)\\
-\hline
-3& 0.004463 (0.548000)& & 0.007272 (0.006000)& 0.013202 (0.001000)& 0.017357
-(0.001000)\\
-\hline
-4& 0.011735 (0.095000)& 0.007272 (0.002000)& & 0.005930 (0.014000)& 0.010086
-(0.001000)\\
-\hline
-5& 0.017665 (0.012000)& 0.013202 (0.001000)& 0.005930 (0.019000)& & 0.004155
-(0.060000)\\
-\hline
-6& 0.021821 (0.002000)& 0.017357 (0.001000)& 0.010086 (0.001000)& 0.004155
-(0.056000)& \\
-\hline
-\end{tabular} \end{table}
-
-\begin{table}
-\caption{Random Labeling Mean Tests for Geodesic Lattice,  delta (p-Value)}
-\label{randomLabelTableGeodesic}
-\begin{tabular}{|c||c|c|}
-\hline
-&5&6\\
-\hline
-\hline
-5& & 0.001476 (0.601000)\\
-\hline
-6& 0.001476 (0.584000)& \\
-\hline
-\end{tabular} \end{table}
-
-
-
-
+  \subtable[Geodesic Topology]{
+    \label{rlt:geodesic}
+    \begin{tabular}{|c||c|}
+    \hline
+    &6\\ \hline
+    \hline
+    5& 0.0015 (0.3090)\\\hline
+    \end{tabular}
+  }
+\end{table}
 
