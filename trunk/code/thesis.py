@@ -229,7 +229,7 @@ def q1BOX(path='q1Results',ttype='graph'):
 \\label{ivtable1}
 \\begin{tabular}{|c||c|c|c|c|}
 \\hline
-&\\multicolumn{4}{c|}{\\textbf{Dimmensions}}\\\\'''%ttype.upper()
+&\\multicolumn{4}{c|}{\\textbf{Dimensions}}\\\\'''%ttype.upper()
     print '\\textbf{Clusters} & '+' & '.join(line) + '\\\\'
     print '\\hline'
     clusters = [0,2,5,10,20]
@@ -245,7 +245,7 @@ def q1BOX(path='q1Results',ttype='graph'):
         
     return d
     
-def rLabelMean(a,b,t=999):
+def rLabelMean(a,b,t=9999):
     c = list(a); c.extend(b)
     c = array(c)
     na = len(a)
@@ -253,37 +253,41 @@ def rLabelMean(a,b,t=999):
     deltas = []
     for i in range(t):
         shuffle(c)
-        delta = abs(c[:na].mean() - c[na:].mean())
+        delta = (c[:na].mean() - c[na:].mean())
         deltas.append(delta)
-    realMean = abs(a.mean()-b.mean())
+    realMean = (a.mean()-b.mean())
     deltas.append(realMean)
     deltas.sort()
     i = deltas.index(realMean)
     p = (t+1 - i)/float(t+1)
     return realMean,p
 
-def rLabelTables(topoData):
+def rLabelTables(topoData,tname):
     degs = topoData.keys()
     degs.sort()
     format = '|'.join(['c' for d in degs])
-    print '''\\begin{table}
-\\caption{Random Labeling Mean Tests,  delta (p-Value)}
-\\label{randomLabelTable}
-\\begin{tabular}{|c||%s|}'''%format
-    print '\\hline'
-    print "&" + "&".join(map(str,degs)) + '\\\\'
-    print '\\hline'
-    print '\\hline'
+    print '''
+\\subtable[%s]{
+  \\begin{table}
+  \\label{rlt:%s}
+  \\begin{tabular}{|c||%s|}'''%(tname.title(),tname,format)
+
+    print '  \\hline'
+    print "  " + "&".join(map(str,degs)) + '\\\\\\hline'
+    print '  \\hline'
     for a in degs:
-        s = str(a)
+        s = '  '
+        s += str(a)
         for b in degs:
             if a==b:
+                pass
+            elif a>b:
                 s+="& "
             else:
-                s+='& %f (%f)'%rLabelMean(topoData[a],topoData[b],t=999)
-        print s+'\\\\'
-        print '\\hline'
-    print "\end{tabular} \end{table}"
+                s+='& %.4f (%.4f)'%rLabelMean(topoData[a],topoData[b],t=999)
+        print s+'\\\\\\hline'
+    print "  \end{tabular}"
+    print "}"
             
 def createBoxPlots(q1DataStruct):
     """This function will creat the box plots for question one."""
@@ -314,7 +318,7 @@ def createGroupBasedMeanIVTable(q1DataStruct):
     tableValues['format'] = '||'.join(['|'.join(['c' for i in range(2)]) for topo in topos])
     s = ["\\multicolumn{2}{c||}{\\textbf{%s}}"%topo.title() for topo in topos]
     tableValues['header'] = ' & '.join(s)
-    tableValues['header2']= ' & '.join(['N & MeanIV' for topo in topos])
+    tableValues['header2']= ' & '.join(['N & Mean (Var)' for topo in topos])
 
     rows = ""
     for deg in degs:
@@ -323,9 +327,9 @@ def createGroupBasedMeanIVTable(q1DataStruct):
             try:
                 n = len(data[topo][deg])
                 m = data[topo][deg].mean()
-                #v = data[topo][deg].var()
+                v = data[topo][deg].var()
                 row += '& %d'%n
-                row += '& %.4f'%m
+                row += '& %.4f (%.4f)'%(m,v)
                 #row += '& %.4f'%v
             except:
                 row += '&&'
@@ -341,7 +345,7 @@ def createGroupBasedMeanIVTable(q1DataStruct):
         nodes = N.array(nodes)
         n = len(nodes)
         m = nodes.mean()
-        #v = nodes.var()
+        v = nodes.var()
         row += '& %d'%n
         row += '& %.4f'%m
         #row += '& %.4f'%v
@@ -391,8 +395,8 @@ if __name__=="__main__":
     q1Data = q1Joins()
     createGroupBasedMeanIVTable(q1Data)
     #createBoxPlots(q1Data)
-    #rLabelTables(d['rook'])
-    #rLabelTables(d['graph'])
-    #rLabelTables(d['hex'])
-    #rLabelTables(q1Data['geodesic'])
+    #rLabelTables(q1Data['rook'],'rook')
+    #rLabelTables(q1Data['graph'],'graph')
+    #rLabelTables(q1Data['hex'],'hex')
+    #rLabelTables(q1Data['geodesic'],'geodesic')
     
