@@ -30,9 +30,8 @@
 
 #include <math.h>
 
-
-#define DIM 2      // dimensionality of the data
-#define NUM 2      // number of clusters
+#define DIM 20      // dimensionality of the data
+#define NUM 20      // number of clusters
 
 #define MAXMU 10   // mean in each dimension is in range [0,MAXMU]
 #define MINMU -10
@@ -40,7 +39,7 @@
 #define MAXSIGMA 20*sqrt(DIM) // standard deviation (to be added on top 
 // of row sum in each dimension is in range [0,MAXSIGMA] 
 #define MAXSIZE 0  // size of each cluster is in range [MINSIZE,MAXSIZE]
-#define MINSIZE 12500   
+#define MINSIZE 1250   
 #define RUNS 1    // number of data sets to be generated
 
 
