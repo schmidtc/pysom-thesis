@@ -1,10 +1,10 @@
 CC = g++ -Wno-deprecated 
 LD = g++ -Wno-deprecated
-TARGET = mult_generator
+TARGET = gen
 CFLAGS = 
 
 mult_generator : mult-generation.o gasdev.o random.o random_data.o
-	$(LD) $(CFLAGS) -o mult_generator mult-generation.o gasdev.o random.o  random_data.o
+	$(LD) $(CFLAGS) -o gen mult-generation.o gasdev.o random.o  random_data.o
 
 mult-generation.o : mult-generation.C
 	$(CC) $(CFLAGS) -c mult-generation.C
