@@ -31,17 +31,17 @@
 #include <math.h>
 
 
-#define DIM 2        // dimensionality of the data
-#define NUM 40      // number of clusters
+#define DIM 2      // dimensionality of the data
+#define NUM 2      // number of clusters
 
-#define MAXMU 10    // mean in each dimension is in range [0,MAXMU]
+#define MAXMU 10   // mean in each dimension is in range [0,MAXMU]
 #define MINMU -10
 #define MINSIGMA 0
 #define MAXSIGMA 20*sqrt(DIM) // standard deviation (to be added on top 
 // of row sum in each dimension is in range [0,MAXSIGMA] 
-#define MAXSIZE 100  // size of each cluster is in range [MINSIZE,MAXSIZE]
-#define MINSIZE 10   
-#define RUNS 10      // number of data sets to be generated
+#define MAXSIZE 0  // size of each cluster is in range [MINSIZE,MAXSIZE]
+#define MINSIZE 12500   
+#define RUNS 1    // number of data sets to be generated
 
 
 double mean[DIM];
@@ -167,7 +167,7 @@ void generate_config() {
 	  }
 	  
 	  if (found == 1) {
-	    cerr << "Cluster " << i << " invalid" << endl;
+	    //cerr << "Cluster " << i << " invalid" << endl;
 	    i--;
 	    continue;
 	  }
