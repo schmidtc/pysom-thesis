@@ -294,7 +294,7 @@ class GraphTopology(som):
         alteredNodes = [(node,(v-self.nodes[node])*(a*math.exp(-(odist*odist)/(2*sigma*sigma)))) for node,odist in results.iteritems()]
         #alteredNodes = [(node,(v-self.nodes[node])*self.hci2(sigma,a,odist)) for node,odist in results.iteritems()]
         for nodeID,node in alteredNodes:
-            self.nodes[nodeID] = node
+            self.nodes[nodeID] += node
         # trackking diffs slows us down. a lot.
         #    self.diffs[nodeID] += abs(delta)
 
