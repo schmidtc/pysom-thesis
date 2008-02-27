@@ -61,13 +61,13 @@ def q2(ivDataList):
     return groups,reg
     
 
-def gload(dims,clusters,testNum=0,type='graph',path='testResults/'):
+def gload(dims,clusters,testNum=0,type='graph',path='../data/trainedSOMs/'):
     """ Utility Function for loading a SOM that uses the networkx Graph Topology"""
-    f = ObsFile('testData/%sd-%dc-no%d_rs.dat'%(dims,clusters,testNum),'complete')
+    f = ObsFile('../data/trainingData/%sd-%dc-no%d_rs.dat'%(dims,clusters,testNum),'complete')
     s = GraphTopology()
     s.load(path,'%s_%dd-%dc-no%d_1m'%(type,dims,clusters,testNum))
     return s,f
-def stats(dims,clusters,testNum=0,type='graph',path='testResults/'):
+def stats(dims,clusters,testNum=0,type='graph',path='../data/trainedSOMs/'):
     """ Utility function Called by q1 
         this function wraps getIVdata function."""
     print type,dims,clusters
@@ -75,7 +75,7 @@ def stats(dims,clusters,testNum=0,type='graph',path='testResults/'):
     IV,Groups,Degs = getIVdata(s,f)
     f.close()
 
-    f = open('q1Results/%s_%dd_%dc_no%d.iv'%(type,dims,clusters,testNum),'w')
+    f = open('../data/ivFiles/%s_%dd_%dc_no%d.iv'%(type,dims,clusters,testNum),'w')
     data = [map(str,line) for line in IV]
     data = [','.join(line) for line in data]
     data = '\n'.join(data)+'\n'
@@ -87,7 +87,7 @@ def q1():
         This function simply ensures that the IV has been calculated
         and saved in the q1Results folder.
     """
-    files = os.listdir('testResults')
+    files = os.listdir('../data/trainedSOMs')
     for file in files:
         #if '_1m.' in file and '5d-10c' in file and file[-4:] == '.cod':
         if '_1m.' in file and file[-4:] == '.cod':
@@ -97,7 +97,7 @@ def q1():
             d = int(d[:-1])
             c = int(c[:-1])
             n = int(n[2:])
-            if os.path.exists('q1Results/%s_%dd_%dc_no%d.iv'%(type,d,c,n)):
+            if os.path.exists('../data/ivFiles/%s_%dd_%dc_no%d.iv'%(type,d,c,n)):
                 pass
             else:
                 stats(d,c,n,type)
@@ -113,7 +113,7 @@ class IVName:
     def tdcn(self):
         return (self.type,self.dims,self.clusters,self.number)
 
-def q1TableSet2(path='q1Results',dims=5,clusters=10,noMean=False):
+def q1TableSet2(path='../data/ivFiles',dims=5,clusters=10,noMean=False):
     """ This function produces a latex Table showing the mean IV for each som by topology and test number.
 
     It returns a dictionary object containing these mean IV values organizing by, topology and test number.  This may be useful in the future."""
@@ -164,7 +164,7 @@ def q1TableSet2(path='q1Results',dims=5,clusters=10,noMean=False):
 
     return d
 
-def q1Joins(path='q1Results',dims=5,clusters=10):
+def q1Joins(path='../data/ivFiles',dims=5,clusters=10):
     """ This function creates the main data structure for questions related to
         research question 1.
 
@@ -192,7 +192,7 @@ def q1Joins(path='q1Results',dims=5,clusters=10):
             d[type][deg] = array(l)
     return d
 
-def q1BOX(path='q1Results',ttype='graph'):
+def q1BOX(path='../data/ivFiles',ttype='graph'):
     """ This function produces a table. It scans the contents of the q1Results folder, which should contain the internal variance results for all the trained soms.  It calcs the mean IV for each and puts them in a latex table (for the given topology)"""
     files = os.listdir(path)
     files.pop(0)
@@ -217,7 +217,7 @@ def q1BOX(path='q1Results',ttype='graph'):
             data = N.array(data)
             x = data[:,0]
             y = data[:,1]
-            if number == 0:
+            if number == 0: #If we have mutiple test numbers, only use test 0!
                 d[dims][clusters] = y.mean()
 
     dims = d.keys()
@@ -253,9 +253,9 @@ def rLabelMean(a,b,t=9999):
     deltas = []
     for i in range(t):
         shuffle(c)
-        delta = (c[:na].mean() - c[na:].mean())
+        delta = abs(c[:na].mean() - c[na:].mean())
         deltas.append(delta)
-    realMean = (a.mean()-b.mean())
+    realMean = abs(a.mean()-b.mean())
     deltas.append(realMean)
     deltas.sort()
     i = deltas.index(realMean)
@@ -284,7 +284,16 @@ def rLabelTables(topoData,tname):
             elif a>b:
                 s+="& "
             else:
-                s+='& %.4f (%.4f)'%rLabelMean(topoData[a],topoData[b],t=999)
+                #s+='& %.4f (%.4f)'%rLabelMean(topoData[a],topoData[b],t=999)
+                delta,p = rLabelMean(topoData[a],topoData[b],t=9999)
+                if p <= 0.01:
+                    s+= '& \\textbf{%.4f} ***'%delta
+                elif p <= 0.05:
+                    s+= '& \\textbf{%.4f} **'%delta
+                elif p <= 0.10:
+                    s+= '& \\textbf{%.4f} *'%delta
+                else:
+                    s+= '& %.4f'%delta
         print s+'\\\\\\hline'
     print "  \end{tabular}"
     print "}"
@@ -374,29 +383,52 @@ if __name__=="__main__":
     #This function should always be run.
     # It does nothing unless the IV files have been removed,
     # or new test cases have been added.
-    #q1() 
+    q1() 
 
+    #####
+    """ Create Mean Instanl Variance Table, 4.1 """
+    #####
+    # graph = q1BOX(ttype='graph')
+    # rook = q1BOX(ttype='rook')
+    # hex = q1BOX(ttype='hex')
+    # geodesic = q1BOX(ttype='geodesic')
+    #####
+    #####
 
+    #####
+    """ Create Mean IV for each simulation table, 4.2 """
+    #####
+    # data = q1TableSet2()
+    #####
+    #####
 
-    #data = q1p()
-    #a = stats(2,10,0)
-    #a = stats(2,20,0)
-    #b = stats(2,10,0,'rook')
-    #b = stats(2,20,0,'rook')
-    #graph = q1BOX()
-    print
-    print
-    print
-    #graph = q1BOX(ttype='graph')
-    #rook = q1BOX(ttype='rook')
-    #hex = q1BOX(ttype='hex')
-    #geodesic = q1BOX(ttype='geodesic')
-    #data = q1TableSet2()
-    q1Data = q1Joins()
-    createGroupBasedMeanIVTable(q1Data)
-    #createBoxPlots(q1Data)
-    #rLabelTables(q1Data['rook'],'rook')
-    #rLabelTables(q1Data['graph'],'graph')
-    #rLabelTables(q1Data['hex'],'hex')
-    #rLabelTables(q1Data['geodesic'],'geodesic')
-    
+    #####
+    """ Create data structure for research question 1 functions """
+    #####
+    # q1Data = q1Joins()
+    #####
+    #####
+
+    #####
+    """ Create box plots for question 1, Figure 4.1 """
+    #####
+    # createBoxPlots(q1Data)
+    #####
+    #####
+
+    #####
+    """ Create Mean and Var IV grouped by degree, Table 4.3 """
+    #####
+    # createGroupBasedMeanIVTable(q1Data)
+    #####
+    #####
+
+    #####
+    """ Create differance table, 4.4 """
+    #####
+    # rLabelTables(q1Data['rook'],'rook')
+    # rLabelTables(q1Data['hex'],'hex')
+    # rLabelTables(q1Data['graph'],'graph')
+    # rLabelTables(q1Data['geodesic'],'geodesic')
+    #####
+    #####
