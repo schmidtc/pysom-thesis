@@ -51,16 +51,6 @@ def getIVdata(s,f):
     return ivData,None,None
 
 
-def q2(ivDataList):
-    groups = []
-    reg = []
-    for ivData in ivDataList:
-        node,size,degree,averageIV = zip(*ivData)
-        groups.append(averageIV)
-        reg.append(N.var(degree))
-    return groups,reg
-    
-
 def gload(dims,clusters,testNum=0,type='graph',path='../data/trainedSOMs/'):
     """ Utility Function for loading a SOM that uses the networkx Graph Topology"""
     f = ObsFile('../data/trainingData/%sd-%dc-no%d_rs.dat'%(dims,clusters,testNum),'complete')
@@ -191,6 +181,8 @@ def q1Joins(path='../data/ivFiles',dims=5,clusters=10):
         for deg,l in data.iteritems():
             d[type][deg] = array(l)
     return d
+
+    
 
 def q1BOX(path='../data/ivFiles',ttype='graph'):
     """ This function produces a table. It scans the contents of the q1Results folder, which should contain the internal variance results for all the trained soms.  It calcs the mean IV for each and puts them in a latex table (for the given topology)"""
@@ -379,6 +371,27 @@ def createGroupBasedMeanIVTable(q1DataStruct):
     print table%tableValues
 
 
+##############################################################################
+""" Switching to quetion 2 """
+##############################################################################
+def q1Data2q2Data(q1Data):
+    d = {}
+    d2 = {}
+    for topo in q1Data:
+        l = []
+        l2 = []
+        for deg in q1Data[topo]:
+            l.extend(q1Data[topo][deg])
+            l2.extend([deg for i in xrange(len(q1Data[topo][deg]))])
+        d[topo] = N.array(l)
+        d2[topo] = N.array(l2)
+        
+    return d,d2
+
+
+
+
+
 if __name__=="__main__":
     #This function should always be run.
     # It does nothing unless the IV files have been removed,
@@ -405,7 +418,7 @@ if __name__=="__main__":
     #####
     """ Create data structure for research question 1 functions """
     #####
-    # q1Data = q1Joins()
+    q1Data = q1Joins()
     #####
     #####
 
@@ -432,3 +445,8 @@ if __name__=="__main__":
     # rLabelTables(q1Data['geodesic'],'geodesic')
     #####
     #####
+
+    ##############################################################################
+    """ Switching to quetion 2 """
+    ##############################################################################
+    q2Data,q2Degs = q1Data2q2Data(q1Data)
