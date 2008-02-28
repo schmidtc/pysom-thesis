@@ -411,7 +411,7 @@ if __name__=="__main__":
     #####
     """ Create Mean IV for each simulation table, 4.2 """
     #####
-    # data = q1TableSet2()
+    data = q1TableSet2()
     #####
     #####
 
@@ -425,7 +425,7 @@ if __name__=="__main__":
     #####
     """ Create box plots for question 1, Figure 4.1 """
     #####
-    # createBoxPlots(q1Data)
+    createBoxPlots(q1Data)
     #####
     #####
 
@@ -449,4 +449,4 @@ if __name__=="__main__":
     ##############################################################################
     """ Switching to quetion 2 """
     ##############################################################################
-    q2Data,q2Degs = q1Data2q2Data(q1Data)
+    #q2Data,q2Degs = q1Data2q2Data(q1Data)
