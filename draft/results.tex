@@ -198,19 +198,18 @@ internal variance measurements for neurons with only two neighbors.
 \section{Diagnostics}
 This section applies the our three diagnositcs to the SOMs that were trained
 above.  All three build on the idea of an internal variance \(IV\). The
-internal variance of neuron \(i\) is defined as:
-
+internal variance of neuron (\(i\)) is defined as,
  \begin{equation}
-   {IV_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=1}^{n_i} ||{x_{ij}}-{x_{ik}}||
+   {IV_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j}^{n_i} ||{x_{ij}}-{x_{ik}}||
  \label{eqno1}
  \end{equation}
-
 where, \(n_i\) is the number of observations mapped to \(i\), and \(x_i\) are
-all the neurons mapped to \(i\).
+the input vectors mapped to \(i\).
 
-The first looks at how internal variance changes with a neuron's first
-order neighborhood size, or degree.  The second.
-
+The first diagnostic looks at how internal variance changes with a neuron's first
+order neighborhood size, or degree.  The second compares the overall, or mean
+internal variance accross topoliges.  The third visualizes the internal
+variance of each SOM.
 
 \subsection{Internal variance vs. first-order neighborhood size}
 After the internal variance and degree of each neuron are calculated we
@@ -254,7 +253,7 @@ and their significance is presented in tables \ref{rlt}.  For the rook
 topology table \ref{rlt:rook} shows that its three groups are significantly
 different from each other. Results are similar for the hexagonal topology. For
 the Spherical and Geodesic Topologies however there is no significant
-different between in the groups.
+differance between the groups.
 %I suspect a better measure would be to use the minimum number of steps for a
 %given nueron to reach every other neuron on the network.  This would vary
 %significantly on the rook and hexagon topolgoies, but not very much in the
@@ -296,17 +295,17 @@ different between in the groups.
 %neighborhood size, or degree, increases?
 
 
-\begin{table}
+\begin{table}[hbt]
 \centering
-\caption{These tables show the difference in means between each group of a
-given topology and the significance of the difference,  delta (significance),
+\caption{These tables show the difference in mean IV between each group of
+neurons grouped by their degree, delta (significance),
 t=9999, *** = 99\%, ** = 95\%, * = 90\%}
 \label{rlt}
   \subtable[Rook Topology]{
     \label{rlt:rook}
     \begin{tabular}{|c||c|c|c|}
     \hline
-    &3&4\\\hline
+    Degree&3&4\\\hline
     \hline
     2& 0.0065& \textbf{0.0147} ***\\\hline
     3& & \textbf{0.0082} ***\\\hline
@@ -317,7 +316,7 @@ t=9999, *** = 99\%, ** = 95\%, * = 90\%}
     \label{rlt:hex}
     \begin{tabular}{|c||c|c|c|c|}
     \hline
-    &3&4&5&6\\ \hline
+    Degree&3&4&5&6\\ \hline
     \hline
     2& 0.0106& \textbf{0.0154} **& \textbf{0.0220} ***& \textbf{0.0292} ***\\\hline
     3& & \textbf{0.0048} *& \textbf{0.0114} ***& \textbf{0.0186} ***\\\hline
@@ -329,8 +328,8 @@ t=9999, *** = 99\%, ** = 95\%, * = 90\%}
   \subtable[Spherical Topology]{
     \label{rlt:graph}
     \begin{tabular}{|c||c|c|}
-    \hline
-    &6&7\\ \hline
+    \hline	
+    Degree&6&7\\ \hline
     \hline
     5& 0.0005& 0.0000\\\hline
     6& & 0.0005\\\hline
@@ -342,28 +341,91 @@ t=9999, *** = 99\%, ** = 95\%, * = 90\%}
     \label{rlt:geodesic}
     \begin{tabular}{|c||c|}
     \hline
-    &6\\ \hline
+    Degree&6\\ \hline
     \hline
     5& 0.0001\\\hline
     \end{tabular}
   }
 \end{table}
 
-\section{next question}
-This is the next section.  Here is TABLE \ref{rlt:all}.
-  \begin{table}
+\subsection{Internal variance vs. centrality}
+Above we saw that changes in a neuron's degree was related to changes in
+internal variance in topologies with edges, but not in the two sphere based
+topologies. The next step is to see if internal variance changes between
+topologies.  To do this we will first order out topologies by a summary
+measure of the network centrality.  A node's centrality can be thought of as a
+measure of it's importance to the rest of the network. Above we used the most
+common measure of centrality, which is a node's degree.  For this diagnostic
+we'll take the variance of those degrees as a summary measure.  This should
+tell us how regular the overall network is.  These variances and the sorting
+of our topologies is shown in table \ref{vardeg}.
+
+\begin{table}[hbt]
+\centering
+\caption{This table shows how our topologies will be sorted based on the
+variance in degrees of the topology's nodes}
+\label{vardeg}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Topology & Var of Degree & MeanIV (VarIV)\\
+\hline
+Geodesic & 0.0183 & 0.0874 (0.0009)\\
+Rook & 0.1457 & 0.0890 (0.0010)\\
+Spherical & 0.1648 & 0.0879 (0.0010)\\
+Hexagonal & 0.6283 & 0.0885 (0.0010)\\
+\hline
+\end{tabular}
+\end{table}
+
+Figure \ref{q2boxplot} shows the distribution on internal variance
+measurements for each of our topologies.  It is interesting to note that
+they all appear to be very similar. We test the difference in means for
+each of these using the same method of random labeling that was applied in the
+previous diagnostic. The results are displayed in table \ref{rlt:all}. Table
+\ref{rlt:allV} shows the result of testing for a difference in variance
+between each topology.  It was expected that the mean and variance of IV would
+increase in more irregular topologies.  These result general do not support
+that hypothesis. This may suggest that the mean and variance of IV are not
+appropriate summary measures.
+
+\begin{figure}[hbt]
+\centering
+\includegraphics[width=\linewidth]{q2boxplot.png}
+\caption{These box plots show the distribution of internal variance measurements
+for each topology.}
+\label{q2boxplot}
+\end{figure}
+
+
+\begin{table}[hbt]
   \centering
-  \caption{These tables show the difference in means of the internal variance
-between each topology}
+  \caption{These tables show the difference in means of the internal variance between each topology}
   \label{rlt:all}
   \begin{tabular}{|c||c|c|c|c|}
   \hline
-  \textbf{Topology}&Geodesic&Sphere&Hexagonal&Rook\\\hline
+  \textbf{Topology}&Geodesic &Rook	&Sphere			&Hexagonal		\\\hline
   \hline
-  Geodesic&& 0.0005& \textbf{0.0010} *& \textbf{0.0015} ***\\\hline
-  Sphere&& & 0.0005& \textbf{0.0011} *\\\hline
-  Hexagonal&& & & 0.0005\\\hline
-  Rook&& & & \\\hline
+  Geodesic	&& \textbf{0.0015} ***	& 0.0005		& \textbf{0.0010} *	\\\hline
+  Rook		&& 			& \textbf{0.0011} *	& 0.0005		\\\hline
+  Sphere	&& 			& 			& 0.0005 		\\\hline
+  Hexagonal 	&& 			& 			&			\\\hline
   \end{tabular}
   \end{table}
 
+
+
+
+\begin{table}[hbt]
+  \centering
+  \caption{These tables show the difference in variances of the internal variance between each topology}
+  \label{rlt:allV}
+  \begin{tabular}{|c||c|c|c|c|}
+  \hline
+  \textbf{Topology}&Geodesic &Rook	&Sphere			&Hexagonal		\\\hline
+  \hline
+  Geodesic	&& \textbf{0.0009} *	& 0.0003		& \textbf{0.0011} **	\\\hline
+  Rook		&& 			& 0.0005		& 0.0002		\\\hline
+  Sphere	&& 			& 			& 0.0007 		\\\hline
+  Hexagonal 	&& 			& 			&			\\\hline
+  \end{tabular}
+  \end{table}

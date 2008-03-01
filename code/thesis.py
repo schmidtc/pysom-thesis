@@ -263,9 +263,12 @@ def rLabelMean(a,b,t=9999,var=False):
     p = (t+1 - i)/float(t+1)
     return realMean,p
 
-def rLabelTables(topoData,tname,var=False):
+def rLabelTables(topoData,tname,var=False,keys=[]):
     degs = topoData.keys()
-    degs.sort()
+    if keys:
+        degs = keys
+    else:
+        degs.sort()
     format = '|'.join(['c' for d in degs])
     print '''
 \\subtable[%s]{
@@ -276,28 +279,32 @@ def rLabelTables(topoData,tname,var=False):
     print '  \\hline'
     print "  " + "&".join(map(str,degs)) + '\\\\\\hline'
     print '  \\hline'
-    for a in degs:
+    #for a in degs:
+    for i in xrange(len(degs)):
+        a = degs[i]
         s = '  '
         s += str(a)
-        for b in degs:
-            if a==b:
+        #for b in degs:
+        for j in xrange(len(degs)):
+            b = degs[j]
+            if i==j:
                 pass
-            elif a>b:
+            elif i>j:
                 s+="& "
             else:
                 #s+='& %.4f (%.4f)'%rLabelMean(topoData[a],topoData[b],t=999)
                 if var:
-                    delta,p = rLabelMean(topoData[a],topoData[b],t=999,var=True)
+                    delta,p = rLabelMean(topoData[a],topoData[b],t=9999,var=True)
                 else:
-                    delta,p = rLabelMean(topoData[a],topoData[b],t=999)
+                    delta,p = rLabelMean(topoData[a],topoData[b],t=9999)
                 if p <= 0.01:
-                    s+= '& \\textbf{%.4f} ***'%delta
+                    s+= '& \\textbf{%.6f} ***'%delta
                 elif p <= 0.05:
-                    s+= '& \\textbf{%.4f} **'%delta
+                    s+= '& \\textbf{%.6f} **'%delta
                 elif p <= 0.10:
-                    s+= '& \\textbf{%.4f} *'%delta
+                    s+= '& \\textbf{%.6f} *'%delta
                 else:
-                    s+= '& %.4f'%delta
+                    s+= '& %.6f'%delta
         print s+'\\\\\\hline'
     print "  \end{tabular}"
     print "}"
@@ -442,17 +449,17 @@ if __name__=="__main__":
     #####
     """ Create Mean Instanl Variance Table, 4.1 """
     #####
-    graph = q1BOX(ttype='graph')
-    rook = q1BOX(ttype='rook')
-    hex = q1BOX(ttype='hex')
-    geodesic = q1BOX(ttype='geodesic')
+    #graph = q1BOX(ttype='graph')
+    #rook = q1BOX(ttype='rook')
+    #hex = q1BOX(ttype='hex')
+    #geodesic = q1BOX(ttype='geodesic')
     #####
     #####
 
     #####
     """ Create Mean IV for each simulation table, 4.2 """
     #####
-    data = q1TableSet2()
+    #data = q1TableSet2()
     #####
     #####
 
@@ -466,7 +473,7 @@ if __name__=="__main__":
     #####
     """ Create box plots for question 1, Figure 4.1 """
     #####
-    createBoxPlots(q1Data)
+    #createBoxPlots(q1Data)
     #####
     #####
 
@@ -491,13 +498,47 @@ if __name__=="__main__":
     """ Switching to quetion 2 """
     ##############################################################################
     q2Data,q2Degs = q1Data2q2Data(q1Data)
-    q2Data = q2Joins()
-    hexG = hexGraph(23,28)
-    cc = nx.centrality.closeness_centrality(hexG)
-    l = []
-    for nid in q2Data['hex']['nid']:
-        l.append(cc[nid])
-    pylab.scatter(q2Data['hex']['deg'],q2Data['hex']['iv'])
-    pylab.scatter(l,q2Data['hex']['iv'])
+    #q2Data = q2Joins()
+    #build graphs
+    geodesic = delaunay.parseDelaunay("geodesic/geodesic_642_delaunay.xyz")
+    sphere = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
+    g = grid2Rook(23,28,binary=1)
+    rook = NX.Graph()
+    for node in g:
+        for neighbor in g[node][1]:
+            rook.add_edge((node,neighbor))
+    hex = hexGraph(23,28)
+
+    topo = ['geodesic','rook','graph','hex']
+    names = {'geodesic':'Geodesic','rook':'Rook','graph':'Spherical','hex':'Hexagonal'}
+    graphs = {'geodesic':geodesic,'rook':rook,'graph':sphere,'hex':hex}
+
+    for t in topo:
+        n = names[t]
+        g = N.array(graphs[t].degree()).var()
+        print "%s & %0.4f & %0.4f (%0.4f)"%(n,g,q2Data[t].mean(),q2Data[t].var())
+        
+    #print "Geodesic &",N.array(geodesic.degree()).var(),"&",q2Data['geodesic'].mean(),' (%f)\\'%q2Data['geodesic'].var()
+    #print "Rook &",N.array(rook.degree()).var(),"&",q2Data['rook'].mean(),' (%f)\\'%q2Data['rook'].var()
+    #print "Spherical &",N.array(sphere.degree()).var(),"&",q2Data['graph'].mean(),' (%f)\\'%q2Data['graph'].var()
+    #print "Hexagonal &",N.array(hex.degree()).var(),"&",q2Data['hex'].mean(),' (%f)\\'%q2Data['hex'].var()
+
+    #rLabelTables(q2Data,"all",var=True,keys=topo)
+    g = []
+    for t in topo:
+        g.append(q2Data[t])
+    pylab.boxplot(g,notch=1)
     
+        
+
+    #cc = nx.centrality.closeness_centrality(hexG)
+    #l = []
+    #for nid in q2Data['hex']['nid']:
+    #    l.append(cc[nid])
+    #pylab.scatter(q2Data['hex']['deg'],q2Data['hex']['iv'])
+    #pylab.scatter(l,q2Data['hex']['iv'])
+    
+
+
+
 
