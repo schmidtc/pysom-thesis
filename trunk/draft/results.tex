@@ -197,13 +197,16 @@ internal variance measurements for neurons with only two neighbors.
 
 \section{Diagnostics}
 This section applies the our three diagnositcs to the SOMs that were trained
-above.  All three build on the idea of an internal variance \(I_v\), defined
-for neuron \(i\) as the 
+above.  All three build on the idea of an internal variance \(IV\). The
+internal variance of neuron \(i\) is defined as:
 
  \begin{equation}
-\frac{2}{n^2-n}\sum_{j=1}^n\sum_{k=1}^n ||x_{ij}-x_{ik}||
+   {IV_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=1}^{n_i} ||{x_{ij}}-{x_{ik}}||
  \label{eqno1}
  \end{equation}
+
+where, \(n_i\) is the number of observations mapped to \(i\), and \(x_i\) are
+all the neurons mapped to \(i\).
 
 The first looks at how internal variance changes with a neuron's first
 order neighborhood size, or degree.  The second.
