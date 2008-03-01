@@ -1,4 +1,6 @@
 import sys
+from hex import *
+import networkx as nx
 from som import *
 from numpy.random import shuffle
 import pylab
@@ -34,7 +36,8 @@ def getIVdata(s,f):
             # for a sq. dist martix, the number of the pairWise distances is
             # equal to the totalsize (size in 1d)**2 - the number of diagonals
             # (size) over 2
-            averageIV = distMatrix.sum() / (((size**2)-size)/2)
+            #averageIV = distMatrix.sum() / (((size**2)-size)/2)
+            averageIV = distMatrix.max()
             ivData.append((node,size,degree,averageIV))
     
     #data = {}
@@ -237,7 +240,7 @@ def q1BOX(path='../data/ivFiles',ttype='graph'):
         
     return d
     
-def rLabelMean(a,b,t=9999):
+def rLabelMean(a,b,t=9999,var=False):
     c = list(a); c.extend(b)
     c = array(c)
     na = len(a)
@@ -245,16 +248,22 @@ def rLabelMean(a,b,t=9999):
     deltas = []
     for i in range(t):
         shuffle(c)
-        delta = abs(c[:na].mean() - c[na:].mean())
+        if var:
+            delta = abs(c[:na].var()**(0.5) - c[na:].var()**(0.5))
+        else:
+            delta = abs(c[:na].mean() - c[na:].mean())
         deltas.append(delta)
-    realMean = abs(a.mean()-b.mean())
+    if var:
+        realMean = abs(a.var()**(0.5)-b.var()**(0.5))
+    else:
+        realMean = abs(a.mean()-b.mean())
     deltas.append(realMean)
     deltas.sort()
     i = deltas.index(realMean)
     p = (t+1 - i)/float(t+1)
     return realMean,p
 
-def rLabelTables(topoData,tname):
+def rLabelTables(topoData,tname,var=False):
     degs = topoData.keys()
     degs.sort()
     format = '|'.join(['c' for d in degs])
@@ -277,7 +286,10 @@ def rLabelTables(topoData,tname):
                 s+="& "
             else:
                 #s+='& %.4f (%.4f)'%rLabelMean(topoData[a],topoData[b],t=999)
-                delta,p = rLabelMean(topoData[a],topoData[b],t=9999)
+                if var:
+                    delta,p = rLabelMean(topoData[a],topoData[b],t=999,var=True)
+                else:
+                    delta,p = rLabelMean(topoData[a],topoData[b],t=999)
                 if p <= 0.01:
                     s+= '& \\textbf{%.4f} ***'%delta
                 elif p <= 0.05:
@@ -389,6 +401,35 @@ def q1Data2q2Data(q1Data):
     return d,d2
 
 
+def q2Joins(path='../data/ivFiles',dims=5,clusters=10):
+    """ This function creates the main data structure for questions related to
+        research question 2.
+        node,size,degree,averageIV """
+    files = os.listdir(path)
+    print files.pop(0)
+    d = {}
+    for fname in files:
+        finfo = IVName(fname)
+        type,dim,c,number = finfo.tdcn()
+        if dim == dims and c == clusters:
+            if type not in d:
+                d[type] = {'nid':[],'size':[],'deg':[],'iv':[]}
+            f = open(os.path.join(path,fname),'r')
+            data = f.readlines()
+            f.close()
+            data = [l.strip().split(',') for l in data]
+            data = [(int(i[0]),int(i[1]),int(i[2]),float(i[3])) for i in data]
+            for nid,size,deg,iv in data:
+                d[type]['nid'].append(nid)
+                d[type]['size'].append(size)
+                d[type]['deg'].append(deg)
+                d[type]['iv'].append(iv)
+    for type,data in d.iteritems():
+        #d[type]['nid'] = array(d[type]['nid'])
+        #d[type]['size'] = array(d[type]['size'])
+        #d[type]['deg'] = array(d[type]['deg'])
+        d[type]['iv'] = array(d[type]['iv'])
+    return d
 
 
 
@@ -396,22 +437,22 @@ if __name__=="__main__":
     #This function should always be run.
     # It does nothing unless the IV files have been removed,
     # or new test cases have been added.
-    q1() 
+    #q1() 
 
     #####
     """ Create Mean Instanl Variance Table, 4.1 """
     #####
-    # graph = q1BOX(ttype='graph')
-    # rook = q1BOX(ttype='rook')
-    # hex = q1BOX(ttype='hex')
-    # geodesic = q1BOX(ttype='geodesic')
+    graph = q1BOX(ttype='graph')
+    rook = q1BOX(ttype='rook')
+    hex = q1BOX(ttype='hex')
+    geodesic = q1BOX(ttype='geodesic')
     #####
     #####
 
     #####
     """ Create Mean IV for each simulation table, 4.2 """
     #####
-    # data = q1TableSet2()
+    data = q1TableSet2()
     #####
     #####
 
@@ -425,7 +466,7 @@ if __name__=="__main__":
     #####
     """ Create box plots for question 1, Figure 4.1 """
     #####
-    # createBoxPlots(q1Data)
+    createBoxPlots(q1Data)
     #####
     #####
 
@@ -450,7 +491,13 @@ if __name__=="__main__":
     """ Switching to quetion 2 """
     ##############################################################################
     q2Data,q2Degs = q1Data2q2Data(q1Data)
-    topos = q2Data.keys()
-    topos.sort()
-    for topo in topos:
-        print topo
+    q2Data = q2Joins()
+    hexG = hexGraph(23,28)
+    cc = nx.centrality.closeness_centrality(hexG)
+    l = []
+    for nid in q2Data['hex']['nid']:
+        l.append(cc[nid])
+    pylab.scatter(q2Data['hex']['deg'],q2Data['hex']['iv'])
+    pylab.scatter(l,q2Data['hex']['iv'])
+    
+

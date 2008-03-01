@@ -195,7 +195,21 @@ internal variance measurements for neurons with only two neighbors.
 \hline
 \end{tabular} \end{table}
 
-\section{Internal variance vs. first-order neighborhood size}
+\section{Diagnostics}
+This section applies the our three diagnositcs to the SOMs that were trained
+above.  All three build on the idea of an internal variance \(I_v\), defined
+for neuron \(i\) as the 
+
+ \begin{equation}
+\frac{2}{n^2-n}\sum_{j=1}^n\sum_{k=1}^n ||x_{ij}-x_{ik}||
+ \label{eqno1}
+ \end{equation}
+
+The first looks at how internal variance changes with a neuron's first
+order neighborhood size, or degree.  The second.
+
+
+\subsection{Internal variance vs. first-order neighborhood size}
 After the internal variance and degree of each neuron are calculated we
 group the neurons for a given topology by their degree. The number for groups
 we end up with varies by topology. Figure \ref{boxplot} offers a visualization
@@ -309,37 +323,6 @@ t=9999, *** = 99\%, ** = 95\%, * = 90\%}
     \end{tabular}
   }
 
-
-\subtable[Hexodd]{
-  \label{rlt:HexOdd}
-  \begin{tabular}{|c||c|c|c|c|c|}
-  \hline
-  &3&4&5&6\\\hline
-  \hline
-  2& 0.0011& 0.0008& \textbf{0.0129} **& \textbf{0.0164} **\\\hline
-  3& & 0.0003& \textbf{0.0119} ***& \textbf{0.0153} ***\\\hline
-  4& & & \textbf{0.0122} ***& \textbf{0.0156} ***\\\hline
-  5& & & & 0.0034\\\hline
-  \end{tabular}
-}
-
-\subtable[Hexeven]{
-  \label{rlt:HexEven}
-  \begin{tabular}{|c||c|c|c|c|c|}
-  \hline
-  &3&4&5&6\\\hline
-  \hline
-  2& 0.0057& \textbf{0.0128} *& \textbf{0.0146} **& \textbf{0.0199}
-***\\\hline
-  3& & \textbf{0.0071} ***& \textbf{0.0090} ***& \textbf{0.0142} ***\\\hline
-  4& & & 0.0019& \textbf{0.0071} ***\\\hline
-  5& & & & \textbf{0.0053} **\\\hline
-  \end{tabular}
-}
-
-
-
-
   \subtable[Spherical Topology]{
     \label{rlt:graph}
     \begin{tabular}{|c||c|c|}
@@ -362,4 +345,22 @@ t=9999, *** = 99\%, ** = 95\%, * = 90\%}
     \end{tabular}
   }
 \end{table}
+
+\section{next question}
+This is the next section.  Here is TABLE \ref{rlt:all}.
+  \begin{table}
+  \centering
+  \caption{These tables show the difference in means of the internal variance
+between each topology}
+  \label{rlt:all}
+  \begin{tabular}{|c||c|c|c|c|}
+  \hline
+  \textbf{Topology}&Geodesic&Sphere&Hexagonal&Rook\\\hline
+  \hline
+  Geodesic&& 0.0005& \textbf{0.0010} *& \textbf{0.0015} ***\\\hline
+  Sphere&& & 0.0005& \textbf{0.0011} *\\\hline
+  Hexagonal&& & & 0.0005\\\hline
+  Rook&& & & \\\hline
+  \end{tabular}
+  \end{table}
 

@@ -26,17 +26,31 @@ def gen(n,clusters,dims,noise):
     """
 
     #generate seeds...
-    seeds = N.array([[random.random() for i in xrange(dims)] for j in xrange(clusters)])
-    seedr = [random.uniform(0,0.2) for i in xrange(clusters)]
-    seedr = [0.1 for i in xrange(clusters)]
+    #seedr = [0.1 for i in xrange(clusters)]
+    def reject():
+        seeds = N.array([[random.random() for i in xrange(dims)] for j in xrange(clusters)])
+        seedr = [random.uniform(0,0.2) for i in xrange(clusters)]
+        for i in xrange(clusters):
+            for j in xrange(i+1,clusters):
+                d = N.sqrt(sum((seeds[i]-seeds[j])**2))
+                print d
+                if d < (seedr[i] + seedr[j]):
+                    return False
+        return seeds,seedr
+    while 1:
+        r = reject()
+        if r:
+            seeds,seedr = r
+            break
+
+
     data = []
     c = 0
     while c < n:
         pt = N.array([random.random() for i in xrange(dims)])
-        d = ((seeds-pt)**2).sum(1)
+        d = N.sqrt(((seeds-pt)**2).sum(1))
         center = d.argmin()
-        bigestDiff = max(abs(seeds[center]-pt))
-        if bigestDiff < seedr[center]:
+        if d.min() < seedr[center]:
             pt = list(pt)
             pt.append(center)
             data.append(pt)
@@ -54,7 +68,7 @@ def gen(n,clusters,dims,noise):
 
         
 if __name__=="__main__":
-    s = gen(10000,4,2,0.01)
+    s = gen(10000,7,2,0.00)
     x = [pt[0] for pt in s[1]]
     y = [pt[1] for pt in s[1]]
 

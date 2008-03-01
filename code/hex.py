@@ -1,8 +1,6 @@
 import networkx
 from math import sqrt
 
-
-
 def hexGraph(cols,rows):
     x = rows
     y = cols
@@ -55,15 +53,26 @@ def hexPts(cols,rows):
 
 if __name__=='__main__':
     import Tkinter as tk
+    import networkx as nx
     root = tk.Tk()
-    c = tk.Canvas(root, width=800,height=800)
+    c = tk.Canvas(root, width=800,height=600)
     c.pack()
     
-    g = hexGraph(3,5)
-    pts = hexPts(3,5)
+    g = hexGraph(13,18)
+    pts = hexPts(13,18)
+    cc = nx.centrality.closeness_centrality(g)
 
+    scale = 25
+    margin = 20
+    radius = 2
     for a,b in g.edges():
         x1,y1 = pts[a]
         x2,y2 = pts[b]
-        c.create_line(x1*100+10,y1*100+10,x2*100+10,y2*100+10)
+        x1,y1,x2,y2 = x1*scale+margin,y1*scale+margin,x2*scale+margin,y2*scale+margin
+        c.create_line(x1,y1,x2,y2)
+    for i,pt in enumerate(pts):
+        radius = cc[i]*50
+        x1,y1 = pt
+        x1,y1 = x1*scale+margin,y1*scale+margin
+        c.create_oval(x1-radius,y1+radius,x1+radius,y1-radius,fill='red',outline='red')
 
