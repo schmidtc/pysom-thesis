@@ -2,6 +2,7 @@ from utils import dbf
 import sys
 
 fname = sys.argv[1]
+
 f = open(fname,'r')
 head = f.readline()
 data = f.readlines()
@@ -13,12 +14,29 @@ names.extend(['DIM'+str(i+1) for i in range(dims)])
 specs = [('N', 10, 0)]
 specs.extend([('N', 19, 11) for i in range(dims)])
 
-data = [map(float,l.split(',')) for l in data]
+data = [map(float,l.split(' ')) for l in data]
 records = []
 for i,d in enumerate(data):
     rec = [i]
     rec.extend(d)
     records.append(rec)
+
+if len(sys.argv) > 2:
+    ivfile = open(sys.argv[2],'r')
+    names.extend(['Size','Degree','IV'])
+    specs.extend([('N', 10, 0),('N', 10, 0),('N',19,11)])
+    for rec in records:
+        rec.extend([0,-99,-99.0])
+    for line in ivfile:
+        nid,size,deg,iv = line.split(',')
+        nid = int(nid)
+        size = int(size)
+        deg = int(deg)
+        iv = float(iv)
+        records[nid][-3] = size
+        records[nid][-2] = deg
+        records[nid][-1] = iv
+    ivfile.close()
 
 if 'graph' in fname:
     f = open('../shapes/graph.dbf','wb')
