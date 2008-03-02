@@ -95,6 +95,7 @@ def rookPoly(pts):
         poly.append([x+delta,y+delta])
         poly.append([x+delta,y-delta])
         poly.append([x-delta,y-delta])
+        polys.append([poly,poly]) #bbox,poly
     return polys
 if __name__=='__main__':
     pts = rookPts(23,28)

@@ -31,7 +31,6 @@ def graphTrain(G,type,dims,clusters,testNum):
 ### End Training
 
 if __name__=="__main__":
-    from hex import hexGraph
 
     #build graphs
     geodesic = delaunay.parseDelaunay("geodesic/geodesic_642_delaunay.xyz")

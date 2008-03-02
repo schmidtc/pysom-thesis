@@ -6,9 +6,8 @@
         sxyz_voronoi.f90
         stripack.f90
 """
-
-
-import geosom,os
+import som
+import os
 import sys
 from commands import getoutput,getstatusoutput
 from math import *
@@ -34,10 +33,10 @@ def toLngLat(xyz):
     theta = acos(z)-(pi/2)
     return phi,theta
 
-s = geosom.som()
+s = som.Sphere()
 n = int(sys.argv[1])
 s.Size = n
-s.initgeo()
+s.randInit()
 s.grid[0] = (0,s.grid[0][1])
 s.grid[-1] = (0,s.grid[-1][1])
 
@@ -52,7 +51,7 @@ for x,y,z in xyz:
 o.close()
 
 
-out = getstatusoutput('/home/un/m/cschmidt/bin/sxyz_voronoi grid.xyz')
+out = getstatusoutput('/Users/charlie/bin/sxyz_voronoi grid.xyz')
 if out[0] == 0:
     print out[1]
 else:
