@@ -1,5 +1,4 @@
 import sys
-from hex import *
 import networkx as nx
 from som import *
 from numpy.random import shuffle

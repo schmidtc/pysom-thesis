@@ -1,6 +1,7 @@
 from utils import dbf
 import sys
 
+print sys.argv
 fname = sys.argv[1]
 
 f = open(fname,'r')
@@ -38,10 +39,7 @@ if len(sys.argv) > 2:
         records[nid][-1] = iv
     ivfile.close()
 
-if 'graph' in fname:
-    f = open('../shapes/graph.dbf','wb')
-if 'rook' in fname:
-    f = open('../shapes/rook.dbf','wb')
+f = open('visual.dbf','wb')
 #names = ['ID','AFIELD','BFIELD','CFIELD','DFIELD','EFIELD','GFIELD']
 #specs = [('N', 10, 0), ('N', 19, 11), ('N', 19, 11), ('N', 19,11), ('N', 19,11), ('N', 19,11), ('N', 19, 11)]
 dbf.dbfwriter(f,names,specs,records)
