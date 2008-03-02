@@ -34,39 +34,19 @@ if __name__=="__main__":
     from hex import hexGraph
 
     #build graphs
-    #geodesic = delaunay.parseDelaunay("geodesic/geodesic_642_delaunay.xyz")
-    #sphere = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
-    #g = grid2Rook(23,28,binary=1)
-    #rook = NX.Graph()
-    #for node in g:
-    #    for neighbor in g[node][1]:
-    #        rook.add_edge((node,neighbor))
-    #hex = hexGraph(23,28)
-    hexOdd = hexGraph(25,25)
-    hexEven = hexGraph(24,26)
+    geodesic = delaunay.parseDelaunay("geodesic/geodesic_642_delaunay.xyz")
+    sphere = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
+    #grid2Rook(row,cols,binary=1)
+    g = grid2Rook(23,28,binary=1)
+    rook = NX.Graph()
+    for node in g:
+        for neighbor in g[node][1]:
+            rook.add_edge((node,neighbor))
+    hex = hexGraph(23,28)
 
     #graphTrain(sphere,'Sphere',5,10,0)
     #graphTrain(rook,'Rook',5,10,0)
-    graphTrain(hexOdd,'HexOdd',5,10,0)
-    graphTrain(hexOdd,'HexOdd',5,10,1)
-    graphTrain(hexOdd,'HexOdd',5,10,2)
-    graphTrain(hexOdd,'HexOdd',5,10,3)
-    graphTrain(hexOdd,'HexOdd',5,10,4)
-    #graphTrain(hexOdd,'HexOdd',5,10,5)
-    #graphTrain(hexOdd,'HexOdd',5,10,6)
-    #graphTrain(hexOdd,'HexOdd',5,10,7)
-    #graphTrain(hexOdd,'HexOdd',5,10,8)
-    #graphTrain(hexOdd,'HexOdd',5,10,9)
-    #graphTrain(hexEven,'HexEven',5,10,0)
-    #graphTrain(hexEven,'HexEven',5,10,1)
-    #graphTrain(hexEven,'HexEven',5,10,2)
-    #graphTrain(hexEven,'HexEven',5,10,3)
-    #graphTrain(hexEven,'HexEven',5,10,4)
-    #graphTrain(hexEven,'HexEven',5,10,5)
-    #graphTrain(hexEven,'HexEven',5,10,6)
-    #graphTrain(hexEven,'HexEven',5,10,7)
-    #graphTrain(hexEven,'HexEven',5,10,8)
-    #graphTrain(hexEven,'HexEven',5,10,9)
+    #graphTrain(hex,'hex',5,10,0)
 
     #def bora():
     #    pass

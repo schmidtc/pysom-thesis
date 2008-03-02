@@ -1,4 +1,16 @@
-"""
+from numpy import array,ones
+from hex import writePoly
+#from Numeric import *
+#from MLab import *
+#import LinearAlgebra as LA
+#import csv as CSV
+#mm = matrixmultiply
+#t = transpose
+
+def grid2Rook(nRows,nCols,binary=0):
+    """
+Module Doc
+------
 Weights Matrix Utilities for Space-Time Analysis of Regional Systems
 ----------------------------------------------------------------------
 AUTHOR(S):  Mark V. Janikas janikas@users.sourceforge.net  
@@ -13,18 +25,11 @@ Version 2.  See the file COPYING for more details.
 OVERVIEW:
 
 Methods for generating and working with sparse weigths matrices.
-"""
+------
 
-from numpy import array,ones
-#from Numeric import *
-#from MLab import *
-#import LinearAlgebra as LA
-#import csv as CSV
-#mm = matrixmultiply
-#t = transpose
+    Function doc
+    --------
 
-def grid2Rook(nRows,nCols,binary=0):
-    """
     Creates the sparse dictionary input for the Weights class for PySal based on a standard grid.
     
     Call:       grid2RookTorus(nRows,nCols,binary=0)
@@ -69,3 +74,28 @@ def grid2Rook(nRows,nCols,binary=0):
             final[k] = [nn,nhs,vals]
     return final
 
+def rookPts(rows,cols):
+    delta = 1.0
+    x = 0
+    y = 0
+    pts = []
+    for row in xrange(rows):
+        for col in xrange(cols):
+            pts.append((x,y))
+            x += delta
+        y += delta
+        x = 0
+    return pts
+def rookPoly(pts):
+    delta=0.5
+    polys = []
+    for x,y in pts:
+        poly = []
+        poly.append([x-delta,y+delta])
+        poly.append([x+delta,y+delta])
+        poly.append([x+delta,y-delta])
+        poly.append([x-delta,y-delta])
+    return polys
+if __name__=='__main__':
+    pts = rookPts(23,28)
+    polys = rookPoly(pts)
