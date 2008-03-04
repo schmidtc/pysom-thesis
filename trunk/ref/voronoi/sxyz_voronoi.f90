@@ -1283,9 +1283,9 @@ subroutine vr_to_xyz ( n, xc, yc, zc, listc, lptr, lend, x, y, z )
 !
     lp = lpl
 
-    write ( iunit, '(a)' ) ' '
+    write ( iunit, '(a)' ) ' center'
     write ( iunit, '(3f8.4)' ) x(i), y(i), z(i)
-    write ( iunit, '(a)' ) ' '
+    write ( iunit, '(a)' ) ' polygon'
     do
 
       lp = lptr(lp)
@@ -1298,7 +1298,7 @@ subroutine vr_to_xyz ( n, xc, yc, zc, listc, lptr, lend, x, y, z )
       if ( 1==1 ) then
 !      if ( kv1 < kv2 ) then
         write ( iunit, '(3f8.4)' ) xc(kv1), yc(kv1), zc(kv1)
-        write ( iunit, '(3f8.4)' ) xc(kv2), yc(kv2), zc(kv2)
+!        write ( iunit, '(3f8.4)' ) xc(kv2), yc(kv2), zc(kv2)
       end if
 
       if ( lp == lpl ) then

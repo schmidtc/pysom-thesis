@@ -6,9 +6,9 @@
         sxyz_voronoi.f90
         stripack.f90
 """
-import som
 import os
 import sys
+import numpy
 from commands import getoutput,getstatusoutput
 from math import *
 
@@ -33,16 +33,29 @@ def toLngLat(xyz):
     theta = acos(z)-(pi/2)
     return phi,theta
 
-s = som.Sphere()
+def rakhmanov(n):
+    points = []
+    for i in xrange(1,n+1):
+        i = float(i)
+        N = float(n)
+        h = (-1)+((2*(i-1)) / (N-1))
+        theta = acos(h)
+        if i == 1 or i == N:
+            phi = 0
+        else:
+            phi = (points[int(i)-2][0] + (3.6/sqrt(N)) * (1/sqrt(1-h**2)) ) % (2*pi)
+        points.append((phi,theta))
+    points = numpy.array([(phi-pi,theta-(pi/2)) for phi,theta in points])
+    return points
+
 n = int(sys.argv[1])
-s.Size = n
-s.randInit()
-s.grid[0] = (0,s.grid[0][1])
-s.grid[-1] = (0,s.grid[-1][1])
+grid = rakhmanov(n)
+grid[0] = (0,grid[0][1])
+grid[-1] = (0,grid[-1][1])
 
-xyz = [toXYZ(pt) for pt in s.grid]
+xyz = [toXYZ(pt) for pt in grid]
 
-o = open("grid.xyz",'w')
+o = open("temp/grid.xyz",'w')
 #i = 1
 for x,y,z in xyz:
     #o.write("%d,%f,%f,%f\n"%(i,x,y,z))
@@ -50,97 +63,125 @@ for x,y,z in xyz:
     #i+=1
 o.close()
 
-
-out = getstatusoutput('/Users/charlie/bin/sxyz_voronoi grid.xyz')
+out = getstatusoutput('/Users/charlie/bin/sxyz_voronoi temp/grid.xyz')
 if out[0] == 0:
     print out[1]
+    os.system('mv delaunay.* temp/')
+    os.system('mv voronoi.* temp/')
 else:
     print 'problem'
 
-f = open('voronoi.xyz','r')
-tr = open('delaunay.xyz','r')
-trLines = tr.readlines()
-lines = f.readlines()
-f.close()
-tr.close()
+f = open('temp/voronoi.xyz','r')
+#lines = f.readlines()
+#f.close()
 
-trVerts = []
 verts = []
-trEdges = []
-edges = []
-num = len(lines)
-trNum = len(trLines)
+polys = []
 
-for i in xrange(trNum-1):
-    line = trLines[i]
+line = f.readline()
+c = 0
+while line:
+    #for i in xrange(num-1):
     if line[0] == '#':
-        pass
-    elif len(line) < 5:
-        pass
-    elif trLines[i-1] == trLines[i+1]:
-        line = line.split()
-        line = map(float,line)
-        trVerts.append(line)
-    elif len(line) > 10 and len(trLines[i+1]) > 10:
-        line0 = line.split()
-        line1 = trLines[i+1].split()
-        line0 = map(float,line0)
-        line1 = map(float,line1)
-        trEdges.append((line0,line1))
-
-for i in xrange(num-1):
-    line = lines[i]
-    if line[0] == '#':
-        pass
-    elif len(line) < 5:
-        pass
-    elif lines[i-1] == lines[i+1]:
+        line = f.readline()
+    elif 'center' in line:
+        line = f.readline()
         line = line.split()
         line = map(float,line)
         verts.append(line)
-    elif len(line) > 10 and len(lines[i+1]) > 10:
-        line0 = line.split()
-        line1 = lines[i+1].split()
-        line0 = map(float,line0)
-        line1 = map(float,line1)
-        edges.append((line0,line1))
-
-trO = open('%d_delaunay'%n,'w')
-trO.write('Cool Header\n')
-
-
-o = open('%d.txt'%n,'w')
-o.write("Polyline\n")
-fixedEdges = []
-for edge in edges:
-    p0,p1 = map(toLngLat,edge)
-    p0,p1 = map(degrees,p0),map(degrees,p1)
-    #who knew XOR would ever come in handy?
-    if ((p0[0] < -90) ^ (p1[0] < -90)) and ((p0[0] >90) ^ (p1[0] > 90)):
-        if p0[0] < p1[0]:
-            neg = p0
-            pos = p1
-            x1,y1 = p0
-            x2,y2 = p1
-        else:
-            neg = p1
-            pos = p0    
-            x1,y1 = p1
-            x2,y2 = p0
-
-        x1 = -1*(x1+180.0)
-        x2 = 180.0-x2
-        deltaY = y1-y2
-        deltaX = x1-x2
-        m = deltaY/deltaX
-        b = y1 - m*x1
-        edge1 = (neg,(-180,b))
-        edge2 = ((180,b),pos)
-
-        fixedEdges.append(edge1)
-        fixedEdges.append(edge2)
+        line = f.readline()
+    elif 'polygon' in line:
+        poly = []
+        line = f.readline()
+        while 'center' not in line and line:
+            line = line.split()
+            line = map(float,line)
+            poly.append(line)
+            line = f.readline()
+        polys.append(poly)
     else:
-        fixedEdges.append((p0,p1))
+        print "got here"
+        line = f.readline()
+f.close()
+        
+o = open('temp/%d.txt'%n,'w')
+o.write("POLYGON\n")
+fixedEdges = []
+
+
+
+def splitPoly(poly):
+    poly2 = poly[1:]
+    poly2.append(poly[0])
+    edges = zip(poly,poly2)
+    c = 0
+    badEdges = []
+    for p0,p1 in edges:
+        p0 = toLngLat(p0)
+        p1 = toLngLat(p1)
+        p0,p1 = map(degrees,p0),map(degrees,p1)
+        if ((p0[0] < -90) ^ (p1[0] < -90)) and ((p0[0] >90) ^ (p1[0] > 90)):
+            badEdges.append((p0,p1))
+    if len(badEdges) == 1:
+        #Polar Region
+        #print len(badEdges)
+        pass
+    return badEdges
+
+edges = map(splitPoly,polys)
+edges = [e for e in edges if len(e) > 0]
+
+c = 0
+for poly in polys:
+    poly.append(poly[0])
+    o.write("%d 0\n"%c)
+    c += 1
+    i = 0
+    for pt in poly:
+        pt = toLngLat(pt)
+        pt = map(degrees,pt)
+        o.write('%s %f %f\n'%(i,pt[0],pt[1]))
+        i += 1
+o.write('END\n')
+o.close()
+"""
+    for i in xrange(len(poly)):
+        p0 = toLngLat(poly[i])
+        if i < len(poly):
+            p1 = toLngLat(poly[i+1])
+        else:
+            p1 = toLngLat(poly[0])
+        p0,p1 = map(degrees,p0),map(degrees,p1)
+        #who knew XOR would ever come in handy?
+        if ((p0[0] < -90) ^ (p1[0] < -90)) and ((p0[0] >90) ^ (p1[0] > 90)):
+            bad = True
+            if p0[0] < p1[0]:
+                neg = p0
+                pos = p1
+                x1,y1 = p0
+                x2,y2 = p1
+            else:
+                neg = p1
+                pos = p0    
+                x1,y1 = p1
+                x2,y2 = p0
+
+            x1 = -1*(x1+180.0)
+            x2 = 180.0-x2
+            deltaY = y1-y2
+            deltaX = x1-x2
+            m = deltaY/deltaX
+            b = y1 - m*x1
+            edge1 = (neg,(-180,b))
+            edge2 = ((180,b),pos)
+
+            fixedEdges.append(edge1)
+            fixedEdges.append(edge2)
+            """
+"""
+    if not bad:
+        cleanPolys.append(poly)
+            
         
 
 
@@ -154,4 +195,4 @@ o.write('END\n')
 o.close()
 
 
-
+"""
