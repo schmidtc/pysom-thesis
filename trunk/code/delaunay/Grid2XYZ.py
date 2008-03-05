@@ -178,6 +178,8 @@ def splitPoly(poly):
         poly1 = newPoly[edge0:edge1]
         poly = (poly0,poly1)
         print edge0,edge1
+    else:
+        poly = newPoly
     return poly
         
 
@@ -190,8 +192,8 @@ for poly in polys:
         poly.append(poly[0])
         i = 0
         for pt in poly:
-            pt = toLngLat(pt)
-            pt = map(degrees,pt)
+            #pt = toLngLat(pt)
+            #pt = map(degrees,pt)
             o.write('%s %f %f\n'%(i,pt[0],pt[1]))
             i += 1
     else:
