@@ -11,6 +11,7 @@ import sys
 import numpy
 from commands import getoutput,getstatusoutput
 from math import *
+from greatCircle import findIntersetion
 
 def toXYZ(pt):
     phi,theta = pt
@@ -63,7 +64,7 @@ for x,y,z in xyz:
     #i+=1
 o.close()
 
-out = getstatusoutput('/Users/charlie/bin/sxyz_voronoi temp/grid.xyz')
+out = getstatusoutput('sxyz_voronoi temp/grid.xyz')
 if out[0] == 0:
     print out[1]
     os.system('mv delaunay.* temp/')
@@ -116,32 +117,101 @@ def splitPoly(poly):
     edges = zip(poly,poly2)
     c = 0
     badEdges = []
+    newEdges = []
+    edge0 = 0
+    edge1 = 0
+    newPoly = []
+    found = False
     for p0,p1 in edges:
         p0 = toLngLat(p0)
         p1 = toLngLat(p1)
         p0,p1 = map(degrees,p0),map(degrees,p1)
         if ((p0[0] < -90) ^ (p1[0] < -90)) and ((p0[0] >90) ^ (p1[0] > 90)):
-            badEdges.append((p0,p1))
-    if len(badEdges) == 1:
+            i = findIntersetion(p0[0],p0[1],p1[0],p1[1])
+            if (p0[1] < 0) and (p1[1] < 0) and i > 0:
+                i = i*-1
+            elif (p0[1] > 0) and (p1[1] > 0) and i < 0:
+                i = i*-1
+            if (p0[0] < 0) and (p1[0] > 0):
+                pi0 = [-180.0,i]
+                pi1 = [180.00,i]
+            else:
+                pi0 = [180.0,i]
+                pi1 = [-180.00,i]
+            badEdges.append((p0,pi0))
+            newEdges.append((p0,pi0))
+            badEdges.append((pi0,p1))
+            newEdges.append((pi0,p1))
+            newPoly.append(p0)
+            c += 1
+            newPoly.append(pi0)
+            c += 1
+            if found:
+                edge1 = c
+            else:
+                edge0 = c
+                found = True
+            newPoly.append(pi1)
+            c += 1
+        else:
+            newPoly.append(p0)
+            c += 1
+            newEdges.append((p0,p1))
+    if len(badEdges) == 2:
         #Polar Region
         #print len(badEdges)
-        pass
-    return badEdges
+        poly = newPoly[:edge0]
+        if poly[-1][0] < 0:
+            pol = -180.0
+        else:
+            pol = 180.0
+        if poly[-1][1] > 0:
+            poly.append([pol,90])
+            poly.append([-1*pol,90])
+        else:
+            poly.append([pol,-90])
+            poly.append([-1*pol,-90])
+        poly.extend(newPoly[edge0:])
+    elif len(badEdges) == 4:
+        poly0 = newPoly[:edge0]
+        poly0.extend( newPoly[edge1:] )
+        poly1 = newPoly[edge0:edge1]
+        poly = (poly0,poly1)
+        print edge0,edge1
+    return poly
+        
 
-edges = map(splitPoly,polys)
-edges = [e for e in edges if len(e) > 0]
+polys = map(splitPoly,polys)
 
 c = 0
 for poly in polys:
-    poly.append(poly[0])
     o.write("%d 0\n"%c)
+    if not len(poly) == 2:
+        poly.append(poly[0])
+        i = 0
+        for pt in poly:
+            #pt = toLngLat(pt)
+            #pt = map(degrees,pt)
+            o.write('%s %f %f\n'%(i,pt[0],pt[1]))
+            i += 1
+    else:
+        poly[0].append(poly[0][0])
+        poly[1].append(poly[1][0])
+        i = 0
+        for pt in poly[0]:
+            #pt = toLngLat(pt)
+            #pt = map(degrees,pt)
+            o.write('%s %f %f\n'%(i,pt[0],pt[1]))
+            i += 1
+        o.write("%d 1\n"%c)
+        i = 0
+        for pt in poly[1]:
+            #pt = toLngLat(pt)
+            #pt = map(degrees,pt)
+            o.write('%s %f %f\n'%(i,pt[0],pt[1]))
+            i += 1
     c += 1
-    i = 0
-    for pt in poly:
-        pt = toLngLat(pt)
-        pt = map(degrees,pt)
-        o.write('%s %f %f\n'%(i,pt[0],pt[1]))
-        i += 1
+        
 o.write('END\n')
 o.close()
 """
