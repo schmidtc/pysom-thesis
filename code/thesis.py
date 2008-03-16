@@ -17,6 +17,31 @@ def pairWiseDist(ids,lines):
         for j in xrange(i,size):
             ivMatrix[i,j] = sqrt(sum((data[i]-data[j])**2))
     return ivMatrix
+def avgQE(node,ids,lines):
+    qe = 0
+    for id in ids:
+        line = lines[id]
+        qe += sqrt(sum((node-line)**2))
+    aqe = (qe/float(len(lines)))
+    return aqe
+def getCluster(ids,c):
+    clust = [c[id] for id in ids]
+    clust.sort()
+    dclust = {}
+    for i in clust:
+        if i not in dclust:
+            dclust[i] = 0
+        dclust[i] += 1
+    keys = dclust.keys()
+    keys.sort()
+    counts = [dclust[key] for key in keys]
+    scounts = float(sum(counts))
+    pcounts = [i/scounts for i in counts]
+    i = pcounts.index(max(pcounts))
+    return (keys[i],pcounts[i])
+    
+        
+        
 def getIVdata(s,f):
     """ takes a som """
     if not s.daMap:
@@ -26,6 +51,12 @@ def getIVdata(s,f):
     daMap = s.daMap
     f.reset()
     l = f.listolists()
+    #c = f.listolists(comments=True)
+    #if c[0]:
+    #    c = [i[0] for i in c]
+    #    c = map(int,c)
+    #else:
+    #    c = False
     ivData = []
     for node,ids in daMap.iteritems():
         degree = s.G.degree(node)
@@ -35,9 +66,15 @@ def getIVdata(s,f):
             # for a sq. dist martix, the number of the pairWise distances is
             # equal to the totalsize (size in 1d)**2 - the number of diagonals
             # (size) over 2
-            #averageIV = distMatrix.sum() / (((size**2)-size)/2)
-            averageIV = distMatrix.max()
+            averageIV = distMatrix.sum() / (((size**2)-size)/2)
+            #averageIV = distMatrix.max()
+            #averageIV = avgQE(s.nodes[node],ids,l)
+            #if c:
+            #    cluster,pclust = getCluster(ids,c)
+            #else:
+            #    cluster,pclust = 0,0
             ivData.append((node,size,degree,averageIV))
+            #ivData.append((node,size,degree,cluster,pclust))
     
     #data = {}
     #for node,size,degree,aiv in ivData:
@@ -50,7 +87,7 @@ def getIVdata(s,f):
     #for deg in degs:
     #    groups.append(data[deg])
     #return ivData,groups,degs
-    return ivData,None,None
+    return ivData
 
 
 def gload(dims,clusters,testNum=0,type='graph',path='../data/trainedSOMs/'):
@@ -64,7 +101,7 @@ def stats(dims,clusters,testNum=0,type='graph',path='../data/trainedSOMs/'):
         this function wraps getIVdata function."""
     print type,dims,clusters
     s,f = gload(dims,clusters,testNum,type)
-    IV,Groups,Degs = getIVdata(s,f)
+    IV = getIVdata(s,f)
     f.close()
 
     f = open('../data/ivFiles/%s_%dd_%dc_no%d.iv'%(type,dims,clusters,testNum),'w')
@@ -106,7 +143,7 @@ class IVName:
         return (self.type,self.dims,self.clusters,self.number)
 
 def q1TableSet2(path='../data/ivFiles',dims=5,clusters=10,noMean=False):
-    """ This function produces a latex Table showing the mean IV for each som by topology and test number.
+    """ T his function produces a latex Table showing the mean IV for each som by topology and test number.
 
     It returns a dictionary object containing these mean IV values organizing by, topology and test number.  This may be useful in the future."""
     files = os.listdir(path)
@@ -443,7 +480,7 @@ if __name__=="__main__":
     #This function should always be run.
     # It does nothing unless the IV files have been removed,
     # or new test cases have been added.
-    #q1() 
+    q1() 
 
     #####
     """ Create Mean Instanl Variance Table, 4.1 """
@@ -458,64 +495,64 @@ if __name__=="__main__":
     #####
     """ Create Mean IV for each simulation table, 4.2 """
     #####
-    #data = q1TableSet2()
+    data = q1TableSet2(dims=3,clusters=7)
     #####
     #####
 
     #####
     """ Create data structure for research question 1 functions """
     #####
-    q1Data = q1Joins()
+    q1Data = q1Joins(dims=3,clusters=7)
     #####
     #####
 
     #####
     """ Create box plots for question 1, Figure 4.1 """
     #####
-    #createBoxPlots(q1Data)
+    createBoxPlots(q1Data)
     #####
     #####
 
     #####
     """ Create Mean and Var IV grouped by degree, Table 4.3 """
     #####
-    # createGroupBasedMeanIVTable(q1Data)
+    createGroupBasedMeanIVTable(q1Data)
     #####
     #####
 
     #####
     """ Create differance table, 4.4 """
     #####
-    # rLabelTables(q1Data['rook'],'rook')
-    # rLabelTables(q1Data['hex'],'hex')
-    # rLabelTables(q1Data['graph'],'graph')
-    # rLabelTables(q1Data['geodesic'],'geodesic')
+    rLabelTables(q1Data['rook'],'rook')
+    rLabelTables(q1Data['hex'],'hex')
+    rLabelTables(q1Data['graph'],'graph')
+    rLabelTables(q1Data['geodesic'],'geodesic')
     #####
     #####
 
     ##############################################################################
     """ Switching to quetion 2 """
     ##############################################################################
-    q2Data,q2Degs = q1Data2q2Data(q1Data)
+    #q2Data,q2Degs = q1Data2q2Data(q1Data)
     #q2Data = q2Joins()
     #build graphs
-    geodesic = delaunay.parseDelaunay("geodesic/geodesic_642_delaunay.xyz")
-    sphere = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
-    g = grid2Rook(23,28,binary=1)
-    rook = NX.Graph()
-    for node in g:
-        for neighbor in g[node][1]:
-            rook.add_edge((node,neighbor))
-    hex = hexGraph(23,28)
+    #geodesic = delaunay.parseDelaunay("geodesic/geodesic_642_delaunay.xyz")
+    #sphere = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
+    #g = grid2Rook(23,28,binary=1)
+    #rook = NX.Graph()
+    #for node in g:
+    #    for neighbor in g[node][1]:
+    #        rook.add_edge((node,neighbor))
+    #hex = hexGraph(23,28)
 
-    topo = ['geodesic','rook','graph','hex']
-    names = {'geodesic':'Geodesic','rook':'Rook','graph':'Spherical','hex':'Hexagonal'}
-    graphs = {'geodesic':geodesic,'rook':rook,'graph':sphere,'hex':hex}
+    #topo = ['geodesic','rook','graph','hex']
+    #names = {'geodesic':'Geodesic','rook':'Rook','graph':'Spherical','hex':'Hexagonal'}
+    #graphs = {'geodesic':geodesic,'rook':rook,'graph':sphere,'hex':hex}
 
-    for t in topo:
-        n = names[t]
-        g = N.array(graphs[t].degree()).var()
-        print "%s & %0.4f & %0.4f (%0.4f)"%(n,g,q2Data[t].mean(),q2Data[t].var())
+    #for t in topo:
+    #    n = names[t]
+    #    g = N.array(graphs[t].degree()).var()
+    #    print "%s & %0.4f & %0.4f (%0.4f)"%(n,g,q2Data[t].mean(),q2Data[t].var())
         
     #print "Geodesic &",N.array(geodesic.degree()).var(),"&",q2Data['geodesic'].mean(),' (%f)\\'%q2Data['geodesic'].var()
     #print "Rook &",N.array(rook.degree()).var(),"&",q2Data['rook'].mean(),' (%f)\\'%q2Data['rook'].var()
@@ -523,10 +560,10 @@ if __name__=="__main__":
     #print "Hexagonal &",N.array(hex.degree()).var(),"&",q2Data['hex'].mean(),' (%f)\\'%q2Data['hex'].var()
 
     #rLabelTables(q2Data,"all",var=True,keys=topo)
-    g = []
-    for t in topo:
-        g.append(q2Data[t])
-    pylab.boxplot(g,notch=1)
+    #g = []
+    #for t in topo:
+    #    g.append(q2Data[t])
+    #pylab.boxplot(g,notch=1)
     
         
 

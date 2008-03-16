@@ -152,8 +152,18 @@ def read(fname = 'voronoi.xyz'):
             print "got here"
             line = f.readline()
     f.close()
-    return polys
+    return polys,verts
 
+def wrtpt(verts,fname='pts.txt'):
+    o = open(fname,'w')
+    o.write("Point\n")
+    c = 0
+
+    for vert in verts:
+        o.write("%d %f %f\n"%(c,vert[0],vert[1]))
+        c+=1
+    o.write("END\n")
+    o.close()
 def write(polys,fname='poly.txt'):
     o = open(fname,'w')
     o.write("POLYGON\n")
@@ -196,8 +206,9 @@ def validate(poly):
 
 
 if __name__=="__main__":
-    polys = read('temp/voronoi.xyz')
+    polys,verts = read('temp/voronoi.xyz')
     vpolys = map(validate,polys)
     vpolys = map(validate,vpolys)
     spolys = map(splitPoly,vpolys)
     write(spolys,'temp/poly.txt')
+    wrtpt(verts,'temp/pts.txt')
