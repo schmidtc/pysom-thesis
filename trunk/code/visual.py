@@ -55,26 +55,27 @@ if __name__=="__main__":
         fname = sys.argv[1]
         ivfile = sys.argv[2]
 
-    if '*' not in fname:
-        names,specs,recs = read(fname,ivfile)
-    else:
-        fn = fname.replace('*',str(0))
-        iv = ivfile.replace('*',str(0))
-        names,specs,recs = read(fn,iv,pre='no%d_'%0)
-        outNames = names[:1]
-        outNames.append(names[-1])
-        outSpecs = specs[:1]
-        outSpecs.append(specs[-1])
-        outRecs = []
-        for r in recs:
-            outRecs.append([r[0],r[-1]])
-        
-        for i in range(1,10):
-            fn = fname.replace('*',str(i))
-            iv = ivfile.replace('*',str(i))
-            names,specs,recs = read(fn,iv,pre='no%d_'%i)
+        if '*' not in fname:
+            write(*read(fname,ivfile))
+        else:
+            fn = fname.replace('*',str(0))
+            iv = ivfile.replace('*',str(0))
+            names,specs,recs = read(fn,iv,pre='no%d_'%0)
+            #outNames = names[:1]
+            outNames = ['Node_ID']
             outNames.append(names[-1])
+            outSpecs = specs[:1]
             outSpecs.append(specs[-1])
-            for i,r in enumerate(recs):
-                outRecs[i].append(r[-1])
-        write(outNames,outSpecs,outRecs)
+            outRecs = []
+            for r in recs:
+                outRecs.append([r[0],r[-1]])
+            
+            for i in range(1,10):
+                fn = fname.replace('*',str(i))
+                iv = ivfile.replace('*',str(i))
+                names,specs,recs = read(fn,iv,pre='no%d_'%i)
+                outNames.append(names[-1])
+                outSpecs.append(specs[-1])
+                for i,r in enumerate(recs):
+                    outRecs[i].append(r[-1])
+            write(outNames,outSpecs,outRecs)

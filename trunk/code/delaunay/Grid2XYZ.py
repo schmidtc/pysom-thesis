@@ -73,6 +73,8 @@ else:
     print 'problem'
 
 f = open('temp/voronoi.xyz','r')
+p = open('temp/%d_pts.txt'%n,'w')
+p.write("Point\n")
 #lines = f.readlines()
 #f.close()
 
@@ -89,7 +91,11 @@ while line:
         line = f.readline()
         line = line.split()
         line = map(float,line)
+        line = toLngLat(line)
+        line = map(degrees,line)
         verts.append(line)
+        p.write('%d %f %f\n'%(c,line[0],line[1]))
+        c += 1
         line = f.readline()
     elif 'polygon' in line:
         poly = []
@@ -104,6 +110,9 @@ while line:
         print "got here"
         line = f.readline()
 f.close()
+p.write("END\n")
+p.close()
+c = 0
         
 o = open('temp/%d.txt'%n,'w')
 o.write("POLYGON\n")
