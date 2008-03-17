@@ -222,7 +222,6 @@ for groups with larger degrees. This figure suggests that is only true for the
 ``flat'' topologies.
 
 \begin{figure}[hbt]
-\label{boxplot}
 \centering
 \subfigure[Rook Topology]{
   \label{boxplot:rook}
@@ -242,6 +241,7 @@ for groups with larger degrees. This figure suggests that is only true for the
 }
 \caption{This shows 4 box plots, each representing one group of neurons in a set
 of SOMs trained with the same parameters.}
+\label{boxplot}
 \end{figure}
 
 Table \ref{meanvar1} shows the mean internal variance for each group for each
@@ -429,3 +429,59 @@ for each topology.}
   Hexagonal 	&& 			& 			&			\\\hline
   \end{tabular}
   \end{table}
+
+
+
+\subsection{Visualization of Internal Variance}
+In this section we will look at what information can be gained from
+visualizing the SOM and its internal variance. The visualizations are created
+with off the shelf GIS packages, namely ESRI's ArcGIS.  There are a number of
+challenges which must be overcome before one can visualize the SOM.  To
+visualize the rook and hexagonal topologies we simply need to create polygons
+centered over each neuron.  The spherical and geodesic topologies are slightly
+more complicated.  To create the polygons for these topologies we must first
+compute the voronoi diagram on the surface of the sphere.  This is done using
+``STRIPACK'', a software program created by \cite{Ranka97}.  The next problem
+is that ArcGIS and other common GIS packages assume Cartesian distances.  They
+can not handle polygons that cross the $180^{th}$ meridian.  To accommodate this we
+must split each polygon at the $180^{th}$ meridian and draw it as two parts.  This
+is done by checking each edge of each polygon to see if it crosses this
+meridian, if it does we calculate its intersection with the meridian and split
+the edge into two segments.
+
+        Figure \ref{ten} shows cool stuff.
+
+
+
+
+
+%\begin{figure}[hbt]
+%	\centering
+%	\includegraphics[width=\linewidth]{geo_poly.png}
+%	\caption{This is a visualiation of the internal variance on the
+%Geodesic SOM.}
+%	\label{geopoly}
+%\end{figure}
+
+\begin{figure}[hbt]
+\centering
+\subfigure[Rook Topology]{
+  \label{ten:rook}
+  \includegraphics[width=.40\linewidth]{rook_10.png}
+}
+\subfigure[Hexagonal Topology]{
+  \label{ten:hex}
+  \includegraphics[width=.40\linewidth]{hex_10.png}
+}
+\subfigure[Spherical Topology]{
+  \label{ten:graph}
+  \includegraphics[width=.40\linewidth]{sphere_winkel.png}
+}
+\subfigure[Geodesic Sphere Topology]{
+  \label{ten:geodesic}
+  \includegraphics[width=.40\linewidth]{geodesic_winkel.png}
+}
+\caption{This shows 4 box plots, each representing one group of neurons in a set
+of SOMs trained with the same parameters.}
+\label{ten}
+\end{figure}
