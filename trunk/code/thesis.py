@@ -495,7 +495,7 @@ if __name__=="__main__":
     #####
     """ Create Mean IV for each simulation table, 4.2 """
     #####
-    data = q1TableSet2(dims=3,clusters=7)
+    # data = q1TableSet2(dims=3,clusters=7)
     #####
     #####
 
