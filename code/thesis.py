@@ -313,34 +313,35 @@ def rLabelTables(topoData,tname,var=False,keys=[]):
   \\begin{tabular}{|c||%s|}'''%(tname.title(),tname,format)
 
     print '  \\hline'
-    print "  " + "&".join(map(str,degs)) + '\\\\\\hline'
+    print " &" + "&".join(map(str,degs)) + '\\\\\\hline'
     print '  \\hline'
     #for a in degs:
     for i in xrange(len(degs)):
         a = degs[i]
-        s = '  '
+        s = ' '
         s += str(a)
+        s += ' & '
         #for b in degs:
         for j in xrange(len(degs)):
             b = degs[j]
             if i==j:
-                pass
-            elif i>j:
-                s+="& "
+                s+= '(%f)'%(topoData[a].var())
             else:
-                #s+='& %.4f (%.4f)'%rLabelMean(topoData[a],topoData[b],t=999)
                 if var:
-                    delta,p = rLabelMean(topoData[a],topoData[b],t=9999,var=True)
+                    delta,p = rLabelMean(topoData[a],topoData[b],t=999,var=True)
                 else:
-                    delta,p = rLabelMean(topoData[a],topoData[b],t=9999)
-                if p <= 0.01:
-                    s+= '& \\textbf{%.6f} ***'%delta
-                elif p <= 0.05:
-                    s+= '& \\textbf{%.6f} **'%delta
-                elif p <= 0.10:
-                    s+= '& \\textbf{%.6f} *'%delta
+                    delta,p = rLabelMean(topoData[a],topoData[b],t=999)
+                if i>j:
+                    s+="%0.6f & "%delta
                 else:
-                    s+= '& %.6f'%delta
+                    #if p <= 0.01:
+                    #    s+= '& \\textbf{%.6f} ***'%delta
+                    #elif p <= 0.05:
+                    #    s+= '& \\textbf{%.6f} **'%delta
+                    if p <= 0.10:
+                        s+= ' & \\textbf{%.6f}'%p
+                    else:
+                        s+= ' & %.6f'%p
         print s+'\\\\\\hline'
     print "  \end{tabular}"
     print "}"
@@ -495,21 +496,21 @@ if __name__=="__main__":
     #####
     """ Create Mean IV for each simulation table, 4.2 """
     #####
-    # data = q1TableSet2(dims=3,clusters=7)
+    # data = q1TableSet2(dims=3,clusters=8)
     #####
     #####
 
     #####
     """ Create data structure for research question 1 functions """
     #####
-    q1Data = q1Joins(dims=3,clusters=7)
+    q1Data = q1Joins(dims=3,clusters=8)
     #####
     #####
 
     #####
     """ Create box plots for question 1, Figure 4.1 """
     #####
-    createBoxPlots(q1Data)
+    # createBoxPlots(q1Data)
     #####
     #####
 
