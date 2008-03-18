@@ -43,11 +43,20 @@ if __name__=="__main__":
             rook.add_edge((node,neighbor))
     hex = hexGraph(23,28)
 
-    for i in range(10):
-        graphTrain(hex,'hex',3,8,i)
-        graphTrain(geodesic,'geodesic',3,8,i)
+    #for i in range(10):
+    #    graphTrain(hex,'hex',3,8,i)
+    #    graphTrain(geodesic,'geodesic',3,8,i)
+    #graphTrain(rook,'rook',3,8,6)
+    #graphTrain(sphere,'graph',3,8,6)
+
+    for i in range(7,10):
         graphTrain(rook,'rook',3,8,i)
         graphTrain(sphere,'graph',3,8,i)
+    #graphTrain(rook,'rook',3,8,8)
+    #graphTrain(sphere,'graph',3,8,8)
+    #graphTrain(rook,'rook',3,8,9)
+    #graphTrain(sphere,'graph',3,8,9)
+    
     #graphTrain(rook,'rook',3,7,10)
     #graphTrain(hex,'hex',3,7,0)
 
