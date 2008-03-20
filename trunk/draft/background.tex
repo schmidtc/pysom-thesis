@@ -7,19 +7,19 @@ network size. The fourth takes a look at the limitations of using ``uniformity''
 to evaluate potential topologies.
 
 \section{Training and the Boundary Effect}
-The SOM algorithm uses an artificial neural network to organize high-dimensional
-data onto a low-dimensional lattice, or map, of neurons.  Each neuron contains a
-reference vector that models the input data.  Before training, these
-neuron-vectors are initialized, most commonly to random values.  During the
-training process a randomly selected observation (input vector $x$) searches
-all neurons (reference vectors $m_i$) to find the one to which it is most
-similar, referred to as its Best Matching Unit (BMU $c$).  The BMU and its
-neighborhood ($N_c$) are then adjusted to better match that observation
-\citep{Kohonen2000}.  The training process is repeated a predefined number of
-times, or ideally until the map converges.  The traditional SOM is laid out on a
-two-dimensional plane using either a rectangular or hexagonal topology.
-According to \cite{wu2006}, the hexagonal structure is more uniform and generally
-preferred.
+The SOM algorithm uses an artificial neural network to organize
+high-dimensional data onto a low-dimensional lattice, or map, of neurons.
+Each neuron contains a reference vector that models the input data.  Before
+training, these neuron-vectors are initialized, most commonly to random
+values.  During the training process a randomly selected observation (input
+vector $x$) searches all neurons (reference vectors $m_i$) to find the one to
+which it is most similar, referred to as its Best Matching Unit (BMU $c$).
+The BMU and its neighborhood ($N_c$) are then adjusted to better match that
+observation \citep{Kohonen2000}.  The training process is repeated a
+predefined number of times, or ideally until the map converges. The
+traditional SOM is laid out on a two-dimensional plane using either a
+rectangular or hexagonal topology.  According to \cite{wu2006}, the hexagonal
+structure is more uniform and generally preferred.
 
 One drawback of building the neural lattice in a discrete Euclidean plane is the
 boundary of the resulting lattice.  A neuron located on the boundary has fewer
@@ -30,6 +30,9 @@ being pushed to the edges of the map, where they encounter fewer competing
 signals.
 % Skupin's Comment here is not addressed.  Not sure if it needs a response or
 % simply an acknowledgement.
+
+
+
 
 \begin{figure}
 \centering

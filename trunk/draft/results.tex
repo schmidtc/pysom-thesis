@@ -1,44 +1,56 @@
 \chapter{RESULTS AND DISCUSSION}
-This chapter describes the implementation and results of the empirical analysis
-outlined above.  Each section of this chapter details one of the three main
-tasks of the empirical analysis.  The first task is to create synthetic data,
-the second to train the SOMs and finally to apply the diagnostics.
+This chapter applies our three diagnostics to the trained SOMs.  Section
+\ref{rdq1} discusses the application of the first diagnostic, which looks at how internal variance
+changes with a neuron's first order neighborhood size, or degree.  In section
+\ref{rdq2} the second diagnostic, which compares the mean
+internal variance across topologies, is applied.  Finally, section \ref{rdq3} applies the
+third diagnostic, which visualizes the internal variance of each SOM.
+
+%The first diagnostic yields a set of results for each topology tested.  These results will be analyzed in order to address the first research question of this thesis.  The second diagnostic combines the results from each topology in order to address the second research question.  The final diagnostic will return a visualization for each topology tested.  The usefulness of these visualizations is a research question in itself.  The expectation is that the visualizations will show patterns of internal variance related to irregularities in the network topology.
+
+\section{Internal variance vs. first-order neighborhood size}
+\label{rdq1}
+The \emph{degree} is one measure of a neuron's centrality in a network. A
+neuron with a higher degree has higher network connectivity, and therefore is
+updated more frequently during the training process.  We hypothesized that
+outlying observations would migrate to less central neurons on the map, where
+there is less competition.  If this was true, we expect the internal variance
+as measured by equation \ref{eq1} to increase at these locations,
+demonstrating that topological irregularity affects the placement of outliers
+in the SOM.  
+
+For each topology, the internal variance and degree of each neuron was
+calculated. We then grouped the internal variance measures by degree.  These groups are
+treated as representative samples from a larger distribution. Table \ref{meanvar1}
+shows the details of each sample, including its size, mean and variance. 
+The size is the number of observations for which we were able to calculate an
+internal variance. The mean and variance capture the centrality and
+dispersion of the samples.  We create a box-and-whisker diagram (boxplot) for
+each sample, as shown in figure \ref{boxplot}, to visualize the samples
+summarized in table \ref{meanvar1}.
+
+We see that the internal variances seem to respond as expected for the
+rectangular and hexagonal, or ``flat,''  topologies, but not in the spherical
+topologies.  While this is not what we anticipated, it may suggest that the
+spherical and geodesic topologies are effectively overcoming the edge problem.
+To verify these conclusions we formally test for differences in means and
+variance between the samples. 
 
 
-\section{Training}
-% move training into methods.
+The variance tests showed blah blah blah, the
+results
 
 
-\section{Diagnostics}
-% move eq. to methods.
-This section applies the our three diagnositcs to the SOMs that were trained
-above.  All three build on the idea of an internal variance \(IV\). The
-internal variance of neuron (\(i\)) is defined as,
- \begin{equation}
-   {IV_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j}^{n_i} ||{x_{ij}}-{x_{ik}}||
- \label{eqno1}
- \end{equation}
-where, \(n_i\) is the number of observations mapped to \(i\), and \(x_i\) are
-the input vectors mapped to \(i\).
-
-The first diagnostic looks at how internal variance changes with a neuron's first
-order neighborhood size, or degree.  The second compares the overall, or mean
-internal variance accross topoliges.  The third visualizes the internal
-variance of each SOM.
-
-\subsection{Internal variance vs. first-order neighborhood size}
-After the internal variance and degree of each neuron are calculated we
-group the neurons for a given topology by their degree. The number for groups
-we end up with varies by topology. Figure \ref{boxplot} offers a visualization
-of these groups for each topology.  Each sub-figure shows a series of box
-plots, each representing the distribution of internal variance within a given
-group.  It was originally expected that the internal variances would be lower
-for groups with larger degrees. This figure suggests that is only true for the
-``flat'' topologies.
+The difference between these means
+and their significance is presented in tables \ref{rlt}.  For the rectangular
+topology table \ref{rlt:rook} shows that its three groups are significantly
+different from each other. Results are similar for the hexagonal topology. For
+the Spherical and Geodesic Topologies however there is no significant
+differance between the groups.
 
 \begin{figure}[hbt]
 \centering
-\subfigure[Rook Topology]{
+\subfigure[Rectangular Topology]{
   \label{boxplot:rook}
   \includegraphics[width=.45\linewidth]{rook_iv_box.png}
 }
@@ -59,40 +71,37 @@ of SOMs trained with the same parameters.}
 \label{boxplot}
 \end{figure}
 
-Table \ref{meanvar1} shows the mean internal variance for each group for each
-topology. Again we see that the internal variances seem to respond as expected
-in the ``flat'' topologies, but not in the spherical topologies.  This is not
-necessarily bad, as it may suggest that the spherical topologies are
-effectively overcoming the edge problem.  The difference between these means
-and their significance is presented in tables \ref{rlt}.  For the rook
-topology table \ref{rlt:rook} shows that its three groups are significantly
-different from each other. Results are similar for the hexagonal topology. For
-the Spherical and Geodesic Topologies however there is no significant
-differance between the groups.
 %I suspect a better measure would be to use the minimum number of steps for a
 %given nueron to reach every other neuron on the network.  This would vary
 %significantly on the rook and hexagon topolgoies, but not very much in the
 %spherical topologies.
 
+%\begin{landscape}
 \begin{table}[hbt]
+\centering
+%\scriptsize
+\begin{minipage}{\textwidth}
 \caption{Mean IV and Var(IV) grouped by a neurons degree for each topology}
 \label{meanvar1}
-\begin{tabular}{|c||c|c||c|c||c|c||c|c|}
+\begin{tabular}{|c||cc|cc|cc|cc|}
 \hline
-\textbf{Degree Size} & \multicolumn{2}{c||}{\textbf{Geodesic}} &
-\multicolumn{2}{c||}{\textbf{Spherical}} & \multicolumn{2}{c||}{\textbf{Hex}} &
-\multicolumn{2}{c||}{\textbf{Rook}} \\
+\textbf{Degree} & \multicolumn{2}{c|}{\textbf{Geodesic}} &
+\multicolumn{2}{c|}{\textbf{Spherical}} &
+\multicolumn{2}{c|}{\textbf{Hexagonal}} &
+\multicolumn{2}{c|}{\textbf{Rectangular}} \\
 \hline
 & N & Mean (Var) & N & Mean (Var) & N & Mean (Var) & N & Mean (Var) \\
 \hline
-2&&&&& 20& 0.0611 (0.0013)& 40& 0.1095 (0.0040)\\ 
-3&&&&& 230& 0.0790 (0.0024)& 939& 0.0821 (0.0027)\\ 
-4&&&&& 520& 0.0852 (0.0029)& 5446& 0.0484 (0.0013)\\ 
-5& 120& 0.0536 (0.0015)& 589& 0.0563 (0.0016)& 210& 0.0666 (0.0027)&&\\ 
-6& 6287& 0.0548 (0.0015)& 5349& 0.0543 (0.0015)& 5448& 0.0495 (0.0014)&&\\ 
-7&&& 469& 0.0567 (0.0015)&&&&\\ 
+2&&&&& 20& 0.0409 (5.66E-06)& 40& 0.0378 (7.59E-06)\\ 
+3&&&&& 218& 0.0371 (2.18E-05)& 880& 0.0348 (3.59E-05)\\ 
+4&&&&& 489& 0.0347 (4.05E-05)& 4926& 0.0284 (6.28E-05)\\ 
+5& 113& 0.0283 (5.28E-05)& 526& 0.0279 (6.43E-05)& 206& 0.0319 (3.50E-05)&&\\ 
+6& 5598& 0.0281 (6.05E-05)& 4758& 0.0282 (6.05E-05)& 4954& 0.0278
+(6.09E-05)&&\\ 
+7&&& 417& 0.0273 (6.65E-05)&&&&\\ 
 \hline
-\end{tabular} \end{table}
+\end{tabular} \end{minipage} \end{table}
+%\end{landscape}
 
 
 
@@ -111,15 +120,15 @@ t=9999, *** = 99\%, ** = 95\%, * = 90\%}
 \label{rlt}
 
 
-  \subtable[Rook Topology]{
+  \subtable[Rectangular Topology]{
     \label{rlt:rook}
     \begin{tabular}{|c||c|c|c|}
     \hline
     Degree&2&3&4\\\hline
     \hline
-    2 & (0.004008) & \textbf{0.001000} & \textbf{0.001000}\\\hline
-    3 & 0.027352 & (0.002723) & \textbf{0.001000}\\\hline
-    4 & 0.061040 & 0.033688 & (0.001287)\\\hline
+    2 & (0.000008) & \textbf{0.002000} & \textbf{0.001000}\\\hline
+    3 & 0.002969 & (0.000036) & \textbf{0.001000}\\\hline
+    4 & 0.009364 & 0.006396 & (0.000063)\\\hline
     \end{tabular}
   }
 
@@ -129,11 +138,11 @@ t=9999, *** = 99\%, ** = 95\%, * = 90\%}
     \hline
     Degree&2&3&4&5&6\\ \hline
     \hline
-     2 & (0.001304) & 0.115000 & \textbf{0.046000} & 0.646000 & 0.166000\\\hline
-     3 & 0.017918 & (0.002389) & 0.148000 & \textbf{0.013000} & \textbf{0.001000}\\\hline
-     4 & 0.024169 & 0.006251 & (0.002866) & \textbf{0.001000} & \textbf{0.001000}\\\hline
-     5 & 0.005528 & 0.012389 & 0.018640 & (0.002678) & \textbf{0.001000}\\\hline
-     6 & 0.011560 & 0.029478 & 0.035729 & 0.017089 & (0.001402)\\\hline
+    2 & (0.000006) & \textbf{0.001000} & \textbf{0.001000} & \textbf{0.001000} & \textbf{0.001000}\\\hline
+    3 & 0.003810 & (0.000022) & \textbf{0.001000} & \textbf{0.001000} & \textbf{0.001000}\\\hline
+    4 & 0.006253 & 0.002443 & (0.000040) & \textbf{0.001000} & \textbf{0.001000}\\\hline
+    5 & 0.009008 & 0.005197 & 0.002755 & (0.000035) & \textbf{0.001000}\\\hline
+    6 & 0.013067 & 0.009257 & 0.006814 & 0.004059 & (0.000061)\\\hline
     \end{tabular}
   }
 
@@ -143,9 +152,9 @@ t=9999, *** = 99\%, ** = 95\%, * = 90\%}
     \hline	
     Degree&5&6&7\\ \hline
     \hline
-     5 & (0.001583) & 0.225000 & 0.857000\\\hline
-     6 & 0.001941 & (0.001474) & 0.201000\\\hline
-     7 & 0.000462 & 0.002402 & (0.001472)\\\hline
+    5 & (0.000064) & 0.487000 & 0.199000\\\hline
+    6 & 0.000250 & (0.000060) & \textbf{0.023000}\\\hline
+    7 & 0.000674 & 0.000924 & (0.000067)\\\hline
     \end{tabular}
   }
 
@@ -155,13 +164,14 @@ t=9999, *** = 99\%, ** = 95\%, * = 90\%}
     \hline
     Degree&5&6\\ \hline
     \hline
-     5 & (0.001466) & 0.724000\\\hline
-     6 & 0.001227 & (0.001494)\\\hline
+    5 & (0.000053) & 0.756000\\\hline
+    6 & 0.000203 & (0.000060)\\\hline
     \end{tabular}
   }
 \end{table}
 
-\subsection{Internal variance vs. centrality}
+\section{Internal variance vs. centrality}
+\label{rdq2}
 Above we saw that changes in a neuron's degree was related to changes in
 internal variance in topologies with edges, but not in the two sphere based
 topologies. The next step is to see if internal variance changes between
@@ -183,7 +193,7 @@ variance in degrees of the topology's nodes}
 Topology & Var of Degree & MeanIV (VarIV)\\
 \hline
 Geodesic & 0.0183 & 0.0874 (0.0009)\\
-Rook & 0.1457 & 0.0890 (0.0010)\\
+Rectangular & 0.1457 & 0.0890 (0.0010)\\
 Spherical & 0.1648 & 0.0879 (0.0010)\\
 Hexagonal & 0.6283 & 0.0885 (0.0010)\\
 \hline
@@ -216,10 +226,10 @@ for each topology.}
   \label{rlt:all}
   \begin{tabular}{|c||c|c|c|c|}
   \hline
-  \textbf{Topology}&Geodesic &Rook	&Sphere			&Hexagonal		\\\hline
+  \textbf{Topology}&Geodesic &Rectangular	&Sphere			&Hexagonal		\\\hline
   \hline
   Geodesic	&& \textbf{0.0015} ***	& 0.0005		& \textbf{0.0010} *	\\\hline
-  Rook		&& 			& \textbf{0.0011} *	& 0.0005		\\\hline
+  Rectangular		&& 			& \textbf{0.0011} *	& 0.0005		\\\hline
   Sphere	&& 			& 			& 0.0005 		\\\hline
   Hexagonal 	&& 			& 			&			\\\hline
   \end{tabular}
@@ -234,10 +244,10 @@ for each topology.}
   \label{rlt:allV}
   \begin{tabular}{|c||c|c|c|c|}
   \hline
-  \textbf{Topology}&Geodesic &Rook	&Sphere			&Hexagonal		\\\hline
+  \textbf{Topology}&Geodesic &Rectangular	&Sphere			&Hexagonal		\\\hline
   \hline
   Geodesic	&& \textbf{0.0009} *	& 0.0003		& \textbf{0.0011} **	\\\hline
-  Rook		&& 			& 0.0005		& 0.0002		\\\hline
+  Rectangular		&& 			& 0.0005		& 0.0002		\\\hline
   Sphere	&& 			& 			& 0.0007 		\\\hline
   Hexagonal 	&& 			& 			&			\\\hline
   \end{tabular}
@@ -245,12 +255,13 @@ for each topology.}
 
 
 
-\subsection{Visualization of Internal Variance}
+\section{Visualization of internal variance}
+\label{rdq3}
 In this section we will look at what information can be gained from
 visualizing the SOM and its internal variance. The visualizations are created
 with off the shelf GIS packages, namely ESRI's ArcGIS.  There are a number of
 challenges which must be overcome before one can visualize the SOM.  To
-visualize the rook and hexagonal topologies we simply need to create polygons
+visualize the rectangular and hexagonal topologies we simply need to create polygons
 centered over each neuron.  The spherical and geodesic topologies are slightly
 more complicated.  To create the polygons for these topologies we must first
 compute the voronoi diagram on the surface of the sphere.  This is done using
@@ -278,7 +289,7 @@ the edge into two segments.
 
 \begin{figure}[hbt]
 \centering
-\subfigure[Rook Topology]{
+\subfigure[Rectangular Topology]{
   \label{ten:rook}
   \includegraphics[width=.40\linewidth]{rook_10.png}
 }
