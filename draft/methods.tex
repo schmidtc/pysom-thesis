@@ -1,11 +1,13 @@
 \chapter{METHODOLOGY}
-This chapter is composed of two sections.  The first describes the diagnostics
-developed for evaluating network topologies.  The second describes an
-empirical study that will implement these methods in order to evaluate the
-utility of topologies that allow for greater control over network size.
-
+This chapter is composed of three sections.  Section \ref{meth:diag} describes
+three diagnostics developed for evaluating network topologies.  The
+diagnostics are applied to a series of trained SOMs.  Synthetic training data,
+as described in section \ref{meth:data}, is used as our training data.  The
+parameters of the training, section \ref{meth:train}, are consistent across
+each trained SOM.
 
 \section{Diagnostics}
+\label{meth:diag}
 Three diagnostics are developed to explore the effect of irregular topology on
 spherical SOM.  All three build on the idea of an internal variance \(IV\). The
 internal variance of neuron (\(i\)) is defined as,
@@ -29,18 +31,22 @@ first-order neighborhood size.  In traditional SOMs, outlying observations are
 pushed to the edge of the map where they encounter fewer competing signals. A
 prime example of this is the ``Utah-Hawaii'' case shown in Figure
 \ref{figure1}.  Relying only on the SOM, one would be left to believe that the
-two states are similar. Upon closer inspection we see that the QError from
-Utah to the neuron is $1.509$, the QError from Hawaii to the neuron in
-$1.505$, but the QError from Utah to Hawaii is $3.014$. In this case only Utah
-and Hawaii were mapped to that neuron.  In a case where multiple observations
-land on the same neuron, it is possible to measure average pairwise QErrors
-between those observations.  This gives us a notion of internal variance for
-each neuron. It would be expected that in traditional SOMs neurons closer to
-the edge will have higher internal variances. This can be extended to
-spherical SOMs by comparing the degree of a neuron ($deg(m_i)$ or the number of
-adjacent neurons) to its internal variance.  The degree of each neuron can
-easily be calculated by taking the column sums of the first-order adjacency
-matrix ($A$).
+two states are similar.  Upon closer inspection we see that the
+QError\footnote{The quantization error (QError) is the standard method for
+measuring the quality of the SOM.  The QError measures the distance, in
+attribute space, of an observation to its BMU in the trained SOM
+\citep{Kohonen2000}. The average QError provides a global measure of accuarcy
+for the SOM.} from Utah to the neuron is $1.509$, the QError from Hawaii to
+the neuron in $1.505$, but the QError from Utah to Hawaii is $3.014$. In this
+case only Utah and Hawaii were mapped to that neuron.  In a case where
+multiple observations land on the same neuron, it is possible to measure
+average pairwise QErrors between those observations.  This gives us a notion
+of internal variance for each neuron. It would be expected that in traditional
+SOMs neurons closer to the edge will have higher internal variances. This can
+be extended to spherical SOMs by comparing the degree of a neuron ($deg(m_i)$
+or the number of adjacent neurons) to its internal variance.  The degree of
+each neuron can easily be calculated by taking the column sums of the
+first-order adjacency matrix ($A$).
 
 Once the internal variance ($var(m_i)$) and degree ($deg(m_i)$) of each neuron
 have been calculated, the neurons can be separated into a small number of
@@ -80,13 +86,8 @@ we can use the values to color or shade a map of the given topology.  The degree
 of the neurons can be visualized using proportional symbols to help show
 patterns between internal variance and irregularity.
 
-\section{Empirical Analysis}
-The empirical analysis consists of three main tasks.  The first is to create
-synthetic data suitable for the diagnostics described above.  The second task is
-to train multiple SOMs, each with a different topology. The third task
-is to apply the diagnostics and interpret the results.
-
-\subsection{Synthetic Data}
+\section{Data}
+\label{meth:data}
 %Comment from Skupin...
 %This section is obviously leaving most of the specifics of the synthetic data
 %generation out, which is problematic. I'm willing to go along with this for
@@ -94,8 +95,10 @@ is to apply the diagnostics and interpret the results.
 The internal variance measure is sensitive to both the properties of the SOM
 and the properties of the training data. Therefore, a dataset with uniform
 properties is needed. We follow the method for generating uniform synthetic
-data used by \cite{wu2006}.  The dataset consists of seven clusters in three
-dimensions.  Each cluster is normally distributed and has a standard deviation
+data used by \cite{wu2006}.  
+%The dataset consists of seven clusters in three dimensions.  
+Their method creates seven clusters in three dimensions.
+Each cluster is normally distributed and has a standard deviation
 of one.  The uniform clusters generated by this method allow us to
 systematically compare the diagnostics under several different topologies.  To
 ensure that we can calculate an internal variance for each neuron, we create a
@@ -131,30 +134,31 @@ large number of observations relative to the number of neurons.
 
 
 
-\subsection{Training}
+\section{SOM Training}
+\label{meth:train}
 Before we can go on to address the research questions we need to train a
-series of SOMs.  We will train SOMs using four different topologies:
-\emph{rectangular, hexagonal, geodesic sphere and spherical}.  The spherical
+series of SOMs.  We train SOMs using four different topologies:
+\emph{rectangular, hexagonal, geodesic sphere} and \emph{spherical}.  The spherical
 topology is based on a method, developed by \cite{Rakhmanov94}, for
 distributing an arbitrary number of points on to the surface of a sphere.
 Delaunay triangulation is then applied to these points, producing a
-topological structure.  To yield meaningful results those SOMs must be trained
-with comparable parameters.  The literature provides many rules of thumb for training a SOM.
-Each SOM is trained in two stages.  The first stage uses a larger
+topological structure.  To yield meaningful results these SOMs must be trained
+with comparable parameters.  The literature provides many rules of thumb for
+training a SOM: each SOM is trained in two stages, the first of which uses a larger
 initial learning rate and neighborhood search radius with a small number of
-training steps.  In the second stage we lower the initial learning rate and
-the neighborhood search radius, but extend the length of training.
+training steps; the second stage uses a lower initial learning rate and
+neighborhood search radius, but extends the length of training.
 \\
 First Stage Parameters:
 \begin{itemize}
   \item Initial neighborhood search radius of 50\%, which decreases during training. 
-  \item The initial learning rates of 0.04 which decreases during training.
+  \item Initial learning rates of 0.04 which decreases during training.
   \item 100,000 training steps.
 \end{itemize}
 Second Stage Parameters:
 \begin{itemize}
   \item Initial neighborhood search radius of 33\%, which decreases during training. 
-  \item The initial learning rates of 0.03 which decreases during training.
+  \item Initial learning rates of 0.03 which decreases during training.
   \item 1,000,000 training steps.
 \end{itemize}
 
@@ -191,7 +195,7 @@ still possible to have less than forty measurements.}
 \label{ivtable3}
 \begin{tabular}{|c||c|c|c|c|}
 \hline
-\textbf{Simulation} & Geodesic & Graph & Hex & Rook \\
+\textbf{Simulation} & Geodesic & Spherical & Hexagonal & Rectangular \\
 \hline
 \hline
 \textbf{1} & 0.0277 & 0.0277 & 0.0285 & 0.0289 \\
@@ -209,16 +213,4 @@ still possible to have less than forty measurements.}
 \textbf{Combined} & 0.0281 & 0.0281 & 0.0290 & 0.0294\\
 \hline
 \end{tabular} \end{table}
-
-
-
-\subsection{Diagnostics}
-The first diagnostic will yield a set of results for each topology tested.  These
-results will be analyzed in order to address the first research question of this
-paper.  The second diagnostic provides one set of results.  These results will
-be analyzed to address the second research question.  The final diagnostic will
-return a visualization for each topology tested.  The usefulness of these
-visualizations is a research question in itself.  The expectation is that the
-visualizations will show patterns of internal variance related to irregularities
-in the network topology.
 
