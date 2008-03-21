@@ -284,36 +284,45 @@ between simulations of a given topology.  This homogeneity demonstrates that
 our ten synthetic datasets adequately increase our sample size without introducing bias.  
 Because of the apparent homogeneity between the simulations \emph{within} a
 given topology, we move on to compare the first simulation \emph{across} topologies.  
+In figure \ref{cplanes} the component planes of these simulations are
+presented.  The variation we see in the placement of high and low values,
+between topologies, is caused by the random initialization of the SOM.
+However, the relationships between the dimensions remain constant across
+topologies. 
+
+Focusing on in the internal variance of 
 
 \begin{figure}
+\centering
 \begin{minipage}{\textwidth}
 \subfigure[Rectangular Topology]{
   \label{ten:rook}
-  \includegraphics[width=0.45\linewidth]{rook_thesis_7c.png}
+  \includegraphics[width=0.5\linewidth]{rook_thesis_7c.png}
 }
 \subfigure[Hexagonal Topology]{
   \label{ten:hex}
-  \includegraphics[width=0.45\linewidth]{hex_thesis_7c.png}
+  \includegraphics[width=0.5\linewidth]{hex_thesis_7c.png}
 }
 \subfigure[Spherical Topology]{
   \label{ten:graph}
-  \includegraphics[width=0.45\linewidth]{sphere_thesis_7c.png}
+  \includegraphics[width=0.5\linewidth]{sphere_thesis_7c.png}
 }
 \subfigure[Geodesic Sphere Topology]{
   \label{ten:geodesic}
-  \includegraphics[width=0.45\linewidth]{geodesic_thesis_7c.png}
+  \includegraphics[width=0.5\linewidth]{geodesic_thesis_7c.png}
 }
-\caption{Internal variance mapping for each of the forty SOMs.}
+\caption{Internal variance mapping for each of the forty SOMs. Darker colors
+represent neurons that display larger internal variance. Neurons for which
+an internal variance could not be calculated are not displayed.}
 \label{ten}
 \end{minipage}
 \end{figure}
 
-
-%  \includegraphics[width=\linewidth]{sphere_thesis_7c.png}
-%}
-%\subfigure[Geodesic Sphere Topology]{
-%  \label{ten:geodesic}
-%}
-%\caption{Visualization of the internal variance for each of the forty SOMs.}
-%\label{ten}
-%\end{figure}
+\begin{figure}
+\begin{minipage}{\textwidth}
+  \includegraphics[width=\linewidth]{cplanes.png}
+  \caption{The first (A), second (B) and third (C) component planes are shown
+for the first simulation of each topology.  These component planes show how
+the original dimensions are represented in the trained SOMs.}
+  \label{cplanes}
+\end{minipage}\end{figure}
