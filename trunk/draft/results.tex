@@ -15,7 +15,7 @@ neuron with a higher degree has higher network connectivity, and therefore is
 updated more frequently during the training process.  We hypothesized that
 outlying observations would migrate to less central neurons on the map, where
 there is less competition.  If this was true, we expect the internal variance
-as measured by equation \ref{eq1} to increase at these locations,
+as measured by equation \ref{eqno1} to increase at these locations,
 demonstrating that topological irregularity affects the placement of outliers
 in the SOM.  
 
@@ -29,26 +29,29 @@ dispersion of the samples.  We create a box-and-whisker diagram (boxplot) for
 each sample, as shown in figure \ref{boxplot}, to visualize the samples
 summarized in table \ref{meanvar1}.
 
-We see that the internal variances seem to respond as expected for the
+We see that the means of the samples seem to respond as expected for the
 rectangular and hexagonal, or ``flat,''  topologies, but not in the spherical
 topologies.  While this is not what we anticipated, it may suggest that the
 spherical and geodesic topologies are effectively overcoming the edge problem.
-To verify these conclusions we formally test for differences in means and
-variance between the samples. 
+The variance of the samples, however, did not respond as expected.  In the
+flat topologies the variance increased as the degree increased.  This is
+possibly due to the large difference in sample size.  To verify these
+conclusions we formally test for differences in means and variance between the
+samples.
 
+The results of the means test are presented in table \ref{rlt}. This table
+shows the difference in means below the diagonal, the p-value above the
+diagonal (with significant values in bold), and the variance of each
+sample along the diagonal.  In the rectangular and hexagonal topologies, we
+observe that all sample means are significantly different.  We also observed
+significant differences in the variance of the samples, except the case of
+degree size four and five in the hexagonal topology, where they were not
+significantly different. No variance in the spherical and geodesic topologies
+were significantly different.  In those topologies, the only significant
+difference in means was between the sample with degree size six and seven in
+the spherical topology.
 
-The variance tests showed blah blah blah, the
-results
-
-
-The difference between these means
-and their significance is presented in tables \ref{rlt}.  For the rectangular
-topology table \ref{rlt:rook} shows that its three groups are significantly
-different from each other. Results are similar for the hexagonal topology. For
-the Spherical and Geodesic Topologies however there is no significant
-differance between the groups.
-
-\begin{figure}[hbt]
+\begin{figure}
 \centering
 \subfigure[Rectangular Topology]{
   \label{boxplot:rook}
@@ -66,8 +69,10 @@ differance between the groups.
   \label{boxplot:geodesic}
   \includegraphics[width=.45\linewidth]{geodesic_iv_box.png}
 }
-\caption{This shows 4 box plots, each representing one group of neurons in a set
-of SOMs trained with the same parameters.}
+\caption{Box-and-whisker diagrams representing samples derived from forty
+trained SOMs.  The samples within each topology were created by grouping the
+internal variance of each neuron of a given degree size. The diagrams how the
+centrality and dispersion of each sample.}
 \label{boxplot}
 \end{figure}
 
@@ -77,11 +82,11 @@ of SOMs trained with the same parameters.}
 %spherical topologies.
 
 %\begin{landscape}
-\begin{table}[hbt]
+\begin{table}
 \centering
-%\scriptsize
+\scriptsize
 \begin{minipage}{\textwidth}
-\caption{Mean IV and Var(IV) grouped by a neurons degree for each topology}
+\caption{Size, mean and variance of each sample}
 \label{meanvar1}
 \begin{tabular}{|c||cc|cc|cc|cc|}
 \hline
@@ -112,11 +117,9 @@ of SOMs trained with the same parameters.}
 %neighborhood size, or degree, increases?
 
 
-\begin{table}[hbt]
-\centering
-\caption{These tables show the difference in mean IV between each group of
-neurons grouped by their degree, delta (significance),
-t=9999, *** = 99\%, ** = 95\%, * = 90\%}
+\begin{table}
+\begin{minipage}{\textwidth}
+\caption{Results of Difference of Mean Testing Within Each Topology}
 \label{rlt}
 
 
@@ -126,8 +129,8 @@ t=9999, *** = 99\%, ** = 95\%, * = 90\%}
     \hline
     Degree&2&3&4\\\hline
     \hline
-    2 & (0.000008) & \textbf{0.002000} & \textbf{0.001000}\\\hline
-    3 & 0.002969 & (0.000036) & \textbf{0.001000}\\\hline
+    2 & (0.000008) & \textbf{0.002700} & \textbf{0.000100}\\\hline
+    3 & 0.002969 & (0.000036) & \textbf{0.000100}\\\hline
     4 & 0.009364 & 0.006396 & (0.000063)\\\hline
     \end{tabular}
   }
@@ -138,10 +141,10 @@ t=9999, *** = 99\%, ** = 95\%, * = 90\%}
     \hline
     Degree&2&3&4&5&6\\ \hline
     \hline
-    2 & (0.000006) & \textbf{0.001000} & \textbf{0.001000} & \textbf{0.001000} & \textbf{0.001000}\\\hline
-    3 & 0.003810 & (0.000022) & \textbf{0.001000} & \textbf{0.001000} & \textbf{0.001000}\\\hline
-    4 & 0.006253 & 0.002443 & (0.000040) & \textbf{0.001000} & \textbf{0.001000}\\\hline
-    5 & 0.009008 & 0.005197 & 0.002755 & (0.000035) & \textbf{0.001000}\\\hline
+    2 & (0.000006) & \textbf{0.000800} & \textbf{0.000200} & \textbf{0.000100} & \textbf{0.000100}\\\hline
+    3 & 0.003810 & (0.000022) & \textbf{0.000100} & \textbf{0.000100} & \textbf{0.000100}\\\hline
+    4 & 0.006253 & 0.002443 & (0.000040) & \textbf{0.000100} & \textbf{0.000100}\\\hline
+    5 & 0.009008 & 0.005197 & 0.002755 & (0.000035) & \textbf{0.000100}\\\hline
     6 & 0.013067 & 0.009257 & 0.006814 & 0.004059 & (0.000061)\\\hline
     \end{tabular}
   }
@@ -152,8 +155,8 @@ t=9999, *** = 99\%, ** = 95\%, * = 90\%}
     \hline	
     Degree&5&6&7\\ \hline
     \hline
-    5 & (0.000064) & 0.487000 & 0.199000\\\hline
-    6 & 0.000250 & (0.000060) & \textbf{0.023000}\\\hline
+    5 & (0.000064) & 0.485500 & 0.197400\\\hline
+    6 & 0.000250 & (0.000060) & \textbf{0.020000}\\\hline
     7 & 0.000674 & 0.000924 & (0.000067)\\\hline
     \end{tabular}
   }
@@ -164,148 +167,153 @@ t=9999, *** = 99\%, ** = 95\%, * = 90\%}
     \hline
     Degree&5&6\\ \hline
     \hline
-    5 & (0.000053) & 0.756000\\\hline
+    5 & (0.000053) & 0.783900\\\hline
     6 & 0.000203 & (0.000060)\\\hline
     \end{tabular}
   }
-\end{table}
+\end{minipage}\end{table}
 
 \section{Internal variance vs. centrality}
 \label{rdq2}
-Above we saw that changes in a neuron's degree was related to changes in
-internal variance in topologies with edges, but not in the two sphere based
-topologies. The next step is to see if internal variance changes between
-topologies.  To do this we will first order out topologies by a summary
-measure of the network centrality.  A node's centrality can be thought of as a
-measure of it's importance to the rest of the network. Above we used the most
-common measure of centrality, which is a node's degree.  For this diagnostic
-we'll take the variance of those degrees as a summary measure.  This should
-tell us how regular the overall network is.  These variances and the sorting
-of our topologies is shown in table \ref{vardeg}.
+The degree of a node on a network is a measure of its centrality, or
+importance. Nodes with more connections are thought to be more central to
+the network and have a larger influence than nodes with fewer connections. As an
+artifact of the training process observations that are more average than
+others tend to be centralized.  The observations that surround them tend to be
+more extreme.  If you refer back to figure \ref{figure1}, you'll notice that
+observations with smaller symbols are closer to the mean of all the
+observations and that these observations have been centralized in the network.
+Using the degree as a measure of centrality does not capture this picture
+well, as neurons near the edge can still have a large degree.  A way to
+capture this effect would be to look at closeness centrality, which is the
+inverse of the average distance of a neuron to every other neuron on the
+network.
 
-\begin{table}[hbt]
+Above we saw that changes in a neuron's degree was related to changes in
+internal variance in topologies with edges, but not in the two sphere-based
+topologies. The next step is to see if internal variance changes between
+topologies.  To do this we will first order our topologies by a summary
+measure of the network centrality.  For this diagnostic we use the average
+closeness centrality for each topology as the summary measure.  The summary
+measure and the sorting of our topologies is shown in table \ref{vardeg}.
+
+\begin{table}
 \centering
-\caption{This table shows how our topologies will be sorted based on the
-variance in degrees of the topology's nodes}
+\begin{minipage}{\textwidth}
+\caption{Measure of Topological Regularity and Sample Mean and Variance}
 \label{vardeg}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c||c|c|c|}
 \hline
-Topology & Var of Degree & MeanIV (VarIV)\\
+Topology & Closeness Centrality & Mean & Variance\\
 \hline
-Geodesic & 0.0183 & 0.0874 (0.0009)\\
-Rectangular & 0.1457 & 0.0890 (0.0010)\\
-Spherical & 0.1648 & 0.0879 (0.0010)\\
-Hexagonal & 0.6283 & 0.0885 (0.0010)\\
+Rectangular & 0.0603 & 0.0294 &0.0001\\
+Hexagonal & 0.0739 & 0.0289 &0.0001\\
+Geodesic & 0.0890 & 0.0281 &0.0001\\
+Spherical & 0.0906 & 0.0281 &0.0001\\
 \hline
 \end{tabular}
+\end{minipage}
 \end{table}
 
-Figure \ref{q2boxplot} shows the distribution on internal variance
-measurements for each of our topologies.  It is interesting to note that
-they all appear to be very similar. We test the difference in means for
-each of these using the same method of random labeling that was applied in the
-previous diagnostic. The results are displayed in table \ref{rlt:all}. Table
-\ref{rlt:allV} shows the result of testing for a difference in variance
-between each topology.  It was expected that the mean and variance of IV would
-increase in more irregular topologies.  These result general do not support
-that hypothesis. This may suggest that the mean and variance of IV are not
-appropriate summary measures.
-
-\begin{figure}[hbt]
-\centering
-\includegraphics[width=\linewidth]{q2boxplot.png}
-\caption{These box plots show the distribution of internal variance measurements
-for each topology.}
-\label{q2boxplot}
-\end{figure}
+In this diagnostic we group the samples from the previous section by topology.
+This results in one sample for each of the four topologies.  We test for a
+difference in mean and variance between each sample using the same method of
+random labeling that was applied in the previous diagnostic.  No significant
+differences were found in the variances; the difference in means are presented
+in table \ref{rlt:all}.  It was expected that the mean and variance of the
+samples would decrease for the more regular topologies.  These results
+generally support this hypothesis. We see that the rectangular topology has
+the highest mean internal variance and is the least regular as measured by
+closeness centrality. The geodesic and spherical topologies are the most
+regular and have the lowest internal variance. These two groups display very
+similar measures of closeness centrality and show no significant difference in
+mean internal variance.  This suggests that even though the spherical topology
+is more irregular than the geodesic topology, similar levels of quality may be
+achieved.
 
 
-\begin{table}[hbt]
-  \centering
-  \caption{These tables show the difference in means of the internal variance between each topology}
+\begin{table}
+  \begin{minipage}{\textwidth}
+  \caption{Results of Difference of Mean Testing Across Topologies}
   \label{rlt:all}
   \begin{tabular}{|c||c|c|c|c|}
   \hline
-  \textbf{Topology}&Geodesic &Rectangular	&Sphere			&Hexagonal		\\\hline
+  \textbf{Topology}&Rectangular	&Hexagonal &Geodesic &Spherical\\\hline
   \hline
-  Geodesic	&& \textbf{0.0015} ***	& 0.0005		& \textbf{0.0010} *	\\\hline
-  Rectangular		&& 			& \textbf{0.0011} *	& 0.0005		\\\hline
-  Sphere	&& 			& 			& 0.0005 		\\\hline
-  Hexagonal 	&& 			& 			&			\\\hline
+   Rectangular & (0.000064) & \textbf{0.001000} & \textbf{0.000100} & \textbf{0.000100}\\\hline
+   Hexagonal & -0.000479 & (0.000064) & \textbf{0.000100} & \textbf{0.000100}\\\hline
+   Geodesic & -0.001329 & -0.000850 & (0.000060) & 0.505600\\\hline
+   Spherical & -0.001328 & -0.000849 & 0.000001 & (0.000061)\\\hline
+
   \end{tabular}
-  \end{table}
-
-
-
-
-\begin{table}[hbt]
-  \centering
-  \caption{These tables show the difference in variances of the internal variance between each topology}
-  \label{rlt:allV}
-  \begin{tabular}{|c||c|c|c|c|}
-  \hline
-  \textbf{Topology}&Geodesic &Rectangular	&Sphere			&Hexagonal		\\\hline
-  \hline
-  Geodesic	&& \textbf{0.0009} *	& 0.0003		& \textbf{0.0011} **	\\\hline
-  Rectangular		&& 			& 0.0005		& 0.0002		\\\hline
-  Sphere	&& 			& 			& 0.0007 		\\\hline
-  Hexagonal 	&& 			& 			&			\\\hline
-  \end{tabular}
-  \end{table}
+  \end{minipage}
+\end{table}
 
 
 
 \section{Visualization of internal variance}
 \label{rdq3}
-In this section we will look at what information can be gained from
-visualizing the SOM and its internal variance. The visualizations are created
-with off the shelf GIS packages, namely ESRI's ArcGIS.  There are a number of
-challenges which must be overcome before one can visualize the SOM.  To
-visualize the rectangular and hexagonal topologies we simply need to create polygons
-centered over each neuron.  The spherical and geodesic topologies are slightly
-more complicated.  To create the polygons for these topologies we must first
-compute the voronoi diagram on the surface of the sphere.  This is done using
-``STRIPACK'', a software program created by \cite{Ranka97}.  The next problem
-is that ArcGIS and other common GIS packages assume Cartesian distances.  They
-can not handle polygons that cross the $180^{th}$ meridian.  To accommodate this we
-must split each polygon at the $180^{th}$ meridian and draw it as two parts.  This
-is done by checking each edge of each polygon to see if it crosses this
-meridian, if it does we calculate its intersection with the meridian and split
-the edge into two segments.
+In order to address our research questions we first created ten synthetic
+datasets.  Each was created by sampling from the same data generating process
+that was provided by \cite{wu2006}.  We used these datasets to train ten
+SOMs for each of our topologies.  The purpose of training ten SOMs was to
+produce large enough samples sizes for the difference of means and variance
+testing that was necessary to formally evaluate the results of our first two
+research questions.  In this section we quickly verify that combining those
+simulations was appropriate by visualizing the similarities between them.
+In the remainder of this section we focus our efforts on comparing across
+topologies.  Since we have seen that little variation exists between the ten
+simulations we pick the first of those simulations for each topology and
+explore them in more depth.
 
-        Figure \ref{ten} shows cool stuff.
+We look at what information can be gained from visualizing the SOM and its
+internal variance. In order to create these visualizations we used
+off-the-shelf GIS packages, namely ESRI's ArcGIS.  There are a number of
+challenges which had to be overcome. To visualize the rectangular and
+hexagonal topologies we simply created polygons centered over each neuron.
+However, the spherical and geodesic topologies were slightly more complicated.
+To create the polygons for these topologies we must first computed the Voronoi
+diagram on the surface of the sphere.  This is done using STRIPACK, a software
+program created by \cite{Ranka97}.  Further, ArcGIS and other common GIS
+packages assume Cartesian distances and thus can not handle polygons that
+cross the $180^{th}$ meridian.  To accommodate this we split each polygon at
+the $180^{th}$ meridian and redrew it as two parts.  
 
+As expected, figure \ref{ten} reveals little variation 
+between simulations of a given topology.  This homogeneity demonstrates that
+our ten synthetic datasets adequately increase our sample size without introducing bias.  
+Because of the apparent homogeneity between the simulations \emph{within} a
+given topology, we move on to compare the first simulation \emph{across} topologies.  
 
-
-
-
-%\begin{figure}[hbt]
-%	\centering
-%	\includegraphics[width=\linewidth]{geo_poly.png}
-%	\caption{This is a visualiation of the internal variance on the
-%Geodesic SOM.}
-%	\label{geopoly}
-%\end{figure}
-
-\begin{figure}[hbt]
-\centering
+\begin{figure}
+\begin{minipage}{\textwidth}
 \subfigure[Rectangular Topology]{
   \label{ten:rook}
-  \includegraphics[width=.40\linewidth]{rook_10.png}
+  \includegraphics[width=0.45\linewidth]{rook_thesis_7c.png}
 }
 \subfigure[Hexagonal Topology]{
   \label{ten:hex}
-  \includegraphics[width=.40\linewidth]{hex_10.png}
+  \includegraphics[width=0.45\linewidth]{hex_thesis_7c.png}
 }
 \subfigure[Spherical Topology]{
   \label{ten:graph}
-  \includegraphics[width=.40\linewidth]{sphere_winkel.png}
+  \includegraphics[width=0.45\linewidth]{sphere_thesis_7c.png}
 }
 \subfigure[Geodesic Sphere Topology]{
   \label{ten:geodesic}
-  \includegraphics[width=.40\linewidth]{geodesic_winkel.png}
+  \includegraphics[width=0.45\linewidth]{geodesic_thesis_7c.png}
 }
-\caption{This shows 4 box plots, each representing one group of neurons in a set
-of SOMs trained with the same parameters.}
+\caption{Internal variance mapping for each of the forty SOMs.}
 \label{ten}
+\end{minipage}
 \end{figure}
+
+
+%  \includegraphics[width=\linewidth]{sphere_thesis_7c.png}
+%}
+%\subfigure[Geodesic Sphere Topology]{
+%  \label{ten:geodesic}
+%}
+%\caption{Visualization of the internal variance for each of the forty SOMs.}
+%\label{ten}
+%\end{figure}
