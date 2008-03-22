@@ -12,7 +12,7 @@ Three diagnostics are developed to explore the effect of irregular topology on
 spherical SOM.  All three build on the idea of an internal variance \(IV\). The
 internal variance of neuron (\(i\)) is defined as,
  \begin{equation}
-   {IV_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j}^{n_i} ||{x_{ij}}-{x_{ik}}||
+   {IV_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j+1}^{n_i} ||{x_{ij}}-{x_{ik}}||
  \label{eqno1}
  \end{equation}
 where, \(n_i\) is the number of observations mapped to \(i\), and \(x_i\) are
@@ -32,7 +32,7 @@ pushed to the edge of the map where they encounter fewer competing signals. A
 prime example of this is the ``Utah-Hawaii'' case shown in Figure
 \ref{figure1}.  Relying only on the SOM, one would be left to believe that the
 two states are similar.  Upon closer inspection we see that the
-QError\footnote{The quantization error (QError) is the standard method for
+QError\footnote{The average quantization error (QError) is the standard method for
 measuring the quality of the SOM.  The QError measures the distance, in
 attribute space, of an observation to its BMU in the trained SOM
 \citep{Kohonen2000}. The average QError provides a global measure of accuarcy
