@@ -285,14 +285,18 @@ def rLabelMean(a,b,t=9999,var=False):
     for i in range(t):
         shuffle(c)
         if var:
-            delta = abs(c[:na].var()**(0.5) - c[na:].var()**(0.5))
+            delta = (c[:na].var()**(0.5) - c[na:].var()**(0.5))
+            #delta = abs(c[:na].var()**(0.5) - c[na:].var()**(0.5))
         else:
-            delta = abs(c[:na].mean() - c[na:].mean())
+            delta = (c[:na].mean() - c[na:].mean())
+            #delta = abs(c[:na].mean() - c[na:].mean())
         deltas.append(delta)
     if var:
-        realMean = abs(a.var()**(0.5)-b.var()**(0.5))
+        realMean = (a.var()**(0.5)-b.var()**(0.5))
+        #realMean = abs(a.var()**(0.5)-b.var()**(0.5))
     else:
-        realMean = abs(a.mean()-b.mean())
+        realMean = (a.mean()-b.mean())
+        #realMean = abs(a.mean()-b.mean())
     deltas.append(realMean)
     deltas.sort()
     i = deltas.index(realMean)
@@ -328,9 +332,11 @@ def rLabelTables(topoData,tname,var=False,keys=[]):
                 s+= '(%f)'%(topoData[a].var())
             else:
                 if var:
-                    delta,p = rLabelMean(topoData[a],topoData[b],t=999,var=True)
+                    delta,p = rLabelMean(topoData[a],topoData[b],t=99,var=True)
                 else:
-                    delta,p = rLabelMean(topoData[a],topoData[b],t=999)
+                    delta,p = rLabelMean(topoData[a],topoData[b],t=99)
+                    #print
+                    #print a,'-',b,'=',delta
                 if i>j:
                     s+="%0.6f & "%delta
                 else:
@@ -386,7 +392,7 @@ def createGroupBasedMeanIVTable(q1DataStruct):
                 m = data[topo][deg].mean()
                 v = data[topo][deg].var()
                 row += '& %d'%n
-                row += '& %.4f (%.4f)'%(m,v)
+                row += '& %.4f (%.2E)'%(m,v)
                 #row += '& %.4f'%v
             except:
                 row += '&&'
@@ -445,7 +451,7 @@ def q1Data2q2Data(q1Data):
     return d,d2
 
 
-def q2Joins(path='../data/ivFiles',dims=5,clusters=10):
+def q2Joins(path='../data/ivFiles',dims=3,clusters=7):
     """ This function creates the main data structure for questions related to
         research question 2.
         node,size,degree,averageIV """
@@ -503,68 +509,75 @@ if __name__=="__main__":
     #####
     """ Create data structure for research question 1 functions """
     #####
-    q1Data = q1Joins(dims=3,clusters=8)
+    q1Data = q1Joins(dims=3,clusters=7)
     #####
     #####
 
     #####
     """ Create box plots for question 1, Figure 4.1 """
     #####
-    # createBoxPlots(q1Data)
+    #createBoxPlots(q1Data)
     #####
     #####
 
     #####
     """ Create Mean and Var IV grouped by degree, Table 4.3 """
     #####
-    createGroupBasedMeanIVTable(q1Data)
+    #createGroupBasedMeanIVTable(q1Data)
     #####
     #####
 
     #####
     """ Create differance table, 4.4 """
     #####
-    rLabelTables(q1Data['rook'],'rook')
-    rLabelTables(q1Data['hex'],'hex')
-    rLabelTables(q1Data['graph'],'graph')
-    rLabelTables(q1Data['geodesic'],'geodesic')
+    #rLabelTables(q1Data['rook'],'rook',var=1)
+    #rLabelTables(q1Data['hex'],'hex',var=1)
+    #rLabelTables(q1Data['graph'],'graph',var=1)
+    #rLabelTables(q1Data['geodesic'],'geodesic',var=1)
     #####
     #####
 
     ##############################################################################
     """ Switching to quetion 2 """
     ##############################################################################
-    #q2Data,q2Degs = q1Data2q2Data(q1Data)
+    q2Data,q2Degs = q1Data2q2Data(q1Data)
     #q2Data = q2Joins()
     #build graphs
-    #geodesic = delaunay.parseDelaunay("geodesic/geodesic_642_delaunay.xyz")
-    #sphere = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
-    #g = grid2Rook(23,28,binary=1)
-    #rook = NX.Graph()
-    #for node in g:
-    #    for neighbor in g[node][1]:
-    #        rook.add_edge((node,neighbor))
-    #hex = hexGraph(23,28)
+    geodesic = delaunay.parseDelaunay("geodesic/geodesic_642_delaunay.xyz")
+    sphere = delaunay.parseDelaunay("delaunay/642_delaunay.xyz")
+    g = grid2Rook(23,28,binary=1)
+    rook = NX.Graph()
+    for node in g:
+        for neighbor in g[node][1]:
+            rook.add_edge((node,neighbor))
+    hex = hexGraph(23,28)
 
     #topo = ['geodesic','rook','graph','hex']
-    #names = {'geodesic':'Geodesic','rook':'Rook','graph':'Spherical','hex':'Hexagonal'}
-    #graphs = {'geodesic':geodesic,'rook':rook,'graph':sphere,'hex':hex}
+    topo = ['rook','hex','geodesic','graph']
+    names = {'geodesic':'Geodesic','rook':'Rook','graph':'Spherical','hex':'Hexagonal'}
+    graphs = {'geodesic':geodesic,'rook':rook,'graph':sphere,'hex':hex}
 
-    #for t in topo:
-    #    n = names[t]
-    #    g = N.array(graphs[t].degree()).var()
-    #    print "%s & %0.4f & %0.4f (%0.4f)"%(n,g,q2Data[t].mean(),q2Data[t].var())
+    for t in topo:
+        n = names[t]
+        #g = N.array(graphs[t].degree()).var()
+        g = nx.centrality.closeness_centrality(graphs[t])
+        g = N.array(g.values()).mean()
+        #print n,g
+        print "%s & %0.4f & %0.4f (%0.4f)"%(n,g,q2Data[t].mean(),q2Data[t].var())
         
     #print "Geodesic &",N.array(geodesic.degree()).var(),"&",q2Data['geodesic'].mean(),' (%f)\\'%q2Data['geodesic'].var()
     #print "Rook &",N.array(rook.degree()).var(),"&",q2Data['rook'].mean(),' (%f)\\'%q2Data['rook'].var()
     #print "Spherical &",N.array(sphere.degree()).var(),"&",q2Data['graph'].mean(),' (%f)\\'%q2Data['graph'].var()
     #print "Hexagonal &",N.array(hex.degree()).var(),"&",q2Data['hex'].mean(),' (%f)\\'%q2Data['hex'].var()
 
-    #rLabelTables(q2Data,"all",var=True,keys=topo)
-    #g = []
-    #for t in topo:
-    #    g.append(q2Data[t])
-    #pylab.boxplot(g,notch=1)
+
+    topo = ['rook','hex','geodesic','graph']
+    rLabelTables(q2Data,"all",var=True,keys=topo)
+    g = []
+    for t in topo:
+        g.append(q2Data[t])
+    pylab.boxplot(g,notch=1)
+    pylab.show()
     
         
 
