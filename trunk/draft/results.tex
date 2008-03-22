@@ -284,13 +284,40 @@ between simulations of a given topology.  This homogeneity demonstrates that
 our ten synthetic datasets adequately increase our sample size without introducing bias.  
 Because of the apparent homogeneity between the simulations \emph{within} a
 given topology, we move on to compare the first simulation \emph{across} topologies.  
-In figure \ref{cplanes} the component planes of these simulations are
-presented.  The variation we see in the placement of high and low values,
-between topologies, is caused by the random initialization of the SOM.
-However, the relationships between the dimensions remain constant across
-topologies. 
+Our synthetic training data consisted of seven clusters located in three
+dimensional space. We examine how the SOM treats the original data through a
+series of visualizations.  The component planes in figure \ref{cplanes} show
+how the SOM represents each dimension of the training data.  The variations we
+see in the placement of high and low values, between topologies, is caused by
+the random initialization of the SOM.  However, the relationships between the
+dimensions remain constant across topologies.  Figure \ref{cluster} shows how
+the SOM detected the clustering of the input data.  We calculated the cluster
+to which a neuron belongs by looking at the observations mapped to it.
+Knowing which cluster each observation belongs to allows to see where the
+clusters are being mapped on the trained SOM. For a given neuron we classify
+it by the most frequent cluster it captured.  It is interesting to note that
+the edges of the cluster exhibit high internal variance.
 
-Focusing on in the internal variance of 
+This is somewhat intuitive, as our clusters are normally distributed, the
+majority of our observations will fall well within the regions observed in
+figure \ref{cluster}. Each cluster's outliers will be pushed toward the
+``edges'' of these regions. In the hexagonal and rectangular topologies
+some of these cluster regions share and edge with the topology itself.  This
+allows their outlying observation to interact less with the interior neurons.
+In the spherical and geodesic topologies outliers pushed toward the edge of
+their cluster's region on the map are force to interact with other neurons.
+
+%The particulars of synthetic dataset in combination with these visualizations
+%may raise questions about the suitability of sphere based SOMs in certain
+%applications.  Specifically, extreme observations in our dataset (those
+%furthest from the origin), may be well represented on the edge of the flat
+%topologies where there are furthest away from their counter parts in the other
+%extreme.  This may hold true in the spherical topologies as well if these
+%extreme observations are antipodal, in fact it might be even better
+%represented.
+
+
+ , at these locations they could be pushed 
 
 \begin{figure}
 \centering
@@ -326,3 +353,35 @@ for the first simulation of each topology.  These component planes show how
 the original dimensions are represented in the trained SOMs.}
   \label{cplanes}
 \end{minipage}\end{figure}
+
+
+\begin{figure}
+\centering
+\begin{minipage}{\textwidth}
+\subfigure[Rectangular Topology]{
+  \label{cluster:rook}
+  \includegraphics[width=0.5\linewidth]{rook_clusters.png}
+}
+\subfigure[Hexagonal Topology]{
+  \label{cluster:hex}
+  \includegraphics[width=0.5\linewidth]{hex_clusters.png}
+}
+\subfigure[Spherical Topology]{
+  \label{cluster:graph}
+  \includegraphics[width=0.5\linewidth]{sphere_clusters.png}
+}
+\subfigure[Geodesic Sphere Topology]{
+  \label{cluster:geodesic}
+  \includegraphics[width=0.5\linewidth]{geodesic_clusters.png}
+}
+\caption{Detailed internal variance mapping for each topology. Darker colors
+represent neurons that display larger internal variance. Neurons for which
+an internal variance could not be calculated are not displayed. The numbers
+represent primary cluster mapped at that neuron.}
+\label{cluster}
+\end{minipage}
+\end{figure}
+
+
+
+
