@@ -254,30 +254,34 @@ achieved.
 \section{Visualization of internal variance}
 \label{rdq3}
 In order to address our research questions we first created ten synthetic
-datasets.  Each was created by sampling from the same data generating process
+datasets.  Each dataset was created by sampling from the same data generating process
 that was provided by \cite{wu2006}.  We used these datasets to train ten
 SOMs for each of our topologies.  The purpose of training ten SOMs was to
 produce large enough samples sizes for the difference of means and variance
 testing that was necessary to formally evaluate the results of our first two
-research questions.  In this section we quickly verify that combining those
+research questions.  In this section we verify that combining those
 simulations was appropriate by visualizing the similarities between them.
-In the remainder of this section we focus our efforts on comparing across
+In the remainder of this section we focus our efforts on comparing internal
+variance across
 topologies.  Since we have seen that little variation exists between the ten
-simulations we pick the first of those simulations for each topology and
+simulations, we choose the first of those simulations for each topology and
 explore them in more depth.
 
-We look at what information can be gained from visualizing the SOM and its
-internal variance. In order to create these visualizations we used
-off-the-shelf GIS packages, namely ESRI's ArcGIS.  There are a number of
-challenges which had to be overcome. To visualize the rectangular and
-hexagonal topologies we simply created polygons centered over each neuron.
-However, the spherical and geodesic topologies were slightly more complicated.
-To create the polygons for these topologies we must first computed the Voronoi
-diagram on the surface of the sphere.  This is done using STRIPACK, a software
-program created by \cite{Ranka97}.  Further, ArcGIS and other common GIS
-packages assume Cartesian distances and thus can not handle polygons that
-cross the $180^{th}$ meridian.  To accommodate this we split each polygon at
-the $180^{th}$ meridian and redrew it as two parts.  
+
+What information can be gained from visualizing the SOM and its
+internal variance. 
+
+In order to create these visualizations we used off-the-shelf GIS packages,
+namely ESRI's ArcGIS.  Two primary challenges had to be overcome. First, to
+visualize the rectangular and hexagonal topologies we created polygons
+centered over each neuron, however, the spherical and geodesic topologies were
+slightly more complicated.  Creating the polygons for these topologies
+required that we first compute the Voronoi diagram on the surface of the
+sphere.  This is done using STRIPACK, a software program created by
+\cite{Ranka97}.  Second, ArcGIS and other common GIS packages assume Cartesian
+distances and thus can not handle polygons that cross the $180^{th}$ meridian.
+To accommodate this we split each polygon at the $180^{th}$ meridian and
+redrew it as two parts.
 
 As expected, figure \ref{ten} reveals little variation 
 between simulations of a given topology.  This homogeneity demonstrates that
@@ -290,22 +294,23 @@ series of visualizations.  The component planes in figure \ref{cplanes} show
 how the SOM represents each dimension of the training data.  The variations we
 see in the placement of high and low values, between topologies, is caused by
 the random initialization of the SOM.  However, the relationships between the
-dimensions remain constant across topologies.  Figure \ref{cluster} shows how
-the SOM detected the clustering of the input data.  We calculated the cluster
-to which a neuron belongs by looking at the observations mapped to it.
-Knowing which cluster each observation belongs to allows to see where the
-clusters are being mapped on the trained SOM. For a given neuron we classify
-it by the most frequent cluster it captured.  It is interesting to note that
-the edges of the cluster exhibit high internal variance.
+dimensions remain constant across topologies. 
 
-This is somewhat intuitive, as our clusters are normally distributed, the
+Figure \ref{cluster} shows how the SOM detected the clustering of the input
+data.  We compute the cluster each neuron represents by looking at the
+observations mapped to it.  Knowing which cluster each observation belongs to
+allows us to see where the clusters are being mapped to on the trained SOM. For a
+given neuron we classify it by the cluster it captured most frequently. 
+
+It is interesting to note that the edges of the cluster exhibit high internal variance.  
+This is somewhat intuitive, as our clusters are normally distributed; the
 majority of our observations will fall well within the regions observed in
 figure \ref{cluster}. Each cluster's outliers will be pushed toward the
-``edges'' of these regions. In the hexagonal and rectangular topologies
-some of these cluster regions share and edge with the topology itself.  This
+\emph{edges} of these regions. In the hexagonal and rectangular topologies,
+some of these cluster regions share an edge with the topology itself.  This
 allows their outlying observation to interact less with the interior neurons.
-In the spherical and geodesic topologies outliers pushed toward the edge of
-their cluster's region on the map are force to interact with other neurons.
+In the spherical and geodesic topologies outliers that are pushed toward the edge of
+their cluster's region on the map are forced to interact with other neurons.
 
 %The particulars of synthetic dataset in combination with these visualizations
 %may raise questions about the suitability of sphere based SOMs in certain
@@ -316,8 +321,6 @@ their cluster's region on the map are force to interact with other neurons.
 %extreme observations are antipodal, in fact it might be even better
 %represented.
 
-
- , at these locations they could be pushed 
 
 \begin{figure}
 \centering
