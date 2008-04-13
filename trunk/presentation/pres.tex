@@ -115,7 +115,7 @@
   \end{center}
  \end{frame} 
 
-\subsection{The Problems in SOM} 
+\subsection{Edge Effects in SOM} 
 
 \begin{frame}
 	\frametitle{The Problems in SOM}
@@ -211,6 +211,23 @@
   \end{center}
  \end{frame} 
 
+\begin{frame}
+	\frametitle{Tradeoffs}
+ 
+\begin{block}{Regularity}
+ \begin{itemize}
+ \item  Connectivity
+ \item  Shape
+ \item  Area
+ \end{itemize}
+ \end{block} 
+\begin{block}{Granularity of network size}
+ \begin{itemize}
+ \item  Controlling regularity \emph{and} network size  
+ \item  Comparative analysis not straightforward
+ \end{itemize}
+ \end{block} \end{frame} 
+
 \subsection{Objectives} 
 
 \begin{frame}
@@ -232,6 +249,21 @@
 
 
 \section{Methodology} 
+
+\subsection{Data Generation} 
+
+\begin{frame}
+	\frametitle{Data Generation}
+ 
+\begin{block}{Synthetic Multivariate Data}
+ \begin{itemize}
+ \item  Follow Wu and Takatsuka (2006) 
+ \item  Seven clusters
+ \item  Three dimension
+ \item  Clusters are normally distributed w/ unit variance on each dimension
+ \item  Sample size varies to ensure adequate assignments to neurons
+ \end{itemize}
+ \end{block} \end{frame} 
 
 \subsection{Internal Variance} 
 
@@ -426,6 +458,22 @@
   \end{center}
  \end{block} \end{frame} 
 
+\begin{frame}
+	\frametitle{Clustering Properties}
+ 
+\begin{block}{Global Structure}
+ \begin{itemize}
+ \item To what extent is the underlying clustering captured by the different topologies and sizes?
+ \item  Are the same number of clusters found?
+ \end{itemize}
+ \end{block} 
+\begin{block}{Local Structures}
+ \begin{itemize}
+ \item  Do different topologies generate clusters in similar ways?
+ \item  Which clusters are found most often across the different topologies?
+ \end{itemize}
+ \end{block} \end{frame} 
+
 
 \section{Conclusions} 
 
@@ -449,6 +497,7 @@
 \begin{block}{Limitations}
  \begin{itemize}
  \item  First-Order Neighborhood Size is capture large network irregularities in the "flat" topologies
+ \item  Is pushing outliers to the edges a bad thing?
  \end{itemize}
  \end{block} \end{frame}
 \end{document}

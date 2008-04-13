@@ -49,7 +49,7 @@ Background
 			| \includegraphics[width=0.50\linewidth]{book.png}
 			| \end{figure}
 			| \end{center}
-	The Problems in SOM
+	Edge Effects in SOM
 		The Problems in SOM
 			| \begin{center}
 			| \begin{figure}
@@ -98,6 +98,14 @@ Background
 			| \includegraphics[width=0.60\linewidth]{642.png}
 			| \end{figure}
 			| \end{center}
+		Tradeoffs
+			Regularity
+			| * Connectivity
+			| * Shape
+			| * Area
+			Granularity of network size
+			| * Controlling regularity \emph{and} network size  
+			| * Comparative analysis not straightforward
 	Objectives
 		Objectives
 			Question
@@ -108,6 +116,14 @@ Background
 			| ** Internal Variance vs. Topological Regularity
 			| ** Visualization of Internal Variance
 Methodology
+	Data Generation
+		Data Generation
+			Synthetic Multivariate Data
+			| * Follow Wu and Takatsuka (2006) 
+			| * Seven clusters
+			| * Three dimension
+			| * Clusters are normally distributed w/ unit variance on each dimension
+			| * Sample size varies to ensure adequate assignments to neurons
 	Internal Variance
 		Internal Variance
 			The Equation
@@ -227,6 +243,13 @@ Results
 			| \includegraphics[width=0.70\linewidth]{sphere_clusters.png}
 			| \end{figure}
 			| \end{center}
+		Clustering Properties
+			Global Structure
+			| *To what extent is the underlying clustering captured by the different topologies and sizes?
+			| * Are the same number of clusters found?
+			Local Structures
+			| * Do different topologies generate clusters in similar ways?
+			| * Which clusters are found most often across the different topologies?
 Conclusions
 	Conclusions
 		Conclusions
@@ -237,3 +260,4 @@ Conclusions
 			| *** Magnitude of difference very small compared with magnitudes in "flat" topologies
 			Limitations
 			| * First-Order Neighborhood Size is capture large network irregularities in the "flat" topologies
+			| * Is pushing outliers to the edges a bad thing?
