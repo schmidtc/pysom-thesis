@@ -1,6 +1,6 @@
 preamble
 	@author Charles R. Schmidt\\Sergio J. Rey\\Andr\'e Skupin
-	@authorShort Schmidt, Rey, Skupin
+	@authorShort Schmidt, Rey, Skupin 
 	@institute Department of Geography\\San Diego State University
 	@instituteShort SDSU
 	@title Effects of Irregular Topology in Spherical Self-Organizing Maps
