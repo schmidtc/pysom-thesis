@@ -14,9 +14,9 @@ Background
 	The Self-Organizing Map
 		The Self-Organizing Map
 			What is the SOM
-			| * Artificial Neurel Network
+			| * Artificial Neural Network
 			| * Unsupervised Competitive Learning Process
-			| * High Dimmension Input Data
+			| * High Dimension Input Data
 			| * Each Neuron Models of a Portion of the Input Space.
 			Topology
 			| \begin{center}
