@@ -187,6 +187,7 @@ Results
 			| \label{vardeg}
 			| \begin{tabular}{|c||c|c|c|}
 			| \hline
+			| &$c=1/n \sum_{i=1} (1/n \sum_{j=1} d_{i,j})^{-1}$&&\\
 			| Topology & Closeness Centrality & Mean & Variance\\
 			| \hline
 			| Rectangular & 0.0603 & 0.0294 &0.0001\\
