@@ -43,6 +43,12 @@ Background
 			| \includegraphics[width=0.90\linewidth]{training.png}
 			| \end{figure}
 			| \end{center}
+		SOM and GIScience
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.50\linewidth]{book.png}
+			| \end{figure}
+			| \end{center}
 	The Problems in SOM
 		The Problems in SOM
 			| \begin{center}
@@ -59,6 +65,16 @@ Background
 			The Utah-Hawaii Problem
 			| * Less Competition in the corner node allow Utah and Hawaii occupy the same neuron
 			| * Local Competition at this location pushes the node to the mean of the two observations
+		Edge Effects in Spatial Analysis
+			Spatial Econometrics
+			| * Power of tests for dependence
+			| * Properties of estimators
+			| * Spillover measurement
+			| ** Global spatial multipliers
+			| ** Local effects
+			Components of Edge Effect
+			| * Buffering = Omission
+			| * True Boundary
 		Suggested Solutions
 			With Edges
 			| * Hierarchical SOM
