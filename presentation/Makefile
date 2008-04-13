@@ -1,9 +1,9 @@
-all: pres.pdf
+all: pres
 
 view: pres.pdf
 	open pres.pdf
 
-pres.pdf: *.tex
+pres: pres.otl
 	( otl2latex.py -p pres.otl pres.tex ) && \
 	( pdflatex pres || rm -f pres.pdf ) && \
 	( pdflatex pres || rm -f pres.pdf ) && \
