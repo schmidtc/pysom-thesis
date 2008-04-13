@@ -20,7 +20,7 @@
 \author[Schmidt, Rey, Skupin]{Charles R. Schmidt\\Sergio J. Rey\\Andr\'e Skupin}
 \institute[SDSU]{Department of Geography\\San Diego State University}
 \title[Irregular Topology in Spherical-SOM]{Effects of Irregular Topology in Spherical Self-Organizing Maps}
-\subtitle{- a Proposal}
+\subtitle{}
 \date[AAG]{April 18, 2008}
 
 % Delete this, if you do not want the table of contents to pop up at
@@ -49,91 +49,376 @@
 
 
 
-\section{Introduction} 
+\section{Background} 
 
 \subsection{The Self-Organizing Map} 
 
 \begin{frame}
-	\frametitle{What is SOM}
-  SOM is:
-  
- \end{frame} 
-
-\subsection{The Edge-Effect} 
-
-\subsection{Spherical SOM} 
-
-\subsection{The Goals} 
+	\frametitle{The Self-Organizing Map}
+ 
+\begin{block}{What is the SOM}
+ \begin{itemize}
+ \item  Artificial Neurel Network
+ \item  Unsupervised Competitive Learning Process
+ \item  High Dimmension Input Data
+ \item  Each Neuron Models of a Portion of the Input Space.
+ \end{itemize}
+ \end{block} 
+\begin{block}{Topology}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.60\linewidth]{topologies.png}
+  \end{figure}
+  \end{center}
+ \end{block} \end{frame} 
 
 \begin{frame}
-	\frametitle{The Goals}
-  Create a System to Regionalization the National IO Table that is:
+	\frametitle{The Self-Organizing Map}
+ 
+\begin{block}{Applications}
  \begin{itemize}
- \item  Expandible
- \item  Usable
- \item  Open Source
- \item  \alert{Free \& Cheap}
+ \item  Data Visualization
+ \item  Data Reduction
+ \item  Clustering
+ \end{itemize}
+ \end{block} 
+\begin{block}{Training}
  \begin{itemize}
- \item  \$: No Cost
- \item  Time: Minimize
+ \item  Randomize input vectors
+ \item  Randomly Initialize the neurons
+ \item  Loop Until Map Converges
+ \begin{itemize}
+ \item  Grab an Input Vector
+ \item  Find the Best Matching Neuron and its Neighborhood
+ \item  Modify the Weights of the Neurons to Make them More Similar to the Input Vector
  \end{itemize}
  \end{itemize}
- \end{frame} 
-
-
-\section{Background} 
-
-\subsection{SOM Overview} 
+ \end{block} \end{frame} 
 
 \begin{frame}
-	\frametitle{Training}
+	\frametitle{The Self-Organizing Map}
+ 
+\begin{block}{Training}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.90\linewidth]{training.png}
+  \end{figure}
+  \end{center}
+ \end{block} \end{frame} 
+
+\subsection{The Problems in SOM} 
+
+\begin{frame}
+	\frametitle{The Problems in SOM}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.60\linewidth]{states.png}
+  \end{figure}
+  \end{center}
  \end{frame} 
 
 \begin{frame}
-	\frametitle{Edge Effect}
+	\frametitle{The Problems in SOM}
+ 
+\begin{block}{The Edge-Effect}
+ \begin{itemize}
+ \item  Fewer Neighbors
+ \begin{itemize}
+ \item  Less Competition
+ \item  Less Impact on Training
+ \end{itemize}
+ \item  Network is Irregular
+ \end{itemize}
+ \end{block} 
+\begin{block}{The Utah-Hawaii Problem}
+ \begin{itemize}
+ \item  Less Competition in the corner node allow Utah and Hawaii occupy the same neuron
+ \item  Local Competition at this location pushes the node to the mean of the two observations
+ \end{itemize}
+ \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{Suggested Solutions}
+ 
+\begin{block}{With Edges}
+ \begin{itemize}
+ \item  Hierarchical SOM
+ \item  Growing SOM
+ \item  Mathematical Weighting
+ \end{itemize}
+ \end{block} 
+\begin{block}{Without Edges}
+ \begin{itemize}
+ \item  Spherical SOM
+ \item  Torus SOM
+ \end{itemize}
+ \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{Spherical SOM}
+ 
+\begin{block}{Geodesic}
+ \begin{itemize}
+ \item  Highly Regular
+ \item  Most Common
+ \item  Limited Network Size
+ \end{itemize}
+ \end{block} 
+\begin{block}{Rakhmanov}
+ \begin{itemize}
+ \item  Less Regular
+ \item  Rejected in Literature
+ \item  No Network Size Limitation
+ \end{itemize}
+ \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{Spherical SOM}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.60\linewidth]{642.png}
+  \end{figure}
+  \end{center}
  \end{frame} 
 
-\subsection{Spherical SOM} 
+\subsection{Objectives} 
 
-\subsection{Network Size} 
-
-\subsection{Uniformity} 
+\begin{frame}
+	\frametitle{Objectives}
+ 
+\begin{block}{Question}
+  Does Regularity Matter in Spherical SOM?
+ \end{block} 
+\begin{block}{Methods}
+ \begin{itemize}
+ \item  Three Diagnostics
+ \begin{itemize}
+ \item  Internal Variance vs. First-Order Neighborhood Size
+ \item  Internal Variance vs. Topological Regularity
+ \item  Visualization of Internal Variance
+ \end{itemize}
+ \end{itemize}
+ \end{block} \end{frame} 
 
 
 \section{Methodology} 
 
+\subsection{Internal Variance} 
+
+\begin{frame}
+	\frametitle{Internal Variance}
+ 
+\begin{block}{The Equation}
+  \({IV_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j+1}^{n_i} ||{x_{ij}}-{x_{ik}}||\)
+ \end{block} 
+\begin{block}{Internal Variance}
+ \begin{itemize}
+ \item  Measures the Difference of Observations Mapped in Neuron
+ \item  Measure of How Well Data Fits to Neuron
+ \end{itemize}
+ \end{block} \end{frame} 
+
 \subsection{Diagnostics} 
 
 \begin{frame}
-	\frametitle{IV vs. 1st order}
- \end{frame} 
+	\frametitle{Diagnostics}
+ 
+\begin{block}{Internal Variance vs. First-Order Neighborhood Size}
+ \begin{itemize}
+ \item  Does a neuron's I.V. decrease as its first-order neighborhood size increases?
+ \begin{itemize}
+ \item  Group neurons by degree
+ \item  Measure I.V. within each group
+ \item  Check for difference of means and variance between groups
+ \end{itemize}
+ \item  Repeat for each Topology
+ \end{itemize}
+ \end{block} \end{frame} 
 
 \begin{frame}
-	\frametitle{IV vs Regularity}
- \end{frame} 
+	\frametitle{Diagnostics}
+ 
+\begin{block}{Internal Variance vs. Topological Regularity}
+ \begin{itemize}
+ \item  Does a SOM's average I.V. increase in more irregular topologies?
+ \begin{itemize}
+ \item  Group neurons by Topology
+ \item  Measure I.V. within each group
+ \item  Check for difference of means and variance between groups
+ \end{itemize}
+ \end{itemize}
+ \end{block} \end{frame} 
 
 \begin{frame}
-	\frametitle{Visualiztions}
- \end{frame} 
+	\frametitle{Diagnostics}
+ 
+\begin{block}{Visualization of Internal Variance}
+ \begin{itemize}
+ \item  What information can be learned from a mapping of the I.V.?
+ \end{itemize}
+ \end{block} \end{frame} 
 
 
 \section{Results} 
 
-\subsection{IV 1} 
+\subsection{Internal Variance vs. First-Order Neighborhood Size} 
 
 \begin{frame}
-	\frametitle{IV 1}
+	\frametitle{Internal Variance vs. First-Order Neighborhood Size}
+ 
+\begin{block}{Rectangular}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.75\linewidth]{rook_iv_box.png}
+  \end{figure}
+  \end{center}
+ \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{Internal Variance vs. First-Order Neighborhood Size}
+ 
+\begin{block}{Hexagonal}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.75\linewidth]{hex_iv_box.png}
+  \end{figure}
+  \end{center}
+ \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{Internal Variance vs. First-Order Neighborhood Size}
+ 
+\begin{block}{Geodesic}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.75\linewidth]{geodesic_iv_box.png}
+  \end{figure}
+  \end{center}
+ \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{Internal Variance vs. First-Order Neighborhood Size}
+ 
+\begin{block}{Spherical}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.75\linewidth]{graph_iv_box.png}
+  \end{figure}
+  \end{center}
+ \end{block} \end{frame} 
+
+\subsection{Internal Variance vs. Topological Regularity} 
+
+\begin{frame}
+	\frametitle{Internal Variance vs. Topological Regularity}
+  \begin{table}
+  \centering
+  \begin{minipage}{\textwidth}
+  \caption{Measure of Topological Regularity and Sample Mean and Variance}
+  \label{vardeg}
+  \begin{tabular}{|c||c|c|c|}
+  \hline
+  Topology & Closeness Centrality & Mean & Variance\\
+  \hline
+  Rectangular & 0.0603 & 0.0294 &0.0001\\
+  Hexagonal & 0.0739 & 0.0289 &0.0001\\
+  Geodesic & 0.0890 & 0.0281 &0.0001\\
+  Spherical & 0.0906 & 0.0281 &0.0001\\
+  \hline
+  \end{tabular}
+  \end{minipage}
+  \end{table}
  \end{frame} 
 
-\subsection{IV 2} 
-
 \begin{frame}
-	\frametitle{IV 2}
+	\frametitle{Internal Variance vs. Topological Regularity}
+  \begin{table}
+    \begin{minipage}{\textwidth}
+    \caption{Results of Difference of Mean Testing Across Topologies}
+    \label{rlt:all}
+    \begin{tabular}{|c||c|c|c|c|}
+    \hline
+    \textbf{Topology}&Rectangular		&Hexagonal &Geodesic &Spherical\\\hline
+    \hline
+ 	Rectangular & (0.000064) & \textbf{0.001000} & \textbf{0.000100} & \textbf{0.000100}\\\hline
+ 	Hexagonal & -0.000479 & (0.000064) & \textbf{0.000100} & \textbf{0.000100}\\\hline
+ 	Geodesic & -0.001329 & -0.000850 & (0.000060) & 0.505600\\\hline
+ 	Spherical & -0.001328 & -0.000849 & 0.000001 & (0.000061)\\\hline
+ 
+    \end{tabular}
+    \end{minipage}
+  \end{table}
  \end{frame} 
 
-\subsection{Visual} 
+\subsection{Visualization of Internal Variance} 
 
 \begin{frame}
-	\frametitle{Visual}
- \end{frame}
+	\frametitle{Visualization of Internal Variance}
+ 
+\begin{block}{Rectangular}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.70\linewidth]{rook_clusters.png}
+  \end{figure}
+  \end{center}
+ \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{Visualization of Internal Variance}
+ 
+\begin{block}{Hexagonal}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.70\linewidth]{hex_clusters.png}
+  \end{figure}
+  \end{center}
+ \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{Visualization of Internal Variance}
+ 
+\begin{block}{Geodesic}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.70\linewidth]{geodesic_clusters.png}
+  \end{figure}
+  \end{center}
+ \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{Visualization of Internal Variance}
+ 
+\begin{block}{Spherical}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.70\linewidth]{sphere_clusters.png}
+  \end{figure}
+  \end{center}
+ \end{block} \end{frame} 
+
+
+\section{Conclusions} 
+
+\subsection{Conclusions} 
+
+\begin{frame}
+	\frametitle{Conclusions}
+ 
+\begin{block}{Significance}
+ \begin{itemize}
+ \item  Rakhmanov 
+ \begin{itemize}
+ \item  Comparable to Geodesic SOM
+ \item  Significant difference between degrees sizes
+ \begin{itemize}
+ \item  Magnitude of difference very small compared with magnitudes in "flat" topologies
+ \end{itemize}
+ \end{itemize}
+ \end{itemize}
+ \end{block} 
+\begin{block}{Limitations}
+ \begin{itemize}
+ \item  First-Order Neighborhood Size is capture large network irregularities in the "flat" topologies
+ \end{itemize}
+ \end{block} \end{frame}
 \end{document}
