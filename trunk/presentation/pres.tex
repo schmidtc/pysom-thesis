@@ -223,7 +223,7 @@
  \end{block} 
 \begin{block}{Granularity of network size}
  \begin{itemize}
- \item  Controlling regularity \emph{and} network size  
+ \item  Controlling regularity \emph{and} network size
  \item  Comparative analysis not straightforward
  \end{itemize}
  \end{block} \end{frame} 
@@ -257,7 +257,7 @@
  
 \begin{block}{Synthetic Multivariate Data}
  \begin{itemize}
- \item  Follow Wu and Takatsuka (2006) 
+ \item  Follow Wu and Takatsuka (2006)
  \item  Seven clusters
  \item  Three dimension
  \item  Clusters are normally distributed w/ unit variance on each dimension
@@ -380,7 +380,7 @@
   \label{vardeg}
   \begin{tabular}{|c||c|c|c|}
   \hline
-  &$c=1/n \sum_{i=1}^n (1/n \sum_{j=1} d_{i,j})^{-1}$&&\\
+  &$c=1/n \sum_{i=1} (1/n \sum_{j=1} d_{i,j})^{-1}$&&\\
   Topology & Closeness Centrality & Mean & Variance\\
   \hline
   Rectangular & 0.0603 & 0.0294 &0.0001\\
@@ -401,12 +401,12 @@
     \label{rlt:all}
     \begin{tabular}{|c||c|c|c|c|}
     \hline
-    \textbf{Topology}&Rectangular		&Hexagonal &Geodesic &Spherical\\\hline
+    \textbf{Topology}&Rectangular				&Hexagonal &Geodesic &Spherical\\\hline
     \hline
- 	Rectangular & (0.000064) & \textbf{0.001000} & \textbf{0.000100} & \textbf{0.000100}\\\hline
- 	Hexagonal & -0.000479 & (0.000064) & \textbf{0.000100} & \textbf{0.000100}\\\hline
- 	Geodesic & -0.001329 & -0.000850 & (0.000060) & 0.505600\\\hline
- 	Spherical & -0.001328 & -0.000849 & 0.000001 & (0.000061)\\\hline
+ 		Rectangular & (0.000064) & \textbf{0.001000} & \textbf{0.000100} & \textbf{0.000100}\\\hline
+ 		Hexagonal & -0.000479 & (0.000064) & \textbf{0.000100} & \textbf{0.000100}\\\hline
+ 		Geodesic & -0.001329 & -0.000850 & (0.000060) & 0.505600\\\hline
+ 		Spherical & -0.001328 & -0.000849 & 0.000001 & (0.000061)\\\hline
  
     \end{tabular}
     \end{minipage}
@@ -481,24 +481,55 @@
 \subsection{Conclusions} 
 
 \begin{frame}
-	\frametitle{Conclusions}
+	\frametitle{Key Findings}
  
-\begin{block}{Significance}
+\begin{block}{Internal Variance vs. First-Order Neighborhood Size}
  \begin{itemize}
- \item  Rakhmanov 
- \begin{itemize}
- \item  Comparable to Geodesic SOM
- \item  Significant difference between degrees sizes
+ \item  Significant differences for hexagonal and rectangular topologies
+ \item  Significant difference in spherical topology
  \begin{itemize}
  \item  Magnitude of difference very small compared with magnitudes in "flat" topologies
  \end{itemize}
- \end{itemize}
+ \item  No significant difference for geodesic
  \end{itemize}
  \end{block} 
+\begin{block}{Internal Variance vs. Topological Regularity}
+ \begin{itemize}
+ \item  Geodesic and spherical show no significant differences
+ \end{itemize}
+ \end{block} 
+\begin{block}{Visualization of Internal Variance}
+ \begin{itemize}
+ \item  Shows patterns of clustering
+ \item  Provides insight into the self-organizing process
+ \end{itemize}
+ \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{Limitations}
+ 
 \begin{block}{Limitations}
  \begin{itemize}
- \item  First-Order Neighborhood Size is capture large network irregularities in the "flat" topologies
+ \item  Only addressing how topology is effect the SOM.
+ \begin{itemize}
+ \item  Does not address the benefits of have or removing the edge.
  \item  Is pushing outliers to the edges a bad thing?
+ \end{itemize}
+ \item  First-order neighborhood size is capturing larger network irregularities in the "flat" topologies
+ \end{itemize}
+ \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{Future Directions}
+ 
+\begin{block}{Future Directions}
+ \begin{itemize}
+ \item  Rotate sphere-based SOMs to show "central" feature
+ \item  Compare different SOMs on more than just topology
+ \item  Test other topologies
+ \begin{itemize}
+ \item  Remove nodes from the existing topologies
+ \end{itemize}
  \end{itemize}
  \end{block} \end{frame}
 \end{document}
