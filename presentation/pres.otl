@@ -1,6 +1,6 @@
 preamble
 	@author Charles R. Schmidt\\Sergio J. Rey\\Andr\'e Skupin
-	@authorShort Schmidt, Rey, Skupin 
+	@authorShort Schmidt, Rey, Skupin
 	@institute Department of Geography\\San Diego State University
 	@instituteShort SDSU
 	@title Effects of Irregular Topology in Spherical Self-Organizing Maps
@@ -104,7 +104,7 @@ Background
 			| * Shape
 			| * Area
 			Granularity of network size
-			| * Controlling regularity \emph{and} network size  
+			| * Controlling regularity \emph{and} network size
 			| * Comparative analysis not straightforward
 	Objectives
 		Objectives
@@ -119,7 +119,7 @@ Methodology
 	Data Generation
 		Data Generation
 			Synthetic Multivariate Data
-			| * Follow Wu and Takatsuka (2006) 
+			| * Follow Wu and Takatsuka (2006)
 			| * Seven clusters
 			| * Three dimension
 			| * Clusters are normally distributed w/ unit variance on each dimension
@@ -205,12 +205,12 @@ Results
 			|   \label{rlt:all}
 			|   \begin{tabular}{|c||c|c|c|c|}
 			|   \hline
-			|   \textbf{Topology}&Rectangular		&Hexagonal &Geodesic &Spherical\\\hline
+			|   \textbf{Topology}&Rectangular				&Hexagonal &Geodesic &Spherical\\\hline
 			|   \hline
-			|	Rectangular & (0.000064) & \textbf{0.001000} & \textbf{0.000100} & \textbf{0.000100}\\\hline
-			|	Hexagonal & -0.000479 & (0.000064) & \textbf{0.000100} & \textbf{0.000100}\\\hline
-			|	Geodesic & -0.001329 & -0.000850 & (0.000060) & 0.505600\\\hline
-			|	Spherical & -0.001328 & -0.000849 & 0.000001 & (0.000061)\\\hline
+			|		Rectangular & (0.000064) & \textbf{0.001000} & \textbf{0.000100} & \textbf{0.000100}\\\hline
+			|		Hexagonal & -0.000479 & (0.000064) & \textbf{0.000100} & \textbf{0.000100}\\\hline
+			|		Geodesic & -0.001329 & -0.000850 & (0.000060) & 0.505600\\\hline
+			|		Spherical & -0.001328 & -0.000849 & 0.000001 & (0.000061)\\\hline
 			|
 			|   \end{tabular}
 			|   \end{minipage}
@@ -253,12 +253,26 @@ Results
 			| * Which clusters are found most often across the different topologies?
 Conclusions
 	Conclusions
-		Conclusions
-			Significance
-			| * Rakhmanov 
-			| ** Comparable to Geodesic SOM
-			| ** Significant difference between degrees sizes
-			| *** Magnitude of difference very small compared with magnitudes in "flat" topologies
+		Key Findings
+			Internal Variance vs. First-Order Neighborhood Size
+			| * Significant differences for hexagonal and rectangular topologies
+			| * Significant difference in spherical topology
+			| ** Magnitude of difference very small compared with magnitudes in "flat" topologies
+			| * No significant difference for geodesic
+			Internal Variance vs. Topological Regularity
+			| * Geodesic and spherical show no significant differences
+			Visualization of Internal Variance
+			| * Shows patterns of clustering
+			| * Provides insight into the self-organizing process
+		Limitations
 			Limitations
-			| * First-Order Neighborhood Size is capture large network irregularities in the "flat" topologies
-			| * Is pushing outliers to the edges a bad thing?
+			| * Only addressing how topology effects the SOM.
+			| ** Does not address the benefits of having or removing the edge.
+			| ** Is pushing outliers to the edges a bad thing?
+			| * First-order neighborhood size is capturing larger network irregularities in the "flat" topologies
+		Future Directions
+			Future Directions
+			| * Rotate sphere-based SOMs to show "central" feature
+			| * Compare different SOMs on more than just topology
+			| * Test other topologies
+			| ** Remove nodes from the existing topologies
