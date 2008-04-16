@@ -33,7 +33,7 @@
   \end{frame}
 }
 
-
+\listfiles
 % If you wish to uncover everything in a step-wise fashion, uncomment
 % the following command: 
 \beamerdefaultoverlayspecification{<+->}
@@ -61,13 +61,13 @@
  \item  Artificial Neural Network
  \item  Unsupervised Competitive Learning Process
  \item  High Dimension Input Data
- \item  Each Neuron Models of a Portion of the Input Space.
+ \item  Each Neuron Models of a Portion of the Input Space
  \end{itemize}
  \end{block} 
 \begin{block}{Topology}
   \begin{center}
   \begin{figure}
-  \includegraphics[width=0.60\linewidth]{topologies.png}
+  \includegraphics[width=0.60\linewidth]{topology.png}
   \end{figure}
   \end{center}
  \end{block} \end{frame} 
@@ -96,15 +96,56 @@
  \end{block} \end{frame} 
 
 \begin{frame}
-	\frametitle{The Self-Organizing Map}
+	\frametitle{Training}
  
-\begin{block}{Training}
+\begin{block}{Assignment and Updating}
   \begin{center}
   \begin{figure}
-  \includegraphics[width=0.90\linewidth]{training.png}
+  \includegraphics[width=0.90\linewidth]{input.png}
   \end{figure}
   \end{center}
  \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{Training}
+ 
+\begin{block}{Iterations}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.90\linewidth]{somtrain.png}
+  \end{figure}
+  \end{center}
+ \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{SOM as Dimensionality Reduction}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.90\linewidth]{dimensionReduction.png}
+  \end{figure}
+  \end{center}
+ \end{frame} 
+
+\begin{frame}
+	\frametitle{SOM as Clustering}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.90\linewidth]{clustering.png}
+  \end{figure}
+  \end{center}
+ \end{frame} 
+
+
+\section{} 
+
+\begin{frame}
+	\frametitle{SOM as Clustering}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.90\linewidth]{clustermap.png}
+  \end{figure}
+  \end{center}
+ \end{frame} 
 
 \begin{frame}
 	\frametitle{SOM and GIScience}
@@ -118,7 +159,7 @@
 \subsection{Edge Effects in SOM} 
 
 \begin{frame}
-	\frametitle{The Problems in SOM}
+	\frametitle{Edge Effects in SOM}
   \begin{center}
   \begin{figure}
   \includegraphics[width=0.60\linewidth]{states.png}
@@ -127,22 +168,27 @@
  \end{frame} 
 
 \begin{frame}
-	\frametitle{The Problems in SOM}
+	\frametitle{Edge Effects in SOM}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.90\linewidth]{edge1.png}
+  \end{figure}
+  \end{center}
+ \end{frame} 
+
+\begin{frame}
+	\frametitle{Edge Effect}
  
-\begin{block}{The Edge-Effect}
+\begin{block}{Edge density}
  \begin{itemize}
- \item  Fewer Neighbors
- \begin{itemize}
- \item  Less Competition
- \item  Less Impact on Training
- \end{itemize}
- \item  Network is Irregular
+ \item  Higher density of input vectors mapped to edge neurons
+ \item  Higher internal variance for edge neurons
  \end{itemize}
  \end{block} 
-\begin{block}{The Utah-Hawaii Problem}
+\begin{block}{Siberia-Alaska Effect}
  \begin{itemize}
- \item  Less Competition in the corner node allow Utah and Hawaii occupy the same neuron
- \item  Local Competition at this location pushes the node to the mean of the two observations
+ \item  Close in geographic space, widely separated in world map
+ \item  GIS: travel across the date line
  \end{itemize}
  \end{block} \end{frame} 
 
@@ -158,6 +204,12 @@
  \item  Global spatial multipliers
  \item  Local effects
  \end{itemize}
+ \end{itemize}
+ \end{block} 
+\begin{block}{Point Patterns}
+ \begin{itemize}
+ \item  Inflated nearest neighbor distances
+ \item  Edge corrections
  \end{itemize}
  \end{block} 
 \begin{block}{Components of Edge Effect}
@@ -270,13 +322,13 @@
 \begin{frame}
 	\frametitle{Internal Variance}
  
-\begin{block}{The Equation}
+\begin{block}{Neuron Internal Heterogeneity}
   \({IV_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j+1}^{n_i} ||{x_{ij}}-{x_{ik}}||\)
  \end{block} 
 \begin{block}{Internal Variance}
  \begin{itemize}
- \item  Measures the Difference of Observations Mapped in Neuron
- \item  Measure of How Well Data Fits to Neuron
+ \item  Measures the difference of observations mapped in neuron
+ \item  Measure of how well data fits to neuron
  \end{itemize}
  \end{block} \end{frame} 
 
@@ -459,22 +511,6 @@
   \end{center}
  \end{block} \end{frame} 
 
-\begin{frame}
-	\frametitle{Clustering Properties}
- 
-\begin{block}{Global Structure}
- \begin{itemize}
- \item To what extent is the underlying clustering captured by the different topologies and sizes?
- \item  Are the same number of clusters found?
- \end{itemize}
- \end{block} 
-\begin{block}{Local Structures}
- \begin{itemize}
- \item  Do different topologies generate clusters in similar ways?
- \item  Which clusters are found most often across the different topologies?
- \end{itemize}
- \end{block} \end{frame} 
-
 
 \section{Conclusions} 
 
@@ -508,11 +544,11 @@
 \begin{frame}
 	\frametitle{Limitations}
  
-\begin{block}{Limitations}
+\begin{block}{Qualifications}
  \begin{itemize}
- \item  Only addressing how topology is effect the SOM.
+ \item  Only addressing how topology effects the SOM.
  \begin{itemize}
- \item  Does not address the benefits of have or removing the edge.
+ \item  Does not address the benefits of having or removing the edge.
  \item  Is pushing outliers to the edges a bad thing?
  \end{itemize}
  \item  First-order neighborhood size is capturing larger network irregularities in the "flat" topologies
@@ -522,7 +558,7 @@
 \begin{frame}
 	\frametitle{Future Directions}
  
-\begin{block}{Future Directions}
+\begin{block}{Extensions}
  \begin{itemize}
  \item  Rotate sphere-based SOMs to show "central" feature
  \item  Compare different SOMs on more than just topology
@@ -530,6 +566,22 @@
  \begin{itemize}
  \item  Remove nodes from the existing topologies
  \end{itemize}
+ \end{itemize}
+ \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{Clustering Properties}
+ 
+\begin{block}{Global Structure}
+ \begin{itemize}
+ \item To what extent is the underlying clustering captured by the different topologies and sizes?
+ \item  Are the same number of clusters found?
+ \end{itemize}
+ \end{block} 
+\begin{block}{Local Structures}
+ \begin{itemize}
+ \item  Do different topologies generate clusters in similar ways?
+ \item  Which clusters are found most often across the different topologies?
  \end{itemize}
  \end{block} \end{frame}
 \end{document}
