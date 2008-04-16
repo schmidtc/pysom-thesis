@@ -17,11 +17,11 @@ Background
 			| * Artificial Neural Network
 			| * Unsupervised Competitive Learning Process
 			| * High Dimension Input Data
-			| * Each Neuron Models of a Portion of the Input Space.
+			| * Each Neuron Models of a Portion of the Input Space
 			Topology
 			| \begin{center}
 			| \begin{figure}
-			| \includegraphics[width=0.60\linewidth]{topologies.png}
+			| \includegraphics[width=0.60\linewidth]{topology.png}
 			| \end{figure}
 			| \end{center}
 		The Self-Organizing Map
@@ -36,11 +36,37 @@ Background
 			| ** Grab an Input Vector
 			| ** Find the Best Matching Neuron and its Neighborhood
 			| ** Modify the Weights of the Neurons to Make them More Similar to the Input Vector
-		The Self-Organizing Map
-			Training
+		Training
+			Assignment and Updating
 			| \begin{center}
 			| \begin{figure}
-			| \includegraphics[width=0.90\linewidth]{training.png}
+			| \includegraphics[width=0.90\linewidth]{input.png}
+			| \end{figure}
+			| \end{center}
+		Training
+			Iterations
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.90\linewidth]{somtrain.png}
+			| \end{figure}
+			| \end{center}
+		SOM as Dimensionality Reduction
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.90\linewidth]{dimensionReduction.png}
+			| \end{figure}
+			| \end{center}
+		SOM as Clustering
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.90\linewidth]{clustering.png}
+			| \end{figure}
+			| \end{center}
+
+		SOM as Clustering
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.90\linewidth]{clustermap.png}
 			| \end{figure}
 			| \end{center}
 		SOM and GIScience
@@ -50,21 +76,25 @@ Background
 			| \end{figure}
 			| \end{center}
 	Edge Effects in SOM
-		The Problems in SOM
+		Edge Effects in SOM
 			| \begin{center}
 			| \begin{figure}
 			| \includegraphics[width=0.60\linewidth]{states.png}
 			| \end{figure}
 			| \end{center}
-		The Problems in SOM
-			The Edge-Effect
-			| * Fewer Neighbors
-			| ** Less Competition
-			| ** Less Impact on Training
-			| * Network is Irregular
-			The Utah-Hawaii Problem
-			| * Less Competition in the corner node allow Utah and Hawaii occupy the same neuron
-			| * Local Competition at this location pushes the node to the mean of the two observations
+		Edge Effects in SOM
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.90\linewidth]{edge1.png}
+			| \end{figure}
+			| \end{center}
+		Edge Effect
+			Edge density
+			| * Higher density of input vectors mapped to edge neurons
+			| * Higher internal variance for edge neurons
+			Siberia-Alaska Effect
+			| * Close in geographic space, widely separated in world map
+			| * GIS: travel across the date line
 		Edge Effects in Spatial Analysis
 			Spatial Econometrics
 			| * Power of tests for dependence
@@ -72,6 +102,9 @@ Background
 			| * Spillover measurement
 			| ** Global spatial multipliers
 			| ** Local effects
+			Point Patterns
+			| * Inflated nearest neighbor distances
+			| * Edge corrections
 			Components of Edge Effect
 			| * Buffering = Omission
 			| * True Boundary
@@ -126,11 +159,11 @@ Methodology
 			| * Sample size varies to ensure adequate assignments to neurons
 	Internal Variance
 		Internal Variance
-			The Equation
+			Neuron Internal Heterogeneity 
 			| \({IV_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j+1}^{n_i} ||{x_{ij}}-{x_{ik}}||\)
 			Internal Variance
-			| * Measures the Difference of Observations Mapped in Neuron
-			| * Measure of How Well Data Fits to Neuron
+			| * Measures the difference of observations mapped in neuron
+			| * Measure of how well data fits to neuron
 	Diagnostics
 		Diagnostics
 			Internal Variance vs. First-Order Neighborhood Size
@@ -244,13 +277,6 @@ Results
 			| \includegraphics[width=0.70\linewidth]{sphere_clusters.png}
 			| \end{figure}
 			| \end{center}
-		Clustering Properties
-			Global Structure
-			| *To what extent is the underlying clustering captured by the different topologies and sizes?
-			| * Are the same number of clusters found?
-			Local Structures
-			| * Do different topologies generate clusters in similar ways?
-			| * Which clusters are found most often across the different topologies?
 Conclusions
 	Conclusions
 		Key Findings
@@ -265,14 +291,21 @@ Conclusions
 			| * Shows patterns of clustering
 			| * Provides insight into the self-organizing process
 		Limitations
-			Limitations
+			Qualifications
 			| * Only addressing how topology effects the SOM.
 			| ** Does not address the benefits of having or removing the edge.
 			| ** Is pushing outliers to the edges a bad thing?
 			| * First-order neighborhood size is capturing larger network irregularities in the "flat" topologies
 		Future Directions
-			Future Directions
+			Extensions
 			| * Rotate sphere-based SOMs to show "central" feature
 			| * Compare different SOMs on more than just topology
 			| * Test other topologies
 			| ** Remove nodes from the existing topologies
+		Clustering Properties
+			Global Structure
+			| *To what extent is the underlying clustering captured by the different topologies and sizes?
+			| * Are the same number of clusters found?
+			Local Structures
+			| * Do different topologies generate clusters in similar ways?
+			| * Which clusters are found most often across the different topologies?
