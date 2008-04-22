@@ -1,3 +1,114 @@
+\chapter{INTRODUCTION}
+
+
+
+Intro The SOM, 
+	THE SOM
+		what it is.
+			ANN
+				what they are. (Need a lit review here).
+			Learning Process
+		what it's used for, 
+			Clustering
+				How this works
+			Data Reduction
+				How this works
+			Data Visualization
+				How this works
+		how it works.
+			input data
+			training process
+		limitations of the som.
+			edges
+		
+
+The Self-Organizing Map (SOM) is an unsupervised competitive learning process
+developed by Teuvo Kohonen.
+The technique is generally used on high-dimensional data
+
+to analyze and visualize high dimensional data sets.  
+Applications of SOM generally fall under three catagories; data visualization, data reduction and clustering.  
+
+
+
+The applications of SOM are far reaching; \cite{Kohonen2000} provides a thorough review of the SOM literature including applications of SOM.  
+
+SOM has been used in applications ranging from speech recognition and image classification to breast cancer detection and gene expression clustering.  
+
+\cite{skupin08} outline the growing interest of SOM to
+the GISciences, and propose that the relationship between SOM and GIScience
+should be bidirectional.  The SOM offers a powerful method for exploring and
+visualizing geographic data and GIScience offers a wide array of tools
+and methods to enable the exploration of the SOM itself.  This thesis takes
+advantage of GeoVisualization and GeoCompution in order to explore some of the basic
+properties of the SOM.
+
+The SOM is a type of artificial neural network in which neurons are ``organized''
+in such a way as to project the high-dimensional relationships of a set of
+training data onto a low-dimensional network structure.  The traditional
+SOM uses a rectangular or hexagonal network topology \citep{Kohonen2000}.  These topologies 
+create a well-known problem in SOM called the boundary or edge effect.  Neurons on
+the boundary of the hexagonal and rectangular lattices have fewer neighbors,
+which reduces their ability to interact with other neurons during the
+self-organizing process.  Using a spherical lattice has been widely suggested as a
+solution to the problem \citep{ritter99, boudjemai2003, sangole03,
+Nishio:2006fk, wu2006}. The use of the spherical lattice, however, does not
+completely overcome the boundary problem, and the choice of which spherical
+topology to use for the network can be difficult to make.
+
+A regular network topology is one in which every node on the network has exactly the
+same number of adjacent nodes.  Any topology involving an edge is irregular.
+Arranging our lattice on the surface of a sphere seems to be an obvious
+way to overcome the edge.  However, there exist only five arrangements on the
+sphere which are completely regular; these are the five platonic solids \citep{ritter99,
+harris2000}.  Any other arrangement of neurons on the surface of the sphere will
+result in an irregular topology, as not all neurons will have the same number of
+neighbors.  The classic method for minimizing this irregularity is to generate
+the spherical lattice by tessellating the sides of the icosahedron
+\citep{Nishio:2006fk}.  While this method will always result in a highly
+regular spherical topology, the main drawback is that the number of neurons in
+the network (the network size), \(N\), grows exponentially as tessellations are
+applied. That results in only very coarse control over network size.
+ Other methods for arranging neurons on the sphere allow
+for unlimited control over network size, but yield topologies with increased
+irregularity \citep{harris2000, wu2005, Nishio:2006fk}.  To date the
+literature has largely ignored the more irregular methods in favor of the
+aforementioned tessellation-based methods.  A topology which yields a more flexible network
+size may be desirable.  However, in order to address this issue of network
+size, we must first determine the degree to which irregularity effects the
+SOM.
+
+\section{Research Objectives}
+The objective of this research is to determine the utility of certain irregular
+spherical topologies beyond offering greater control over network size.  Toward
+that end, I develop and test new diagnostics to measure and visualize
+topology-induced errors in SOM.  The following diagnostics are developed and
+implemented:
+
+\begin{enumerate}
+    	\item Compare the internal variance of observations captured by a given neuron to that neuron's first-order neighborhood size.
+	\item For different topologies, compare the internal variance of each neuron against a composite measure of topological regularity.
+	\item Develop a SOM-based visualization of the internal variance.
+	%\item Develop a reverse quantization error visualization by mapping neurons back onto the input data.
+\end{enumerate}
+
+These diagnostics help facilitate the evaluation of both traditional and
+spherical SOMs.  To satisfy the objective of this research, I apply these
+diagnostics to a series of comparable SOMs.  Each SOM is trained using the
+same synthetic data and training parameters, but utilize different network
+topologies.  By formally testing for difference of means and variance in the
+results of the diagnostics, the following questions are addressed:
+
+%topologies.  By formally testing for statistical differences in the
+%results of the diagnostics the following questions will be addressed:
+\begin{enumerate}
+	\item Does the internal variance of a neuron decrease as its first-order neighborhood size, or degree, increases?
+	\item Is the average internal variance of a SOM higher when a more irregular topology is used?
+	\item Which insights, if any, can be gained from a SOM-based visualization of internal variance?
+\end{enumerate}
+
+
+
 \chapter{BACKGROUND}
 This chapter is divided into four sections.  The first provides a general
 introduction to the SOM algorithm and the problems created by using irregular
@@ -6,71 +117,7 @@ The third examines the flexibility of the various topologies with regard to
 network size. The fourth takes a look at the limitations of using ``uniformity''
 to evaluate potential topologies.
 
-
-\section{Artificial Neural Networks}
-	Artificial Neural Networks are ....
-\section{Self-Organizing Maps}
-This section will desribe the SOM in some detail.  The interested reader is
-reffered to \cite{Kohonen2000} for a more in depth discussion of the SOM and
-its mathmatical properties.  
-In order to explain the SOM we will first define a few key concepts.  
-
-The SOM is composed of two primary compenents, a set of neurons and a topology which defines the connections between them.
-
-
-The SOM is used to map a high dimmensional input data space onto a low
-dimmension network of neurons.  Each neuron contains a parametric reference
-vector, \(m_i\) \cite{Kohonen2000}.  The the parameters of these vecotors are
-adjusted during a training process such that they begin the model portions of
-the input space.
-
- is  vector of parameters
-with-in each neuron is used to reference a portion of te input space.  The
-training proccess adjusts t
-
-
-
-The neurons are trained to represent a high-dimmenisional dataset.  This
-dataset can represent a descreate set or a continous input space.  The 
-We use a set of training data 
-
-
-  Each
-neuron exists at a fixed point within the network topology.  The neurons do
-not move during training, but rather they are tought to repsents different
-sections of the 
-A neuron represents a location both with in the SOM and within the
-higher-dimmension data space.
-
-
-
-The number of neurons used in the SOM is a decision the research must make and
-is both a function of the size of your dataset and the purpose for which the
-SOM is to be used.  Generally speaking fewer nuerons would be used in a
-cluster application while larger SOMs are commonly used for visualizing
-high-dimmensional datasets.
-
-
-The literature offers little theoretical guidance
-on choosing an appropriate network size for a given dataset \citep{cho1996}.
-\cite{toolbox} suggests that the network size should be ``as big as
-possible,'' but also states that this becomes computational impractical for
-larger problems. As a general rule-of-thumb, the author suggests using a
-network size of \(5\sqrt {n}\), where \(n\) is the number of observations. The
-application for which this is most relavent is unclear.  Given this lack of
-theoretical development, researchers should be cautious when using methods
-that limit the control of network size.  Having a high level of control over
-network size allows support for such very different SOM applications as
-clustering versus low-dimensional spatial layout.  \cite{skupin08} demonstrate
-this when they use the same data to train two SOMs of different sizes.  In the
-three-by-three (9) case the neurons act as containers clustering similar
-states, while in the twenty-by-twenty (400) case relationships are expressed
-with much finer granularity.  As shown in Figure \ref{fig:nSize}, the
-achievable network size varies between topologies.
-
-
-
-%\section{Training}
+\section{Training}
 The SOM is a type of artificial neural network, in the SOM high-dimensional
 data are organized onto a low-dimensional lattice, or map, of neurons.  The
 structure of the lattice is referred to as the topology of the SOM.  This
@@ -165,9 +212,7 @@ network size for a given dataset \citep{cho1996}.  \cite{toolbox} suggests
 that the network size should be ``as big as possible,'' but also states that
 this becomes computational impractical for larger problems. As a general
 rule-of-thumb, the author suggests using a network size of \(5\sqrt {n}\),
-where \(n\) is the number of observations. 
-
-Given this lack of theoretical
+where \(n\) is the number of observations. Given this lack of theoretical
 development, researchers should be cautious when using methods that limit the
 control of network size.  Having a high level of control over network size
 allows support for such very different SOM applications as clustering versus

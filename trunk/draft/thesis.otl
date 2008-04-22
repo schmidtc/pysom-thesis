@@ -1,0 +1,316 @@
+OLD....
+
+Introduction
+	Research Objectives
+Background
+	The Self-Organizing Map
+		What is the SOM
+			Artiffical Neural Network
+			Unsupervised Competitice Learning Process
+			Data Reduction Technique
+			each neuron models a portion of the input space
+		Training
+			explain training with figures
+			assume rectangular topology for now
+			Use psuedo code and figures
+	SOM and GIScience
+		Argwal and Skupin
+		Great tool for GIS
+		GIS tools can enhance the SOM
+		We use GIS to explor the properties of the SOM itself
+		For example we look closely at the spatial interaction between neurons
+		and how neighbor relations effect the som.
+		Transition to the edge effect be mentioning the edge effect in terms of GIS Science
+	The Edge Effect
+		The Utah-Hawaii Problem
+		Topology as a Solution to the Edge Effect
+			Defines the interanction between neurons
+			Hexagonal
+			Rectangular
+			Torous
+			Sphereical SOM
+	Network Size
+	Uniformity
+Methodology
+	Diagnostics
+		Internal variance vs. first-order neighborhood size
+		Internal variance vs. topological regularity
+		Visualize internal variance mapping
+	Data
+	SOM Training
+Result and Discussion
+	Internal variance vs. first-order neighborhood size
+	Internal variance vs. centrality
+	Visualization of internal variance
+Conclusions
+	Significance
+	Limitations
+
+
+PRES...
+Background
+	The Self-Organizing Map
+		The Self-Organizing Map
+			What is the SOM
+			| * Artificial Neural Network
+			| * Unsupervised Competitive Learning Process
+			| * High Dimension Input Data
+			| * Each Neuron Models of a Portion of the Input Space.
+			Topology
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.60\linewidth]{topologies.png}
+			| \end{figure}
+			| \end{center}
+		The Self-Organizing Map
+			Applications
+			| * Data Visualization
+			| * Data Reduction
+			| * Clustering
+			Training
+			| * Randomize input vectors
+			| * Randomly Initialize the neurons
+			| * Loop Until Map Converges
+			| ** Grab an Input Vector
+			| ** Find the Best Matching Neuron and its Neighborhood
+			| ** Modify the Weights of the Neurons to Make them More Similar to the Input Vector
+		The Self-Organizing Map
+			Training
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.90\linewidth]{training.png}
+			| \end{figure}
+			| \end{center}
+		SOM and GIScience
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.50\linewidth]{book.png}
+			| \end{figure}
+			| \end{center}
+	Edge Effects in SOM
+		The Problems in SOM
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.60\linewidth]{states.png}
+			| \end{figure}
+			| \end{center}
+		The Problems in SOM
+			The Edge-Effect
+			| * Fewer Neighbors
+			| ** Less Competition
+			| ** Less Impact on Training
+			| * Network is Irregular
+			The Utah-Hawaii Problem
+			| * Less Competition in the corner node allow Utah and Hawaii occupy the same neuron
+			| * Local Competition at this location pushes the node to the mean of the two observations
+		Edge Effects in Spatial Analysis
+			Spatial Econometrics
+			| * Power of tests for dependence
+			| * Properties of estimators
+			| * Spillover measurement
+			| ** Global spatial multipliers
+			| ** Local effects
+			Components of Edge Effect
+			| * Buffering = Omission
+			| * True Boundary
+		Suggested Solutions
+			With Edges
+			| * Hierarchical SOM
+			| * Growing SOM
+			| * Mathematical Weighting
+			Without Edges
+			| * Spherical SOM
+			| * Torus SOM
+		Spherical SOM
+			Geodesic
+			| * Highly Regular
+			| * Most Common
+			| * Limited Network Size
+			Rakhmanov
+			| * Less Regular
+			| * Rejected in Literature
+			| * No Network Size Limitation
+		Spherical SOM
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.60\linewidth]{642.png}
+			| \end{figure}
+			| \end{center}
+		Tradeoffs
+			Regularity
+			| * Connectivity
+			| * Shape
+			| * Area
+			Granularity of network size
+			| * Controlling regularity \emph{and} network size
+			| * Comparative analysis not straightforward
+	Objectives
+		Objectives
+			Question
+			| Does Regularity Matter in Spherical SOM?
+			Methods
+			| * Three Diagnostics
+			| ** Internal Variance vs. First-Order Neighborhood Size
+			| ** Internal Variance vs. Topological Regularity
+			| ** Visualization of Internal Variance
+Methodology
+	Data Generation
+		Data Generation
+			Synthetic Multivariate Data
+			| * Follow Wu and Takatsuka (2006)
+			| * Seven clusters
+			| * Three dimension
+			| * Clusters are normally distributed w/ unit variance on each dimension
+			| * Sample size varies to ensure adequate assignments to neurons
+	Internal Variance
+		Internal Variance
+			The Equation
+			| \({IV_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j+1}^{n_i} ||{x_{ij}}-{x_{ik}}||\)
+			Internal Variance
+			| * Measures the Difference of Observations Mapped in Neuron
+			| * Measure of How Well Data Fits to Neuron
+	Diagnostics
+		Diagnostics
+			Internal Variance vs. First-Order Neighborhood Size
+			| * Does a neuron's I.V. decrease as its first-order neighborhood size increases?
+			| ** Group neurons by degree
+			| ** Measure I.V. within each group
+			| ** Check for difference of means and variance between groups
+			| * Repeat for each Topology
+		Diagnostics
+			Internal Variance vs. Topological Regularity
+			| * Does a SOM's average I.V. increase in more irregular topologies?
+			| ** Group neurons by Topology
+			| ** Measure I.V. within each group
+			| ** Check for difference of means and variance between groups
+		Diagnostics
+			Visualization of Internal Variance
+			| * What information can be learned from a mapping of the I.V.?
+Results
+	Internal Variance vs. First-Order Neighborhood Size
+		Internal Variance vs. First-Order Neighborhood Size
+			Rectangular
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.75\linewidth]{rook_iv_box.png}
+			| \end{figure}
+			| \end{center}
+		Internal Variance vs. First-Order Neighborhood Size
+			Hexagonal
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.75\linewidth]{hex_iv_box.png}
+			| \end{figure}
+			| \end{center}
+		Internal Variance vs. First-Order Neighborhood Size
+			Geodesic
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.75\linewidth]{geodesic_iv_box.png}
+			| \end{figure}
+			| \end{center}
+		Internal Variance vs. First-Order Neighborhood Size
+			Spherical
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.75\linewidth]{graph_iv_box.png}
+			| \end{figure}
+			| \end{center}
+	Internal Variance vs. Topological Regularity
+		Internal Variance vs. Topological Regularity
+			| \begin{table}
+			| \centering
+			| \begin{minipage}{\textwidth}
+			| \caption{Measure of Topological Regularity and Sample Mean and Variance}
+			| \label{vardeg}
+			| \begin{tabular}{|c||c|c|c|}
+			| \hline
+			| &$c=1/n \sum_{i=1} (1/n \sum_{j=1} d_{i,j})^{-1}$&&\\
+			| Topology & Closeness Centrality & Mean & Variance\\
+			| \hline
+			| Rectangular & 0.0603 & 0.0294 &0.0001\\
+			| Hexagonal & 0.0739 & 0.0289 &0.0001\\
+			| Geodesic & 0.0890 & 0.0281 &0.0001\\
+			| Spherical & 0.0906 & 0.0281 &0.0001\\
+			| \hline
+			| \end{tabular}
+			| \end{minipage}
+			| \end{table}
+		Internal Variance vs. Topological Regularity
+			| \begin{table}
+			|   \begin{minipage}{\textwidth}
+			|   \caption{Results of Difference of Mean Testing Across Topologies}
+			|   \label{rlt:all}
+			|   \begin{tabular}{|c||c|c|c|c|}
+			|   \hline
+			|   \textbf{Topology}&Rectangular				&Hexagonal &Geodesic &Spherical\\\hline
+			|   \hline
+			|		Rectangular & (0.000064) & \textbf{0.001000} & \textbf{0.000100} & \textbf{0.000100}\\\hline
+			|		Hexagonal & -0.000479 & (0.000064) & \textbf{0.000100} & \textbf{0.000100}\\\hline
+			|		Geodesic & -0.001329 & -0.000850 & (0.000060) & 0.505600\\\hline
+			|		Spherical & -0.001328 & -0.000849 & 0.000001 & (0.000061)\\\hline
+			|
+			|   \end{tabular}
+			|   \end{minipage}
+			| \end{table}
+	Visualization of Internal Variance
+		Visualization of Internal Variance
+			Rectangular
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.70\linewidth]{rook_clusters.png}
+			| \end{figure}
+			| \end{center}
+		Visualization of Internal Variance
+			Hexagonal
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.70\linewidth]{hex_clusters.png}
+			| \end{figure}
+			| \end{center}
+		Visualization of Internal Variance
+			Geodesic
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.70\linewidth]{geodesic_clusters.png}
+			| \end{figure}
+			| \end{center}
+		Visualization of Internal Variance
+			Spherical
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.70\linewidth]{sphere_clusters.png}
+			| \end{figure}
+			| \end{center}
+		Clustering Properties
+			Global Structure
+			| *To what extent is the underlying clustering captured by the different topologies and sizes?
+			| * Are the same number of clusters found?
+			Local Structures
+			| * Do different topologies generate clusters in similar ways?
+			| * Which clusters are found most often across the different topologies?
+Conclusions
+	Conclusions
+		Key Findings
+			Internal Variance vs. First-Order Neighborhood Size
+			| * Significant differences for hexagonal and rectangular topologies
+			| * Significant difference in spherical topology
+			| ** Magnitude of difference very small compared with magnitudes in "flat" topologies
+			| * No significant difference for geodesic
+			Internal Variance vs. Topological Regularity
+			| * Geodesic and spherical show no significant differences
+			Visualization of Internal Variance
+			| * Shows patterns of clustering
+			| * Provides insight into the self-organizing process
+		Limitations
+			Limitations
+			| * Only addressing how topology effects the SOM.
+			| ** Does not address the benefits of having or removing the edge.
+			| ** Is pushing outliers to the edges a bad thing?
+			| * First-order neighborhood size is capturing larger network irregularities in the "flat" topologies
+		Future Directions
+			Future Directions
+			| * Rotate sphere-based SOMs to show "central" feature
+			| * Compare different SOMs on more than just topology
+			| * Test other topologies
+			| ** Remove nodes from the existing topologies

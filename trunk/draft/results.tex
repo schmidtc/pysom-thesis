@@ -39,6 +39,62 @@ possibly due to the large difference in sample size.  To verify these
 conclusions we formally test for differences in means and variance between the
 samples.
 
+\begin{table}[htb]
+\begin{minipage}{\textwidth}
+\caption{Results of Difference of Mean Testing Within Each Topology}
+\label{rlt}
+
+
+  \subtable[Rectangular Topology]{
+    \label{rlt:rook}
+    \begin{tabular}{|c||c|c|c|}
+    \hline
+    Degree&2&3&4\\\hline
+    \hline
+    2 & (0.000008) & \textbf{0.002700} & \textbf{0.000100}\\\hline
+    3 & 0.002969 & (0.000036) & \textbf{0.000100}\\\hline
+    4 & 0.009364 & 0.006396 & (0.000063)\\\hline
+    \end{tabular}
+  }
+
+  \subtable[Hexagonal Topology]{
+    \label{rlt:hex}
+    \begin{tabular}{|c||c|c|c|c|c|}
+    \hline
+    Degree&2&3&4&5&6\\ \hline
+    \hline
+    2 & (0.000006) & \textbf{0.000800} & \textbf{0.000200} & \textbf{0.000100} & \textbf{0.000100}\\\hline
+    3 & 0.003810 & (0.000022) & \textbf{0.000100} & \textbf{0.000100} & \textbf{0.000100}\\\hline
+    4 & 0.006253 & 0.002443 & (0.000040) & \textbf{0.000100} & \textbf{0.000100}\\\hline
+    5 & 0.009008 & 0.005197 & 0.002755 & (0.000035) & \textbf{0.000100}\\\hline
+    6 & 0.013067 & 0.009257 & 0.006814 & 0.004059 & (0.000061)\\\hline
+    \end{tabular}
+  }
+
+  \subtable[Spherical Topology]{
+    \label{rlt:graph}
+    \begin{tabular}{|c||c|c|c|}
+    \hline	
+    Degree&5&6&7\\ \hline
+    \hline
+    5 & (0.000064) & 0.485500 & 0.197400\\\hline
+    6 & 0.000250 & (0.000060) & \textbf{0.020000}\\\hline
+    7 & 0.000674 & 0.000924 & (0.000067)\\\hline
+    \end{tabular}
+  }
+
+  \subtable[Geodesic Topology]{
+    \label{rlt:geodesic}
+    \begin{tabular}{|c||c|c|}
+    \hline
+    Degree&5&6\\ \hline
+    \hline
+    5 & (0.000053) & 0.783900\\\hline
+    6 & 0.000203 & (0.000060)\\\hline
+    \end{tabular}
+  }
+\end{minipage}\end{table}
+
 The results of the means test are presented in table \ref{rlt}. This table
 shows the difference in means below the diagonal, the p-value above the
 diagonal (with significant values in bold), and the variance of each
@@ -117,61 +173,6 @@ centrality and dispersion of each sample.}
 %neighborhood size, or degree, increases?
 
 
-\begin{table}
-\begin{minipage}{\textwidth}
-\caption{Results of Difference of Mean Testing Within Each Topology}
-\label{rlt}
-
-
-  \subtable[Rectangular Topology]{
-    \label{rlt:rook}
-    \begin{tabular}{|c||c|c|c|}
-    \hline
-    Degree&2&3&4\\\hline
-    \hline
-    2 & (0.000008) & \textbf{0.002700} & \textbf{0.000100}\\\hline
-    3 & 0.002969 & (0.000036) & \textbf{0.000100}\\\hline
-    4 & 0.009364 & 0.006396 & (0.000063)\\\hline
-    \end{tabular}
-  }
-
-  \subtable[Hexagonal Topology]{
-    \label{rlt:hex}
-    \begin{tabular}{|c||c|c|c|c|c|}
-    \hline
-    Degree&2&3&4&5&6\\ \hline
-    \hline
-    2 & (0.000006) & \textbf{0.000800} & \textbf{0.000200} & \textbf{0.000100} & \textbf{0.000100}\\\hline
-    3 & 0.003810 & (0.000022) & \textbf{0.000100} & \textbf{0.000100} & \textbf{0.000100}\\\hline
-    4 & 0.006253 & 0.002443 & (0.000040) & \textbf{0.000100} & \textbf{0.000100}\\\hline
-    5 & 0.009008 & 0.005197 & 0.002755 & (0.000035) & \textbf{0.000100}\\\hline
-    6 & 0.013067 & 0.009257 & 0.006814 & 0.004059 & (0.000061)\\\hline
-    \end{tabular}
-  }
-
-  \subtable[Spherical Topology]{
-    \label{rlt:graph}
-    \begin{tabular}{|c||c|c|c|}
-    \hline	
-    Degree&5&6&7\\ \hline
-    \hline
-    5 & (0.000064) & 0.485500 & 0.197400\\\hline
-    6 & 0.000250 & (0.000060) & \textbf{0.020000}\\\hline
-    7 & 0.000674 & 0.000924 & (0.000067)\\\hline
-    \end{tabular}
-  }
-
-  \subtable[Geodesic Topology]{
-    \label{rlt:geodesic}
-    \begin{tabular}{|c||c|c|}
-    \hline
-    Degree&5&6\\ \hline
-    \hline
-    5 & (0.000053) & 0.783900\\\hline
-    6 & 0.000203 & (0.000060)\\\hline
-    \end{tabular}
-  }
-\end{minipage}\end{table}
 
 \section{Internal variance vs. centrality}
 \label{rdq2}
