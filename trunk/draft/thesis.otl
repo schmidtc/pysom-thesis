@@ -8,6 +8,8 @@ Background
 			Artiffical Neural Network
 			Unsupervised Competitice Learning Process
 			Data Reduction Technique
+			Data Visualization
+			Clustering
 			each neuron models a portion of the input space
 		Training
 			explain training with figures
@@ -23,14 +25,13 @@ Background
 		Transition to the edge effect be mentioning the edge effect in terms of GIS Science
 	The Edge Effect
 		The Utah-Hawaii Problem
-		Topology as a Solution to the Edge Effect
+	Topology as a Solution to the Edge Effect
 			Defines the interanction between neurons
 			Hexagonal
 			Rectangular
 			Torous
 			Sphereical SOM
 	Network Size
-	Uniformity
 Methodology
 	Diagnostics
 		Internal variance vs. first-order neighborhood size
