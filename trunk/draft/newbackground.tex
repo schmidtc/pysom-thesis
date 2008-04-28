@@ -1,32 +1,48 @@
 
 \chapter{INTRODUCTION}
-The SOM is a type of artificial neural network developed by \cite{Kohonen}. 
+The SOM is a type of artificial neural network developed by \cite{Kohonen2000}. 
 Artificial neural networks are a broad class of mathematical or computational
 models conceptually based on biological neural networks.  The SOM is based in part
-on ideas about the learning process found in biological neural networks.  The
-input-space is organized onto a set of neurons through a unsupervised
+on ideas about the learning process found in biological neural networks.  In
+the SOM an input-space is organized onto a set of neurons through an unsupervised
 competitive learning process.  Neurons compete for input signals and winning
-neurons are updated to better model these signals.
+neurons are updated to better model these signals. As the learning progresses
+similar input signals are attracted to similar areas of the network.
 
 The SOM has a number of applications and is primarily used for data reduction
 and data visualization.  Other data reductions techniques, such as principle
-components or multi-dimensional scaling, reduces the number of dimensions in
+components or multi-dimensional scaling, reduce the dimensionality of 
 the input-space, but do not preform clustering.  The SOM on the other hand has
 the ability to do both simultaneously.  The degree to which clustering occurs
-is controlled by the size of the SOM.  
+is controlled by the size of the SOM.
 
 \cite{skupin08} demonstrate the clustering properties of SOM when they use
-census data on U.S. states to train a three-by-three SOM.  The (9) neurons act
-as containers clustering similar states.  In a similar experiment they train a
-twenty-by-twenty (400) neuron SOM with same data.  In this case the SOM proves
-to be a very useful visualization tool, providing a low-dimensional spatial
-layout of otherwise high-dimensional data.
+state level data from the U.S. Census Bureau to train a three-by-three (9)
+neuron SOM.  The neurons act as containers clustering similar states.  In a
+similar experiment they train a twenty-by-twenty (400) neuron SOM with same
+data.  In this case the SOM proves to be a very useful visualization tool,
+providing a low-dimensional spatial layout of otherwise high-dimensional data.
 
 A useful property of the SOM is that the network structure between the neurons
-allows us to create meaning full visualisations.  Observations used in the
+allows us to create meaningfull visualisations.  Observations used in the
 training, as wells as new observations from the input space,  can be mapped
-onto the trained surface in order to show higher dimension relationships. The
-original dimmensions of the input space are represented by component planes, 
+onto the trained surface in order to show higher dimension relationships in a
+familiar map-like form. The SOM's component planes captures the spacial layout
+in each dimmension, these are often visualized in a series of maps.  These
+maps can provided useful information about the relationships between the
+difference attirubtes of your input-space.
+
+\subsection{SOM Training}
+The leaning process in SOM is often described a training.  We must train the
+neurons in the network to better represent the input-space.  This is done
+through an interative process, where each observation from the input-space is
+given several opertunites to affect the SOM's neurons.  Each neuron in the SOM
+is said to model a portion of the input-space \cite{Kohonen2000}. To acomplish
+this each neuron is associated with a parametric reference vector, \(m_i\)
+\cite{Kohonen2000}.  The parameters of these vecotors are adjusted during
+training such that they begin the model the inputs assigned to them.
+
+
 
 
 Intro The SOM, 
