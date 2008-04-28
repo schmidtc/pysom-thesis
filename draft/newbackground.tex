@@ -1,5 +1,5 @@
 
-\chapter{INTRODUCTION}
+\chapter{BACKGROUND}
 The SOM is a type of artificial neural network developed by \cite{Kohonen2000}. 
 Artificial neural networks are a broad class of mathematical or computational
 models conceptually based on biological neural networks.  The SOM is based in part
@@ -33,14 +33,15 @@ maps can provided useful information about the relationships between the
 difference attirubtes of your input-space.
 
 \subsection{SOM Training}
-The leaning process in SOM is often described a training.  We must train the
-neurons in the network to better represent the input-space.  This is done
-through an interative process, where each observation from the input-space is
-given several opertunites to affect the SOM's neurons.  Each neuron in the SOM
-is said to model a portion of the input-space \cite{Kohonen2000}. To acomplish
-this each neuron is associated with a parametric reference vector, \(m_i\)
-\cite{Kohonen2000}.  The parameters of these vecotors are adjusted during
-training such that they begin the model the inputs assigned to them.
+Each neuron in the SOM models a portion of the input space with the help of a
+parametric reference vector, \(m_i\) \cite{Kohonen2000}.  The initial state of
+these vectors is generally randomized, that is to say, a mapping of the
+input-space onto the randomized SOM would have no meaning.  For the SOM to
+provide a meaningful representation of the input-space we must first train it.
+This is done through an iterative process, where each observation from the
+input-space is given several opertunites to affect the SOM's neurons.  The
+learning is acomplished by adjusting reference vecotrs with each step of the
+training process.
 
 
 
