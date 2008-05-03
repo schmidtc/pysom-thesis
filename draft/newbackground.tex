@@ -34,14 +34,18 @@ difference attirubtes of your input-space.
 
 \subsection{SOM Training}
 Each neuron in the SOM models a portion of the input space with the help of a
-parametric reference vector, \(m_i\) \cite{Kohonen2000}.  The initial state of
-these vectors is generally randomized, that is to say, a mapping of the
-input-space onto the randomized SOM would have no meaning.  For the SOM to
-provide a meaningful representation of the input-space we must first train it.
-This is done through an iterative process, where each observation from the
-input-space is given several opertunites to affect the SOM's neurons.  The
-learning is acomplished by adjusting reference vecotrs with each step of the
-training process.
+parametric reference vector, \(m_i\) \cite{Kohonen2000}.  These vectors
+represent the dimmensions of the input-space.  In the states example desribed
+above, the dimmensions of the input-space were the first thirty-two census
+population variables.  Each of these dimmensions is represented as an element
+in the reference vector.  The initial state of these vectors is generally
+randomized, that is to say, a mapping of the input-space onto the randomized
+SOM would have no meaning.  For the SOM to provide a meaningful representation
+of the input-space we must first train it.  This is done through an iterative
+process, where each observation from the input-space is given several
+opertunites to affect the reference vectors associated with the SOM's neurons.
+The learning is acomplished by adjusting reference vecotrs with each step of
+the training process.
 
 
 
