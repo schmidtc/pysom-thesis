@@ -44,26 +44,52 @@ maps can provided useful information about the relationships between the
 different attributes of your input-space.
 
 \section{SOM Training}
-As stated above the SOM consists of a set of neurons, the number of neurons
-and their spatial arrangement are determined before training the SOM.  Each
-neuron in the SOM models a portion of the input space with the help of a
-parametric reference vector, \(m_i\) \cite{Kohonen2000}.  The elements within
-these vectors represent the dimensions of the input-space.  In the states
-example described above, the dimensions of the input-space were the first
-thirty-two census population variables.  Each neuron is associated with one,
-thirty-two element reference vector.  The initial state of these vectors is
-generally randomized, that is to say, a mapping of the input-space onto the
-randomized SOM would have no meaning.  For the SOM to provide a meaningful
-representation of the input-space we must first train it.  This is done
-through an iterative process, where each observation from the input-space is
-given several opportunities to affect the reference vectors associated with
-the SOM's neurons.  The learning is accomplished by adjusting the reference
-vectors with each step of the training process.
+% the number of neurons
+%and their spatial arrangement are determined before training the SOM.
+As with other artificial neural networks, the SOM has to be trained with
+samples from the input-space.  These samples, or observations, are represented
+as input vectors.  During the training process neurons compete for inputs,
+with each training step winning neurons are adjusted to better match the
+signals they receive.  Feedback between the neurons allows the entire network to
+eventually coverage to a final state. After training each neuron in the SOM
+will represent a portion of the input space.  To accomplish this
+representation each neuron is associated with a parametric reference vector,
+\(m_i\), referred to as a model \cite{Kohonen2000}.
 
-An observation from the input space is represented as input vector, \(x\).
-We must also define a distance measure \(d(x,m_i)\) between \(x\) and \(m_i\).
-For this thesis, euclidean distances are used for this purpose.
+The length of the model vectors are equal to the length of the input vectors, such
+that each element within a model vector represents a dimension of the input-space.
+The initial values of the elements are most commonly randomized, such that a
+mapping of the input-space onto the initial SOM would have no meaning. Other
+initializations are possible and may reduce the time required for the map to
+coverage \cite{Kohonen2000}.  Our implementation follows the ``Original
+Incremental SOM Algorithm'' as laid out by \cite[pp 109-115]{Kohonen2000}.
+In each step of the algorithm, a randomly select observation (input vector
+$x$) searches for its best model (reference vector $m_i$) among the neurons.
+The best model is defined as the $m_i$ with the smallest distance to $x$, we
+use Euclidean distances here.  The ``winning'' neuron is termed the Best
+Matching Unit (BMU $c$).  The neighborhood around the BMU ($N_c$) is found and
+all $m_i$ within $N_c$ are updated.  The size of the neighborhood and the
+magnitude of the updates are controlled by the neighborhood function. The
+width of the neighborhood decreases as the training progresses. The magnitude
+of the updates decrease, with a Gaussian function, toward the edge of the
+neighborhood. In addition the learning-rate factor is used to reduce the
+magnitude of the updates as training progresses.  The training process is repeated a
+predefined number of times, or ideally until the map converges.
 
+\section{Topology}
+The topology of the SOM's network defines how the neurons interact with each
+other.  The most common topologies are rectangular and hexagonal.
+
+
+The
+traditional SOM is laid out on a two-dimensional plane using either a
+rectangular or hexagonal topology.  According to \cite{wu2006}, the hexagonal
+structure is more uniform and generally preferred.
+
+
+%An observation from the input space is represented as input vector, \(x\).
+%We must also define a distance measure \(d(x,m_i)\) between \(x\) and \(m_i\).
+%For this thesis, euclidean distances are used for this purpose.
 
 The number of neurons used in the SOM is a decision the research must make and
 is both a function of the size of your dataset and the purpose for which the
@@ -93,27 +119,11 @@ achievable network size varies between topologies.
 
 %\section{Training}
 The SOM is a type of artificial neural network, in the SOM high-dimensional
-data are organized onto a low-dimensional lattice, or map, of neurons.  The
-structure of the lattice is referred to as the topology of the SOM.  This
-topology defines how the neurons in the SOM will interact with each other.
 
 
  the interaction that takes place within the SOM and will
 be described in detail later in this chapter.  
 
-The SOM algorithm uses an artificial neural network to organize
-high-dimensional data onto a low-dimensional lattice, or map, of neurons.
-Each neuron contains a reference vector that models the input data.  Before
-training, these neuron-vectors are initialized, most commonly to random
-values.  During the training process a randomly selected observation (input
-vector $x$) searches all neurons (reference vectors $m_i$) to find the one to
-which it is most similar, referred to as its Best Matching Unit (BMU $c$).
-The BMU and its neighborhood ($N_c$) are then adjusted to better match that
-observation \citep{Kohonen2000}.  The training process is repeated a
-predefined number of times, or ideally until the map converges. The
-traditional SOM is laid out on a two-dimensional plane using either a
-rectangular or hexagonal topology.  According to \cite{wu2006}, the hexagonal
-structure is more uniform and generally preferred.
 
 One drawback of building the neural lattice in a discrete Euclidean plane is the
 boundary of the resulting lattice.  A neuron located on the boundary has fewer
