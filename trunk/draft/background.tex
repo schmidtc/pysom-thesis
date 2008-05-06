@@ -9,16 +9,18 @@
 
 \section{Self-Organizing Maps}
 \label{bg:som}
-The SOM is a type of artificial neural network developed by Teuvo Kohonen. 
+The SOM is a type of artificial neural network developed by Teuvo Kohonen.
 Artificial neural networks are a broad class of mathematical or computational
-models conceptually based on biological neural networks.  The SOM follows from
-the idea of a ``structured occupation and utilization of a uniform memory
-territory'' and the process which organizes information within this territory
-\cite[p. 102]{Kohonen2000}.  In the SOM an input-space is organized onto a set
-of neurons through an unsupervised competitive learning process.  Neurons
-compete for input signals and winning neurons are updated to better model
-these signals. As the learning progresses similar input signals are attracted
-to similar areas of the network.
+models conceptually based on biological neural networks.  \citep{Kohonen2000}
+believes that a basic hierarchy can be found in these biological neuronal
+networks by exploiting the ``structured occupation and utilization of a
+uniform memory territory'' \cite[p. 102]{Kohonen2000}.  The SOM follows from a
+basic understanding of the process which organizes information within this
+territory.  In the SOM an input-space is organized onto a set of neurons
+through an unsupervised competitive learning process.  Neurons compete for
+input signals and winning neurons are updated to better model these signals.
+As the learning progresses similar input signals are attracted to similar
+areas of the network.
 
 The SOM has a number of applications and is primarily used for data reduction
 and data visualization.  Other data reductions techniques, such as principle
@@ -30,7 +32,7 @@ is controlled by the size of the SOM.
 \cite{skupin08} demonstrate the clustering properties of SOM when they use
 state level data from the U.S. Census Bureau to train a three-by-three (9)
 neuron SOM.  The neurons act as containers clustering similar states.  In a
-similar experiment they train a twenty-by-twenty (400) neuron SOM with same
+another experiment they train a twenty-by-twenty (400) neuron SOM with the same
 data.  In this case the SOM proves to be a very useful visualization tool,
 providing a low-dimensional spatial layout of otherwise high-dimensional data.
 
@@ -38,7 +40,7 @@ A useful property of the SOM is that the network structure between the neurons
 allows us to create meaningful visualisations.  Observations used in the
 training, as well as new observations from the input space,  can be mapped
 onto the trained surface in order to show higher dimensional relationships in a
-familiar map-like form. The SOM's component planes capture the spacial layout
+familiar map-like form. The SOM's component planes capture the spatial layout
 of each dimension, these are often visualized in a series of maps.  These
 maps can provided useful information about the relationships between the
 different attributes of your input-space.
@@ -57,26 +59,35 @@ signals they receive.  Feedback between the neurons allows the entire network to
 eventually coverage to a final state. After training each neuron in the SOM
 will represent a portion of the input space.  To accomplish this
 representation each neuron is associated with a parametric reference vector,
-\(m_i\), referred to as a model vector \cite{Kohonen2000}.
-
-The length of the model vectors are equal to the length of the input vectors, such
-that each element within a model vector represents a dimension of the input-space.
-The initial values of the elements are most commonly randomized, such that a
+\(m_i\), referred to as a model vector \cite{Kohonen2000}.  The length of the
+model vectors are equal to the length of the input vectors, such that each
+element within a model vector represents a dimension of the input-space.  The
+initial values of the elements are most commonly randomized, such that a
 mapping of the input-space onto the initial SOM would have no meaning. Other
 initializations are possible and may reduce the time required for the map to
-coverage \cite{Kohonen2000}.  Our implementation follows the ``Original
-Incremental SOM Algorithm'' as laid out by \cite[pp. 109-115]{Kohonen2000}.
-In each step of the algorithm, a randomly select observation (input vector
-$x$) searches for its best model (reference vector $m_i$) among the neurons.
-The best model is defined as the $m_i$ with the smallest distance to $x$, we
-use Euclidean distances here.  The ``winning'' neuron is termed the Best
-Matching Unit (BMU $c$).  The neighborhood around the BMU ($N_c$) is found and
-all $m_i$ within $N_c$ are updated.  The size of the neighborhood and the
-magnitude of the updates are controlled by the neighborhood function. The
-width of the neighborhood decreases as the training progresses. The magnitude
-of the updates decrease, with a Gaussian function, toward the edge of the
-neighborhood. In addition the learning-rate factor is used to reduce the
-magnitude of the updates as training progresses.  The training process is repeated a
+coverage \cite{Kohonen2000}.
+
+Our implementation follows the ``Original Incremental SOM Algorithm'' as laid
+out by \cite[pp. 109-115]{Kohonen2000}.  In each step of the algorithm, a
+randomly select observation (input vector $x$) searches for its best model
+(reference vector $m_i$) among the neurons.  The best model is defined as the
+$m_i$ with the smallest distance to $x$, we use Euclidean distances here.  The
+``winning'' neuron is termed the Best Matching Unit (BMU $c$).  The
+neighborhood around the BMU ($N_c$) is found and all $m_i$ within $N_c$ are
+updated.  The size of the neighborhood and the magnitude of the updates are
+controlled by the neighborhood function. In our implementation, the width of
+the neighborhood decreases as the training progresses, and the magnitude of
+the updates decrease, with a Gaussian function, toward the edge of the
+neighborhood. A learning-rate factor is used to further reduce the magnitude
+of the updates as training progresses.  Combined these create the neighborhood
+kernel function $h_{ci}$ which defines a scaler used to adjust the magnitude
+of a given update.  This function always evaluates to zero for neurons outside
+the neighborhood.  An update is defined as,
+\begin{equation}
+  {m_i(t+1)} = m_i(t) +  h_{ci}(t)[x(t) - m_i(t)]
+\label{update}
+\end{equation}
+where, $t$ is the current training step.  The training process is repeated a
 predefined number of times, or ideally until the map converges.
 
 \section{Topology}
