@@ -15,27 +15,60 @@ models conceptually based on biological neural networks.  \citep{Kohonen2000}
 believes that a basic hierarchy can be found in these biological neuronal
 networks by exploiting the ``structured occupation and utilization of a
 uniform memory territory'' \cite[p. 102]{Kohonen2000}.  The SOM follows from a
-basic understanding of the process which organizes information within this
-territory.  In the SOM an input-space is organized onto a set of neurons
-through an unsupervised competitive learning process.  Neurons compete for
-input signals and winning neurons are updated to better model these signals.
-As the learning progresses similar input signals are attracted to similar
-areas of the network.
+conceptual understanding of the process which organizes information within this
+territory.  In the SOM an unsupervised competitive learning process is used to 
+organize a high dimension input-space onto a set of neurons. The neurons act
+as the uniform memory territory, which is structured by a network
+topology that defines the connections between these neurons.  The rectangular
+and hexagonal topologies shown in figure \ref{topos} are traditionally used
+for this purpose. The learning, or training, process organizes information
+onto this space by presenting input signals to the network.  The neurons
+compete for the input signals and winning neurons updated in order to model
+them.  As the learning progresses similar input signals are attracted to
+similar areas of the network, fulfilling the translation from \emph{data
+similarities} into \emph{spatial relationships}.
+
+\begin{figure}
+\centering
+\subfigure[Rectangular Topology]{
+  \label{topo:rook}
+  \includegraphics[width=.35\linewidth]{topo_rook.png}
+}
+\subfigure[Hexagonal Topology]{
+  \label{topo:hex}
+  \includegraphics[width=.40\linewidth]{topo_hex.png}
+}
+\caption{In traditional SOM either a rectangular or hexagonal topology is used.}
+\label{topos}
+\end{figure}
 
 The SOM has a number of applications and is primarily used for data reduction
-and data visualization.  Other data reductions techniques, such as principle
-components or multi-dimensional scaling, reduce the dimensionality of 
-the input-space, but do not preform clustering.  The SOM on the other hand has
-the ability to do both simultaneously.  The degree to which clustering occurs
-is controlled by the size of the SOM.
+and data visualization.  SOM is often compared with other data reductions
+techniques, such as principle components or multi-dimensional scaling. Like
+SOM these techniques reduce the dimensionality of the input-space, but unlike
+SOM they do not directly preform clustering.  The SOM on the other hand has
+the ability to do both simultaneously.  That is the SOM can collapse the high
+dimensional space into two dimension, \emph{and} collapse the observations
+into groups or clusters.  The degree to which clustering occurs is controlled
+by the size of the SOM.  In smaller SOMs, as the neurons try to model the
+input-space, observations will be ``collected'' by the neuron which models it
+most accurately.  In larger SOMs, perhaps even where there are more neurons
+than observations, observations will still be collected by their best model.
+The rest of the neurons, however, will attempt to model the intermediate
+spaces between the observations.  This provides a low-dimensional spatial
+layout of otherwise high-dimensional data.
 
-\cite{skupin08} demonstrate the clustering properties of SOM when they use
-state level data from the U.S. Census Bureau to train a three-by-three (9)
-neuron SOM.  The neurons act as containers clustering similar states.  In a
-another experiment they train a twenty-by-twenty (400) neuron SOM with the same
-data.  In this case the SOM proves to be a very useful visualization tool,
-providing a low-dimensional spatial layout of otherwise high-dimensional data.
+\cite{skupin08} demonstrate these properties when they use the same data to train two SOMs
+of different sizes.  In the three-by-three (9) case the neurons act as
+containers clustering similar states, while in the twenty-by-twenty (400) case
+relationships are expressed with much finer granularity.
 
+\cite{skupin08} demonstrate the clustering properties
+of SOM when they use state level data from the U.S. Census Bureau to train a
+three-by-three (9) neuron SOM.  The neurons act as containers clustering
+similar states.  In a another experiment they train a twenty-by-twenty (400)
+neuron SOM with the same data.  In this case the SOM proves to be a very
+useful visualization tool, providing a 
 A useful property of the SOM is that the network structure between the neurons
 allows us to create meaningful visualisations.  Observations used in the
 training, as well as new observations from the input space,  can be mapped
@@ -56,19 +89,19 @@ samples from the input-space.  These samples, or observations, are represented
 as input vectors.  During the training process neurons compete for inputs;
 with each training step winning neurons are adjusted to better match the
 signals they receive.  Feedback between the neurons allows the entire network to
-eventually coverage to a final state. After training each neuron in the SOM
+eventually coverage to a final state. After training, each neuron in the SOM
 will represent a portion of the input space.  To accomplish this
 representation each neuron is associated with a parametric reference vector,
-\(m_i\), referred to as a model vector \cite{Kohonen2000}.  The length of the
+\(m_i\), referred to as a model vector \citep{Kohonen2000}.  The length of the
 model vectors are equal to the length of the input vectors, such that each
 element within a model vector represents a dimension of the input-space.  The
 initial values of the elements are most commonly randomized, such that a
 mapping of the input-space onto the initial SOM would have no meaning. Other
 initializations are possible and may reduce the time required for the map to
-coverage \cite{Kohonen2000}.
+coverage \citep{Kohonen2000}.
 
 Our implementation follows the ``Original Incremental SOM Algorithm'' as laid
-out by \cite[pp. 109-115]{Kohonen2000}.  In each step of the algorithm, a
+out by \cite{Kohonen2000}.  In each step of the algorithm, a
 randomly select observation (input vector $x$) searches for its best model
 (reference vector $m_i$) among the neurons.  The best model is defined as the
 $m_i$ with the smallest distance to $x$, we use Euclidean distances here.  The
@@ -98,15 +131,13 @@ should occupy the same amount of space on the given surface.  Second, each
 neuron should be bordered by the same number of surrounding neurons, and we
 should maximize that number.  Visualizations that do not have uniformly sized
 and spaced neurons could potentially mislead an untrained viewer, as larger
-neurons may appear to be more significant. However, these conditions are
+neurons may appear to be more significant. The first condition is
 largely irrelevant in the training of the SOM.  Of greater importance to
 training is the SOM's topology, as it describes how the neurons are connected
 within the network.  In training the topology defines, $N_c$, the neighborhood
 around the winning neurons, and the topology directly impacts the size and
-shape of these neighborhoods.  The traditional SOM is laid out on a
-two-dimensional plane using either a rectangular or hexagonal topology.
-According to \cite{wu2006}, the hexagonal structure is more uniform and
-generally preferred.
+shape of these neighborhoods.  
+%According to \cite{wu2006}, the hexagonal structure is more uniform and generally preferred.
 
 We believe a measure of regularity within a given topology is a better metric
 for evaluating different topologies. Regularity tells us how uniform neurons
@@ -119,7 +150,8 @@ in these measurements tells how regular the network is, a perfectly regular
 topology should a variance equal to zero.
 
 \section{The Boundary Effect}
-Both the traditional rectangular and hexagonal topologies are irregular,
+Traditionally the SOM is laid out on a two-dimensional plane using either a
+rectangular or hexagonal topology.  Both of these topologies are irregular,
 because neurons on the boundary of the network have fewer neighbors.  Neurons
 located on the boundary have fewer neighbors and thus fewer chances of being
 updated \citep{wu2006}.  As observed in Figure \ref{figure1}, neurons in the
@@ -128,14 +160,14 @@ is arguably caused by outliers being pushed to the edges of the map, where
 they encounter fewer competing signals. 
 % These edge effects are well-known and suggested solutions include, hierarchical SOM, growing SOM, mathematical weighting, and the use of non-Euclidean topologies.  
 Edge effects are also common in spatial analysis, for example in point
-patterns the edge of our study unit may hide the true distribution of an
+patterns the edge of a study unit may hide the true distribution of an
 observed pattern.  In SOM the edge of the neural lattice represents a true
 boundary, which effects its ability to represent \emph{data similarities} as
 \emph{spatial relationships}.
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\linewidth]{gridedge_grey.pdf}
+\includegraphics[width=.8\linewidth]{gridedge_grey.pdf}
 \caption{Fifty States and the District of Columbia mapped onto a
 SOM trained with thirty-two population census variables.  Darker neurons have a
 relatively larger difference from the mean of the states, while lighter
@@ -163,11 +195,11 @@ topology effects the SOM.  In this thesis the effect of irregularity within
 topologies is studied as an attempt to investigate not only the edge effect,
 but also to help facilitate the comparison of topologies.  It is important to
 note that spherical topologies may not be appropriate for all applications.
-Removing the edge may reduce the SOM's ability to converge as outliers are
+Removing the edge may reduce the SOM's ability to converge.  As outliers are
 forced to interact they introduce more competition among the neurons.  We
 would also expect outliers to occupy more space in the final map as their
 dissimilarity in attribute space should translate to more distant spatial
-relationships in the trained SOM.  More research is needed to help researched
+relationships in the trained SOM.  More research is needed to help researches
 determine the most appropriate topology for their data and research objectives.
 
 \cite{ritter99} first introduced the spherical SOM, and several enhancements have
@@ -248,10 +280,7 @@ Given this lack of theoretical development, researchers should be cautious
 when using methods that limit the control of network size.  Having a high
 level of control over network size allows support for such very different SOM
 applications as clustering versus low-dimensional spatial layout.
-\cite{skupin08} demonstrate this when they use the same data to train two SOMs
-of different sizes.  In the three-by-three (9) case the neurons act as
-containers clustering similar states, while in the twenty-by-twenty (400) case
-relationships are expressed with much finer granularity.  Figure
+  Figure
 \ref{fig:nSize} shows how the achievable network size varies between
 topologies.
 
