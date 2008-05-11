@@ -123,10 +123,13 @@ initializations are possible and may reduce the time required for the map to
 coverage \citep{Kohonen2000}.
 
 Our implementation follows the ``Original Incremental SOM Algorithm'' as laid
-out by \cite{Kohonen2000}.  In each step of the algorithm, a
-randomly select observation (input vector $x$) searches for its best model
-(reference vector $m_i$) among the neurons.  The best model is defined as the
-$m_i$ with the smallest distance to $x$, we use Euclidean distances here.  The
+out by \cite{Kohonen2000}.  In each step of the algorithm, a randomly select
+observation (input vector $x$) searches for its best model (reference vector
+$m_i$) among the neurons.  The best model is defined as the $m_i$ with the
+smallest distance to $x$.  These distances are referred to as quantization
+errors (QErrors), and they measure the distance between two vectors in
+attribute space \citep{Kohonen2000}.  Our implementation uses Euclidean
+distances, however, any reasonable distance measure can be used here.  The
 ``winning'' neuron is termed the Best Matching Unit (BMU $c$).  The
 neighborhood around the BMU ($N_c$) is found and all $m_i$ within $N_c$ are
 updated.  The size of the neighborhood and the magnitude of the updates are
@@ -136,8 +139,8 @@ the updates decrease, with a Gaussian function, toward the edge of the
 neighborhood. A learning-rate factor is used to further reduce the magnitude
 of the updates as training progresses.  Combined these create the neighborhood
 kernel function $h_{ci}$ which defines a scaler used to adjust the magnitude
-of each update in a given training step.  This function always evaluates to zero for neurons outside
-the neighborhood.  The update is defined as,
+of each update in a given training step.  This function always evaluates to
+zero for neurons outside the neighborhood.  The update is defined as,
 \begin{equation}
   {m_i(t+1)} = m_i(t) +  h_{ci}(t)[x(t) - m_i(t)]
 \label{update}
@@ -295,7 +298,7 @@ application for which this network size would be most relevant is unclear.
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\linewidth]{networkSize.pdf}
+\includegraphics[width=\linewidth]{networkSize.png}
 \caption{This figure demonstrates the achievable network size using various
 spherical topologies, in comparison with the traditional SOM. The Y-axis
 represents the achievable network size, the meaning of the X-axis is dependent
@@ -348,8 +351,9 @@ clarification we cannot implement their topology.  Methods for distributing
 points on the sphere, which allow for fine-grained control over network size,
 produce slightly more irregular topologies.  However, no substantive
 discussion of these irregularities or their effects on SOM training exists in
-the literature. Given that limited theoretical guidance is available for
-choosing network size, the desire for finer control over the network size
-should not be overlooked. Particularly for larger SOMs, the desired network
-size may not be achievable via tessellation of the icosahedron.
+the literature. Network size plays an import role in the SOM and given
+that limited theoretical guidance is available for choosing network size,
+researches should be cautious when using topologies that limit control over
+this parameter.  Particularly for larger SOMs, the desired network size may
+not be achievable via tessellation of the icosahedron.
 
