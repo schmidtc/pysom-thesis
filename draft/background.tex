@@ -7,12 +7,8 @@
 %to evaluate potential topologies.
 
 
-%Artificial neural networks are a broad class of mathematical or computational models conceptually based on biological neural networks.  
 %Kohonen suggests that a fundamental hierarchy can be found the ``structured occupation and utilization of a uniform memory territory'' \cite[p. 102]{Kohonen2000}.
-\section{Self-Organizing Maps}
-\label{bg:som}
-The SOM is a type of artificial neural network developed by Teuvo Kohonen.
-Artificial neural networks are a broad class of mathematical or computational models that are conceptually based on biological neural networks.
+%Artificial neural networks are a broad class of mathematical or computational models that are conceptually based on biological neural networks.
 %The SOM is often classifed as a data reduction technique as it projects a high-dimensional input space onto a low-dimensional lattice, or map, of neurons.
 %Kohonen mimics the ``structured occupation and utilization of a uniform memory territory'' that is found in these networks.
 %He suggests that the geometric or spatial organization of information in these territories, or spaces, provides for a fundamental hierarchy.
@@ -21,71 +17,88 @@ Artificial neural networks are a broad class of mathematical or computational mo
 %among input signals as relationships among samples from an input-space as 
 %and the process which organizes information within this territory \cite[p. 102]{Kohonen2000}.
 %In the SOM an input-space is organized onto a set of neurons through an unsupervised competitive learning process.
-The SOM consists of a set of neurons arranged on a structed network.
-An unsupervised competitive learning process is used to organize a high dimension input-space onto the neurons.
-The neurons are arranged in a structured network.  The tradiational network
-topologies are shown in figure \ref{topos}.  In the rectagular topology,
-figure \ref{topo:rook}, neurons are connected with four neighrbors each,
-except for those on the edges
-
-The learning, or training, process organizes information onto this space by presenting input signals to the network.
-Neurons compete for input signals and winning neurons are updated to better model these signals.
-The neurons compete for the input signals and winning neurons updated in order to model them.
+%The learning, or training, process organizes information onto this space by presenting input signals to the network.
+%Neurons compete for input signals and winning neurons are updated to better model these signals.
+%The neurons compete for the input signals and winning neurons updated in order to model them.
 %The SOM follows from a conceptual understanding of the process which organizes information within this territory.  
-The neurons act as the uniform memory territory, which is structured by a network topology that defines the connections between these neurons.
-The rectangular and hexagonal topologies shown in figure \ref{topos} are traditionally used for this purpose.
-As the learning progresses similar input signals are attracted to similar areas of the network.
-As the learning progresses similar input signals are attracted to similar areas of the network, fulfilling the translation from \emph{data similarities} into \emph{spatial relationships}.
+%The neurons act as the uniform memory territory, which is structured by a network topology that defines the connections between these neurons.
+%The rectangular and hexagonal topologies shown in Figure \ref{topos} are traditionally used for this purpose.
+%As the learning progresses similar input signals are attracted to similar areas of the network.
+\section{Self-Organizing Maps}
+\label{bg:som}
+The SOM is a type of artificial neural network developed by Teuvo Kohonen.  In
+the SOM an input-space is organized onto a set of neurons through an
+unsupervised competitive learning process \citep{Kohonen2000}. The neurons, arranged on a lattice,
+compete for input signals.  The input signals are samples from an input-space.
+During training the winning neurons and those around them are updated to
+better model these signals. In each step of the training process the winning
+neuron is the one most similar to a given input signal.  Traditionally, the
+neural lattice, or network, has either a rectangular or hexagonal topology.  As shown in
+Figure \ref{topos} these topologies have different properties.  In the
+rectangular topology, Figure \ref{topo:rook}, neurons are bounded by four
+neighbors.  In the hexagonal topology, Figure \ref{topo:hex}, neurons are
+bounded by six neighbors.  In both topologies, neurons on the edge have fewer
+neighbors.  As the learning progresses, \emph{data similarities} in the
+high-dimensional input-space are translated into \emph{spatial relationships}
+in the low-dimensional neural network \citep{ritter99}.
+%As the learning progresses similar input signals become attracted to similar areas of the network, fulfilling the translation from \emph{data similarities} into \emph{spatial relationships}.
 
 \begin{figure}
 \centering
 \subfigure[Rectangular Topology]{
   \label{topo:rook}
-  \includegraphics[width=.35\linewidth]{topo_rook.png}
+  \includegraphics[width=.25\linewidth]{topo_rook.png}
 }
 \subfigure[Hexagonal Topology]{
   \label{topo:hex}
-  \includegraphics[width=.40\linewidth]{topo_hex.png}
+  \includegraphics[width=.30\linewidth]{topo_hex.png}
 }
 \caption{In traditional SOM either a rectangular or hexagonal topology is used.}
 \label{topos}
 \end{figure}
 
-The SOM has a number of applications and is primarily used for data reduction
-and data visualization.  SOM is often compared with other data reductions
+The SOM has a number of applications, but is primarily used for data reduction
+and data visualization.  The SOM is often compared with other data reduction
 techniques, such as principle components or multi-dimensional scaling. Like
-SOM these techniques reduce the dimensionality of the input-space, but unlike
-SOM they do not directly preform clustering.  The SOM on the other hand has
-the ability to do both simultaneously.  That is the SOM can collapse the high
-dimensional space into two dimension, \emph{and} collapse the observations
-into groups or clusters.  The degree to which clustering occurs is controlled
-by the size of the SOM.  In smaller SOMs, as the neurons try to model the
-input-space, observations will be ``collected'' by the neuron which models it
-most accurately.  In larger SOMs, perhaps even where there are more neurons
-than observations, observations will still be collected by their best model.
-The rest of the neurons, however, will attempt to model the intermediate
-spaces between the observations.  This provides a low-dimensional spatial
-layout of otherwise high-dimensional data.
+SOM, these techniques reduce the dimensionality of the input-space
+\citep{Kohonen2000,skupin08}. However unlike SOM, these techniques do not
+directly preform clustering.  The SOM on the other hand has the ability to do
+both simultaneously.  That is the SOM can collapse a high dimensional
+input-space into two dimensions, \emph{and} collapse observations from the
+input-space into groups or clusters.  The degree to which clustering occurs is
+controlled by the size of the SOM.  In smaller SOMs, as the neurons try to
+model the input-space, observations are ``collected'' by the neuron which
+models it most accurately.  In larger SOMs, perhaps even where there are more
+neurons than observations, observations are still collected by their best
+model.  However, other neurons map the intermediate areas between
+observations, providing a low-dimensional spatial layout of otherwise
+high-dimensional data.
 
-\cite{skupin08} demonstrate these properties when they use the same data to train two SOMs
-of different sizes.  In the three-by-three (9) case the neurons act as
-containers clustering similar states, while in the twenty-by-twenty (400) case
-relationships are expressed with much finer granularity.
+\cite{skupin08} demonstrate these properties when they use state level data
+from the U.S. Census Bureau to train two SOMs of different sizes.  In the
+three-by-three (9) case the neurons act as containers clustering similar
+states, while in the twenty-by-twenty (400) case relationships are expressed
+with much finer granularity.  In the second case the SOM proves to be a very
+useful visualization tool.  The similarities and dissimilarities among the
+states are represented as spatial orientations and distances.  Even in this
+larger case, where neurons outnumber observations, clustering may still occur.
+This happens because the SOM tries to represent the entire input-space.  If
+some observations are sufficiently different, while others are sufficiently
+similar; the network may be better utilized by allowing some neurons to
+represent dissimilarities, while clustering of observations occurs at other
+neurons.
 
-\cite{skupin08} demonstrate the clustering properties
-of SOM when they use state level data from the U.S. Census Bureau to train a
-three-by-three (9) neuron SOM.  The neurons act as containers clustering
-similar states.  In a another experiment they train a twenty-by-twenty (400)
-neuron SOM with the same data.  In this case the SOM proves to be a very
-useful visualization tool, providing a 
 A useful property of the SOM is that the network structure between the neurons
 allows us to create meaningful visualisations.  Observations used in the
-training, as well as new observations from the input space,  can be mapped
+training, as well as new observations from the input space, can be mapped
 onto the trained surface in order to show higher dimensional relationships in a
 familiar map-like form. The SOM's component planes capture the spatial layout
 of each dimension, these are often visualized in a series of maps.  These
 maps can provided useful information about the relationships between the
-different attributes of your input-space.
+different attributes of your input-space.  In terms of information
+visualization, the spatial layout of observation on the network provides far
+more information than traditional methods, such as ordered lists or scatter
+plots.
 
 \section{Training}
 % the number of neurons
@@ -123,8 +136,8 @@ the updates decrease, with a Gaussian function, toward the edge of the
 neighborhood. A learning-rate factor is used to further reduce the magnitude
 of the updates as training progresses.  Combined these create the neighborhood
 kernel function $h_{ci}$ which defines a scaler used to adjust the magnitude
-of a given update.  This function always evaluates to zero for neurons outside
-the neighborhood.  An update is defined as,
+of each update in a given training step.  This function always evaluates to zero for neurons outside
+the neighborhood.  The update is defined as,
 \begin{equation}
   {m_i(t+1)} = m_i(t) +  h_{ci}(t)[x(t) - m_i(t)]
 \label{update}
@@ -138,36 +151,50 @@ neurons receive equal geometrical treatment'' \cite[p. 900]{wu2006}.  To
 satisfy this constraint, two conditions must be met.  First, each neuron
 should occupy the same amount of space on the given surface.  Second, each
 neuron should be bordered by the same number of surrounding neurons, and we
-should maximize that number.  Visualizations that do not have uniformly sized
+should maximize that number.  The first condition is largely irrelevant in the
+training of the SOM.  However, visualizations that do not have uniformly sized
 and spaced neurons could potentially mislead an untrained viewer, as larger
-neurons may appear to be more significant. The first condition is
-largely irrelevant in the training of the SOM.  Of greater importance to
+neurons may appear to be more significant. Of greater importance to
 training is the SOM's topology, as it describes how the neurons are connected
 within the network.  In training the topology defines, $N_c$, the neighborhood
-around the winning neurons, and the topology directly impacts the size and
+around the winning neurons, and irregular topologies directly impact the size and
 shape of these neighborhoods.  
 %According to \cite{wu2006}, the hexagonal structure is more uniform and generally preferred.
 
-We believe a measure of regularity within a given topology is a better metric
-for evaluating different topologies. Regularity tells us how uniform neurons
-are in terms of their connections to other neurons in the network. Nodes with
-more connections are thought to be more central to the network and have a
+We believe the of regularity of a given topology is a better metric
+for evaluating different topologies for use in SOM. In graph theory a regular
+graph, is simply a graph in which every node has the same number of neighbors
+\citep{harris2000}. A measure of regularity tells us how uniform neurons
+are in terms of their connections to other neurons in the network. In network
+theory, nodes with more connections are thought to be more central to the network and have a
 larger influence than nodes with fewer connections. A simple measure for
 capturing this is degree centrality \cite{Wasserman:1994}.  The degree (number
 of adjacent neurons) is measured for each neuron in the network. The variance
 in these measurements tells how regular the network is, a perfectly regular
-topology should a variance equal to zero.
+topology should a variance equal to zero.  Other methods, such as closeness
+centrality compare nodes based on their connectedness to every node in the
+network.
 
 \section{The Boundary Effect}
 Traditionally the SOM is laid out on a two-dimensional plane using either a
 rectangular or hexagonal topology.  Both of these topologies are irregular,
 because neurons on the boundary of the network have fewer neighbors.  Neurons
 located on the boundary have fewer neighbors and thus fewer chances of being
-updated \citep{wu2006}.  As observed in Figure \ref{figure1}, neurons in the
-center of the map tend to better represent the mean of the input-space.  This
-is arguably caused by outliers being pushed to the edges of the map, where
-they encounter fewer competing signals. 
-% These edge effects are well-known and suggested solutions include, hierarchical SOM, growing SOM, mathematical weighting, and the use of non-Euclidean topologies.  
+updated \citep{wu2006}.  As observed in Figure \ref{som:states}, neurons in
+the center of the map tend to better represent the mean of the input-space.
+In this SOM we used the same data as \cite{skupin08} to map the fifty states
+and the District of Columbia onto a SOM trained with thirty-two population
+census variables. After training, we measured the distance between each
+neuron's model vector, $m_i$, and the mean of the input vectors, $\bar{x}$.
+Darker neurons have a relatively larger difference from the mean input-space,
+while lighter neurons are relatively closer. We also measured the difference
+of each observation to the mean $\bar{x}$, these distances are represented by
+the size of the point symbols.  Larger symbols are farther from the mean. The
+five observations furthest from the mean: Alaska, District of Columbia,
+Hawaii, Maine, and Utah are highlighted with bold labels.  The five
+observations closest to the mean: Alabama, Illinois, Louisiana, Nebraska and
+North Carolina have underlined labels.  Arguably the outliers are being pushed
+to the edges of the map, where they encounter fewer competing signals.
 Edge effects are also common in spatial analysis, for example in point
 patterns the edge of a study unit may hide the true distribution of an
 observed pattern.  In SOM the edge of the neural lattice represents a true
@@ -176,15 +203,9 @@ boundary, which effects its ability to represent \emph{data similarities} as
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=.8\linewidth]{gridedge_grey.pdf}
-\caption{Fifty States and the District of Columbia mapped onto a
-SOM trained with thirty-two population census variables.  Darker neurons have a
-relatively larger difference from the mean of the states, while lighter
-neurons are relatively closer.  Smaller point symbols show states that are closer to the
-mean, while large symbols show outliers. The five states closest to the average are shown
-with underlined labels and the five states furthest from the mean are shown with
-bold labels.}
-\label{figure1}
+\includegraphics[width=.9\linewidth]{gridedge_grey.pdf}
+\caption{An example of the boundary effect in SOM.}
+\label{som:states}
 \end{figure}
 
 One way to eliminate the edge effect is to wrap the lattice around a
@@ -198,19 +219,6 @@ more intuitive map, since we are accustomed to looking at geographic maps
 based on a sphere.  
 
 \section{Spherical SOM}
-As spherical (and other alternative) topologies become
-increasingly more common it is necessary to investigate how the choice of
-topology effects the SOM.  In this thesis the effect of irregularity within
-topologies is studied as an attempt to investigate not only the edge effect,
-but also to help facilitate the comparison of topologies.  It is important to
-note that spherical topologies may not be appropriate for all applications.
-Removing the edge may reduce the SOM's ability to converge.  As outliers are
-forced to interact they introduce more competition among the neurons.  We
-would also expect outliers to occupy more space in the final map as their
-dissimilarity in attribute space should translate to more distant spatial
-relationships in the trained SOM.  More research is needed to help researches
-determine the most appropriate topology for their data and research objectives.
-
 \cite{ritter99} first introduced the spherical SOM, and several enhancements have
 since been suggested \citep{boudjemai2003,sangole03,Nishio:2006fk,wu2006}.  A
 good comparison of these enhancements can be found in \cite{wu2006}.  All of
@@ -221,10 +229,26 @@ preferable for all neurons to have an equal number of neighbors and to be
 equally spaced.  They find generally that the tessellation method best satisfies
 these conditions, and specifically that the icosahedron is the best starting
 point \citep{wu2005}. Tessellation of the icosahedron results in a network of
-neurons, each of which having exactly six neighbors, save the original twelve
-which each have five neighbors.  This is very close to the ideal structure in which every
-neuron would have exactly six neighbors.  This structure has very low variances
-in both neuron spacing and neighborhood size. 
+neurons, each having exactly six neighbors, save the original twelve
+which each have five neighbors.  This is very close to the ideal structure in
+which every neuron would have exactly six neighbors.  \cite{wu2006} prefer
+these this structure, because it has very low variances in both neuron spacing
+and neighborhood size. 
+
+Based solely on measures of neuron spacing, \cite{wu2005} dismissed a method
+proposed by \cite{Rakhmanov94} for distributing points on a sphere.  Similarly
+\cite{Nishio:2006fk} use these variance measures to support their helix
+algorithm for distributing points on a sphere.  Table \ref{table1} shows that
+these metrics can be misleading and comparison across topologies may not be
+consistent.  The traditional rectangular and hexagonal topologies have no
+variance in neuron spacing, and the generally preferred hexagonal structure
+displays greater variance in neighborhood size than the rectangular structure.
+The torus, by comparison, would have variance in neuron spacing, yet no
+variance in neighborhood size.  The distance between two neurons is only
+considered during the formation of the neural network.  At this stage the
+spacing is significant as it plays a part in constructing the network's
+topology by determining neuron adjacency.  However, using this measure to
+evaluate potential topologies for use in SOM may be misleading.
 
 \begin{table}[htbp]
 \caption{Variances in Topologies}
@@ -243,20 +267,18 @@ Rakhmanov&162&0.15779 - 0.30069& 0.2908\\
 \label{table1}
 \end{table}
 
-Based solely on measures of neuron spacing, \cite{wu2005} dismissed a method
-proposed by \cite{Rakhmanov94} for distributing points on a sphere.  Similarly
-\cite{Nishio:2006fk} use these variance measures to support their helix
-algorithm for distributing points on a sphere.  Table \ref{table1} shows that
-these metrics can be misleading and comparison across topologies may not be
-consistent.  The traditional rectangular and hexagonal topologies have no
-variance in neuron spacing, and the generally preferred hexagonal structure
-displays greater variance in neighborhood size than the rectangular structure.
-The torus, by comparison, would have variance in neuron spacing, yet no
-variance in neighborhood size.  The distance between two neurons is only
-considered during the formation of the neural network.  At this stage the
-spacing is significant as it plays a part in constructing the network's
-topology by determining neuron adjacency.  However, using this measure to
-evaluate potential topologies for use in SOM may be misleading.
+As spherical (and other alternative) topologies become
+increasingly more common it is necessary to investigate how the choice of
+topology effects the SOM.  In this thesis the effect of irregularity within
+topologies is studied as an attempt to investigate not only the edge effect,
+but also to help facilitate the comparison of topologies.  It is important to
+note that spherical topologies may not be appropriate for all applications.
+Removing the edge may reduce the SOM's ability to converge.  As outliers are
+forced to interact they introduce more competition among the neurons.  We
+would also expect outliers to occupy more space in the final map as their
+dissimilarity in attribute space should translate to more distant spatial
+relationships in the trained SOM.  More research will be needed to help researches
+determine the most appropriate topology for their data and research objectives.
 
 \section{Network Size}
 The number of neurons used in the SOM is a decision the research must make and
@@ -267,21 +289,22 @@ high-dimensional datasets.  The literature offers little theoretical guidance
 on choosing an appropriate network size for a given dataset \citep{cho1996}.
 \cite{toolbox} suggests that the network size should be ``as big as
 possible,'' but also states that this becomes computational impractical for
-larger problems. As a general rule-of-thumb, the author suggests using a
+larger problems. As a general rule-of-thumb, \citeauthor{toolbox} suggests using a
 network size of \(5\sqrt {n}\), where \(n\) is the number of observations. The
-application for which this is most relevant is unclear.  
+application for which this network size would be most relevant is unclear.  
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=\linewidth]{networkSize.pdf}
 \caption{This figure demonstrates the achievable network size using various
-spherical topologies, in comparison with the traditional SOM. The Y-axis represents the achievable network size, the
-meaning of the X-axis is dependent on the topology. For the tessellation
-methods the X-axis represents the frequency of the tessellation. For the
-traditional Kohonen method the X-axis represents the size of both dimensions of
-the grid; for comparability the ratio between the dimensions was fixed at one
-($X_{dim}=Y_{dim}$).  For the \cite{Rakhmanov94} and \cite{Nishio:2006fk} methods the X-axis
-represents the exact network size.}
+spherical topologies, in comparison with the traditional SOM. The Y-axis
+represents the achievable network size, the meaning of the X-axis is dependent
+on the topology. For the tessellation methods the X-axis represents the
+frequency of the tessellation. For the traditional Kohonen method the X-axis
+represents the size of both dimensions of the grid; for comparability the
+ratio between the dimensions was fixed at one ($X_{dim}=Y_{dim}$).  For the
+\cite{Rakhmanov94} and \cite{Nishio:2006fk} methods the X-axis represents the
+exact network size.}
 \label{fig:nSize}
 \end{figure}
 
@@ -289,27 +312,24 @@ Given this lack of theoretical development, researchers should be cautious
 when using methods that limit the control of network size.  Having a high
 level of control over network size allows support for such very different SOM
 applications as clustering versus low-dimensional spatial layout.
-  Figure
-\ref{fig:nSize} shows how the achievable network size varies between
-topologies.
-
-In rectangular and hexagonal SOMs it is undesirable to have one dimension
+Figure \ref{fig:nSize} shows how the achievable network size varies between
+topologies.  In rectangular and hexagonal SOMs it is undesirable to have one dimension
 drastically larger than another, as such there are practical limitations to
 the size of these networks.  As an aside, the preferred ratio between these
 dimensions depends on the data being represented, and should generally not
-equal one \citep{kohonen1996, toolbox}.  In figure \ref{fig:nSize} we used a
+equal one \citep{kohonen1996, toolbox}.  In Figure \ref{fig:nSize} we used a
 ratio of one only for comparison purposes with the other topologies.
 \citeauthor{ritter99}'s tessellation method results in a network size that
 grows at a rate of \(N=2+10*4^f\), where $f$ is the frequency of tessellation.
 \cite{wu2006} offer a slight improvement. Rather than recursively subdividing
 the faces, they redivide the original icosahedron with each step, resulting in
 \(N=2+10*f^2\).  Methods for arranging an arbitrary number of points on a
-sphere provide a much higher degree of flexibility when choosing a network
+sphere provide the highest degree of flexibility when choosing a network
 size.  For example, the method proposed by \cite{Rakhmanov94} can
 distribute any number of points onto the surface of a sphere.  Strictly
-speaking this is not a topology in itself, as no connections are defined
-between the points.  In our implementation we create a spherical topology be
-applying Delaunay triangulation to these points \cite{Ranka97}.  We refer to
+speaking, this is not a topology in itself, as no connections are defined
+between the points. In our implementation we create a spherical topology be
+applying Delaunay triangulation to these points \citep{Ranka97}.  We refer to
 this topology simply as ``spherical''. Using \citeauthor{ritter99}'s method
 with a tessellation frequency of three, would result in 642 neurons, the next
 smallest size is 162 neurons.  The geodesic topology offers three additional
