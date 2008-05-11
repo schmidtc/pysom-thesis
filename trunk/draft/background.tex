@@ -11,47 +11,31 @@
 %Kohonen suggests that a fundamental hierarchy can be found the ``structured occupation and utilization of a uniform memory territory'' \cite[p. 102]{Kohonen2000}.
 \section{Self-Organizing Maps}
 \label{bg:som}
-The SOM is a type of artificial neural network developed by Teuvo Kohonen,
-which projects a high-dimensional input space onto a low-dimensional lattice,
-or map, of neurons.  Artificial neural networks are a broad class of
-mathematical or computational models that are conceptually based on biological
-neural networks.  Kohonen mimics the ``structured occupation and utilization
-of a uniform memory territory'' that is found in these networks.  He suggests
-that the geometric or spatial organization of information in these
-territories, or spaces, provides for a fundamental hierarchy. By creating and implanting a conceptual
-framework of these spaces and the process which organizes information within
-them, Kohonen is able to represent the similarities of high-dimension
-information as spatial 
+The SOM is a type of artificial neural network developed by Teuvo Kohonen.
+Artificial neural networks are a broad class of mathematical or computational models that are conceptually based on biological neural networks.
+%The SOM is often classifed as a data reduction technique as it projects a high-dimensional input space onto a low-dimensional lattice, or map, of neurons.
+%Kohonen mimics the ``structured occupation and utilization of a uniform memory territory'' that is found in these networks.
+%He suggests that the geometric or spatial organization of information in these territories, or spaces, provides for a fundamental hierarchy.
+%By creating and implanting a conceptual framework of these spaces and the process which organizes information within them,
+% Kohonen is able to represent the similarities of high-dimension information as spatial 
+%among input signals as relationships among samples from an input-space as 
+%and the process which organizes information within this territory \cite[p. 102]{Kohonen2000}.
+%In the SOM an input-space is organized onto a set of neurons through an unsupervised competitive learning process.
+The SOM consists of a set of neurons arranged on a structed network.
+An unsupervised competitive learning process is used to organize a high dimension input-space onto the neurons.
+The neurons are arranged in a structured network.  The tradiational network
+topologies are shown in figure \ref{topos}.  In the rectagular topology,
+figure \ref{topo:rook}, neurons are connected with four neighrbors each,
+except for those on the edges
 
-among input signals as 
-relationships among samples from an
-input-space as 
-
-
-
-
-and the process which organizes information within this territory
-\cite[p. 102]{Kohonen2000}.  In the SOM an input-space is organized onto a set
-of neurons through an unsupervised competitive learning process.  Neurons
-compete for input signals and winning neurons are updated to better model
-these signals. As the learning progresses similar input signals are attracted
-to similar areas of the network.
-
-
-
-The SOM follows from a
-conceptual understanding of the process which organizes information within this
-territory.  In the SOM an unsupervised competitive learning process is used to 
-organize a high dimension input-space onto a set of neurons. The neurons act
-as the uniform memory territory, which is structured by a network topology
-that defines the connections between these neurons.  The rectangular
-and hexagonal topologies shown in figure \ref{topos} are traditionally used
-for this purpose. The learning, or training, process organizes information
-onto this space by presenting input signals to the network.  The neurons
-compete for the input signals and winning neurons updated in order to model
-them.  As the learning progresses similar input signals are attracted to
-similar areas of the network, fulfilling the translation from \emph{data
-similarities} into \emph{spatial relationships}.
+The learning, or training, process organizes information onto this space by presenting input signals to the network.
+Neurons compete for input signals and winning neurons are updated to better model these signals.
+The neurons compete for the input signals and winning neurons updated in order to model them.
+%The SOM follows from a conceptual understanding of the process which organizes information within this territory.  
+The neurons act as the uniform memory territory, which is structured by a network topology that defines the connections between these neurons.
+The rectangular and hexagonal topologies shown in figure \ref{topos} are traditionally used for this purpose.
+As the learning progresses similar input signals are attracted to similar areas of the network.
+As the learning progresses similar input signals are attracted to similar areas of the network, fulfilling the translation from \emph{data similarities} into \emph{spatial relationships}.
 
 \begin{figure}
 \centering
