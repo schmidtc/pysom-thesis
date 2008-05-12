@@ -11,8 +11,8 @@ should be bidirectional.  The SOM offers a powerful method for exploring and
 visualizing geographic data and GIScience offers a wide array of tools
 and methods to enable the exploration of the SOM itself.  The exploration of
 spatial relationships has always been of great interest to geographers, and as
-\cite[p. 1]{ritter99} states, the goal of SOM is ``to translate \emph{data
-similarities} into \emph{spatial relationships}''.  This thesis leverages
+\cite{ritter99} states, the goal of SOM is ``to translate \emph{data
+similarities} into \emph{spatial relationships}'' \citep[p. 1]{ritter99}.  This thesis leverages
 GeoVisualization and GeoCompution in order to explore some of the basic
 properties of the SOM.
 
@@ -54,19 +54,19 @@ SOM.
 \section{Research Objectives}
 The objective of this research is to determine the utility of certain irregular
 spherical topologies beyond offering greater control over network size.  Toward
-that end, I develop and test new diagnostics to measure and visualize
+that end, we develop and test new diagnostics to measure and visualize
 topology-induced errors in SOM.  The following diagnostics are developed and
 implemented:
 
 \begin{enumerate}
-    	\item Compare the internal variance of observations captured by a given neuron to that neuron's first-order neighborhood size.
-	\item For different topologies, compare the internal variance of each neuron against a composite measure of topological regularity.
-	\item Develop a SOM-based visualization of the internal variance.
+    	\item Compare the internal heterogeneity of observations captured by a given neuron to that neuron's first-order neighborhood size.
+	\item For different topologies, compare the internal heterogeneity of each neuron against a composite measure of topological regularity.
+	\item Develop a SOM-based visualization of the internal heterogeneity.
 	%\item Develop a reverse quantization error visualization by mapping neurons back onto the input data.
 \end{enumerate}
 
 These diagnostics help facilitate the evaluation of both traditional and
-spherical SOMs.  To satisfy the objective of this research, I apply these
+spherical SOMs.  To satisfy the objective of this research, we apply these
 diagnostics to a series of comparable SOMs.  Each SOM is trained using the
 same synthetic data and training parameters, but utilize different network
 topologies.  By formally testing for difference of means and variance in the
@@ -75,7 +75,7 @@ results of the diagnostics, the following questions are addressed:
 %topologies.  By formally testing for statistical differences in the
 %results of the diagnostics the following questions will be addressed:
 \begin{enumerate}
-	\item Does the internal variance of a neuron decrease as its first-order neighborhood size, or degree, increases?
-	\item Is the average internal variance of a SOM higher when a more irregular topology is used?
-	\item Which insights, if any, can be gained from a SOM-based visualization of internal variance?
+	\item Does the internal heterogeneity of a neuron decrease as its first-order neighborhood size, or degree, increases?
+	\item Is the average internal heterogeneity of a SOM higher when a more irregular topology is used?
+	\item Which insights, if any, can be gained from a SOM-based visualization of internal heterogeneity?
 \end{enumerate}

@@ -1,5 +1,19 @@
 \chapter{BACKGROUND}
-%This chapter is divided into four sections.  The first provides a general
+This chapter is divided into six sections.  Section \ref{bg:som} introduces
+the SOM and some of its basic properties.  Next, section \ref{bg:train}
+discusses the training process which allows the SOM to represent our input
+data.  In section \ref{bg:topo} we explore the importance of topology in the
+SOM.  The following two sections, \ref{bg:edge} and \ref{bg:sphere}, expand on
+this discussion by introducing some potential problems and possible solutions
+found with the traditional topologies used in SOM. Specifically, section
+\ref{bg:edge} describes edge effects and section \ref{bg:sphere} describes the
+use of spherical topologies which attempt to overcome the edge effects.
+Finally, section \ref{bg:size} highlights the importance of the network size
+in SOM.
+
+
+
+%The first provides a general
 %introduction to the SOM algorithm and the problems created by using irregular
 %topology. The second reviews the current spherical topologies used with SOMs.
 %The third examines the flexibility of the various topologies with regard to
@@ -101,6 +115,7 @@ more information than traditional methods, such as ordered lists or scatter
 plots.
 
 \section{Training}
+\label{bg:train}
 % the number of neurons
 %and their spatial arrangement are determined before training the SOM.
 %An observation from the input space is represented as input vector, \(x\).
@@ -149,6 +164,7 @@ where, $t$ is the current training step.  The training process is repeated a
 predefined number of times, or ideally until the map converges.
 
 \section{Topology}
+\label{bg:topo}
 \citeauthor{wu2006} state that ``[f]or SOM, it is desirable to have all
 neurons receive equal geometrical treatment'' \cite[p. 900]{wu2006}.  To
 satisfy this constraint, two conditions must be met.  First, each neuron
@@ -171,7 +187,7 @@ graph, is simply a graph in which every node has the same number of neighbors
 are in terms of their connections to other neurons in the network. In network
 theory, nodes with more connections are thought to be more central to the network and have a
 larger influence than nodes with fewer connections. A simple measure for
-capturing this is degree centrality \cite{Wasserman:1994}.  The degree (number
+capturing this is degree centrality \citep{Wasserman:1994}.  The degree (number
 of adjacent neurons) is measured for each neuron in the network. The variance
 in these measurements tells how regular the network is, a perfectly regular
 topology should a variance equal to zero.  Other methods, such as closeness
@@ -179,6 +195,7 @@ centrality compare nodes based on their connectedness to every node in the
 network.
 
 \section{The Boundary Effect}
+\label{bg:edge}
 Traditionally the SOM is laid out on a two-dimensional plane using either a
 rectangular or hexagonal topology.  Both of these topologies are irregular,
 because neurons on the boundary of the network have fewer neighbors.  Neurons
@@ -222,6 +239,7 @@ more intuitive map, since we are accustomed to looking at geographic maps
 based on a sphere.  
 
 \section{Spherical SOM}
+\label{bg:sphere}
 \cite{ritter99} first introduced the spherical SOM, and several enhancements have
 since been suggested \citep{boudjemai2003,sangole03,Nishio:2006fk,wu2006}.  A
 good comparison of these enhancements can be found in \cite{wu2006}.  All of
@@ -284,6 +302,7 @@ relationships in the trained SOM.  More research will be needed to help research
 determine the most appropriate topology for their data and research objectives.
 
 \section{Network Size}
+\label{bg:size}
 The number of neurons used in the SOM is a decision the research must make and
 is both a function of the size of your dataset and the purpose for which the
 SOM is to be used.  Generally speaking fewer neurons would be used in a
@@ -298,16 +317,12 @@ application for which this network size would be most relevant is unclear.
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\linewidth]{networkSize.png}
+\includegraphics[width=\linewidth]{networkSize.pdf}
 \caption{This figure demonstrates the achievable network size using various
 spherical topologies, in comparison with the traditional SOM. The Y-axis
-represents the achievable network size, the meaning of the X-axis is dependent
-on the topology. For the tessellation methods the X-axis represents the
-frequency of the tessellation. For the traditional Kohonen method the X-axis
-represents the size of both dimensions of the grid; for comparability the
-ratio between the dimensions was fixed at one ($X_{dim}=Y_{dim}$).  For the
-\cite{Rakhmanov94} and \cite{Nishio:2006fk} methods the X-axis represents the
-exact network size.}
+represents the achievable network size, while the X-axis represents the
+smallest increase in grid size for each topology.}
+% frequency of the tessellation. For the traditional Kohonen method the X-axis represents the size of both dimensions of the grid; for comparability the ratio between the dimensions was fixed at one ($X_{dim}=Y_{dim}$).  For the \cite{Rakhmanov94} and \cite{Nishio:2006fk} methods the X-axis represents the exact network size.}
 \label{fig:nSize}
 \end{figure}
 
