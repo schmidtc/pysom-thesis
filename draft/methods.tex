@@ -1,8 +1,8 @@
 \chapter{METHODOLOGY}
 This chapter is composed of four sections.  Section \ref{meth:diag} describes
 three diagnostics developed for evaluating network topologies.  The
-diagnostics are applied to a series of trained SOMs.  Synthetic training data,
-as described in section \ref{meth:data}, is used as our training data.  The
+diagnostics are applied to a series of trained SOMs.  The SOMs are trained
+using synthetic data, as described in section \ref{meth:data}. The
 parameters of the training, section \ref{meth:train}, are consistent across
 each trained SOM. Finally, in section \ref{meth:som} we implement our own
 graph based implementation of SOM in order to test different topologies.
@@ -20,10 +20,10 @@ Hawaii to the neuron in $1.505$, but the QError from Utah to Hawaii is
 $3.014$. In this case only Utah and Hawaii were mapped to that neuron.  In a
 case where multiple observations land on the same neuron, it is possible to
 measure average pairwise QErrors between those observations.  This gives us a
-notion of internal heterogeneity \(IH\) for each neuron.  We define the
+notion of internal heterogeneity, \(H\), for each neuron.  We define the
 internal heterogeneity of neuron \(i\) as,
  \begin{equation}
-   {IH_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j+1}^{n_i} ||{x_{ij}}-{x_{ik}}||
+   {H_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j+1}^{n_i} ||{x_{ij}}-{x_{ik}}||
  \label{eqno1}
  \end{equation}
 where, \(n_i\) is the number of observations mapped to \(i\), and \(x_i\) are
@@ -58,10 +58,10 @@ have higher internal heterogeneity. Neurons on the edge of the traditional
 they have few neighbors then neurons inside the edge.  This can be extended to
 spherical SOMs by considering the degree of any given neuron.  The degree of a
 neuron $deg(m_i)$ measures the number of adjacent neurons.  If the
-relationship between $IH_i$ and $deg(m_i)$ is consistent across topologies,
+relationship between $H_i$ and $deg(m_i)$ is consistent across topologies,
 neurons with lower degrees should display higher internal heterogeneity.
 
-To implement this diagnostic we calculate the internal heterogeneity ($IH_i)$)
+To implement this diagnostic we calculate the internal heterogeneity ($H_i)$)
 and degree ($deg(m_i)$) of each neuron. The neurons are then separated into a small number of
 groups based on the degree.  For most topologies the number of
 different degrees will be limited to three or four.  The variance and mean
