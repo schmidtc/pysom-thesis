@@ -190,19 +190,19 @@ the sample size by combining the results of many SOMs.
 
 \section{Graph based implementation of SOM}
 \label{meth:som}
-The SOM can be represented in what \cite{kohonen1996} calls a codebook file.  The
-codebook file is a simple text file.  The first line describes topology type and
+The SOM can be represented in what \cite{kohonen1996} calls a codebook.  The
+codebook can be stored as a simple text file.  The first line describes topology type and
 other parameters of the SOM.  Each subsequent line lists the values for the
 parametric reference vectors, $m_i$, of the SOM's neurons.  The diagnostics
 above operate on these codebook files, a graph based representation of the
 topology, and the original training data.  \citeauthor{kohonen1996}'s
 implementation of SOM, SOM\_PAK, could easily be used to provide the necessary
 codebook files for the rectangular and hexagonal topologies.  However, 
-implementations of the geodesic and spherical SOMs were not available at the
-time this was written.
+implementations of the geodesic and spherical SOMs were not readily available at the
+time this thesis was written.
 
 In order to test these topologies we wrote our own implementation of SOM.  We
-create this implementation of SOM to be topology agnostic.  We built our
+created this implementation of SOM to be topology agnostic.  We built our
 neighborhood functions on top of an existing graph library.  This allows us to
 test any topology for which we can create a graph structure.  Apart from our
 neighborhood search functions, our implementation follows the original
@@ -215,8 +215,8 @@ rectangular and hexagonal topologies.  To create the graph structure for the
 geodesic topology we use the ``dome'' software package, which outputs the
 point coordinates in ``XYZ'' format for each neuron \citep{dome}.  These
 coordinates are fed into a modified version of the ``sxyz\_voronoi'' program,
-which outputs both the Voronoi cells and their complement the Delaunay
-triangulation \citep{Ranka97}.  The Delaunay triangulation provides the graph
+which computes both the Voronoi cells and their complement, the Delaunay
+triangulation, on the sphere\citep{Ranka97}.  The Delaunay triangulation provides the graph
 structure between the neurons of the geodesic SOM.  A similar process is used
 for the spherical topology. In this case we wrote a python implementation of
 the method for distributing points on a sphere that was introcuded by
