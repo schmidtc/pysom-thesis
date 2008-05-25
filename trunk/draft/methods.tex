@@ -1,5 +1,5 @@
 \chapter{METHODOLOGY}
-This chapter is composed of three sections.  Section \ref{meth:diag} describes
+This chapter is composed of four sections.  Section \ref{meth:diag} describes
 three diagnostics developed for evaluating network topologies.  The
 diagnostics are applied to a series of trained SOMs.  Synthetic training data,
 as described in section \ref{meth:data}, is used as our training data.  The
@@ -9,9 +9,19 @@ graph based implementation of SOM in order to test different topologies.
 
 \section{Diagnostics}
 \label{meth:diag}
-Three diagnostics are developed to explore the effect of irregular topology on
-spherical SOM.  All three build on the idea of an internal heterogeneity,
-\(IH\). We define the internal heterogeneity of neuron \(i\) as,
+
+In traditional SOMs, outlying observations are pushed to the edge of the map
+where they encounter fewer competing signals.  A prime example of this is the
+``Utah-Hawaii'' case shown in Figure \ref{som:states}.  Relying only on the
+SOM, one would be left to believe that the two states are similar.  Recalling
+that the QError measures the distance between two vectors in attribute space,
+we see that the QError from Utah to the neuron is $1.509$, the QError from
+Hawaii to the neuron in $1.505$, but the QError from Utah to Hawaii is
+$3.014$. In this case only Utah and Hawaii were mapped to that neuron.  In a
+case where multiple observations land on the same neuron, it is possible to
+measure average pairwise QErrors between those observations.  This gives us a
+notion of internal heterogeneity \(IH\) for each neuron.  We define the
+internal heterogeneity of neuron \(i\) as,
  \begin{equation}
    {IH_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j+1}^{n_i} ||{x_{ij}}-{x_{ik}}||
  \label{eqno1}
@@ -20,40 +30,42 @@ where, \(n_i\) is the number of observations mapped to \(i\), and \(x_i\) are
 the input vectors mapped to \(i\).  For any neuron that captures more then one
 observation, this measure tells how dissimilar those observations are.
 
-The first diagnostic will be used to address the research question regarding
-the internal heterogeneity and neighborhood size.  The second diagnostic will
-address the question concerning internal heterogeneity and topological
-irregularity.  The third tool will help visualize the patterns between
-internal heterogeneity and topology.
+The edge effects in SOM make it clear that the compression of the input-space is
+not uniform through out the map.  While outliers being pushed to the edge of
+the SOM is not necessarily an undesirable outcome, it is important understand
+when and where information is being compressed.  This variable compression of
+the input-space is what allows the SOM to represent high-dimensional data, but
+it can also mislead the viewer.  Observing the internal heterogeneity of
+neurons map shed light on the patterns of compression.
+
+More specifically we have developed diagnostics that try to explain how the
+topology of the SOM effects this compression.  We compare the internal
+heterogeneity at the scale of the neuron and the overall map.  Each diagnostic
+was designed to answer a specific research question.  The first diagnostic
+addresses the research question regarding the internal heterogeneity and
+neighborhood size.  The second diagnostic addresses the question concerning
+internal heterogeneity and topological irregularity.  The third helps
+visualize the patterns between internal heterogeneity; the usefulness of which
+is examined in the next chapter.
 
 \subsection{Internal heterogeneity vs. first-order neighborhood size}
 \label{q1}
-This diagnostic will compare the internal heterogeneity of each neuron against its
-first-order neighborhood size.  In traditional SOMs, outlying observations are
-pushed to the edge of the map where they encounter fewer competing signals. A
-prime example of this is the ``Utah-Hawaii'' case shown in Figure
-\ref{som:states}.  Relying only on the SOM, one would be left to believe that the
-two states are similar.  Recalling that the QError measures the distance
-between two vectors in attribute space, we see that the
-QError from Utah to the neuron is $1.509$, the QError from Hawaii to
-the neuron in $1.505$, but the QError from Utah to Hawaii is $3.014$. In this
-case only Utah and Hawaii were mapped to that neuron.  In a case where
-multiple observations land on the same neuron, it is possible to measure
-average pairwise QErrors between those observations.  This gives us a notion
-of internal heterogeneity for each neuron. It would be expected that in traditional
-SOMs neurons closer to the edge, those with fewer neighbors, will have higher internal heterogeneity. This can
-be extended to spherical SOMs by comparing the degree of a neuron ($deg(m_i)$
-or the number of adjacent neurons) to its internal heterogeneity.  If the
-relationship is directly related to the number of neighbors, neurons with lower
-degrees in spherical SOMs should display higher internal heterogeneity.  The degree of
-each neuron can easily be calculated by taking the column sums of the
-first-order adjacency matrix ($A$).
+This diagnostic compares the internal heterogeneity of each neuron against
+then neuron's first-order neighborhood size.  It would be expected that in
+traditional SOMs neurons closer to the edge, those with fewer neighbors, will
+have higher internal heterogeneity. Neurons on the edge of the traditional
+(rectangular and hexagonal) topologies are considered more irregular, because
+they have few neighbors then neurons inside the edge.  This can be extended to
+spherical SOMs by considering the degree of any given neuron.  The degree of a
+neuron $deg(m_i)$ measures the number of adjacent neurons.  If the
+relationship between $IH_i$ and $deg(m_i)$ is consistent across topologies,
+neurons with lower degrees should display higher internal heterogeneity.
 
-Once the internal heterogeneity ($IH_i)$) and degree ($deg(m_i)$) of each neuron
-have been calculated, the neurons can be separated into a small number of
+To implement this diagnostic we calculate the internal heterogeneity ($IH_i)$)
+and degree ($deg(m_i)$) of each neuron. The neurons are then separated into a small number of
 groups based on the degree.  For most topologies the number of
 different degrees will be limited to three or four.  The variance and mean
-will be calculated for each of these groups.  The expected result is that
+is calculated for each of these groups.  The expected result is that
 variances and means of the groups will decrease as the degree increases.  This
 hypothesis is tested using random labeling as described by \cite{siss2004}.
 In random labeling, we randomly assign our calculated $IH$ values to the
@@ -66,11 +78,26 @@ properties of a distribution.  The diagram shows the mean, first and second
 standard deviations, and outliers that extend beyond the second deviation.
 
 \subsection{Internal heterogeneity vs. topological regularity}
-This diagnostic will compare the internal heterogeneity of each neuron against a
+The degree of a node on a network is a measure of its centrality, or
+importance. Nodes with more connections are thought to be more central to the
+network and have a larger influence than nodes with fewer connections. As an
+artifact of the training process observations that are more average than
+others tend to be centralized.  The observations that surround them tend to be
+more extreme.  If you refer back to figure \ref{som:states}, you'll notice
+that observations with smaller symbols are closer to the mean of all the
+observations and that these observations have been centralized in the network.
+Using the degree as a measure of centrality does not capture this picture
+well, as neurons near the edge can still have a large degree.  A way to
+capture this effect would be to look at closeness centrality, which is the
+inverse of the average distance of a neuron to every other neuron on the
+network.
+
+
+This diagnostic compares the internal heterogeneity of each neuron against a
 measure of regularity for its associated topology.  As mentioned above the
-degree of each neuron can be calculated by taking the column sums of $A$.  A
-completely regular network topology (i.e. the torus) will have no variance
-between these column sums.  For irregular networks the variance between these
+degree of each neuron measures the number adjacent neighbors.  A
+completely regular network topology (i.e. the torus) has no variance
+between these measures.  For irregular networks the variance between these
 column sums gives us a measure of irregularity. There are many alternative
 ways to classify the connectivity of a network; \cite{florax95} outline four
 such summary measures.  For each topology we can compare the internal
