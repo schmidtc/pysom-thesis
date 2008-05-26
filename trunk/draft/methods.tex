@@ -1,17 +1,17 @@
 \chapter{METHODOLOGY}
 This chapter is composed of four sections.
 Section \ref{meth:som} describes PySOM, our own graph based implementation of
-SOM. PySOM provides the neccesry inputs to our three diagnostics as described
+SOM. PySOM provides the necessary inputs to our three diagnostics as described
 in section \ref{meth:diag}.  These diagnostics were developed to help
-understand how irregularites in topology effect the SOM. To use these
-diagnostics we must trained several SOMs with compariable training data and
+understand how irregularities in topology effect the SOM. To use these
+diagnostics we must train several SOMs with comparable training data and
 parameters.  The specifics of our training data are explained in section
 \ref{meth:data}.  Section \ref{meth:train} describes the training parameters used
-accross all our SOMs.
+across all our SOMs.
 
 \section{Graph based implementation of SOM}
 \label{meth:som}
-The most widely available implementation of SOM is \citeauthor{kohonen1996}'s
+The most widely available implementation of SOM is Kohonen's
 own SOM\_PAK \citep{kohonen1996}.  SOM\_PAK implements both the traditional
 rectangular and hexagonal topologies.  However, implementations of the
 geodesic and spherical SOMs were not readily available at the time this thesis
@@ -19,7 +19,7 @@ was written.  In order to test these topologies it was necessary to implement
 our own version of SOM, PySOM.  Because the goal of this thesis was to study
 different topologies for use in SOM, we created PySOM to be topology agnostic.
 That is, our implementation is not explicitly aware of the topology.  Rather, we
-represent the topology of the SOM as graph. The graph provides the necessary
+represent the topology of the SOM as a graph. The graph provides the necessary
 information to determine neuron adjacency and construct neighborhoods.  The
 nodes in the graph are pointers to the reference vectors ($m_i$).
 
@@ -33,7 +33,7 @@ allows all of its functionality to be accessed programmatically. %spell checked 
 
 By abstracting the topology, PySOM can train a SOM using any topology for
 which a graph structure can be created. We leverage an existing graph library,
-``NetworkX'', to represent our topologies \citep{networkx}.  Our neighborhood
+NetworkX, to represent our topologies \citep{networkx}.  Our neighborhood
 functions are built on top of this library.  Apart from our neighborhood
 search functions, our implementation follows the original incremental SOM
 algorithm that is described by \cite{Kohonen2000}.  We store our trained SOM
@@ -50,22 +50,21 @@ We provide utility functions to create the graph structures for both the
 rectangular and hexagonal topologies.  To create the graph structure for the
 geodesic topology we use the ``dome'' software package, which outputs the
 point coordinates in ``XYZ'' format for each neuron \citep{dome}.  These
-coordinates are fed into the ``sxyz\_voronoi'' program,
-which computes both the Voronoi cells and their complement, the Delaunay
-triangulation, on the sphere\citep{Ranka97}.  The Delaunay triangulation provides the graph
+coordinates are fed into the STRIPACK software program. STRIPACK computes both
+the Voronoi cells and their complement, the Delaunay triangulation, on the
+surface of the sphere \citep{Ranka97}.  The Delaunay triangulation provides the graph
 structure between the neurons of the geodesic SOM.  A similar process is used
 for the spherical topology. In this case we wrote a python implementation of
-the method for distributing points on a sphere that was introcuded by
-\cite{Rakhmanov94}.  Once again the locations are fed into ``sxyz\_voronoi''.
-An additional utility program reads the output from ``sxyz\_voronoi'' and
-creates the ``NetworkX'' graph structure.  PySOM has not direct graphical
-output, however serveral utility functions are provided to assist in the
-create of visualizations.  These functions create files that a compatible with
-popular GIS software, namely ArcGIS.
+the method for distributing points on a sphere that was introduced by
+\cite{Rakhmanov94}.  Once again the coordinates are fed into STRIPACK.
+An additional utility program reads the output from STRIPACK and
+creates the NetworkX graph structure.  PySOM has no direct graphical
+output, however several utility functions are provided to assist in the
+create of visualizations.  These functions create files that are compatible with
+popular GIS software packages, namely ESRI's ArcGIS.
 
 \section{Diagnostics}
 \label{meth:diag}
-
 In traditional SOMs, outlying observations are pushed to the edge of the map
 where they encounter fewer competing signals.  A prime example of this is the
 ``Utah-Hawaii'' case shown in Figure \ref{som:states}.  Relying only on the
@@ -75,7 +74,7 @@ we see that the QError from Utah to the neuron is $1.509$, the QError from
 Hawaii to the neuron in $1.505$, but the QError from Utah to Hawaii is
 $3.014$. In this case only Utah and Hawaii were mapped to that neuron.  In a
 case where multiple observations land on the same neuron, it is possible to
-measure average pairwise QErrors between those observations.  This gives us a
+measure the average pairwise QErrors between those observations.  This gives us a
 notion of internal heterogeneity, \(H\), for each neuron.  We define the
 internal heterogeneity of neuron \(i\) as,
  \begin{equation}
@@ -87,14 +86,14 @@ the input vectors mapped to \(i\).  For any neuron that captures more then one
 observation, this measure tells how dissimilar those observations are.
 
 The edge effects in SOM make it clear that the compression of the input-space is
-not uniform through out the map.  While outliers being pushed to the edge of
+not uniform through out a trained map.  While outliers being pushed to the edge of
 the SOM is not necessarily an undesirable outcome, it is important understand
 when and where information is being compressed.  This variable compression of
 the input-space is what allows the SOM to represent high-dimensional data, but
 it can also mislead the viewer.  Observing the internal heterogeneity of
-neurons map shed light on the patterns of compression.  
+neurons may shed light on the patterns of compression.  
 
-More specifically we have developed diagnostics that explore how irregularites
+More specifically we have developed diagnostics that explore how irregularities
 in the topology of the SOM effect this internal heterogeneity.  We compare the
 internal heterogeneity at the scale of the neuron and the overall map.  Each
 diagnostic was designed to answer a specific research question.  The first
@@ -117,7 +116,7 @@ neuron $deg(m_i)$ measures the number of adjacent neurons.  If the
 relationship between $H_i$ and $deg(m_i)$ is consistent across topologies,
 neurons with lower degrees should display higher internal heterogeneity.
 
-To implement this diagnostic we calculate the internal heterogeneity ($H_i)$)
+To implement this diagnostic we calculate the internal heterogeneity ($H_i$)
 and degree ($deg(m_i)$) of each neuron. The neurons are then separated into a small number of
 groups based on the degree.  For most topologies the number of
 different degrees will be limited to three or four.  The variance and mean
@@ -127,7 +126,7 @@ hypothesis is tested using random labeling as described by \cite{siss2004}.
 In random labeling, we randomly assign our calculated $H$ values to the
 neurons and recompute the mean and variance of the groups.  We do this many times,
 9999 in our case, in order to approximate the true distribution. Finally we
-calculate a pseudo p-value by comparing our observed mean and variance values
+calculate pseudo p-values by comparing our observed mean and variance values
 with the simulated distributions.  The results are also visualized using
 box-and-whisker diagrams. Box-and-whisker diagrams, or box plots, show the
 properties of a distribution.  The diagram shows the mean, first and second
@@ -144,7 +143,7 @@ the sample size by combining the results of many SOMs.
 \subsection{Internal heterogeneity vs. topological regularity}
 This diagnostic compares the internal heterogeneity of each neuron against a
 measure of regularity for its associated topology.  As mentioned above the
-degree of each neuron measures the number adjacent neighbors.  A completely
+degree of each neuron measures the number of adjacent neighbors.  A completely
 regular network topology (i.e. the torus) has no variance between these
 measures.  For irregular networks the variance between these degrees gives us
 a measure of irregularity. This particular measure is known as degree
@@ -168,23 +167,24 @@ network.
 
 Closeness centrality provides a more complete measure of connectedness in a
 given topology than degree centrality.  In this diagnostic we compare the
-internal heterogeneity of the neurons against the closeness centrality of
-their respective topologies.  This results in one group of $H$ measurements for
-each topology tested.  We evaluated this diagnostic in much the same way as
-the last.  We compare the variances and means of each group, testing with
-differences with random labeling.  It is expected that the distribution of internal
-heterogeneity will be narrower for groups trained on more regular topologies.
-It is further hypothesized that the mean of internal heterogeneity will
-decrease when the network is more regular.  In addition to testing these
-assumptions with random labeling we visualize the results with box plots.
+internal heterogeneity of the neurons against the average closeness centrality
+of their respective topologies.  This results in one group of internal
+heterogeneity measurements for each topology tested.  We evaluated this
+diagnostic in much the same way as the last.  We compare the variances and
+means of each group, testing for differences with random labeling.  It is
+expected that the distribution of internal heterogeneity will be narrower for
+groups trained on more regular topologies.  It is further hypothesized that
+the mean of internal heterogeneity will decrease when the network is more
+regular.  In addition to testing these assumptions with random labeling we
+visualize the results with box plots.
 
 \subsection{Visualize internal heterogeneity mapping}
 Visualizing the internal heterogeneity may yield insight into how irregular topology
 effects the SOM.  Creating these visualization for many different topologies
 however, offers a number of challenges.  While the rectangular and hexagonal
 topologies are rather straight forward to visualize, the spherical and geodesic
-topologies were significantly more involved.  In order to leverage the utility
-of existing GIS software we needed to represent our topologies in a form that
+topologies are significantly more involved.  In order to leverage the utility
+of existing GIS software we represent our topologies in a form that
 these software packages understand.  Toward that end we create polygon layers
 in which each polygon represents a neuron.  Shared borders represent
 connections between neurons.  Creating the polygons for these topologies
@@ -194,17 +194,17 @@ sphere.  This is done using STRIPACK, a software program created by
 in GIS, modern GIS software packages have their roots in CAD software. As such
 they all assume Cartesian distances and thus can not handle polygons that
 cross the $180^{th}$ meridian.  To accommodate this we split each polygon at
-the $180^{th}$ meridian and redrew it as two parts.
+the $180^{th}$ meridian and redraw it as two parts.
 
-Once the GIS layer have been created and the internal heterogeneity of each
+Once the GIS layers have been created and the internal heterogeneity of each
 neuron has been calculated, a number visualizations become possible. We
 visualize the internal heterogeneity by shading the corresponding polygons.
-These visualizations all for the exploration of patterns in internal
+These visualizations allow for the exploration of patterns in internal
 heterogeneity with relation to the underlaying topology.  Further we can
 visualize the component planes, which show how the higher dimensions are
-represent in the SOM.  We also map our synthetic data back onto the SOM in
+represented in the various SOMs.  We also map our synthetic data back onto the SOM in
 order to calculate cluster membership of the neurons.  Visualizing cluster
-membership clear shows how well the various topologies perform.
+membership clearly shows how the various topologies perform clustering.
 
 
 \section{Data}
@@ -224,7 +224,7 @@ ensure that we can calculate an internal heterogeneity for as many neurons as
 possible, we create approximately $25,000$ observations in each dataset.  As
 described in the next section, our SOMs have either 642 or 644 neurons
 (depending on the topology).  Having a large number of observation relative to
-the number of neurons will force the SOM to preform clustering, increasing
+the number of neurons will force the SOM to preform clustering, increasing the
 number of neurons for which the internal heterogeneity can be computed.
 
 
