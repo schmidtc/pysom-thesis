@@ -1,10 +1,10 @@
 \chapter{RESULTS AND DISCUSSION}
 This chapter applies our three diagnostics to the trained SOMs.  Section
-\ref{rdq1} discusses the application of the first diagnostic, which looks at how internal variance
+\ref{rdq1} discusses the application of the first diagnostic, which looks at how internal heterogeneity
 changes with a neuron's first order neighborhood size, or degree.  In section
 \ref{rdq2} the second diagnostic, which compares the mean
-internal variance across topologies, is applied.  Finally, section \ref{rdq3} applies the
-third diagnostic, which visualizes the internal variance of each SOM.
+internal heterogeneity across topologies, is applied.  Finally, section \ref{rdq3} applies the
+third diagnostic, which visualizes the internal heterogeneity of each SOM.
 
 %The first diagnostic yields a set of results for each topology tested.  These results will be analyzed in order to address the first research question of this thesis.  The second diagnostic combines the results from each topology in order to address the second research question.  The final diagnostic will return a visualization for each topology tested.  The usefulness of these visualizations is a research question in itself.  The expectation is that the visualizations will show patterns of internal variance related to irregularities in the network topology.
 \section{Data}
@@ -22,7 +22,7 @@ forty measurements.
 
 \begin{table}[hbt]
 \centering
-\caption{Mean internal variance for each simulation, by topology.}
+\caption{Mean internal heterogeneity for each simulation, by topology.}
 \label{ivtable3}
 \begin{tabular}{|c||c|c|c|c|}
 \hline
@@ -45,23 +45,23 @@ forty measurements.
 \hline
 \end{tabular} \end{table}
 
-\section{Internal variance vs. first-order neighborhood size}
+\section{Internal heterogeneity vs. first-order neighborhood size}
 \label{rdq1}
 The \emph{degree} is one measure of a neuron's centrality in a network. A
 neuron with a higher degree has higher network connectivity, and therefore is
 updated more frequently during the training process.  We hypothesized that
 outlying observations would migrate to less central neurons on the map, where
-they encounter less competition.  If this was true, we expect the internal variance
+they encounter less competition.  If this was true, we expect the internal heterogeneity
 as measured by equation \ref{eqno1} to increase at these locations,
 demonstrating that topological irregularity affects the placement of outliers
 in the SOM.  
 
-For each topology, the internal variance and degree of each neuron was
-calculated. We then grouped the internal variance measures by degree.  These groups are
+For each topology, the internal heterogeneity and degree of each neuron was
+calculated. We then grouped the internal heterogeneity measures by degree.  These groups are
 treated as representative samples from a larger distribution. Table \ref{meanvar1}
 shows the details of each sample, including its size, mean and variance. 
 The size is the number of observations for which we were able to calculate an
-internal variance. The mean and variance capture the centrality and
+internal heterogeneity. The mean and variance capture the centrality and
 dispersion of the samples.  We create a box-and-whisker diagram (box plot) for
 each sample, as shown in figure \ref{boxplot}, to visualize the samples
 summarized in table \ref{meanvar1}.
@@ -164,7 +164,7 @@ the spherical topology.
 }
 \caption{Box-and-whisker diagrams representing samples derived from forty
 trained SOMs.  The samples within each topology were created by grouping the
-internal variance of each neuron of a given degree size. The diagrams how the
+internal heterogeneity of each neuron of a given degree size. The diagrams how the
 centrality and dispersion of each sample.}
 \label{boxplot}
 \end{figure}
@@ -211,27 +211,13 @@ centrality and dispersion of each sample.}
 
 
 
-\section{Internal variance vs. centrality}
+\section{Internal heterogeneity vs. topological regularity}
 \label{rdq2}
-The degree of a node on a network is a measure of its centrality, or
-importance. Nodes with more connections are thought to be more central to
-the network and have a larger influence than nodes with fewer connections. As an
-artifact of the training process observations that are more average than
-others tend to be centralized.  The observations that surround them tend to be
-more extreme.  If you refer back to figure \ref{som:states}, you'll notice that
-observations with smaller symbols are closer to the mean of all the
-observations and that these observations have been centralized in the network.
-Using the degree as a measure of centrality does not capture this picture
-well, as neurons near the edge can still have a large degree.  A way to
-capture this effect would be to look at closeness centrality, which is the
-inverse of the average distance of a neuron to every other neuron on the
-network.
-
 Above we saw that changes in a neuron's degree was related to changes in
-internal variance in topologies with edges, but not in the two sphere-based
-topologies. The next step is to see if internal variance changes between
+internal heterogeneity in topologies with edges, but not in the two sphere-based
+topologies. The next step is to see if internal heterogeneity changes between
 topologies.  To do this we will first order our topologies by a summary
-measure of the network centrality.  For this diagnostic we use the average
+measure of the topological regularity.  For this diagnostic we use the average
 closeness centrality for each topology as the summary measure.  The summary
 measure and the sorting of our topologies is shown in table \ref{vardeg}.
 
@@ -261,11 +247,11 @@ differences were found in the variances; the difference in means are presented
 in table \ref{rlt:all}.  It was expected that the mean and variance of the
 samples would decrease for the more regular topologies.  These results
 generally support this hypothesis. We see that the rectangular topology has
-the highest mean internal variance and is the least regular as measured by
+the highest mean internal heterogeneity and is the least regular as measured by
 closeness centrality. The geodesic and spherical topologies are the most
-regular and have the lowest internal variance. These two groups display very
+regular and have the lowest internal heterogeneity. These two groups display very
 similar measures of closeness centrality and show no significant difference in
-mean internal variance.  This suggests that even though the spherical topology
+mean internal heterogeneity.  This suggests that even though the spherical topology
 is more irregular than the geodesic topology, similar levels of quality may be
 achieved.
 
@@ -289,7 +275,7 @@ achieved.
 
 
 
-\section{Visualization of internal variance}
+\section{Visualization of internal heterogeneity}
 \label{rdq3}
 In order to address our research questions we first created ten synthetic
 datasets.  Each dataset was created by sampling from the same data generating process
@@ -300,14 +286,14 @@ testing that was necessary to formally evaluate the results of our first two
 research questions.  In this section we verify that combining those
 simulations was appropriate by visualizing the similarities between them.
 In the remainder of this section we focus our efforts on comparing internal
-variance across
+heterogeneity across
 topologies.  Since we have seen that little variation exists between the ten
 simulations, we choose the first of those simulations for each topology and
 explore them in more depth.
 
 
 What information can be gained from visualizing the SOM and its
-internal variance. 
+internal heterogeneity. 
 
 In order to create these visualizations we used off-the-shelf GIS packages,
 namely ESRI's ArcGIS.  Two primary challenges had to be overcome. First, to
@@ -340,7 +326,7 @@ observations mapped to it.  Knowing which cluster each observation belongs to
 allows us to see where the clusters are being mapped to on the trained SOM. For a
 given neuron we classify it by the cluster it captured most frequently. 
 
-It is interesting to note that the edges of the cluster exhibit high internal variance.  
+It is interesting to note that the edges of the cluster exhibit high internal heterogeneity.  
 This is somewhat intuitive, as our clusters are normally distributed; the
 majority of our observations will fall well within the regions observed in
 figure \ref{cluster}. Each cluster's outliers will be pushed toward the
@@ -379,9 +365,9 @@ their cluster's region on the map are forced to interact with other neurons.
   \label{ten:geodesic}
   \includegraphics[width=0.5\linewidth]{geodesic_thesis_7c.png}
 }
-\caption{Internal variance mapping for each of the forty SOMs. Darker colors
-represent neurons that display larger internal variance. Neurons for which
-an internal variance could not be calculated are not displayed.}
+\caption{Internal heterogeneity mapping for each of the forty SOMs. Darker colors
+represent neurons that display larger internal heterogeneity. Neurons for which
+an internal heterogeneity could not be calculated are not displayed.}
 \label{ten}
 \end{minipage}
 \end{figure}
@@ -415,9 +401,9 @@ the original dimensions are represented in the trained SOMs.}
   \label{cluster:geodesic}
   \includegraphics[width=0.5\linewidth]{geodesic_clusters.png}
 }
-\caption{Detailed internal variance mapping for each topology. Darker colors
-represent neurons that display larger internal variance. Neurons for which
-an internal variance could not be calculated are not displayed. The numbers
+\caption{Detailed internal heterogeneity mapping for each topology. Darker colors
+represent neurons that display larger internal heterogeneity. Neurons for which
+an internal heterogeneity could not be calculated are not displayed. The numbers
 represent primary cluster mapped at that neuron.}
 \label{cluster}
 \end{minipage}
