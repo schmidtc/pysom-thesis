@@ -7,7 +7,7 @@ SOM.  The following two sections, \ref{bg:edge} and \ref{bg:sphere}, expand on
 this discussion by introducing some potential problems and possible solutions
 found with the traditional topologies used in SOM. Specifically, section
 \ref{bg:edge} describes edge effects and section \ref{bg:sphere} describes the
-use of spherical topologies which attempt to overcome the edge effects.
+use of spherical topologies which attempt to overcome these edge effects.
 Finally, section \ref{bg:size} highlights the importance of the network size
 in SOM.
 
@@ -199,14 +199,14 @@ network.
 Traditionally the SOM is laid out on a two-dimensional plane using either a
 rectangular or hexagonal topology.  Both of these topologies are irregular,
 because neurons on the boundary of the network have fewer neighbors.  Neurons
-located on the boundary have fewer neighbors and thus fewer chances of being
+with fewer neighbors have fewer chances of being
 updated \citep{wu2006}.  As observed in Figure \ref{som:states}, neurons in
 the center of the map tend to better represent the mean of the input-space.
 In this SOM we used the same data as \cite{skupin08} to map the fifty states
 and the District of Columbia onto a SOM trained with thirty-two population
 census variables. After training, we measured the distance between each
 neuron's model vector, $m_i$, and the mean of the input vectors, $\bar{x}$.
-Darker neurons have a relatively larger difference from the mean input-space,
+Darker neurons have a relatively larger difference from the mean of the input-space,
 while lighter neurons are relatively closer. We also measured the difference
 of each observation to the mean $\bar{x}$, these distances are represented by
 the size of the point symbols.  Larger symbols are farther from the mean. The
@@ -304,9 +304,9 @@ determine the most appropriate topology for their data and research objectives.
 \section{Network Size}
 \label{bg:size}
 The number of neurons used in the SOM is a decision the research must make and
-is both a function of the size of your dataset and the purpose for which the
+is both a function of the size of their dataset and the purpose for which the
 SOM is to be used.  Generally speaking fewer neurons would be used in a
-cluster application while larger SOMs are commonly used for visualizing
+clustering application while larger SOMs are commonly used for visualizing
 high-dimensional datasets.  The literature offers little theoretical guidance
 on choosing an appropriate network size for a given dataset \citep{cho1996}.
 \cite{toolbox} suggests that the network size should be ``as big as

@@ -7,6 +7,7 @@ thesis.pdf: ../bib/*.bib *.tex *.cls
 	( pdflatex thesis || rm -f thesis.pdf ) && \
 	bibtex thesis && \
 	( pdflatex thesis || rm -f thesis.pdf ) && \
+	( pdflatex thesis ) && \
 	( pdflatex thesis )
 
 clean:
