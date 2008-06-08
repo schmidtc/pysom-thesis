@@ -7,18 +7,19 @@ internal heterogeneity across topologies, is applied.  Finally, section \ref{rdq
 third diagnostic, which visualizes the internal heterogeneity of each SOM.
 
 %The first diagnostic yields a set of results for each topology tested.  These results will be analyzed in order to address the first research question of this thesis.  The second diagnostic combines the results from each topology in order to address the second research question.  The final diagnostic will return a visualization for each topology tested.  The usefulness of these visualizations is a research question in itself.  The expectation is that the visualizations will show patterns of internal variance related to irregularities in the network topology.
-\section{Data}
-Ten synthetic datasets are generated using the parameters described in section
-\ref{meth:data}.  The datasets are used to train SOMs for each topology
-resulting in forty trained SOMs. The mean internal heterogeneity of these SOMs
-is summarized in Table \ref{ivtable3}.  We find that the mean internal
-heterogeneity remains fairly stable, suggesting that the results of each
-simulation can be combined within a given topology.  For the rectangular
-topology, we now have forty neurons with a degree of two for which an internal
-heterogeneity can be calculated. It should be noted that we can only measure
-the internal heterogeneity when a neuron captures two or more observations
-from the training data.  Therefore, it is still possible to have less than
-forty measurements.
+\section{Training}
+%\section{Data}
+Before appling the diagnostics we must first train a series of SOMs.  The
+training is acomplished using our graph based implementation of SOM, PySOM.
+Using the ten synthetic datasets we train ten SOMs for each topology.  The
+mean internal heterogeneity of these SOMs is summarized in Table
+\ref{ivtable3}.  We find that the mean internal heterogeneity remains fairly
+stable, suggesting that the results of each simulation can be combined within
+a given topology.  For the rectangular topology, we now have forty neurons
+with a degree of two for which an internal heterogeneity can be calculated. It
+should be noted that we can only measure the internal heterogeneity when a
+neuron captures two or more observations from the training data.  Therefore,
+it is still possible to have less than forty measurements.
 
 \begin{table}[hbt]
 \centering
@@ -44,6 +45,16 @@ forty measurements.
 \textbf{Combined} & 0.0281 & 0.0281 & 0.0290 & 0.0294\\
 \hline
 \end{tabular} \end{table}
+
+We broke the training out over several machines of varying configurations.
+On the fastest of those machines the training one SOM took around eight
+hours.  In contrast SOM\_PAK takes only 90 seconds to train the hexagon SOM
+with the same training parameters.  This significant difference is largely do
+to differences in the underling data structures.  We traded speed for the
+ability to represent a SOM with any topology.  Differences between the Python
+and C programing languages may also account for significant difference in
+runtime.
+
 
 \section{Internal heterogeneity vs. first-order neighborhood size}
 \label{rdq1}
