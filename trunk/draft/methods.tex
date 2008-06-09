@@ -7,7 +7,7 @@ understand how irregularities in topology effect the SOM. To use these
 diagnostics we must train several SOMs with comparable training data and
 parameters.  The specifics of our training data are explained in section
 \ref{meth:data}.  Section \ref{meth:train} describes the training parameters used
-across all our SOMs.
+across all of our SOMs.
 
 \section{Graph based implementation of SOM}
 \label{meth:som}
@@ -17,7 +17,7 @@ rectangular and hexagonal topologies.  However, implementations of the
 geodesic and spherical SOMs were not readily available at the time this thesis
 was written.  In order to test these topologies it was necessary to implement
 our own version of SOM, PySOM.  Because the goal of this thesis was to study
-different topologies for use in SOM, we created PySOM to be topology agnostic.
+different topologies for use in SOM, we created PySOM to be topologically agnostic.
 That is, our implementation is not explicitly aware of the topology.  Rather, we
 represent the topology of the SOM as a graph. The graph provides the necessary
 information to determine neuron adjacency and construct neighborhoods.  The
@@ -30,6 +30,8 @@ scientific computing. PySOM is maintained as an open-source project is hopes
 of facilitating collaboration and further research.  In its present form
 PySOM has no user interface, however it is written as a Python library which
 allows all of its functionality to be accessed programmatically. %spell checked with google
+Python also provides an interactive interpreter which may be used to access
+PySOM in a command line environment.
 
 By abstracting the topology, PySOM can train a SOM using any topology for
 which a graph structure can be created. We leverage an existing graph library,
@@ -43,13 +45,13 @@ topology and other training parameters in the first line of the file.  Each
 subsequent line lists the values for the parametric reference vectors, $m_i$,
 of the SOM's neurons \citep{kohonen1996}. In addition to this codebook file we
 also store the graph as a serialized python object.  Creating the graph
-structures for the spherical topologies is considerable more complex and
+structures for the spherical topologies is considerably more complex and
 requires more computation than the traditional topologies.
 
 We provide utility functions to create the graph structures for both the
 rectangular and hexagonal topologies.  To create the graph structure for the
 geodesic topology we use the ``dome'' software package, which outputs the
-point coordinates in ``XYZ'' format for each neuron \citep{dome}.  These
+point coordinates in ``XYZ'' format for each node \citep{dome}.  These
 coordinates are fed into the STRIPACK software program. STRIPACK computes both
 the Voronoi cells and their complement, the Delaunay triangulation, on the
 surface of the sphere \citep{Ranka97}.  The Delaunay triangulation provides the graph
@@ -60,7 +62,7 @@ the method for distributing points on a sphere that was introduced by
 An additional utility program reads the output from STRIPACK and
 creates the NetworkX graph structure.  PySOM has no direct graphical
 output, however several utility functions are provided to assist in the
-create of visualizations.  These functions create files that are compatible with
+creation of visualizations.  These functions create files that are compatible with
 popular GIS software packages, namely ESRI's ArcGIS.
 
 \section{Diagnostics}
@@ -106,7 +108,7 @@ usefulness of which is examined in the next chapter.
 \subsection{Internal heterogeneity vs. first-order neighborhood size}
 \label{q1}
 This diagnostic compares the internal heterogeneity of each neuron against
-then neuron's first-order neighborhood size.  It would be expected that in
+the neuron's first-order neighborhood size.  It would be expected that in
 traditional SOMs neurons closer to the edge, those with fewer neighbors, will
 have higher internal heterogeneity. Neurons on the edge of the traditional
 (rectangular and hexagonal) topologies are considered more irregular, because
@@ -114,7 +116,7 @@ they have few neighbors then neurons inside the edge.  This can be extended to
 spherical SOMs by considering the degree of any given neuron.  The degree of a
 neuron $deg(m_i)$ measures the number of adjacent neurons.  If the
 relationship between $H_i$ and $deg(m_i)$ is consistent across topologies,
-neurons with lower degrees should display higher internal heterogeneity.
+we would expect neurons with lower degrees to display higher internal heterogeneity.
 
 To implement this diagnostic we calculate the internal heterogeneity ($H_i$)
 and degree ($deg(m_i)$) of each neuron. The neurons are then separated into a small number of
@@ -163,7 +165,7 @@ Using the degree as a measure of centrality does not capture this picture
 well, as neurons near the edge can still have a large degree.  A better way to
 capture this effect is to look at closeness centrality, which is the
 inverse of the average distance of a neuron to every other neuron on the
-network.
+network \citep{Wasserman:1994}.
 
 Closeness centrality provides a more complete measure of connectedness in a
 given topology than degree centrality.  In this diagnostic we compare the
@@ -175,8 +177,8 @@ means of each group, testing for differences with random labeling.  It is
 expected that the distribution of internal heterogeneity will be narrower for
 groups trained on more regular topologies.  It is further hypothesized that
 the mean of internal heterogeneity will decrease when the network is more
-regular.  In addition to testing these assumptions with random labeling we
-visualize the results with box plots.
+regular.  %In addition to testing these assumptions with random labeling we
+%visualize the results with box plots.
 
 \subsection{Visualize internal heterogeneity mapping}
 Visualizing the internal heterogeneity may yield insight into how irregular topology
@@ -266,7 +268,7 @@ heterogeneity of each to ensure that the results are comparable.
 
 
 
-\section{SOM Training}
+\section{Training Parameters}
 \label{meth:train}
 Before we can go on to address the research questions we need to train a
 series of SOMs.  We train SOMs using four different topologies:

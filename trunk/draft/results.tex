@@ -46,29 +46,54 @@ it is still possible to have less than forty measurements.
 \hline
 \end{tabular} \end{table}
 
-We broke the training out over several machines of varying configurations.
-On the fastest of those machines the training one SOM took around eight
-hours.  In contrast SOM\_PAK takes only 90 seconds to train the hexagon SOM
-with the same training parameters.  This significant difference is largely do
-to differences in the underling data structures.  We traded speed for the
-ability to represent a SOM with any topology.  Differences between the Python
-and C programing languages may also account for significant difference in
-runtime.
+We used several machines of varying configurations to train the forty
+different SOMS.  On the fastest of those machines the training one SOM took
+around forty-five (45) minutes.  In contrast SOM\_PAK takes only ninety (90)
+seconds to train the hexagon SOM with the same training parameters.  This
+significant difference is largely do to differences in the underling data
+structures.  We traded speed for the ability to represent a SOM with any
+topology.  Differences between the Python and C programing languages may also
+account for significant difference in runtime.
 
 
 \section{Internal heterogeneity vs. first-order neighborhood size}
 \label{rdq1}
-The \emph{degree} is one measure of a neuron's centrality in a network. A
-neuron with a higher degree has higher network connectivity, and therefore is
-updated more frequently during the training process.  We hypothesized that
-outlying observations would migrate to less central neurons on the map, where
-they encounter less competition.  If this was true, we expect the internal heterogeneity
+%The \emph{degree} is one measure of a neuron's centrality in a network. A
+%neuron with a higher degree has higher network connectivity, and therefore is
+%updated more frequently during the training process.
+We hypothesized that outlying observations would migrate to less central neurons on the map, where
+they encounter less competition.  We expected the internal heterogeneity
 as measured by equation \ref{eqno1} to increase at these locations,
 demonstrating that topological irregularity affects the placement of outliers
 in the SOM.  
 
-For each topology, the internal heterogeneity and degree of each neuron was
-calculated. We then grouped the internal heterogeneity measures by degree.  These groups are
+\begin{table}[htb]
+\centering
+\scriptsize
+\begin{minipage}{\textwidth}
+\caption{Size, mean and variance of each sample}
+\label{meanvar1}
+\begin{tabular}{|c||cc|cc|cc|cc|}
+\hline
+\textbf{Degree} & \multicolumn{2}{c|}{\textbf{Geodesic}} &
+\multicolumn{2}{c|}{\textbf{Spherical}} &
+\multicolumn{2}{c|}{\textbf{Hexagonal}} &
+\multicolumn{2}{c|}{\textbf{Rectangular}} \\
+\hline
+& N & Mean (Var) & N & Mean (Var) & N & Mean (Var) & N & Mean (Var) \\
+\hline
+2&&&&& 20& 0.0409 (5.66E-06)& 40& 0.0378 (7.59E-06)\\ 
+3&&&&& 218& 0.0371 (2.18E-05)& 880& 0.0348 (3.59E-05)\\ 
+4&&&&& 489& 0.0347 (4.05E-05)& 4926& 0.0284 (6.28E-05)\\ 
+5& 113& 0.0283 (5.28E-05)& 526& 0.0279 (6.43E-05)& 206& 0.0319 (3.50E-05)&&\\ 
+6& 5598& 0.0281 (6.05E-05)& 4758& 0.0282 (6.05E-05)& 4954& 0.0278
+(6.09E-05)&&\\ 
+7&&& 417& 0.0273 (6.65E-05)&&&&\\ 
+\hline
+\end{tabular} \end{minipage} \end{table}
+
+For each topology, we calculated the internal heterogeneity and degree of
+all the neurons.  We then grouped the internal heterogeneity measures by degree.  These groups are
 treated as representative samples from a larger distribution. Table \ref{meanvar1}
 shows the details of each sample, including its size, mean and variance. 
 The size is the number of observations for which we were able to calculate an
@@ -76,6 +101,31 @@ internal heterogeneity. The mean and variance capture the centrality and
 dispersion of the samples.  We create a box-and-whisker diagram (box plot) for
 each sample, as shown in figure \ref{boxplot}, to visualize the samples
 summarized in table \ref{meanvar1}.
+
+\begin{figure}[htb]
+\centering
+\subfigure[Rectangular Topology]{
+  \label{boxplot:rook}
+  \includegraphics[width=.45\linewidth]{rook_iv_box.png}
+}
+\subfigure[Hexagonal Topology]{
+  \label{boxplot:hex}
+  \includegraphics[width=.45\linewidth]{hex_iv_box.png}
+}
+\subfigure[Spherical Topology]{
+  \label{boxplot:graph}
+  \includegraphics[width=.45\linewidth]{graph_iv_box.png}
+}
+\subfigure[Geodesic Sphere Topology]{
+  \label{boxplot:geodesic}
+  \includegraphics[width=.45\linewidth]{geodesic_iv_box.png}
+}
+\caption{Box-and-whisker diagrams representing samples derived from forty
+trained SOMs.  The samples within each topology were created by grouping the
+internal heterogeneity of each neuron of a given degree size. The diagrams how the
+centrality and dispersion of each sample.}
+\label{boxplot}
+\end{figure}
 
 We see that the means of the samples seem to respond as expected for the
 rectangular and hexagonal, or ``flat,''  topologies, but not in the spherical
@@ -155,71 +205,19 @@ were significantly different.  In those topologies, the only significant
 difference in means was between the sample with degree size six and seven in
 the spherical topology.
 
-\begin{figure}
-\centering
-\subfigure[Rectangular Topology]{
-  \label{boxplot:rook}
-  \includegraphics[width=.45\linewidth]{rook_iv_box.png}
-}
-\subfigure[Hexagonal Topology]{
-  \label{boxplot:hex}
-  \includegraphics[width=.45\linewidth]{hex_iv_box.png}
-}
-\subfigure[Spherical Topology]{
-  \label{boxplot:graph}
-  \includegraphics[width=.45\linewidth]{graph_iv_box.png}
-}
-\subfigure[Geodesic Sphere Topology]{
-  \label{boxplot:geodesic}
-  \includegraphics[width=.45\linewidth]{geodesic_iv_box.png}
-}
-\caption{Box-and-whisker diagrams representing samples derived from forty
-trained SOMs.  The samples within each topology were created by grouping the
-internal heterogeneity of each neuron of a given degree size. The diagrams how the
-centrality and dispersion of each sample.}
-\label{boxplot}
-\end{figure}
-
 %I suspect a better measure would be to use the minimum number of steps for a
 %given nueron to reach every other neuron on the network.  This would vary
 %significantly on the rook and hexagon topolgoies, but not very much in the
 %spherical topologies.
 
 %\begin{landscape}
-\begin{table}
-\centering
-\scriptsize
-\begin{minipage}{\textwidth}
-\caption{Size, mean and variance of each sample}
-\label{meanvar1}
-\begin{tabular}{|c||cc|cc|cc|cc|}
-\hline
-\textbf{Degree} & \multicolumn{2}{c|}{\textbf{Geodesic}} &
-\multicolumn{2}{c|}{\textbf{Spherical}} &
-\multicolumn{2}{c|}{\textbf{Hexagonal}} &
-\multicolumn{2}{c|}{\textbf{Rectangular}} \\
-\hline
-& N & Mean (Var) & N & Mean (Var) & N & Mean (Var) & N & Mean (Var) \\
-\hline
-2&&&&& 20& 0.0409 (5.66E-06)& 40& 0.0378 (7.59E-06)\\ 
-3&&&&& 218& 0.0371 (2.18E-05)& 880& 0.0348 (3.59E-05)\\ 
-4&&&&& 489& 0.0347 (4.05E-05)& 4926& 0.0284 (6.28E-05)\\ 
-5& 113& 0.0283 (5.28E-05)& 526& 0.0279 (6.43E-05)& 206& 0.0319 (3.50E-05)&&\\ 
-6& 5598& 0.0281 (6.05E-05)& 4758& 0.0282 (6.05E-05)& 4954& 0.0278
-(6.09E-05)&&\\ 
-7&&& 417& 0.0273 (6.65E-05)&&&&\\ 
-\hline
-\end{tabular} \end{minipage} \end{table}
 %\end{landscape}
-
-
 
 %\subsection{Restate the Questions}
 %\textbf{Objective}, Compare the internal variance of observations captured by a given
 %neuron to that neuron's first-order neighborhood size.
 %\textbf{Question}, Does the internal variance of a neuron decrease as its first-order
 %neighborhood size, or degree, increases?
-
 
 
 \section{Internal heterogeneity vs. topological regularity}
@@ -250,8 +248,10 @@ Spherical & 0.0906 & 0.0281 &0.0001\\
 \end{minipage}
 \end{table}
 
-In this diagnostic we group the samples from the previous section by topology.
-This results in one sample for each of the four topologies.  We test for a
+In this diagnostic we once again group the neurons of our trained SOMs. This
+time we group them based on their topology, collapsing the neurons of the
+forty SOMs into four groups.  Resulting in one sample for each of the four
+topologies.  We test for a
 difference in mean and variance between each sample using the same method of
 random labeling that was applied in the previous diagnostic.  No significant
 differences were found in the variances; the difference in means are presented
@@ -298,66 +298,23 @@ research questions.  In this section we verify that combining those
 simulations was appropriate by visualizing the similarities between them.
 In the remainder of this section we focus our efforts on comparing internal
 heterogeneity across
-topologies.  Since we have seen that little variation exists between the ten
-simulations, we choose the first of those simulations for each topology and
+topologies.  We see that little variation exists between the ten
+simulations, as such we choose the first of those simulations for each topology and
 explore them in more depth.
+%What information can be gained from visualizing the SOM and its internal heterogeneity. 
+%In order to create these visualizations we used off-the-shelf GIS packages,
+%namely ESRI's ArcGIS.  Two primary challenges had to be overcome. First, to
+%visualize the rectangular and hexagonal topologies we created polygons
+%centered over each neuron, however, the spherical and geodesic topologies were
+%slightly more complicated.  Creating the polygons for these topologies
+%required that we first compute the Voronoi diagram on the surface of the
+%sphere.  This is done using STRIPACK, a software program created by
+%\cite{Ranka97}.  Second, ArcGIS and other common GIS packages assume Cartesian
+%distances and thus can not handle polygons that cross the $180^{th}$ meridian.
+%To accommodate this we split each polygon at the $180^{th}$ meridian and
+%redrew it as two parts.
 
-
-What information can be gained from visualizing the SOM and its
-internal heterogeneity. 
-
-In order to create these visualizations we used off-the-shelf GIS packages,
-namely ESRI's ArcGIS.  Two primary challenges had to be overcome. First, to
-visualize the rectangular and hexagonal topologies we created polygons
-centered over each neuron, however, the spherical and geodesic topologies were
-slightly more complicated.  Creating the polygons for these topologies
-required that we first compute the Voronoi diagram on the surface of the
-sphere.  This is done using STRIPACK, a software program created by
-\cite{Ranka97}.  Second, ArcGIS and other common GIS packages assume Cartesian
-distances and thus can not handle polygons that cross the $180^{th}$ meridian.
-To accommodate this we split each polygon at the $180^{th}$ meridian and
-redrew it as two parts.
-
-As expected, figure \ref{ten} reveals little variation 
-between simulations of a given topology.  This homogeneity demonstrates that
-our ten synthetic datasets adequately increase our sample size without introducing bias.  
-Because of the apparent homogeneity between the simulations \emph{within} a
-given topology, we move on to compare the first simulation \emph{across} topologies.  
-Our synthetic training data consisted of seven clusters located in three
-dimensional space. We examine how the SOM treats the original data through a
-series of visualizations.  The component planes in figure \ref{cplanes} show
-how the SOM represents each dimension of the training data.  The variations we
-see in the placement of high and low values, between topologies, is caused by
-the random initialization of the SOM.  However, the relationships between the
-dimensions remain constant across topologies. 
-
-Figure \ref{cluster} shows how the SOM detected the clustering of the input
-data.  We compute the cluster each neuron represents by looking at the
-observations mapped to it.  Knowing which cluster each observation belongs to
-allows us to see where the clusters are being mapped to on the trained SOM. For a
-given neuron we classify it by the cluster it captured most frequently. 
-
-It is interesting to note that the edges of the cluster exhibit high internal heterogeneity.  
-This is somewhat intuitive, as our clusters are normally distributed; the
-majority of our observations will fall well within the regions observed in
-figure \ref{cluster}. Each cluster's outliers will be pushed toward the
-\emph{edges} of these regions. In the hexagonal and rectangular topologies,
-some of these cluster regions share an edge with the topology itself.  This
-allows their outlying observation to interact less with the interior neurons.
-In the spherical and geodesic topologies outliers that are pushed toward the edge of
-their cluster's region on the map are forced to interact with other neurons.
-
-%The particulars of synthetic dataset in combination with these visualizations
-%may raise questions about the suitability of sphere based SOMs in certain
-%applications.  Specifically, extreme observations in our dataset (those
-%furthest from the origin), may be well represented on the edge of the flat
-%topologies where there are furthest away from their counter parts in the other
-%extreme.  This may hold true in the spherical topologies as well if these
-%extreme observations are antipodal, in fact it might be even better
-%represented.
-
-
-\begin{figure}
+\begin{figure}[htb]
 \centering
 \begin{minipage}{\textwidth}
 \subfigure[Rectangular Topology]{
@@ -383,7 +340,20 @@ an internal heterogeneity could not be calculated are not displayed.}
 \end{minipage}
 \end{figure}
 
-\begin{figure}
+As expected, figure \ref{ten} reveals little variation 
+between simulations of a given topology.  This homogeneity demonstrates that
+our ten synthetic datasets adequately increase our sample size without introducing bias.  
+Because of the apparent homogeneity between the simulations \emph{within} a
+given topology, we move on to compare the first simulation \emph{across} topologies.  
+Our synthetic training data consisted of seven clusters located in three
+dimensional space. We examine how the SOM treats the original data through a
+series of visualizations.  The component planes in figure \ref{cplanes} show
+how the SOM represents each dimension of the training data.  The variations we
+see in the placement of high and low values, between topologies, is caused by
+the random initialization of the SOM.  However, the relationships between the
+dimensions remain constant across topologies. 
+
+\begin{figure}[htb]
 \begin{minipage}{\textwidth}
   \includegraphics[width=\linewidth]{cplanes.png}
   \caption{The first (A), second (B) and third (C) component planes are shown
@@ -393,7 +363,14 @@ the original dimensions are represented in the trained SOMs.}
 \end{minipage}\end{figure}
 
 
-\begin{figure}
+
+Figure \ref{cluster} shows how the SOM detected the clustering of the input
+data.  We compute the cluster each neuron represents by looking at the
+observations mapped to it.  Knowing which cluster each observation belongs to
+allows us to see where the clusters are being mapped to on the trained SOM. For a
+given neuron we classify it by the cluster it captured most frequently. 
+
+\begin{figure}[htb]
 \centering
 \begin{minipage}{\textwidth}
 \subfigure[Rectangular Topology]{
@@ -420,6 +397,33 @@ represent primary cluster mapped at that neuron.}
 \end{minipage}
 \end{figure}
 
+It is interesting to note that the edges of the cluster exhibit higher internal heterogeneity.  
+This is somewhat intuitive, as our clusters are normally distributed; the
+majority of our observations will fall well within the regions observed in
+figure \ref{cluster}. Each cluster's outliers will be pushed toward the
+\emph{edges} of these regions. An observation that is on the edge of a cluster
+in the original input-space is further away from the other observations in the
+input-space.  Therefore, one would expect that observation to also be near the
+edge of a cluster in the SOM space.  In order to represent a three dimensional
+cluster in two dimensions the SOM must compress the edges of the clusters
+more than their centers.  This explains the higher internal heterogeneity near
+the edges of the clusters. 
 
+%In the hexagonal and rectangular topologies,
+%some of these cluster regions share an edge with the topology itself.  This
+%allows their outlying observation to interact less with the interior neurons.
+%In the spherical and geodesic topologies outliers that are pushed toward the edge of
+%their cluster's region on the map are forced to interact with other neurons.
+%Our particular dataset consisted of seven cluster in the three dimensions.
+%Six of those clusters were centers at the extremes of each axis, as such a
+%topology which allows these extremes to be represent in two dimensions may be
+%more appropriate. 
 
-
+%The particulars of synthetic dataset in combination with these visualizations
+%may raise questions about the suitability of sphere based SOMs in certain
+%applications.  Specifically, extreme observations in our dataset (those
+%furthest from the origin), may be well represented on the edge of the flat
+%topologies where there are furthest away from their counter parts in the other
+%extreme.  This may hold true in the spherical topologies as well if these
+%extreme observations are antipodal, in fact it might be even better
+%represented.
