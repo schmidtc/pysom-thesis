@@ -110,7 +110,7 @@ familiar map-like form. The SOM's component planes capture the spatial layout
 of each dimension, these are often visualized in a series of maps.  These
 maps can provided useful information about the relationships between the
 different attributes of your input-space.  In terms of information
-visualization, the spatial layout of observation on the network provides far
+visualization, the spatial layout of observations on the network provides far
 more information than traditional methods, such as ordered lists or scatter
 plots.
 
@@ -146,7 +146,7 @@ errors (QErrors), and they measure the distance between two vectors in
 attribute space \citep{Kohonen2000}.  Our implementation uses Euclidean
 distances, however, any reasonable distance measure can be used here.  The
 ``winning'' neuron is termed the Best Matching Unit (BMU $c$).  The
-neighborhood around the BMU ($N_c$) is found and all $m_i$ within $N_c$ are
+neighborhood ($N_c$) around the BMU ($c$) is found and all $m_i$ within $N_c$ are
 updated.  The size of the neighborhood and the magnitude of the updates are
 controlled by the neighborhood function. In our implementation, the width of
 the neighborhood decreases as the training progresses, and the magnitude of
@@ -186,11 +186,11 @@ graph, is simply a graph in which every node has the same number of neighbors
 \citep{harris2000}. A measure of regularity tells us how uniform neurons
 are in terms of their connections to other neurons in the network. In network
 theory, nodes with more connections are thought to be more central to the network and have a
-larger influence than nodes with fewer connections. A simple measure for
-capturing this is degree centrality \citep{Wasserman:1994}.  The degree (number
+larger influence than nodes with fewer connections \citep{Wasserman:1994}. A simple measure for
+capturing this is degree centrality.  The degree (number
 of adjacent neurons) is measured for each neuron in the network. The variance
 in these measurements tells how regular the network is, a perfectly regular
-topology should a variance equal to zero.  Other methods, such as closeness
+topology should have a variance equal to zero.  Other methods, such as closeness
 centrality compare nodes based on their connectedness to every node in the
 network.
 
@@ -256,7 +256,7 @@ which every neuron would have exactly six neighbors.  \cite{wu2006} prefer
 these this structure, because it has very low variances in both neuron spacing
 and neighborhood size. 
 
-Based solely on measures of neuron spacing, \cite{wu2005} dismissed a method
+Based solely on measures of neuron spacing, \cite{wu2005} dismissed the usefulness of a method
 proposed by \cite{Rakhmanov94} for distributing points on a sphere.  Similarly
 \cite{Nishio:2006fk} use these variance measures to support their helix
 algorithm for distributing points on a sphere.  Table \ref{table1} shows that
