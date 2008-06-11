@@ -1,13 +1,15 @@
 \chapter{RESULTS AND DISCUSSION}
-This chapter applies our three diagnostics to the trained SOMs.  Section
-\ref{rdq1} discusses the application of the first diagnostic, which looks at how internal heterogeneity
-changes with a neuron's first order neighborhood size, or degree.  In section
-\ref{rdq2} the second diagnostic, which compares the mean
-internal heterogeneity across topologies, is applied.  Finally, section \ref{rdq3} applies the
-third diagnostic, which visualizes the internal heterogeneity of each SOM.
+This chapter presents the results from our diagnostics.  Section \ref{rtrain}
+reviews the training process.  Section \ref{rdq1} discusses the application of
+the first diagnostic, which looks at how internal heterogeneity changes with a
+neuron's first order neighborhood size, or degree.  In section \ref{rdq2} the
+second diagnostic, which compares the mean internal heterogeneity across
+topologies, is applied.  Finally, section \ref{rdq3} applies the third
+diagnostic, which visualizes the internal heterogeneity of each SOM.
 
 %The first diagnostic yields a set of results for each topology tested.  These results will be analyzed in order to address the first research question of this thesis.  The second diagnostic combines the results from each topology in order to address the second research question.  The final diagnostic will return a visualization for each topology tested.  The usefulness of these visualizations is a research question in itself.  The expectation is that the visualizations will show patterns of internal variance related to irregularities in the network topology.
 \section{Training}
+\label{rtrain}
 %\section{Data}
 Before appling the diagnostics we must first train a series of SOMs.  The
 training is acomplished using our graph based implementation of SOM, PySOM.
