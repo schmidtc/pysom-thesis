@@ -26,8 +26,8 @@ nodes in the graph are pointers to the reference vectors ($m_i$).
 To allow for rapid development and cross-platform support we choose to write PySOM
 in the Python programing language. As noted by \cite{Rey2006} Python is an
 object-oriented programing language that is becoming increasingly popular in
-scientific computing. PySOM is maintained as an open-source project is hopes
-of facilitating collaboration and further research.  In its present form
+scientific computing. PySOM is maintained as an open-source project in hopes
+of facilitating collaboration and further research.  In its present form,
 PySOM has no user interface, however it is written as a Python library which
 allows all of its functionality to be accessed programmatically. %spell checked with google
 Python also provides an interactive interpreter which may be used to access
@@ -89,7 +89,7 @@ observation, this measure tells how dissimilar those observations are.
 
 The edge effects in SOM make it clear that the compression of the input-space is
 not uniform through out a trained map.  While outliers being pushed to the edge of
-the SOM is not necessarily an undesirable outcome, it is important understand
+the SOM is not necessarily an undesirable outcome, it is important to understand
 when and where information is being compressed.  This variable compression of
 the input-space is what allows the SOM to represent high-dimensional data, but
 it can also mislead the viewer.  Observing the internal heterogeneity of
@@ -156,9 +156,9 @@ network and have a larger influence than nodes with fewer connections.
 This holds with our understanding of the edge effect.  Neurons on the edge are
 less central to the network and have less influence than other nodes.  These
 edge nodes are also less influenced by the network, allowing outliers take
-root.  During the training process observations that are more average than
+root.  During the training process, observations that are more average than
 others tend to be centralized.  The observations that surround them tend to be
-more extreme.  If you refer back to figure \ref{som:states}, you'll notice
+more extreme.  Referring back to figure \ref{som:states}, you'll notice
 that observations with smaller symbols are closer to the mean of the
 input-space and that these observations have been centralized in the network.
 Using the degree as a measure of centrality does not capture this picture
@@ -202,7 +202,7 @@ Once the GIS layers have been created and the internal heterogeneity of each
 neuron has been calculated, a number visualizations become possible. We
 visualize the internal heterogeneity by shading the corresponding polygons.
 These visualizations allow for the exploration of patterns in internal
-heterogeneity with relation to the underlaying topology.  Further we can
+heterogeneity with relation to the underlaying topology.  Further, we can
 visualize the component planes, which show how the higher dimensions are
 represented in the various SOMs.  We also map our synthetic data back onto the SOM in
 order to calculate cluster membership of the neurons.  Visualizing cluster
@@ -286,13 +286,13 @@ neighborhood search radius, but extends the length of training.
 First Stage Parameters:
 \begin{itemize}
   \item Initial neighborhood search radius of 50\%, which decreases during training. 
-  \item Initial learning rates of 0.04 which decreases during training.
+  \item Initial learning rate of 0.04 which decreases during training.
   \item 100,000 training steps.
 \end{itemize}
 Second Stage Parameters:
 \begin{itemize}
   \item Initial neighborhood search radius of 33\%, which decreases during training. 
-  \item Initial learning rates of 0.03 which decreases during training.
+  \item Initial learning rate of 0.03 which decreases during training.
   \item 1,000,000 training steps.
 \end{itemize}
 
