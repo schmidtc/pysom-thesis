@@ -4,8 +4,9 @@ reviews the training process.  Section \ref{rdq1} discusses the application of
 the first diagnostic, which looks at how internal heterogeneity changes with a
 neuron's first order neighborhood size, or degree.  In section \ref{rdq2} the
 second diagnostic, which compares the mean internal heterogeneity across
-topologies, is applied.  Finally, section \ref{rdq3} applies the third
-diagnostic, which visualizes the internal heterogeneity of each SOM.
+topologies, is applied.  Section \ref{rdq3} applies the third
+diagnostic, which visualizes the internal heterogeneity of each SOM. Finally,
+section \ref{states} revisits the Utah-Hawaii example.
 
 %The first diagnostic yields a set of results for each topology tested.  These results will be analyzed in order to address the first research question of this thesis.  The second diagnostic combines the results from each topology in order to address the second research question.  The final diagnostic will return a visualization for each topology tested.  The usefulness of these visualizations is a research question in itself.  The expectation is that the visualizations will show patterns of internal variance related to irregularities in the network topology.
 \section{Training}
@@ -429,3 +430,43 @@ the edges of the clusters.
 %extreme.  This may hold true in the spherical topologies as well if these
 %extreme observations are antipodal, in fact it might be even better
 %represented.
+
+
+\section{The Utah-Hawaii Problem}
+\label{states}
+This research topic was initially inspired when an unwitting professor made
+the assumption that Utah and Hawaii were similar, because they both fell on
+the same neuron in a trained SOM.  This raised the question of whether Utah and
+Hawaii were in fact similar, or if this relationship in the SOM was merely
+caused by an edge effect.  It turns out the answer is slightly more
+complicated.  Utah and Hawaii are in fact each other's nearest neighbor, as
+defined by the census variables used by \site{skupin08}.  However, as shown in
+Figure \ref{som:states} and explained in section \ref{bg:edge}, both of these
+observations can be considered outliers.  Neither fits the trained SOM well and both are
+far from the mean of all the states.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.9\linewidth]{statesSphere.png}
+\caption{An example of how spherical SOM address the boundary effect found in
+traditional SOM.}
+\label{sphere:states}
+\end{figure}
+
+In Figure \ref{sphere:states} we present the same data trained on a 400 neuron
+spherical SOM.  The topology for this SOM is based on \cite{Rakhmanov94}.  We
+use the same coloring scheme and labeling used in Figure \ref{som:states}.
+Darker neurons are further from the mean of the states, while lighter neurons
+are more similar to the mean.  The size of the symbol represents the distance
+between each state and the mean of the states.  The bold labels highlight the
+five observations that are furthest from the mean, while the underlined labels
+highlight the five states closest to the mean.  We find, not surprisingly, that
+Utah and Hawaii are separated in this SOM.  Suggesting that edge effects indeed
+played a large role in the placement of this two observations in the hexagonal
+SOM.  As suggested in section \ref{bg:sphere}, we also find these and other
+outlying observations also more space in the trained spherical SOM.  States
+closer to the mean such as Ohio, Missouri and Kentucky are distinctly more
+clustered in the spherical SOM than they are in the hexagonal SOM.  It is
+interesting to note that the orientation between these three states remained
+largely unchanged.
+
