@@ -49,9 +49,9 @@ it is still possible to have less than forty measurements.
 \end{tabular} \end{table}
 
 We used several machines of varying configurations to train the forty
-different SOMS.  On the fastest of those machines the training one SOM took
+different SOMS.  On the fastest of those machines training one SOM took
 around forty-five (45) minutes.  In contrast SOM\_PAK takes only ninety (90)
-seconds to train the hexagon SOM with the same training parameters.  This
+seconds to train the hexagonal SOM with the same training parameters.  This
 significant difference is largely do to differences in the underling data
 structures.  We traded speed for the ability to represent a SOM with any
 topology.  Differences between the Python and C programing languages may also
@@ -134,7 +134,7 @@ rectangular and hexagonal, or ``flat,''  topologies, but not in the spherical
 topologies.  While this is not what we anticipated, it may suggest that the
 spherical and geodesic topologies are effectively overcoming the edge problem.
 The variance of the samples, however, did not respond as expected.  In the
-flat topologies the variance increased as the degree increased.  This is
+flat topologies, the variance increased as the degree increased.  This is
 possibly due to the large difference in sample size.  To verify these
 conclusions we formally test for differences in means and variance between the
 samples.
@@ -202,7 +202,7 @@ sample along the diagonal.  In the rectangular and hexagonal topologies, we
 observe that all sample means are significantly different.  We also observed
 significant differences in the variance of the samples, except the case of
 degree size four and five in the hexagonal topology, where they were not
-significantly different. No variance in the spherical and geodesic topologies
+significantly different. No variances in the spherical and geodesic topologies
 were significantly different.  In those topologies, the only significant
 difference in means was between the sample with degree size six and seven in
 the spherical topology.
@@ -252,7 +252,7 @@ Spherical & 0.0906 & 0.0281 &0.0001\\
 
 In this diagnostic we once again group the neurons of our trained SOMs. This
 time we group them based on their topology, collapsing the neurons of the
-forty SOMs into four groups.  Resulting in one sample for each of the four
+forty SOMs into four groups.  This results in one sample for each of the four
 topologies.  We test for a
 difference in mean and variance between each sample using the same method of
 random labeling that was applied in the previous diagnostic.  No significant
@@ -407,7 +407,7 @@ figure \ref{cluster}. Each cluster's outliers will be pushed toward the
 in the original input-space is further away from the other observations in the
 input-space.  Therefore, one would expect that observation to also be near the
 edge of a cluster in the SOM space.  In order to represent a three dimensional
-cluster in two dimensions the SOM must compress the edges of the clusters
+cluster in two dimensions, the SOM must compress the edges of the clusters
 more than their centers.  This explains the higher internal heterogeneity near
 the edges of the clusters. 
 
