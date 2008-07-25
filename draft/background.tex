@@ -76,7 +76,7 @@ and data visualization.  The SOM is often compared with other data reduction
 techniques, such as principle components or multi-dimensional scaling. Like
 SOM, these techniques reduce the dimensionality of the input-space
 \citep{Kohonen2000,skupin08}. However unlike SOM, these techniques do not
-directly preform clustering.  The SOM on the other hand has the ability to do
+directly perform clustering.  The SOM on the other hand has the ability to do
 both simultaneously.  That is the SOM can collapse a high dimensional
 input-space into two dimensions, \emph{and} collapse observations from the
 input-space into groups or clusters.  The degree to which clustering occurs is
@@ -126,7 +126,7 @@ samples from the input-space.  These samples, or observations, are represented
 as input vectors.  During the training process neurons compete for inputs;
 with each training step winning neurons are adjusted to better match the
 signals they receive.  Feedback between the neurons allows the entire network to
-eventually coverage to a final state. After training, each neuron in the SOM
+eventually converge to a final state. After training, each neuron in the SOM
 will represent a portion of the input space.  To accomplish this
 representation each neuron is associated with a parametric reference vector,
 \(m_i\), referred to as a model vector \citep{Kohonen2000}.  The length of the
@@ -135,7 +135,7 @@ element within a model vector represents a dimension of the input-space.  The
 initial values of the elements are most commonly randomized, such that a
 mapping of the input-space onto the initial SOM would have no meaning. Other
 initializations are possible and may reduce the time required for the map to
-coverage \citep{Kohonen2000}.
+converge \citep{Kohonen2000}.
 
 Our implementation follows the ``Original Incremental SOM Algorithm'' as laid
 out by \cite{Kohonen2000}.  In each step of the algorithm, a randomly select
@@ -165,7 +165,8 @@ predefined number of times, or ideally until the map converges.
 
 \section{Topology}
 \label{bg:topo}
-\citeauthor{wu2006} state that ``[f]or SOM, it is desirable to have all
+%\citeauthor{wu2006} state that ``[f]or SOM, it is desirable to have all
+\citeauthor{wu2006} state that ``it is desirable to have all
 neurons receive equal geometrical treatment'' \cite[p. 900]{wu2006}.  To
 satisfy this constraint, two conditions must be met.  First, each neuron
 should occupy the same amount of space on the given surface.  Second, each
@@ -215,9 +216,9 @@ Hawaii, Maine, and Utah are highlighted with bold labels.  The five
 observations closest to the mean: Alabama, Illinois, Louisiana, Nebraska and
 North Carolina have underlined labels.  Arguably the outliers are being pushed
 to the edges of the map, where they encounter fewer competing signals.
-Edge effects are also common in spatial analysis, for example in point
+Edge effects are also common in spatial analysis. For example, in point
 patterns the edge of a study unit may hide the true distribution of an
-observed pattern.  In SOM the edge of the neural lattice represents a true
+observed pattern.  In SOM, the edge of the neural lattice represents a true
 boundary, which effects its ability to represent \emph{data similarities} as
 \emph{spatial relationships}.
 
@@ -303,14 +304,14 @@ determine the most appropriate topology for their data and research objectives.
 
 \section{Network Size}
 \label{bg:size}
-The number of neurons used in the SOM is a decision the research must make and
+The number of neurons used in the SOM is a decision the researcher must make and
 is both a function of the size of their dataset and the purpose for which the
 SOM is to be used.  Generally speaking fewer neurons would be used in a
 clustering application while larger SOMs are commonly used for visualizing
 high-dimensional datasets.  The literature offers little theoretical guidance
 on choosing an appropriate network size for a given dataset \citep{cho1996}.
 \cite{toolbox} suggests that the network size should be ``as big as
-possible,'' but also states that this becomes computational impractical for
+possible,'' but also states that this becomes computationally impractical for
 larger problems. As a general rule-of-thumb, \citeauthor{toolbox} suggests using a
 network size of \(5\sqrt {n}\), where \(n\) is the number of observations. The
 application for which this network size would be most relevant is unclear.  
@@ -368,7 +369,7 @@ produce slightly more irregular topologies.  However, no substantive
 discussion of these irregularities or their effects on SOM training exists in
 the literature. Network size plays an import role in the SOM and given
 that limited theoretical guidance is available for choosing network size,
-researches should be cautious when using topologies that limit control over
+researchers should be cautious when using topologies that limit control over
 this parameter.  Particularly for larger SOMs, the desired network size may
 not be achievable via tessellation of the icosahedron.
 
