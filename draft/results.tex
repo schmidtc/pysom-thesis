@@ -440,7 +440,7 @@ the same neuron in a trained SOM.  This raised the question of whether Utah and
 Hawaii were in fact similar, or if this relationship in the SOM was merely
 caused by an edge effect.  It turns out the answer is slightly more
 complicated.  Utah and Hawaii are in fact each other's nearest neighbor, as
-defined by the census variables used by \site{skupin08}.  However, as shown in
+defined by the census variables used by \cite{skupin08}.  However, as shown in
 Figure \ref{som:states} and explained in section \ref{bg:edge}, both of these
 observations can be considered outliers.  Neither fits the trained SOM well and both are
 far from the mean of all the states.
@@ -448,7 +448,7 @@ far from the mean of all the states.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=.9\linewidth]{statesSphere.png}
-\caption{An example of how spherical SOM address the boundary effect found in
+\caption{An example of how spherical SOM addresses the boundary effect found in
 traditional SOM.}
 \label{sphere:states}
 \end{figure}
@@ -461,12 +461,12 @@ are more similar to the mean.  The size of the symbol represents the distance
 between each state and the mean of the states.  The bold labels highlight the
 five observations that are furthest from the mean, while the underlined labels
 highlight the five states closest to the mean.  We find, not surprisingly, that
-Utah and Hawaii are separated in this SOM.  Suggesting that edge effects indeed
-played a large role in the placement of this two observations in the hexagonal
+Utah and Hawaii are separated in this SOM.  This implies that edge effects indeed
+played a large role in the placement of these two observations in the hexagonal
 SOM.  As suggested in section \ref{bg:sphere}, we also find these and other
-outlying observations also more space in the trained spherical SOM.  States
-closer to the mean such as Ohio, Missouri and Kentucky are distinctly more
-clustered in the spherical SOM than they are in the hexagonal SOM.  It is
-interesting to note that the orientation between these three states remained
-largely unchanged.
+outlying observations occupy more space in the trained spherical SOM than in
+the hexagonal SOM.  States closer to the mean such as Ohio, Missouri and
+Kentucky are distinctly more clustered in the spherical SOM than in
+the hexagonal SOM.  It is interesting to note that the orientation between
+these three states remained largely unchanged between the two maps.
 

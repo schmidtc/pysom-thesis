@@ -2,7 +2,7 @@
 \chapter{CONCLUSIONS}
 The spherical SOM has widely been suggested as a solution to the edge effect
 in traditional SOM.  The edge of the traditional SOM is a problem because neurons on
-the edge of the neural network are less central to the network than those in
+the edge of the neural network are less central than those in
 the center of the network.  We extended this problem into spherical SOM by
 asserting that irregular spherical topologies will have neurons that are less
 central than others.  Existing research in spherical SOM has widely been
@@ -34,19 +34,20 @@ heterogeneity of a neuron decreases as its first-order neighborhood size
 increases, but less so in spherical topologies.  2) The average internal
 heterogeneity of a SOM is higher when a more irregular topology is used.  3)
 Visualizing internal heterogeneity provides valuable insight into the
-underling training process.
+underling training process. From these conclusions, we can make an
+interpretation on the importance of the topological irregularities in SOM.
 
 The effects of irregular topology were minimized in both of the spherical
-topologies we tested.  Specifically we found no significant differences
-between the two different spherical topologies we test.  As such we believe
+topologies we tested.  Specifically, we found no significant differences
+between the two different spherical topologies we test.  As such, we believe
 that the importance of regularity within spherical SOM may be overstated.
-Relaying only on highly regular spherical topologies may place
+Relying only on highly regular spherical topologies may place
 unnecessary constraints on the users of spherical SOM.  
 
 In pursuit of these findings we built an open source implementation of SOM,
-PySOM. This implementation is capable of training a SOM with an arbitrary
+PySOM. This software is capable of training a SOM with an arbitrary
 topology.  This allowed us to test the four different topologies presented in
-the previous chapters.  Using this tool future researchers may train their
+the previous chapters.  Using PySOM, future researchers may train their
 SOMs on a variety of different topologies.  We hope that this will enable an
 exploratory based approach to help determine the most appropriate topology for
 a given research question.
@@ -58,7 +59,7 @@ and steadily growing as geographers develop new ways to look at spatial
 information.  While the SOM and spherical SOM are a welcome addition to that
 toolbox these tools provide much more than a new visualization method or
 clustering technique.  Using SOM we can extract spatial representations from
-otherwise aspatial data; allowing us to leverage our existing set of
+otherwise aspatial data, allowing us to leverage our existing set of
 tools on a whole new set of problems.
 
 
