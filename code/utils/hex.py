@@ -52,6 +52,23 @@ def hexPts(cols,rows):
         hexY=hexY+deltaY
     return pts
 
+def rookPoly(pts):
+    """ Draw the polygons for a rook topology """
+    deltaX = 1.0
+    deltaY = 1.0
+    centroidsDist = 1.0
+    polygons = []
+    for i in pts:
+        pX = i[0]
+        pY = i[1]
+        poly =[ 0,
+                [(pX-(deltaX/2),pY+(deltaY/2)), 
+                (pX+(deltaX/2),pY+(deltaY/2)),
+                (pX+(deltaX/2),pY-(deltaY/2)),
+                (pX-(deltaX/2),pY-(deltaY/2)),
+                (pX-(deltaX/2),pY+(deltaY/2)) ]]
+        polygons.append(poly)
+    return polygons
 def hexPoly(pts):
     """ Draw the polygons for a hex topology, modified from Martin's CODtoSHP.py """
     deltaX = 1.0
@@ -111,12 +128,12 @@ def drawPts(g,pts,w=False):
         x1,y1 = x1*scale+margin,y1*scale+margin
         c.create_oval(x1-radius,y1+radius,x1+radius,y1-radius,fill='red',outline='red')
 def drawPoly(polys):
-    scale = 25
-    margin = 20
+    scale = 40
+    margin = 50
     for poly in polys:
         poly = poly[1]
         poly = [[x*scale+margin,y*scale+margin] for x,y in poly]
-        c.create_polygon(poly,fill='white',outline='black',activefill='blue')
+        c.create_polygon(poly,fill='#eeeeee',outline='black',activefill='blue')
 
 
 if __name__=='__main__':
@@ -126,10 +143,13 @@ if __name__=='__main__':
     c = tk.Canvas(root, width=800,height=600)
     c.pack()
     
-    g = hexGraph(23,28)
-    pts = hexPts(23,28)
-    cc = nx.centrality.closeness_centrality(g)
+    #g = hexGraph(23,28)
+    pts = hexPts(6,5)
+    #cc = nx.centrality.closeness_centrality(g)
     #drawPts(g,pts)
-    drawPoly(hexPoly(pts))
+    drawPoly(hexPoly(pts[5:]))
+
+    pts = [(i,j-0.5) for i in range(6,6+6) for j in range(1,1+5)]
+    drawPoly(rookPoly(pts[5:]))
 
 
