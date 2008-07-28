@@ -1,9 +1,9 @@
 """
-Python Self-Organizing Maps with Spherical Lattice
+Python Self-Organizing Maps 
 ----------------------------------------------------------------------
 AUTHOR(S):      Charles R. Schmidt cschmidt@rohan.sdsu.edu
 ----------------------------------------------------------------------
-Copyright (c) 2006-2007  Charles R. Schmidt
+Copyright (c) 2006-2008  Charles R. Schmidt
 ======================================================================
 This source code is probably licensed under the GNU General Public License,
 Version 2, you should check.
@@ -17,6 +17,7 @@ import networkx as NX
 #import pylab
 import pickle
 from utils import *
+from data import ObsFile
 
 class som:
     ''' Base class for the Self-Organizing Map,
@@ -189,35 +190,35 @@ class som:
         self.daMap = daMap
         return qerror
 
-class Topology(som):
-    """ Template class for topology Copy this class to create a new topology for som"""
-    def __init__(self):
-        som.__init__(self)
-    def save(self,path,name):
-        som.save(self,path,name)
-    def load(self,path,name):
-        som.load(self,path,name)
-    def randInit(self):
-        som.randInit(self)
-    def kernalWidth(self,t):
-        """
-        You should overwrite this, see note above...
-        kernalWidth returns the width of the neighborhood in terms of order
-        """
-        pass
-    def odist(n):
-        """
-        n is the nth neuron in the in neighborhood, return's order
-        example the 3rd neuron in the set is 1 order from the 0th.
-        """
-        pass
-    def neighborhood(self,bmu,kernalWidth):
-        """
-        This function must return the ID's of the nodes inside the neighborhood, 
-        NumNeighbors is defined by kernalWidth and is expressed as an order.
-        bmu is the id of the best match, or neighborhood center.
-        """
-        pass
+#class Topology(som):
+#    """ Template class for topology Copy this class to create a new topology for som"""
+#    def __init__(self):
+#        som.__init__(self)
+#    def save(self,path,name):
+#        som.save(self,path,name)
+#    def load(self,path,name):
+#        som.load(self,path,name)
+#    def randInit(self):
+#        som.randInit(self)
+#    def kernalWidth(self,t):
+#        """
+#        You should overwrite this, see note above...
+#        kernalWidth returns the width of the neighborhood in terms of order
+#        """
+#        pass
+#    def odist(n):
+#        """
+#        n is the nth neuron in the in neighborhood, return's order
+#        example the 3rd neuron in the set is 1 order from the 0th.
+#        """
+#        pass
+#    def neighborhood(self,bmu,kernalWidth):
+#        """
+#        This function must return the ID's of the nodes inside the neighborhood, 
+#        NumNeighbors is defined by kernalWidth and is expressed as an order.
+#        bmu is the id of the best match, or neighborhood center.
+#        """
+#        pass
     
 class GraphTopology(som):
     """ Template class for topology Copy this class to create a new topology for som"""
@@ -232,8 +233,6 @@ class GraphTopology(som):
             # the polls should yield the correct width. Or possibly the node with
             # lowest degree.
             self.Width = nf.findWidth(G,G.nodes()[-1]) 
-            #WHY WHY WHY WHY WHY!!!!
-            #self.maxN = 0.5
 
     def save(self,path,name):
         som.save(self,path,name)
@@ -301,11 +300,9 @@ class GraphTopology(som):
 class Sphere(som):
     def __init__(self):
         som.__init__(self)
-        # The Cache cache only works if the Neighborhood size is decreasing!
+        # The Cache only works if the Neighborhood size is decreasing!
         # If you increase the maxN clear the cache!
         self.neighborhoodCache = {}
-        # WHY WHY WHY WHY!!!!!
-        # self.maxN = 0.5
     def clearCache(self):
         self.neighborhoodCache = {}
     def randInit(self):
