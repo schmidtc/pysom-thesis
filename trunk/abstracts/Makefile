@@ -8,6 +8,10 @@ g780_paper.pdf: *.tex
 	( pdflatex g780_paper || rm -f g780_paper.pdf ) && \
 	( pdflatex g780_paper || rm -f g780_paper.pdf ) && \
 	( pdflatex g780_paper )
+narsc.pdf: *.tex
+	( pdflatex narsc|| rm -f narsc.pdf ) && \
+	( pdflatex narsc|| rm -f narsc.pdf ) && \
+	( pdflatex narsc )
 
 clean:
 	rm -f *.aux *.bbl *.blg *.dvi *.log *.lot *.toc *.lof
