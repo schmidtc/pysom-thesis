@@ -44,7 +44,7 @@ simple text file.  These ``codebook'' files contain a description of the
 topology and other training parameters in the first line of the file.  Each
 subsequent line lists the values for the parametric reference vectors, $m_i$,
 of the SOM's neurons \citep{kohonen1996}. In addition to this codebook file we
-also store the graph as a serialized python object.  Creating the graph
+also store the graph as a serialized Python object.  Creating the graph
 structures for the spherical topologies is considerably more complex and
 requires more computation than the traditional topologies.
 
@@ -56,7 +56,7 @@ coordinates are fed into the STRIPACK software program. STRIPACK computes both
 the Voronoi cells and their complement, the Delaunay triangulation, on the
 surface of the sphere \citep{Ranka97}.  The Delaunay triangulation provides the graph
 structure between the neurons of the geodesic SOM.  A similar process is used
-for the spherical topology. In this case we wrote a python implementation of
+for the spherical topology. In this case we wrote a Python implementation of
 the method for distributing points on a sphere that was introduced by
 \cite{Rakhmanov94}.  Once again the coordinates are fed into STRIPACK.
 An additional utility program reads the output from STRIPACK and
