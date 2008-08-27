@@ -25,9 +25,9 @@ relationships.
 
 One way to eliminate the edge effect is to wrap the lattice around a
 three-dimensional object such as a sphere or torus, thereby removing the edge
-entirely. The toroidal SOM was introduced by \cite{li1993}, however the torus
+entirely. The toroidal SOM was introduced by Li et al. \cite{li1993}, however the torus
 is not effective for visualization, as maps generated from a torus are not
-very intuitive \cite{ito2000,wu2006}.  \cite{ritter99} describes the torus as
+very intuitive \cite{ito2000,wu2006}.  Ritter \cite{ritter99} describes the torus as
 being topologically flat and suggests that a curved topology, such as that of
 a sphere, may better reflect directional data.  A sphere also results in a
 more intuitive map, since we are accustomed to looking at geographic maps
@@ -47,12 +47,13 @@ these conditions, and specifically that the icosahedron is the best starting
 point \cite{wu2005}. Tessellation of the icosahedron results in a network of
 neurons, each having exactly six neighbors, save the original twelve
 which each have five neighbors.  This is very close to the ideal structure in
-which every neuron would have exactly six neighbors.  \cite{wu2006} prefer
+which every neuron would have exactly six neighbors.  Wu and Takatsuka \cite{wu2006} prefer
 these this structure, because it has very low variances in both neuron spacing
 and neighborhood size. 
 
-Based solely on measures of neuron spacing, \cite{wu2005} dismissed the usefulness of a method
-proposed by \cite{Rakhmanov94} for distributing points on a sphere.  Similarly
+Based solely on measures of neuron spacing, Wu and Takatsuka \cite{wu2005} dismissed the usefulness of a method
+proposed by Rakhmanov et al. \cite{Rakhmanov94} for distributing points on a sphere.
+Similarly Nishio et al.
 \cite{Nishio:2006fk} use these variance measures to support their helix
 algorithm for distributing points on a sphere.  However,
 these metrics can be misleading and comparison across topologies may not be
@@ -82,6 +83,26 @@ determine the most appropriate topology for their data and research objectives.
 In this paper we explore the general utility of certain irregular spherical
 topologies beyond offering greater control over network size. We develop and
 test new diagnostics to measure and visualize topology-induced errors in SOM.
-More specifically we examine the
+More specifically we 
+
+\begin{enumerate}
+\item Compare the internal heterogeneity of observations captured by a given neuron to that neuron's first-order neighborhood size.
+\item For different topologies, compare the internal heterogeneity of each neuron against a composite measure of topological regularity.
+\item Develop a SOM-based visualization of the internal heterogeneity.
+%\item Develop a reverse quantization error visualization by mapping neurons back onto the input data.
+\end{enumerate}
+
+These diagnostics help facilitate the evaluation of both traditional and
+spherical SOMs. To satisfy the objective of this research, we apply these
+diagnostics to a series of comparable SOMs. Each SOM is trained using the
+same synthetic data and training parameters, but utilize different network
+topologies. By formally testing for difference of means and variance in the
+results of the diagnostics, the following questions are addressed:
+
+\begin{enumerate}
+\item Does the internal heterogeneity of a neuron decrease as its first-order neighborhood size, or degree, increases?
+\item Is the average internal heterogeneity of a SOM higher when a more irregular topology is used?
+\item Which insights, if any, can be gained from a SOM-based visualization of internal heterogeneity?
+\end{enumerate}
 
 
