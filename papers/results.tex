@@ -37,15 +37,16 @@ heterogeneity with little difference between them.  This suggests that even
 though the spherical topology is more irregular than the geodesic topology,
 similar levels of quality may be achieved. 
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
+\caption{Internal heterogeneity mapping}
 %\subfigure[Rectangular Topology]{
 %  \label{cluster:rook}
 %  \includegraphics[width=0.7\linewidth]{rook_clusters.png}
 %}
 \subfigure[Hexagonal Topology]{
   \label{cluster:hex}
-  \includegraphics[width=0.8\linewidth]{hex_clusters.png}
+  \includegraphics[width=0.85\linewidth]{hex_clusters_no_border.png}
 }
 %\subfigure[Spherical Topology]{
 %  \label{cluster:graph}
@@ -53,19 +54,18 @@ similar levels of quality may be achieved.
 %}
 \subfigure[Geodesic Sphere Topology]{
   \label{cluster:geodesic}
-  \includegraphics[width=0.8\linewidth]{geodesic_clusters.png}
+  \includegraphics[width=0.85\linewidth]{geodesic_clusters_no_border.png}
 }
-\caption{Internal heterogeneity mapping, Darker neurons display larger internal heterogeneity. Neurons for which
-an internal heterogeneity could not be calculated are not displayed. The numbers represent primary cluster mapped at that neuron.}
 \label{cluster}
 \end{figure}
 
 The internal heterogeneity for the hexagon and geodesic topologies is visualized
-in figure \ref{cluster}.  Neurons are represented as their voronoi regions. We
-compute the cluster each neuron represents by looking at the observations mapped
-to it.  Knowing which cluster each observation belongs to allows us to see where
-the clusters are being mapped to on the trained SOM. For a given neuron we
-classify it by the cluster it captured most frequently.
+in figure \ref{cluster}.  Neurons are represented as their voronoi regions.
+Darker neurons had higher internal heterogeneity.  We also compute the cluster
+each neuron represents by looking at the observations mapped to it.  Knowing
+which cluster each observation belongs to allows us to see where the clusters
+are being mapped to on the trained SOM. For a given neuron we classify it by
+the cluster it captured most frequently.
 
 It is interesting to note that the edges of the cluster exhibit higher internal
 heterogeneity.  This is somewhat intuitive, as our clusters are normally
