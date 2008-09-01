@@ -9,19 +9,6 @@ training a SOM: each SOM is trained in two stages, the first of which uses a lar
 initial learning rate and neighborhood search radius with a small number of
 training steps; the second stage uses a lower initial learning rate and
 neighborhood search radius, but extends the length of training.
-\\
-First Stage Parameters:
-\begin{itemize}
-  \item Initial neighborhood search radius of 50\%, which decreases during training. 
-  \item Initial learning rate of 0.04 which decreases during training.
-  \item 100,000 training steps.
-\end{itemize}
-Second Stage Parameters:
-\begin{itemize}
-  \item Initial neighborhood search radius of 33\%, which decreases during training. 
-  \item Initial learning rate of 0.03 which decreases during training.
-  \item 1,000,000 training steps.
-\end{itemize}
 
 As shown in Figure \ref{fig:nSize}, topologies differ in terms of achievable
 network size.  For comparability, the network size of each SOM needs to be as
@@ -39,4 +26,24 @@ set to \(28x23\). Finally, the spherical topology was set to 642 nodes.
 \end{center}
 \end{figure}
 
+
+In traditional SOMs, outlying observations are pushed to the edge of the map
+where they encounter fewer competing signals.  A prime example of this is the
+``Utah-Hawaii'' case shown in Figure \ref{f:edge}.  Relying only on the
+SOM, one would be left to believe that the two states are similar.  
+The quantiziation error (QError) measures the distance between two vectors in
+attribute space.  We see that the QError from Utah to the neuron is $1.509$, the QError from
+Hawaii to the neuron in $1.505$, but the QError from Utah to Hawaii is
+$3.014$. Where multiple observations land on the same neuron, it is possible to
+measure the average pairwise QErrors between those observations.  This gives us a
+notion of internal heterogeneity, \(H\), for each neuron.  We define the
+internal heterogeneity of neuron \(i\) as,
+ \begin{equation}
+   {H_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j+1}^{n_i} ||{x_{ij}}-{x_{ik}}||
+ \label{eqno1}
+ \end{equation}
+where, \(n_i\) is the number of observations mapped to \(i\), and \(x_i\) are
+the input vectors mapped to \(i\).  For any neuron that captures more then one
+observation, this measure tells how dissimilar those observations are.  This
+messure is used in our three diagnostics.
 
