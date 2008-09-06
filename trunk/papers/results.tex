@@ -1,10 +1,36 @@
  We find that the
 mean internal heterogeneity remains fairly stable, suggesting that the results
-of each simulation can be combined within a given topology.  For the rectangular
+of each simulation can be combined within a given topology (Table
+\ref{ivtable3}).  For the rectangular
 topology, we now have forty neurons with a degree of two for which an internal
 heterogeneity can be calculated. It should be noted that we can only measure the
 internal heterogeneity when a neuron captures two or more observations from the
 training data.
+
+\begin{table}[hbt]
+\centering
+\caption{Mean internal heterogeneity for each simulation, by topology.}
+\label{ivtable3}
+\begin{tabular}{|c||c|c|c|c|}
+\hline
+\textbf{} & Geodesic & Spherical & Hexagonal & Rectangular \\
+\hline
+\hline
+\textbf{1} & 0.0277 & 0.0277 & 0.0285 & 0.0289 \\
+\textbf{2} & 0.0281 & 0.0281 & 0.0291 & 0.0295 \\
+\textbf{3} & 0.0278 & 0.0280 & 0.0286 & 0.0292 \\
+\textbf{4} & 0.0280 & 0.0282 & 0.0286 & 0.0293 \\
+\textbf{5} & 0.0279 & 0.0280 & 0.0289 & 0.0296 \\
+\textbf{6} & 0.0278 & 0.0274 & 0.0285 & 0.0290 \\
+\textbf{7} & 0.0286 & 0.0283 & 0.0294 & 0.0297 \\
+\textbf{8} & 0.0284 & 0.0285 & 0.0294 & 0.0298 \\
+\textbf{9} & 0.0283 & 0.0282 & 0.0293 & 0.0295 \\
+\textbf{10}& 0.0285 & 0.0285 & 0.0293 & 0.0298 \\
+\hline
+\hline
+& 0.0281 & 0.0281 & 0.0290 & 0.0294\\
+\hline
+\end{tabular} \end{table}
 
 For each topology, we calculated the internal heterogeneity and degree of all
 the neurons.  We then grouped the internal heterogeneity measures by degree.  We
@@ -24,6 +50,34 @@ topology, where they were not significantly different. No variances in the
 spherical and geodesic topologies differed significantly.  In those topologies,
 the only significant difference in means was between the sample with degree size
 six and seven in the spherical topology.
+
+% fix this to have two stacked tables
+
+\begin{table}[htb]
+\centering
+\scriptsize
+\begin{minipage}{\textwidth}
+\caption{Size, mean and variance of each sample}
+\label{meanvar1}
+\begin{tabular}{|c||cc|cc|cc|cc|}
+\hline
+\textbf{Degree} & \multicolumn{2}{c|}{\textbf{Geodesic}} &
+\multicolumn{2}{c|}{\textbf{Spherical}} &
+\multicolumn{2}{c|}{\textbf{Hexagonal}} &
+\multicolumn{2}{c|}{\textbf{Rectangular}} \\
+\hline
+& N & Mean (Var) & N & Mean (Var) & N & Mean (Var) & N & Mean (Var) \\
+\hline
+2&&&&& 20& 0.0409 (5.66E-06)& 40& 0.0378 (7.59E-06)\\ 
+3&&&&& 218& 0.0371 (2.18E-05)& 880& 0.0348 (3.59E-05)\\ 
+4&&&&& 489& 0.0347 (4.05E-05)& 4926& 0.0284 (6.28E-05)\\ 
+5& 113& 0.0283 (5.28E-05)& 526& 0.0279 (6.43E-05)& 206& 0.0319 (3.50E-05)&&\\ 
+6& 5598& 0.0281 (6.05E-05)& 4758& 0.0282 (6.05E-05)& 4954& 0.0278
+(6.09E-05)&&\\ 
+7&&& 417& 0.0273 (6.65E-05)&&&&\\ 
+\hline
+\end{tabular} \end{minipage} \end{table}
+
 
 Next we group the neurons of our trained SOMs based on their topology,
 collapsing the neurons of the forty SOMs into four groups.  This results in one
