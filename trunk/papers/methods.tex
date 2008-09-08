@@ -25,7 +25,9 @@ results of the diagnostics, the following questions are addressed:
 
 In traditional SOMs, outlying observations are pushed to the edge of the map
 where they encounter fewer competing signals.
-%A prime example of this is the ``Utah-Hawaii'' case shown in Figure \ref{f:edge}.  Relying only on the SOM, one would be left to believe that the two states are similar.  The quantiziation error (QError) measures the distance between two vectors in attribute space.  We see that the QError from Utah to the neuron is $1.509$, the QError from Hawaii to the neuron in $1.505$, but the QError from Utah to Hawaii is $3.014$.
+%A prime example of this is the ``Utah-Hawaii'' case shown in Figure \ref{f:edge}.  Relying only on the SOM, one would be left to believe that the two states are similar. 
+The quantiziation error (QError) measures the distance between two vectors in attribute space. 
+% We see that the QError from Utah to the neuron is $1.509$, the QError from Hawaii to the neuron in $1.505$, but the QError from Utah to Hawaii is $3.014$.
 Where multiple observations land on the same neuron, it is possible to measure
 the average pairwise QErrors between those observations.  This gives us a
 notion of internal heterogeneity, \(H\), for each neuron.  We define the
