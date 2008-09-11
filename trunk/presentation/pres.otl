@@ -1,12 +1,13 @@
 preamble
-	@author Charles R. Schmidt\\Sergio J. Rey\\Andr\'e Skupin
-	@authorShort Schmidt, Rey, Skupin
+	@author Charles R. Schmidt
+	@authorShort Schmidt
 	@institute Department of Geography\\San Diego State University
 	@instituteShort SDSU
 	@title Effects of Irregular Topology in Spherical Self-Organizing Maps
 	@titleShort Irregular Topology in Spherical-SOM
-	@date April 18, 2008
-	@dateShort AAG
+	@subtitle Thesis presentation
+	@date September 15, 2008
+	@dateShort Thesis
 	\definecolor{sdsu_green}{RGB}{155,200,115}
 	\usecolortheme[named=sdsu_green]{structure}
 	\usepackage{subfigure}
@@ -145,9 +146,9 @@ Background
 			| Does Regularity Matter in Spherical SOM?
 			Methods
 			| * Three Diagnostics
-			| ** Internal Variance vs. First-Order Neighborhood Size
-			| ** Internal Variance vs. Topological Regularity
-			| ** Visualization of Internal Variance
+			| ** Internal Heterogeneity vs. First-Order Neighborhood Size
+			| ** Internal Heterogeneity vs. Topological Regularity
+			| ** Visualization of Internal Heterogeneity
 Methodology
 	Data Generation
 		Data Generation
@@ -157,62 +158,62 @@ Methodology
 			| * Three dimension
 			| * Clusters are normally distributed w/ unit variance on each dimension
 			| * Sample size varies to ensure adequate assignments to neurons
-	Internal Variance
-		Internal Variance
+	Internal Heterogeneity
+		Internal Heterogeneity
 			Neuron Internal Heterogeneity 
-			| \({IV_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j+1}^{n_i} ||{x_{ij}}-{x_{ik}}||\)
-			Internal Variance
+			| \({IH_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j+1}^{n_i} ||{x_{ij}}-{x_{ik}}||\)
+			Internal Heterogeneity
 			| * Measures the difference of observations mapped in neuron
 			| * Measure of how well data fits to neuron
 	Diagnostics
 		Diagnostics
-			Internal Variance vs. First-Order Neighborhood Size
+			Internal Heterogeneity vs. First-Order Neighborhood Size
 			| * Does a neuron's I.V. decrease as its first-order neighborhood size increases?
 			| ** Group neurons by degree
 			| ** Measure I.V. within each group
 			| ** Check for difference of means and variance between groups
 			| * Repeat for each Topology
 		Diagnostics
-			Internal Variance vs. Topological Regularity
+			Internal Heterogeneity vs. Topological Regularity
 			| * Does a SOM's average I.V. increase in more irregular topologies?
 			| ** Group neurons by Topology
 			| ** Measure I.V. within each group
 			| ** Check for difference of means and variance between groups
 		Diagnostics
-			Visualization of Internal Variance
+			Visualization of Internal Heterogeneity
 			| * What information can be learned from a mapping of the I.V.?
 Results
-	Internal Variance vs. First-Order Neighborhood Size
-		Internal Variance vs. First-Order Neighborhood Size
+	Internal Heterogeneity vs. First-Order Neighborhood Size
+		Internal Heterogeneity vs. First-Order Neighborhood Size
 			Rectangular
 			| \begin{center}
 			| \begin{figure}
 			| \includegraphics[width=0.75\linewidth]{rook_iv_box.png}
 			| \end{figure}
 			| \end{center}
-		Internal Variance vs. First-Order Neighborhood Size
+		Internal Heterogeneity vs. First-Order Neighborhood Size
 			Hexagonal
 			| \begin{center}
 			| \begin{figure}
 			| \includegraphics[width=0.75\linewidth]{hex_iv_box.png}
 			| \end{figure}
 			| \end{center}
-		Internal Variance vs. First-Order Neighborhood Size
+		Internal Heterogeneity vs. First-Order Neighborhood Size
 			Geodesic
 			| \begin{center}
 			| \begin{figure}
 			| \includegraphics[width=0.75\linewidth]{geodesic_iv_box.png}
 			| \end{figure}
 			| \end{center}
-		Internal Variance vs. First-Order Neighborhood Size
+		Internal Heterogeneity vs. First-Order Neighborhood Size
 			Spherical
 			| \begin{center}
 			| \begin{figure}
 			| \includegraphics[width=0.75\linewidth]{graph_iv_box.png}
 			| \end{figure}
 			| \end{center}
-	Internal Variance vs. Topological Regularity
-		Internal Variance vs. Topological Regularity
+	Internal Heterogeneity vs. Topological Regularity
+		Internal Heterogeneity vs. Topological Regularity
 			| \begin{table}
 			| \centering
 			| \begin{minipage}{\textwidth}
@@ -231,7 +232,7 @@ Results
 			| \end{tabular}
 			| \end{minipage}
 			| \end{table}
-		Internal Variance vs. Topological Regularity
+		Internal Heterogeneity vs. Topological Regularity
 			| \begin{table}
 			|   \begin{minipage}{\textwidth}
 			|   \caption{Results of Difference of Mean Testing Across Topologies}
@@ -248,29 +249,29 @@ Results
 			|   \end{tabular}
 			|   \end{minipage}
 			| \end{table}
-	Visualization of Internal Variance
-		Visualization of Internal Variance
+	Visualization of Internal Heterogeneity
+		Visualization of Internal Heterogeneity
 			Rectangular
 			| \begin{center}
 			| \begin{figure}
 			| \includegraphics[width=0.70\linewidth]{rook_clusters.png}
 			| \end{figure}
 			| \end{center}
-		Visualization of Internal Variance
+		Visualization of Internal Heterogeneity
 			Hexagonal
 			| \begin{center}
 			| \begin{figure}
 			| \includegraphics[width=0.70\linewidth]{hex_clusters.png}
 			| \end{figure}
 			| \end{center}
-		Visualization of Internal Variance
+		Visualization of Internal Heterogeneity
 			Geodesic
 			| \begin{center}
 			| \begin{figure}
 			| \includegraphics[width=0.70\linewidth]{geodesic_clusters.png}
 			| \end{figure}
 			| \end{center}
-		Visualization of Internal Variance
+		Visualization of Internal Heterogeneity
 			Spherical
 			| \begin{center}
 			| \begin{figure}
@@ -280,14 +281,14 @@ Results
 Conclusions
 	Conclusions
 		Key Findings
-			Internal Variance vs. First-Order Neighborhood Size
+			Internal Heterogeneity vs. First-Order Neighborhood Size
 			| * Significant differences for hexagonal and rectangular topologies
 			| * Significant difference in spherical topology
 			| ** Magnitude of difference very small compared with magnitudes in "flat" topologies
 			| * No significant difference for geodesic
-			Internal Variance vs. Topological Regularity
+			Internal Heterogeneity vs. Topological Regularity
 			| * Geodesic and spherical show no significant differences
-			Visualization of Internal Variance
+			Visualization of Internal Heterogeneity
 			| * Shows patterns of clustering
 			| * Provides insight into the self-organizing process
 		Limitations
