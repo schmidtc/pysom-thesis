@@ -17,11 +17,11 @@
 \graphicspath{{figures/}}
 \usepackage{hyperref}
 
-\author[Schmidt, Rey, Skupin]{Charles R. Schmidt\\Sergio J. Rey\\Andr\'e Skupin}
+\author[Schmidt]{Charles R. Schmidt}
 \institute[SDSU]{Department of Geography\\San Diego State University}
 \title[Irregular Topology in Spherical-SOM]{Effects of Irregular Topology in Spherical Self-Organizing Maps}
-\subtitle{}
-\date[AAG]{April 18, 2008}
+\subtitle{Thesis presentation}
+\date[Thesis]{September 15, 2008}
 
 % Delete this, if you do not want the table of contents to pop up at
 % the beginning of each subsection:
@@ -33,7 +33,7 @@
   \end{frame}
 }
 
-\listfiles
+
 % If you wish to uncover everything in a step-wise fashion, uncomment
 % the following command: 
 \beamerdefaultoverlayspecification{<+->}
@@ -292,9 +292,9 @@
  \begin{itemize}
  \item  Three Diagnostics
  \begin{itemize}
- \item  Internal Variance vs. First-Order Neighborhood Size
- \item  Internal Variance vs. Topological Regularity
- \item  Visualization of Internal Variance
+ \item  Internal Heterogeneity vs. First-Order Neighborhood Size
+ \item  Internal Heterogeneity vs. Topological Regularity
+ \item  Visualization of Internal Heterogeneity
  \end{itemize}
  \end{itemize}
  \end{block} \end{frame} 
@@ -317,15 +317,15 @@
  \end{itemize}
  \end{block} \end{frame} 
 
-\subsection{Internal Variance} 
+\subsection{Internal Heterogeneity} 
 
 \begin{frame}
-	\frametitle{Internal Variance}
+	\frametitle{Internal Heterogeneity}
  
 \begin{block}{Neuron Internal Heterogeneity}
-  \({IV_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j+1}^{n_i} ||{x_{ij}}-{x_{ik}}||\)
+  \({IH_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j+1}^{n_i} ||{x_{ij}}-{x_{ik}}||\)
  \end{block} 
-\begin{block}{Internal Variance}
+\begin{block}{Internal Heterogeneity}
  \begin{itemize}
  \item  Measures the difference of observations mapped in neuron
  \item  Measure of how well data fits to neuron
@@ -337,7 +337,7 @@
 \begin{frame}
 	\frametitle{Diagnostics}
  
-\begin{block}{Internal Variance vs. First-Order Neighborhood Size}
+\begin{block}{Internal Heterogeneity vs. First-Order Neighborhood Size}
  \begin{itemize}
  \item  Does a neuron's I.V. decrease as its first-order neighborhood size increases?
  \begin{itemize}
@@ -352,7 +352,7 @@
 \begin{frame}
 	\frametitle{Diagnostics}
  
-\begin{block}{Internal Variance vs. Topological Regularity}
+\begin{block}{Internal Heterogeneity vs. Topological Regularity}
  \begin{itemize}
  \item  Does a SOM's average I.V. increase in more irregular topologies?
  \begin{itemize}
@@ -366,7 +366,7 @@
 \begin{frame}
 	\frametitle{Diagnostics}
  
-\begin{block}{Visualization of Internal Variance}
+\begin{block}{Visualization of Internal Heterogeneity}
  \begin{itemize}
  \item  What information can be learned from a mapping of the I.V.?
  \end{itemize}
@@ -375,10 +375,10 @@
 
 \section{Results} 
 
-\subsection{Internal Variance vs. First-Order Neighborhood Size} 
+\subsection{Internal Heterogeneity vs. First-Order Neighborhood Size} 
 
 \begin{frame}
-	\frametitle{Internal Variance vs. First-Order Neighborhood Size}
+	\frametitle{Internal Heterogeneity vs. First-Order Neighborhood Size}
  
 \begin{block}{Rectangular}
   \begin{center}
@@ -389,7 +389,7 @@
  \end{block} \end{frame} 
 
 \begin{frame}
-	\frametitle{Internal Variance vs. First-Order Neighborhood Size}
+	\frametitle{Internal Heterogeneity vs. First-Order Neighborhood Size}
  
 \begin{block}{Hexagonal}
   \begin{center}
@@ -400,7 +400,7 @@
  \end{block} \end{frame} 
 
 \begin{frame}
-	\frametitle{Internal Variance vs. First-Order Neighborhood Size}
+	\frametitle{Internal Heterogeneity vs. First-Order Neighborhood Size}
  
 \begin{block}{Geodesic}
   \begin{center}
@@ -411,7 +411,7 @@
  \end{block} \end{frame} 
 
 \begin{frame}
-	\frametitle{Internal Variance vs. First-Order Neighborhood Size}
+	\frametitle{Internal Heterogeneity vs. First-Order Neighborhood Size}
  
 \begin{block}{Spherical}
   \begin{center}
@@ -421,10 +421,10 @@
   \end{center}
  \end{block} \end{frame} 
 
-\subsection{Internal Variance vs. Topological Regularity} 
+\subsection{Internal Heterogeneity vs. Topological Regularity} 
 
 \begin{frame}
-	\frametitle{Internal Variance vs. Topological Regularity}
+	\frametitle{Internal Heterogeneity vs. Topological Regularity}
   \begin{table}
   \centering
   \begin{minipage}{\textwidth}
@@ -446,7 +446,7 @@
  \end{frame} 
 
 \begin{frame}
-	\frametitle{Internal Variance vs. Topological Regularity}
+	\frametitle{Internal Heterogeneity vs. Topological Regularity}
   \begin{table}
     \begin{minipage}{\textwidth}
     \caption{Results of Difference of Mean Testing Across Topologies}
@@ -465,10 +465,10 @@
   \end{table}
  \end{frame} 
 
-\subsection{Visualization of Internal Variance} 
+\subsection{Visualization of Internal Heterogeneity} 
 
 \begin{frame}
-	\frametitle{Visualization of Internal Variance}
+	\frametitle{Visualization of Internal Heterogeneity}
  
 \begin{block}{Rectangular}
   \begin{center}
@@ -479,7 +479,7 @@
  \end{block} \end{frame} 
 
 \begin{frame}
-	\frametitle{Visualization of Internal Variance}
+	\frametitle{Visualization of Internal Heterogeneity}
  
 \begin{block}{Hexagonal}
   \begin{center}
@@ -490,7 +490,7 @@
  \end{block} \end{frame} 
 
 \begin{frame}
-	\frametitle{Visualization of Internal Variance}
+	\frametitle{Visualization of Internal Heterogeneity}
  
 \begin{block}{Geodesic}
   \begin{center}
@@ -501,7 +501,7 @@
  \end{block} \end{frame} 
 
 \begin{frame}
-	\frametitle{Visualization of Internal Variance}
+	\frametitle{Visualization of Internal Heterogeneity}
  
 \begin{block}{Spherical}
   \begin{center}
@@ -519,7 +519,7 @@
 \begin{frame}
 	\frametitle{Key Findings}
  
-\begin{block}{Internal Variance vs. First-Order Neighborhood Size}
+\begin{block}{Internal Heterogeneity vs. First-Order Neighborhood Size}
  \begin{itemize}
  \item  Significant differences for hexagonal and rectangular topologies
  \item  Significant difference in spherical topology
@@ -529,12 +529,12 @@
  \item  No significant difference for geodesic
  \end{itemize}
  \end{block} 
-\begin{block}{Internal Variance vs. Topological Regularity}
+\begin{block}{Internal Heterogeneity vs. Topological Regularity}
  \begin{itemize}
  \item  Geodesic and spherical show no significant differences
  \end{itemize}
  \end{block} 
-\begin{block}{Visualization of Internal Variance}
+\begin{block}{Visualization of Internal Heterogeneity}
  \begin{itemize}
  \item  Shows patterns of clustering
  \item  Provides insight into the self-organizing process
