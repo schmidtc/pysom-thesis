@@ -74,6 +74,14 @@
 
 \begin{frame}
 	\frametitle{The Self-Organizing Map}
+  \begin{quote}
+  "translate \emph{data similarities} into \emph{spatial relationship}" 
+  \end{quote}
+  \hspace{2in} -- Helge Ritter, 1999
+ \end{frame} 
+
+\begin{frame}
+	\frametitle{The Self-Organizing Map}
  
 \begin{block}{Applications}
  \begin{itemize}
@@ -182,7 +190,7 @@
 \begin{block}{Edge density}
  \begin{itemize}
  \item  Higher density of input vectors mapped to edge neurons
- \item  Higher internal variance for edge neurons
+ \item  Higher internal heterogeneity for edge neurons
  \end{itemize}
  \end{block} 
 \begin{block}{Siberia-Alaska Effect}
@@ -195,26 +203,15 @@
 \begin{frame}
 	\frametitle{Edge Effects in Spatial Analysis}
  
-\begin{block}{Spatial Econometrics}
- \begin{itemize}
- \item  Power of tests for dependence
- \item  Properties of estimators
- \item  Spillover measurement
- \begin{itemize}
- \item  Global spatial multipliers
- \item  Local effects
- \end{itemize}
- \end{itemize}
- \end{block} 
 \begin{block}{Point Patterns}
  \begin{itemize}
  \item  Inflated nearest neighbor distances
+ \item  Mask the true distribution
  \item  Edge corrections
  \end{itemize}
  \end{block} 
 \begin{block}{Components of Edge Effect}
  \begin{itemize}
- \item  Buffering = Omission
  \item  True Boundary
  \end{itemize}
  \end{block} \end{frame} 
@@ -253,6 +250,15 @@
  \item  No Network Size Limitation
  \end{itemize}
  \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{Spherical SOM}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.60\linewidth]{g642.png}
+  \end{figure}
+  \end{center}
+ \end{frame} 
 
 \begin{frame}
 	\frametitle{Spherical SOM}
@@ -371,6 +377,39 @@
  \item  What information can be learned from a mapping of the I.V.?
  \end{itemize}
  \end{block} \end{frame} 
+
+
+\section{PySOM} 
+
+\subsection{Graph Based Implementation of SOM} 
+
+\begin{frame}
+	\frametitle{Graph Based Implementation of SOM}
+ 
+\begin{block}{Python}
+ \begin{itemize}
+ \item  Rapid development
+ \item  Growing community
+ \item  Libraries
+ \end{itemize}
+ \end{block} 
+\begin{block}{Why}
+ \begin{itemize}
+ \item  Alternative topologies not available 
+ \item  Difficult to extend
+ \item  Flexibility over speed
+ \end{itemize}
+ \end{block} 
+\begin{block}{Graphs}
+ \begin{itemize}
+ \item  Topology independent
+ \item  Fast
+ \item  Flexible
+ \end{itemize}
+ \end{block} \end{frame} 
+
+
+\section{} 
 
 
 \section{Results} 
