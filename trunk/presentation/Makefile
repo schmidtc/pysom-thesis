@@ -2,6 +2,10 @@ all: pres
 
 view: pres.pdf
 	open pres.pdf
+fast:
+	( otl2latex.py -p pres.otl pres.tex ) && \
+	( pdflatex pres ) && \
+	( open pres.pdf )
 
 pres: pres.otl
 	( otl2latex.py -p pres.otl pres.tex ) && \
