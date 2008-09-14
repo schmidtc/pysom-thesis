@@ -14,6 +14,7 @@
 \usepackage{tikz}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx} %sjr added
+\usepackage{subfigure} %crs added
 \graphicspath{{figures/}}
 \usepackage{hyperref}
 
@@ -59,21 +60,60 @@
 \begin{block}{What is the SOM}
  \begin{itemize}
  \item  Artificial Neural Network
- \item  Unsupervised Competitive Learning Process
  \item  High Dimension Input Data
+ \item  Unsupervised Competitive Learning Process
  \item  Each Neuron Models of a Portion of the Input Space
  \end{itemize}
  \end{block} 
-\begin{block}{Topology}
-  \begin{center}
-  \begin{figure}
-  \includegraphics[width=0.60\linewidth]{topology.png}
-  \end{figure}
-  \end{center}
+\begin{block}{Applications}
+ \begin{itemize}
+ \item  Data Visualization
+ \item  Data Reduction
+ \item  Clustering
+ \end{itemize}
  \end{block} \end{frame} 
 
 \begin{frame}
-	\frametitle{The Self-Organizing Map}
+	\frametitle{In Terms of Geography (Skupin 2004)}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=.8\linewidth]{skupin.png}
+  \end{figure}
+  \end{center}
+ \end{frame} 
+
+\begin{frame}
+	\frametitle{SOM as Dimensionality Reduction}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.90\linewidth]{dimensionReduction.png}
+  \end{figure}
+  \end{center}
+  \vspace{1in} (Skupin 2008)
+ \end{frame} 
+
+\begin{frame}
+	\frametitle{SOM as Clustering}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.90\linewidth]{clustering.png}
+  \end{figure}
+  \end{center}
+  (Skupin 2008)
+ \end{frame} 
+
+\begin{frame}
+	\frametitle{SOM as Clustering}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.90\linewidth]{clustermap.png}
+  \end{figure}
+  \end{center}
+  (Skupin 2008)
+ \end{frame} 
+
+\begin{frame}
+	\frametitle{SOM and GIScience}
   \begin{quote}
   "translate \emph{data similarities} into \emph{spatial relationship}" 
   \end{quote}
@@ -81,15 +121,28 @@
  \end{frame} 
 
 \begin{frame}
-	\frametitle{The Self-Organizing Map}
+	\frametitle{SOM and GIScience}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.50\linewidth]{book.png}
+  \end{figure}
+  \end{center}
+ \end{frame} 
+
+\begin{frame}
+	\frametitle{Training}
  
-\begin{block}{Applications}
- \begin{itemize}
- \item  Data Visualization
- \item  Data Reduction
- \item  Clustering
- \end{itemize}
- \end{block} 
+\begin{block}{Assignment and Updating}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.90\linewidth]{input.png}
+  \end{figure}
+  \end{center}
+ \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{Training}
+ 
 \begin{block}{Training}
  \begin{itemize}
  \item  Randomize input vectors
@@ -106,17 +159,6 @@
 \begin{frame}
 	\frametitle{Training}
  
-\begin{block}{Assignment and Updating}
-  \begin{center}
-  \begin{figure}
-  \includegraphics[width=0.90\linewidth]{input.png}
-  \end{figure}
-  \end{center}
- \end{block} \end{frame} 
-
-\begin{frame}
-	\frametitle{Training}
- 
 \begin{block}{Iterations}
   \begin{center}
   \begin{figure}
@@ -125,85 +167,27 @@
   \end{center}
  \end{block} \end{frame} 
 
-\begin{frame}
-	\frametitle{SOM as Dimensionality Reduction}
-  \begin{center}
-  \begin{figure}
-  \includegraphics[width=0.90\linewidth]{dimensionReduction.png}
-  \end{figure}
-  \end{center}
- \end{frame} 
-
-\begin{frame}
-	\frametitle{SOM as Clustering}
-  \begin{center}
-  \begin{figure}
-  \includegraphics[width=0.90\linewidth]{clustering.png}
-  \end{figure}
-  \end{center}
- \end{frame} 
-
-
-\section{} 
-
-\begin{frame}
-	\frametitle{SOM as Clustering}
-  \begin{center}
-  \begin{figure}
-  \includegraphics[width=0.90\linewidth]{clustermap.png}
-  \end{figure}
-  \end{center}
- \end{frame} 
-
-\begin{frame}
-	\frametitle{SOM and GIScience}
-  \begin{center}
-  \begin{figure}
-  \includegraphics[width=0.50\linewidth]{book.png}
-  \end{figure}
-  \end{center}
- \end{frame} 
-
 \subsection{Edge Effects in SOM} 
 
 \begin{frame}
 	\frametitle{Edge Effects in SOM}
   \begin{center}
   \begin{figure}
-  \includegraphics[width=0.60\linewidth]{states.png}
+  \includegraphics[width=0.60\linewidth]{gridedge.png}
   \end{figure}
   \end{center}
  \end{frame} 
 
 \begin{frame}
-	\frametitle{Edge Effects in SOM}
-  \begin{center}
-  \begin{figure}
-  \includegraphics[width=0.90\linewidth]{edge1.png}
-  \end{figure}
-  \end{center}
- \end{frame} 
-
-\begin{frame}
-	\frametitle{Edge Effect}
+	\frametitle{Edge Effects}
  
-\begin{block}{Edge density}
+\begin{block}{In SOM}
  \begin{itemize}
- \item  Higher density of input vectors mapped to edge neurons
+ \item  Higher density of observations mapped to edge neurons
  \item  Higher internal heterogeneity for edge neurons
  \end{itemize}
  \end{block} 
-\begin{block}{Siberia-Alaska Effect}
- \begin{itemize}
- \item  Close in geographic space, widely separated in world map
- \item  GIS: travel across the date line
- \end{itemize}
- \end{block} \end{frame} 
-
-\begin{frame}
-	\frametitle{Edge Effects in Spatial Analysis}
- 
-\begin{block}{Point Patterns}
+\begin{block}{In Spatial Analysis}
  \begin{itemize}
  \item  Inflated nearest neighbor distances
  \item  Mask the true distribution
@@ -252,24 +236,6 @@
  \end{block} \end{frame} 
 
 \begin{frame}
-	\frametitle{Spherical SOM}
-  \begin{center}
-  \begin{figure}
-  \includegraphics[width=0.60\linewidth]{g642.png}
-  \end{figure}
-  \end{center}
- \end{frame} 
-
-\begin{frame}
-	\frametitle{Spherical SOM}
-  \begin{center}
-  \begin{figure}
-  \includegraphics[width=0.60\linewidth]{642.png}
-  \end{figure}
-  \end{center}
- \end{frame} 
-
-\begin{frame}
 	\frametitle{Tradeoffs}
  
 \begin{block}{Regularity}
@@ -304,6 +270,15 @@
  \end{itemize}
  \end{itemize}
  \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{The Self-Organizing Map}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.75\linewidth]{topos.png}
+  \end{figure}
+  \end{center}
+ \end{frame} 
 
 
 \section{Methodology} 
@@ -377,9 +352,6 @@
  \item  What information can be learned from a mapping of the I.V.?
  \end{itemize}
  \end{block} \end{frame} 
-
-
-\section{PySOM} 
 
 \subsection{Graph Based Implementation of SOM} 
 
@@ -622,5 +594,14 @@
  \item  Do different topologies generate clusters in similar ways?
  \item  Which clusters are found most often across the different topologies?
  \end{itemize}
- \end{block} \end{frame}
+ \end{block} \end{frame} 
+
+\begin{frame}
+	\frametitle{Edge Effects in SOM}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.60\linewidth]{statesSphere.png}
+  \end{figure}
+  \end{center}
+ \end{frame}
 \end{document}

@@ -10,50 +10,24 @@ preamble
 	@dateShort Thesis
 	\definecolor{sdsu_green}{RGB}{155,200,115}
 	\usecolortheme[named=sdsu_green]{structure}
+	\usepackage{graphicx}
 	\usepackage{subfigure}
 Background
 	The Self-Organizing Map
 		The Self-Organizing Map
 			What is the SOM
 			| * Artificial Neural Network
-			| * Unsupervised Competitive Learning Process
 			| * High Dimension Input Data
+			| * Unsupervised Competitive Learning Process
 			| * Each Neuron Models of a Portion of the Input Space
-			Topology
-			| \begin{center}
-			| \begin{figure}
-			| \includegraphics[width=0.60\linewidth]{topology.png}
-			| \end{figure}
-			| \end{center}
-		The Self-Organizing Map
-			| \begin{quote}
-			| "translate \emph{data similarities} into \emph{spatial relationship}" 
-			| \end{quote}
-			| \hspace{2in} -- Helge Ritter, 1999
-		The Self-Organizing Map
 			Applications
 			| * Data Visualization
 			| * Data Reduction
 			| * Clustering
-			Training
-			| * Randomize input vectors
-			| * Randomly Initialize the neurons
-			| * Loop Until Map Converges
-			| ** Grab an Input Vector
-			| ** Find the Best Matching Neuron and its Neighborhood
-			| ** Modify the Weights of the Neurons to Make them More Similar to the Input Vector
-		Training
-			Assignment and Updating
+		In Terms of Geography (Skupin 2004)
 			| \begin{center}
 			| \begin{figure}
-			| \includegraphics[width=0.90\linewidth]{input.png}
-			| \end{figure}
-			| \end{center}
-		Training
-			Iterations
-			| \begin{center}
-			| \begin{figure}
-			| \includegraphics[width=0.90\linewidth]{somtrain.png}
+			| \includegraphics[width=.8\linewidth]{skupin.png}
 			| \end{figure}
 			| \end{center}
 		SOM as Dimensionality Reduction
@@ -62,47 +36,66 @@ Background
 			| \includegraphics[width=0.90\linewidth]{dimensionReduction.png}
 			| \end{figure}
 			| \end{center}
+			| \vspace{1in} (Skupin 2008)
 		SOM as Clustering
 			| \begin{center}
 			| \begin{figure}
 			| \includegraphics[width=0.90\linewidth]{clustering.png}
 			| \end{figure}
 			| \end{center}
-
+			| (Skupin 2008)
 		SOM as Clustering
 			| \begin{center}
 			| \begin{figure}
 			| \includegraphics[width=0.90\linewidth]{clustermap.png}
 			| \end{figure}
 			| \end{center}
+			| (Skupin 2008)
 		SOM and GIScience
 			| \begin{center}
 			| \begin{figure}
 			| \includegraphics[width=0.50\linewidth]{book.png}
 			| \end{figure}
 			| \end{center}
+		SOM and GIScience
+			| \begin{quote}
+			| "translate \emph{data similarities} into \emph{spatial relationship}" 
+			| \end{quote}
+			| \hspace{2in} -- Helge Ritter, 1999
+		Training
+			Assignment and Updating
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.90\linewidth]{input.png}
+			| \end{figure}
+			| \end{center}
+		Training
+			Training
+			| * Randomize input vectors
+			| * Randomly Initialize the neurons
+			| * Loop Until Map Converges
+			| ** Grab an Input Vector
+			| ** Find the Best Matching Neuron and its Neighborhood
+			| ** Modify the Weights of the Neurons to Make them More Similar to the Input Vector
+		Training
+			Iterations
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.90\linewidth]{somtrain.png}
+			| \end{figure}
+			| \end{center}
 	Edge Effects in SOM
 		Edge Effects in SOM
 			| \begin{center}
 			| \begin{figure}
-			| \includegraphics[width=0.60\linewidth]{states.png}
+			| \includegraphics[width=0.60\linewidth]{gridedge.png}
 			| \end{figure}
 			| \end{center}
-		Edge Effects in SOM
-			| \begin{center}
-			| \begin{figure}
-			| \includegraphics[width=0.90\linewidth]{edge1.png}
-			| \end{figure}
-			| \end{center}
-		Edge Effect
-			Edge density
-			| * Higher density of input vectors mapped to edge neurons
+		Edge Effects
+			In SOM
+			| * Higher density of observations mapped to edge neurons
 			| * Higher internal heterogeneity for edge neurons
-			Siberia-Alaska Effect
-			| * Close in geographic space, widely separated in world map
-			| * GIS: travel across the date line
-		Edge Effects in Spatial Analysis
-			Point Patterns
+			In Spatial Analysis
 			| * Inflated nearest neighbor distances
 			| * Mask the true distribution
 			| * Edge corrections
@@ -125,18 +118,6 @@ Background
 			| * Less Regular
 			| * Rejected in Literature
 			| * No Network Size Limitation
-		Spherical SOM
-			| \begin{center}
-			| \begin{figure}
-			| \includegraphics[width=0.60\linewidth]{g642.png}
-			| \end{figure}
-			| \end{center}
-		Spherical SOM
-			| \begin{center}
-			| \begin{figure}
-			| \includegraphics[width=0.60\linewidth]{642.png}
-			| \end{figure}
-			| \end{center}
 		Tradeoffs
 			Regularity
 			| * Connectivity
@@ -154,6 +135,12 @@ Background
 			| ** Internal Heterogeneity vs. First-Order Neighborhood Size
 			| ** Internal Heterogeneity vs. Topological Regularity
 			| ** Visualization of Internal Heterogeneity
+		The Self-Organizing Map
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.75\linewidth]{topos.png}
+			| \end{figure}
+			| \end{center}
 Methodology
 	Data Generation
 		Data Generation
@@ -330,3 +317,9 @@ Conclusions
 			Local Structures
 			| * Do different topologies generate clusters in similar ways?
 			| * Which clusters are found most often across the different topologies?
+		Edge Effects in SOM
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.60\linewidth]{statesSphere.png}
+			| \end{figure}
+			| \end{center}
