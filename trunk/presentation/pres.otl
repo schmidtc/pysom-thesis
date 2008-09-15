@@ -108,24 +108,16 @@ Background
 			| * Mathematical Weighting
 			Without Edges
 			| * Spherical SOM
-			| * Torus SOM
+			| * Toroidal SOM
 		Spherical SOM
 			Geodesic
-			| * Highly Regular
 			| * Most Common
+			| * Highly Regular
 			| * Limited Network Size
-			Rakhmanov
-			| * Less Regular
+			Rakhmanov (Spherical)
 			| * Rejected in Literature
+			| * Less Regular
 			| * No Network Size Limitation
-		Tradeoffs
-			Regularity
-			| * Connectivity
-			| * Shape
-			| * Area
-			Granularity of network size
-			| * Controlling regularity \emph{and} network size
-			| * Comparative analysis not straightforward
 	Objectives
 		Objectives
 			Question
@@ -135,21 +127,7 @@ Background
 			| ** Internal Heterogeneity vs. First-Order Neighborhood Size
 			| ** Internal Heterogeneity vs. Topological Regularity
 			| ** Visualization of Internal Heterogeneity
-		The Self-Organizing Map
-			| \begin{center}
-			| \begin{figure}
-			| \includegraphics[width=0.75\linewidth]{topos.png}
-			| \end{figure}
-			| \end{center}
 Methodology
-	Data Generation
-		Data Generation
-			Synthetic Multivariate Data
-			| * Follow Wu and Takatsuka (2006)
-			| * Seven clusters
-			| * Three dimension
-			| * Clusters are normally distributed w/ unit variance on each dimension
-			| * Sample size varies to ensure adequate assignments to neurons
 	Internal Heterogeneity
 		Internal Heterogeneity
 			Neuron Internal Heterogeneity 
@@ -157,40 +135,48 @@ Methodology
 			Internal Heterogeneity
 			| * Measures the difference of observations mapped in neuron
 			| * Measure of how well data fits to neuron
-	Diagnostics
-		Diagnostics
-			Internal Heterogeneity vs. First-Order Neighborhood Size
-			| * Does a neuron's I.V. decrease as its first-order neighborhood size increases?
-			| ** Group neurons by degree
-			| ** Measure I.V. within each group
-			| ** Check for difference of means and variance between groups
-			| * Repeat for each Topology
-		Diagnostics
-			Internal Heterogeneity vs. Topological Regularity
-			| * Does a SOM's average I.V. increase in more irregular topologies?
-			| ** Group neurons by Topology
-			| ** Measure I.V. within each group
-			| ** Check for difference of means and variance between groups
-		Diagnostics
-			Visualization of Internal Heterogeneity
-			| * What information can be learned from a mapping of the I.V.?
-	Graph Based Implementation of SOM
+	Research Design 
+		Research Design 
+			Training
+			| * Four Topologies
+			| * Synthetic Data
+			| * Ten Simulations Each
+			Implementation
+			| * PySOM
+		Topologies
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.75\linewidth]{topos.png}
+			| \end{figure}
+			| \end{center}
+		Data Generation
+			Synthetic Multivariate Data
+			| * Follow Wu and Takatsuka (2006)
+			| * Seven clusters
+			| * Three dimension
+			| * Clusters are normally distributed w/ unit variance on each dimension
+			| * 25,000 Observation -> 644 Neurons
 		Graph Based Implementation of SOM
 			Python
+			| * Growing scientific community
 			| * Rapid development
-			| * Growing community
-			| * Libraries
 			Why
 			| * Alternative topologies not available 
 			| * Difficult to extend
 			| * Flexibility over speed
+			| ** SOM\_PAK: 90 seconds
+			| ** PySOM: 45 minutes
 			Graphs
 			| * Topology independent
-			| * Fast
 			| * Flexible
-
 Results
 	Internal Heterogeneity vs. First-Order Neighborhood Size
+		Diagnostic
+			Internal Heterogeneity vs. First-Order Neighborhood Size
+			| * Does a neuron's I.H. decrease as its first-order neighborhood size increases?
+			| ** Group neurons by degree and topology
+			| ** Measure I.H. within each group
+			| ** Check for difference of means and variance between groups
 		Internal Heterogeneity vs. First-Order Neighborhood Size
 			Rectangular
 			| \begin{center}
@@ -220,6 +206,12 @@ Results
 			| \end{figure}
 			| \end{center}
 	Internal Heterogeneity vs. Topological Regularity
+		Diagnostic
+			Internal Heterogeneity vs. Topological Regularity
+			| * Does a SOM's average I.H. increase in more irregular topologies?
+			| ** Group neurons by Topology
+			| ** Measure I.H. within each group
+			| ** Check for difference of means and variance between groups
 		Internal Heterogeneity vs. Topological Regularity
 			| \begin{table}
 			| \centering
@@ -246,17 +238,19 @@ Results
 			|   \label{rlt:all}
 			|   \begin{tabular}{|c||c|c|c|c|}
 			|   \hline
-			|   \textbf{Topology}&Rectangular				&Hexagonal &Geodesic &Spherical\\\hline
+			|   \textbf{Topology}&Rectangular&Hexagonal &Geodesic &Spherical\\\hline
 			|   \hline
-			|		Rectangular & (0.000064) & \textbf{0.001000} & \textbf{0.000100} & \textbf{0.000100}\\\hline
-			|		Hexagonal & -0.000479 & (0.000064) & \textbf{0.000100} & \textbf{0.000100}\\\hline
-			|		Geodesic & -0.001329 & -0.000850 & (0.000060) & 0.505600\\\hline
-			|		Spherical & -0.001328 & -0.000849 & 0.000001 & (0.000061)\\\hline
-			|
+			|	Rectangular & (0.000064) & \textbf{0.001000} & \textbf{0.000100} & \textbf{0.000100}\\\hline
+			|	Hexagonal & -0.000479 & (0.000064) & \textbf{0.000100} & \textbf{0.000100}\\\hline
+			|	Geodesic & -0.001329 & -0.000850 & (0.000060) & 0.505600\\\hline
+			|	Spherical & -0.001328 & -0.000849 & 0.000001 & (0.000061)\\\hline
 			|   \end{tabular}
 			|   \end{minipage}
 			| \end{table}
 	Visualization of Internal Heterogeneity
+		Diagnostics
+			Visualization of Internal Heterogeneity
+			| * What information can be learned from a mapping of the I.H.?
 		Visualization of Internal Heterogeneity
 			Rectangular
 			| \begin{center}
@@ -290,7 +284,7 @@ Conclusions
 		Key Findings
 			Internal Heterogeneity vs. First-Order Neighborhood Size
 			| * Significant differences for hexagonal and rectangular topologies
-			| * Significant difference in spherical topology
+			| * One significant difference in spherical topology
 			| ** Magnitude of difference very small compared with magnitudes in "flat" topologies
 			| * No significant difference for geodesic
 			Internal Heterogeneity vs. Topological Regularity
@@ -298,25 +292,20 @@ Conclusions
 			Visualization of Internal Heterogeneity
 			| * Shows patterns of clustering
 			| * Provides insight into the self-organizing process
+		Objective
+			Question
+			| Does Regularity Matter in Spherical SOM?
 		Limitations
 			Qualifications
 			| * Only addressing how topology effects the SOM.
 			| ** Does not address the benefits of having or removing the edge.
 			| ** Is pushing outliers to the edges a bad thing?
-			| * First-order neighborhood size is capturing larger network irregularities in the "flat" topologies
 		Future Directions
 			Extensions
 			| * Rotate sphere-based SOMs to show "central" feature
 			| * Compare different SOMs on more than just topology
 			| * Test other topologies
 			| ** Remove nodes from the existing topologies
-		Clustering Properties
-			Global Structure
-			| *To what extent is the underlying clustering captured by the different topologies and sizes?
-			| * Are the same number of clusters found?
-			Local Structures
-			| * Do different topologies generate clusters in similar ways?
-			| * Which clusters are found most often across the different topologies?
 		Edge Effects in SOM
 			| \begin{center}
 			| \begin{figure}

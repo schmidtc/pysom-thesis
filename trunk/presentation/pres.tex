@@ -114,19 +114,19 @@
 
 \begin{frame}
 	\frametitle{SOM and GIScience}
-  \begin{quote}
-  "translate \emph{data similarities} into \emph{spatial relationship}" 
-  \end{quote}
-  \hspace{2in} -- Helge Ritter, 1999
- \end{frame} 
-
-\begin{frame}
-	\frametitle{SOM and GIScience}
   \begin{center}
   \begin{figure}
   \includegraphics[width=0.50\linewidth]{book.png}
   \end{figure}
   \end{center}
+ \end{frame} 
+
+\begin{frame}
+	\frametitle{SOM and GIScience}
+  \begin{quote}
+  "translate \emph{data similarities} into \emph{spatial relationship}" 
+  \end{quote}
+  \hspace{2in} -- Helge Ritter, 1999
  \end{frame} 
 
 \begin{frame}
@@ -213,7 +213,7 @@
 \begin{block}{Without Edges}
  \begin{itemize}
  \item  Spherical SOM
- \item  Torus SOM
+ \item  Toroidal SOM
  \end{itemize}
  \end{block} \end{frame} 
 
@@ -222,33 +222,16 @@
  
 \begin{block}{Geodesic}
  \begin{itemize}
- \item  Highly Regular
  \item  Most Common
+ \item  Highly Regular
  \item  Limited Network Size
  \end{itemize}
  \end{block} 
-\begin{block}{Rakhmanov}
+\begin{block}{Rakhmanov (Spherical)}
  \begin{itemize}
- \item  Less Regular
  \item  Rejected in Literature
+ \item  Less Regular
  \item  No Network Size Limitation
- \end{itemize}
- \end{block} \end{frame} 
-
-\begin{frame}
-	\frametitle{Tradeoffs}
- 
-\begin{block}{Regularity}
- \begin{itemize}
- \item  Connectivity
- \item  Shape
- \item  Area
- \end{itemize}
- \end{block} 
-\begin{block}{Granularity of network size}
- \begin{itemize}
- \item  Controlling regularity \emph{and} network size
- \item  Comparative analysis not straightforward
  \end{itemize}
  \end{block} \end{frame} 
 
@@ -271,32 +254,8 @@
  \end{itemize}
  \end{block} \end{frame} 
 
-\begin{frame}
-	\frametitle{The Self-Organizing Map}
-  \begin{center}
-  \begin{figure}
-  \includegraphics[width=0.75\linewidth]{topos.png}
-  \end{figure}
-  \end{center}
- \end{frame} 
-
 
 \section{Methodology} 
-
-\subsection{Data Generation} 
-
-\begin{frame}
-	\frametitle{Data Generation}
- 
-\begin{block}{Synthetic Multivariate Data}
- \begin{itemize}
- \item  Follow Wu and Takatsuka (2006)
- \item  Seven clusters
- \item  Three dimension
- \item  Clusters are normally distributed w/ unit variance on each dimension
- \item  Sample size varies to ensure adequate assignments to neurons
- \end{itemize}
- \end{block} \end{frame} 
 
 \subsection{Internal Heterogeneity} 
 
@@ -313,56 +272,53 @@
  \end{itemize}
  \end{block} \end{frame} 
 
-\subsection{Diagnostics} 
+\subsection{Research Design} 
 
 \begin{frame}
-	\frametitle{Diagnostics}
+	\frametitle{Research Design}
  
-\begin{block}{Internal Heterogeneity vs. First-Order Neighborhood Size}
+\begin{block}{Training}
  \begin{itemize}
- \item  Does a neuron's I.V. decrease as its first-order neighborhood size increases?
- \begin{itemize}
- \item  Group neurons by degree
- \item  Measure I.V. within each group
- \item  Check for difference of means and variance between groups
+ \item  Four Topologies
+ \item  Synthetic Data
+ \item  Ten Simulations Each
  \end{itemize}
- \item  Repeat for each Topology
+ \end{block} 
+\begin{block}{Implementation}
+ \begin{itemize}
+ \item  PySOM
  \end{itemize}
  \end{block} \end{frame} 
 
 \begin{frame}
-	\frametitle{Diagnostics}
- 
-\begin{block}{Internal Heterogeneity vs. Topological Regularity}
- \begin{itemize}
- \item  Does a SOM's average I.V. increase in more irregular topologies?
- \begin{itemize}
- \item  Group neurons by Topology
- \item  Measure I.V. within each group
- \item  Check for difference of means and variance between groups
- \end{itemize}
- \end{itemize}
- \end{block} \end{frame} 
+	\frametitle{Topologies}
+  \begin{center}
+  \begin{figure}
+  \includegraphics[width=0.75\linewidth]{topos.png}
+  \end{figure}
+  \end{center}
+ \end{frame} 
 
 \begin{frame}
-	\frametitle{Diagnostics}
+	\frametitle{Data Generation}
  
-\begin{block}{Visualization of Internal Heterogeneity}
+\begin{block}{Synthetic Multivariate Data}
  \begin{itemize}
- \item  What information can be learned from a mapping of the I.V.?
+ \item  Follow Wu and Takatsuka (2006)
+ \item  Seven clusters
+ \item  Three dimension
+ \item  Clusters are normally distributed w/ unit variance on each dimension
+ \item  25,000 Observation -> 644 Neurons
  \end{itemize}
  \end{block} \end{frame} 
-
-\subsection{Graph Based Implementation of SOM} 
 
 \begin{frame}
 	\frametitle{Graph Based Implementation of SOM}
  
 \begin{block}{Python}
  \begin{itemize}
+ \item  Growing scientific community
  \item  Rapid development
- \item  Growing community
- \item  Libraries
  \end{itemize}
  \end{block} 
 \begin{block}{Why}
@@ -370,23 +326,37 @@
  \item  Alternative topologies not available 
  \item  Difficult to extend
  \item  Flexibility over speed
+ \begin{itemize}
+ \item  SOM\_PAK: 90 seconds
+ \item  PySOM: 45 minutes
+ \end{itemize}
  \end{itemize}
  \end{block} 
 \begin{block}{Graphs}
  \begin{itemize}
  \item  Topology independent
- \item  Fast
  \item  Flexible
  \end{itemize}
  \end{block} \end{frame} 
 
 
-\section{} 
-
-
 \section{Results} 
 
 \subsection{Internal Heterogeneity vs. First-Order Neighborhood Size} 
+
+\begin{frame}
+	\frametitle{Diagnostic}
+ 
+\begin{block}{Internal Heterogeneity vs. First-Order Neighborhood Size}
+ \begin{itemize}
+ \item  Does a neuron's I.H. decrease as its first-order neighborhood size increases?
+ \begin{itemize}
+ \item  Group neurons by degree and topology
+ \item  Measure I.H. within each group
+ \item  Check for difference of means and variance between groups
+ \end{itemize}
+ \end{itemize}
+ \end{block} \end{frame} 
 
 \begin{frame}
 	\frametitle{Internal Heterogeneity vs. First-Order Neighborhood Size}
@@ -435,6 +405,20 @@
 \subsection{Internal Heterogeneity vs. Topological Regularity} 
 
 \begin{frame}
+	\frametitle{Diagnostic}
+ 
+\begin{block}{Internal Heterogeneity vs. Topological Regularity}
+ \begin{itemize}
+ \item  Does a SOM's average I.H. increase in more irregular topologies?
+ \begin{itemize}
+ \item  Group neurons by Topology
+ \item  Measure I.H. within each group
+ \item  Check for difference of means and variance between groups
+ \end{itemize}
+ \end{itemize}
+ \end{block} \end{frame} 
+
+\begin{frame}
 	\frametitle{Internal Heterogeneity vs. Topological Regularity}
   \begin{table}
   \centering
@@ -464,19 +448,27 @@
     \label{rlt:all}
     \begin{tabular}{|c||c|c|c|c|}
     \hline
-    \textbf{Topology}&Rectangular				&Hexagonal &Geodesic &Spherical\\\hline
+    \textbf{Topology}&Rectangular&Hexagonal &Geodesic &Spherical\\\hline
     \hline
- 		Rectangular & (0.000064) & \textbf{0.001000} & \textbf{0.000100} & \textbf{0.000100}\\\hline
- 		Hexagonal & -0.000479 & (0.000064) & \textbf{0.000100} & \textbf{0.000100}\\\hline
- 		Geodesic & -0.001329 & -0.000850 & (0.000060) & 0.505600\\\hline
- 		Spherical & -0.001328 & -0.000849 & 0.000001 & (0.000061)\\\hline
- 
+ 	Rectangular & (0.000064) & \textbf{0.001000} & \textbf{0.000100} & \textbf{0.000100}\\\hline
+ 	Hexagonal & -0.000479 & (0.000064) & \textbf{0.000100} & \textbf{0.000100}\\\hline
+ 	Geodesic & -0.001329 & -0.000850 & (0.000060) & 0.505600\\\hline
+ 	Spherical & -0.001328 & -0.000849 & 0.000001 & (0.000061)\\\hline
     \end{tabular}
     \end{minipage}
   \end{table}
  \end{frame} 
 
 \subsection{Visualization of Internal Heterogeneity} 
+
+\begin{frame}
+	\frametitle{Diagnostics}
+ 
+\begin{block}{Visualization of Internal Heterogeneity}
+ \begin{itemize}
+ \item  What information can be learned from a mapping of the I.H.?
+ \end{itemize}
+ \end{block} \end{frame} 
 
 \begin{frame}
 	\frametitle{Visualization of Internal Heterogeneity}
@@ -533,7 +525,7 @@
 \begin{block}{Internal Heterogeneity vs. First-Order Neighborhood Size}
  \begin{itemize}
  \item  Significant differences for hexagonal and rectangular topologies
- \item  Significant difference in spherical topology
+ \item  One significant difference in spherical topology
  \begin{itemize}
  \item  Magnitude of difference very small compared with magnitudes in "flat" topologies
  \end{itemize}
@@ -553,6 +545,13 @@
  \end{block} \end{frame} 
 
 \begin{frame}
+	\frametitle{Objective}
+ 
+\begin{block}{Question}
+  Does Regularity Matter in Spherical SOM?
+ \end{block} \end{frame} 
+
+\begin{frame}
 	\frametitle{Limitations}
  
 \begin{block}{Qualifications}
@@ -562,7 +561,6 @@
  \item  Does not address the benefits of having or removing the edge.
  \item  Is pushing outliers to the edges a bad thing?
  \end{itemize}
- \item  First-order neighborhood size is capturing larger network irregularities in the "flat" topologies
  \end{itemize}
  \end{block} \end{frame} 
 
@@ -577,22 +575,6 @@
  \begin{itemize}
  \item  Remove nodes from the existing topologies
  \end{itemize}
- \end{itemize}
- \end{block} \end{frame} 
-
-\begin{frame}
-	\frametitle{Clustering Properties}
- 
-\begin{block}{Global Structure}
- \begin{itemize}
- \item To what extent is the underlying clustering captured by the different topologies and sizes?
- \item  Are the same number of clusters found?
- \end{itemize}
- \end{block} 
-\begin{block}{Local Structures}
- \begin{itemize}
- \item  Do different topologies generate clusters in similar ways?
- \item  Which clusters are found most often across the different topologies?
  \end{itemize}
  \end{block} \end{frame} 
 
