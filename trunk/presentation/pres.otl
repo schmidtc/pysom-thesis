@@ -98,7 +98,6 @@ Background
 			In Spatial Analysis
 			| * Inflated nearest neighbor distances
 			| * Mask the true distribution
-			| * Edge corrections
 			Components of Edge Effect
 			| * True Boundary
 		Suggested Solutions
@@ -309,6 +308,6 @@ Conclusions
 		Edge Effects in SOM
 			| \begin{center}
 			| \begin{figure}
-			| \includegraphics[width=0.60\linewidth]{statesSphere.png}
+			| \includegraphics[width=\linewidth]{statesSphere.png}
 			| \end{figure}
 			| \end{center}
