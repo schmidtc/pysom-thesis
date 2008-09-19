@@ -49,9 +49,9 @@ better model these signals. In each step of the training process the winning
 neuron is the one most similar to a given input signal.  Traditionally, the
 neural lattice, or network, has either a rectangular or hexagonal topology.  As shown in
 Figure \ref{topos} these topologies have different properties.  In the
-rectangular topology, Figure \ref{topo:rook}, neurons are bounded by four
-neighbors.  In the hexagonal topology, Figure \ref{topo:hex}, neurons are
-bounded by six neighbors.  In both topologies, neurons on the edge have fewer
+rectangular topology, Figure \ref{topo:rook}, internal neurons are bounded by four
+neighbors.  In the hexagonal topology, Figure \ref{topo:hex}, internal neurons are
+bounded by six neighbors.  In both topologies, edge neurons have fewer
 neighbors.  As the learning progresses, \emph{data similarities} in the
 high-dimensional input-space are translated into \emph{spatial relationships}
 in the low-dimensional neural network \citep{ritter99}.
@@ -73,7 +73,7 @@ in the low-dimensional neural network \citep{ritter99}.
 
 The SOM has a number of applications, but is primarily used for data reduction
 and data visualization.  The SOM is often compared with other data reduction
-techniques, such as principle components or multi-dimensional scaling. Like
+techniques, such as principal components or multi-dimensional scaling. Like
 SOM, these techniques reduce the dimensionality of the input-space
 \citep{Kohonen2000,skupin08}. However unlike SOM, these techniques do not
 directly perform clustering.  The SOM on the other hand has the ability to do
@@ -110,8 +110,8 @@ familiar map-like form. The SOM's component planes capture the spatial layout
 of each dimension, these are often visualized in a series of maps.  These
 maps can provided useful information about the relationships between the
 different attributes of your input-space.  In terms of information
-visualization, the spatial layout of observations on the network provides far
-more information than traditional methods, such as ordered lists or scatter
+visualization, the spatial layout of observations on the network can provide far
+more insight than traditional methods, such as ordered lists or scatter
 plots.
 
 \section{Training}
