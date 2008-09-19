@@ -96,13 +96,12 @@ with much finer granularity.  In the second case the SOM proves to be a very
 useful visualization tool.  The similarities and dissimilarities among the
 states are represented as spatial orientations and distances.  Even in this
 larger case, where neurons outnumber observations, clustering may still occur.
-This happens because the SOM tries to represent the entire input-space.  If
-some observations are sufficiently different, while others are sufficiently
-similar; the network may be better utilized by allowing some neurons to
-represent dissimilarities, while clustering of observations occurs at other
-neurons.
+This happens because the SOM tries to represent the entire input-space.  
+The SOM may better represent the input-space by not assigning observations to
+every neuron, allowing these neurons to represent dissimilarities, while
+clustering of observations occurs at other neurons.
 
-A useful property of the SOM is that the network structure between the neurons
+A useful property of the SOM is that the network structure connecting the neurons
 allows us to create meaningful visualisations.  Observations used in the
 training, as well as new observations from the input space, can be mapped
 onto the trained surface in order to show higher dimensional relationships in a
@@ -129,8 +128,8 @@ signals they receive.  Feedback between the neurons allows the entire network to
 eventually converge to a final state. After training, each neuron in the SOM
 will represent a portion of the input space.  To accomplish this
 representation each neuron is associated with a parametric reference vector,
-\(m_i\), referred to as a model vector \citep{Kohonen2000}.  The length of the
-model vectors are equal to the length of the input vectors, such that each
+\(m_i\), referred to as a model vector \citep{Kohonen2000}.  The length of each
+model vector is equal to the length of the input vectors, such that each
 element within a model vector represents a dimension of the input-space.  The
 initial values of the elements are most commonly randomized, such that a
 mapping of the input-space onto the initial SOM would have no meaning. Other
@@ -138,7 +137,7 @@ initializations are possible and may reduce the time required for the map to
 converge \citep{Kohonen2000}.
 
 Our implementation follows the ``Original Incremental SOM Algorithm'' as laid
-out by \cite{Kohonen2000}.  In each step of the algorithm, a randomly select
+out by \cite{Kohonen2000}.  In each step of the algorithm, a randomly selected
 observation (input vector $x$) searches for its best model (reference vector
 $m_i$) among the neurons.  The best model is defined as the $m_i$ with the
 smallest distance to $x$.  These distances are referred to as quantization
@@ -181,7 +180,8 @@ around the winning neurons, and irregular topologies directly impact the size an
 shape of these neighborhoods.  
 %According to \cite{wu2006}, the hexagonal structure is more uniform and generally preferred.
 
-We believe the regularity of a given topology is a better metric
+We believe the regularity of a given topology, as opposed to spacing and
+uniformity, is a better metric
 for evaluating different topologies for use in SOM. In graph theory a regular
 graph, is simply a graph in which every node has the same number of neighbors
 \citep{harris2000}. A measure of regularity tells us how uniform neurons
@@ -267,7 +267,7 @@ variance in neuron spacing, and the generally preferred hexagonal structure
 displays greater variance in neighborhood size than the rectangular structure.
 The torus, by comparison, would have variance in neuron spacing, yet no
 variance in neighborhood size.  The distance between two neurons is only
-considered during the formation of the neural network.  At this stage the
+considered during the formation of the network topology.  At this stage the
 spacing is significant as it plays a part in constructing the network's
 topology by determining neuron adjacency.  However, using this measure to
 evaluate potential topologies for use in SOM may be misleading.
