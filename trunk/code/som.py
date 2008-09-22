@@ -9,13 +9,19 @@ This source code is probably licensed under the GNU General Public License,
 Version 2, you should check.
 ======================================================================
 """
+# Standard Libraries
 import random,math,time,sys,os
+from math import acos,sqrt,pi,degrees,sin,cos,asin
+import pickle
+
+# External Libraries
+# http://numpy.scipy.org/
 from numpy import array,empty,take,put,zeros
 import numpy as N
-from math import acos,sqrt,pi,degrees,sin,cos,asin
+# https://networkx.lanl.gov/
 import networkx as NX
-#import pylab
-import pickle
+
+# Local Libraries (part of pySom)
 from utils import *
 from data import ObsFile
 
@@ -25,6 +31,7 @@ class som:
         A template is provied in 'Topology'
     '''
     def __init__(self):
+        ''' These initial training parameters should be set before training. '''
         self.Dims = 0
         self.X = 0
         self.Y = 0
@@ -37,6 +44,14 @@ class som:
         self.daMap = {}
 
     def load(self,path='',name=None):
+        ''' This function loads a saved SOM from disk into memory.
+            pySom uses several files to represent the SOM,
+            .cod is the Codebook file which represents the reference vectors
+            .map represents the mapping of the observations onto the trained SOM
+            
+            If the path and name are omitted they will be guessed 
+            based on the SOM's parameters
+        '''
         if not name:
             name = '%ds_%dd_%dr_%fa'%(self.Size,self.Dims,self.tSteps,self.alpha0)
         codname = path+name+'.cod'
@@ -61,37 +76,56 @@ class som:
             data = data.split()
             data = map(float,data)
             self.nodes[i] = data
-        self.diffs = array([[0.0 for i in xrange(self.Dims)] for j in xrange(self.Size)])
 
     def save(self,path='',name=None):
+        ''' This function saves a SOM to disk.
+            pySom uses several files to represent the SOM,
+            .cod is the Codebook file which represents the reference vectors
+            .map represents the mapping of the observations onto the trained SOM
+            
+            If the path and name are omitted they will be guessed 
+            based on the SOM's parameters
+        '''
         if self.X == 0 or self.Y == 0:
             self.X = self.Size
             self.Y = 1
         if not name:
             name = '%ds_%dd_%dr_%fa'%(self.Size,self.Dims,self.tSteps,self.alpha0)
         codname = path+name+'.cod'
-        cxdname = path+name+'.cxd'
         mapname = path+name+'.map'
         if self.daMap:
             mapfile = open(mapname,'w')
             pickle.dump(self.daMap,mapfile)
             mapfile.close()
         outf = open(codname,'w')
-        outx = open(cxdname,'w')
         outf.write("%d %s %d %d gaussian\n"%(self.Dims,self.Type,self.X,self.Y))
-        outx.write("%d %s %d %d gaussian CUM DIFF FILE\n"%(self.Dims,self.Type,self.X,self.Y))
         for i in xrange(self.Size):
             outf.write(' '.join(str(self.nodes[i].tolist())[1:-1].split(', '))+'\n')
-            outx.write(' '.join(str(self.diffs[i].tolist())[1:-1].split(', '))+'\n')
         outf.close()
-        outx.close()
 
     def randInit(self):
+        ''' This function initializes the reference vectors with values 0 to 1.
+            If you are not standardizing your data this function should be overwritten
+    
+            * Ideally this function would analyze the input data and scale the
+              randomization accordingly.  SOM_PAK does something along these lines,
+              their code might help find a good solution for this.
+        '''
         self.nodes = array([[random.random() for j in xrange(self.Dims)] for i in xrange(self.Size)])
-        # This diffs will define your walls!
-        self.diffs = array([[0.0 for i in xrange(self.Dims)] for j in xrange(self.Size)])
 
     def findBMU(self,ind,v,ReturnDist = False):
+        ''' This function returns the ID of the reference vector that is the closest
+            (in Euclidean distance) to input vector v
+            
+            Optionally this function will also return that distance between the two.
+            Overwrite this function if you need something other than Euclidean dist.
+
+            the 'ind' parameter is unused and should be set to None.
+
+            * As written this function does not handle missing values, a previous version
+              did, but it was painfully slow. One option would be to remove the distance
+              function and pick the appropriate dist function depending on the values present.
+        '''
         d = ((self.nodes-v)**2).sum(1)
         minI = d.argmin()
         if ReturnDist:
@@ -100,15 +134,16 @@ class som:
         else:
             return minI
 
-    def diff(self,nodeid,ind,v):
-        node = take(self.nodes[nodeid],ind)
-        return sum((node-v)**2)
-
     def alpha(self,t):
+        '''  Returns the learning rate (alpha) as a function of time t.
+        '''
         r = self.alpha0 * (1 - (t/float(self.tSteps)))
         if r < 0: r = 0
         return r
     def hci(self, t, dist):
+        ''' This kernal function adjust the magnitude with which the observation affects 
+            the reference vectors.
+        '''
         sigma = self.kernalWidth(t)
         a = self.alpha(t)
         top = dist**2
@@ -133,12 +168,10 @@ class som:
                 part = self.nodes[nodeID]
                 delta = hc*(v-part)
                 self.nodes[nodeID] = part+delta
-                self.diffs[nodeID] += abs(delta)
             else:
                 part = take(self.nodes[nodeID],ind)
                 delta = hc*(v-part)
                 put(self.nodes[nodeID],ind,part+delta)
-                self.diffs[nodeID] += abs(delta)
 
     def run(self,obsf):
         self.neighborhoodCache = {}
@@ -294,8 +327,6 @@ class GraphTopology(som):
         #alteredNodes = [(node,(v-self.nodes[node])*self.hci2(sigma,a,odist)) for node,odist in results.iteritems()]
         for nodeID,node in alteredNodes:
             self.nodes[nodeID] += node
-        # trackking diffs slows us down. a lot.
-        #    self.diffs[nodeID] += abs(delta)
 
 class Sphere(som):
     def __init__(self):
