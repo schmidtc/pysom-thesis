@@ -11,7 +11,7 @@ import sys
 import numpy
 from commands import getoutput,getstatusoutput
 from math import *
-from greatCircle import findIntersetion
+from greatCircle import findIntersection
 
 def toXYZ(pt):
     phi,theta = pt
@@ -136,7 +136,7 @@ def splitPoly(poly):
         p1 = toLngLat(p1)
         p0,p1 = map(degrees,p0),map(degrees,p1)
         if ((p0[0] < -90) ^ (p1[0] < -90)) and ((p0[0] >90) ^ (p1[0] > 90)):
-            i = findIntersetion(p0[0],p0[1],p1[0],p1[1])
+            i = findIntersection(p0[0],p0[1],p1[0],p1[1])
             if (p0[1] < 0) and (p1[1] < 0) and i > 0:
                 i = i*-1
             elif (p0[1] > 0) and (p1[1] > 0) and i < 0:
@@ -167,8 +167,9 @@ def splitPoly(poly):
             c += 1
             newEdges.append((p0,p1))
     if len(badEdges) == 2:
-        #Polar Region
-        #print len(badEdges)
+        print "Polar Region"
+        print len(badEdges)
+        print (badEdges)
         poly = newPoly[:edge0]
         if poly[-1][0] < 0:
             pol = -180.0
