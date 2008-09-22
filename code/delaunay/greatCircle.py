@@ -75,20 +75,23 @@ def splitEdge(edge):
 
 
 from math import sin,cos,asin,sqrt,radians,degrees
-def findIntersetion(lat1,lon1,lat2,lon2): 
+def findIntersection(lat1,lon1,lat2,lon2): 
     lat1, lon1, lat2, lon2 = map(radians,[lat1, lon1, lat2, lon2])
     lambda1, delta1, lambda2, delta2 = lat1, lon1, lat2, lon2
     a = asin( (cos(delta1)*sin(delta2)*sin(lambda1) - cos(delta2)*sin(delta1)*sin(lambda2)) / sqrt( (cos(delta1)**2) * (cos(delta2)**2) * (sin( lambda1 - lambda2)**2) + (cos(delta1)*sin(delta2)*sin(lambda1) - cos(delta2)*sin(delta1)*sin(lambda2))**2))
     return degrees(a)
 
 if __name__=='__main__':
-    pt1 = Point(138.04994128321047, 84.746915392846248)
-    pt2 = Point(-178.39292475883215, 84.268032034802275)
-    arc = GreatCircle(pt1,pt2)
-    antiMeridian = GreatCircle(Point(90,-180),Point(0,-180))
-    a = arc.intersectsGreatCircle(antiMeridian)
+    #pt1 = Point(163.547646,-84.383935)
+    #pt2 = Point(-73.198884,-83.514260)
+    #pt1 = Point(138.04994128321047, 84.746915392846248)
+    #pt2 = Point(-178.39292475883215, 84.268032034802275)
+    #arc = GreatCircle(pt1,pt2)
+    #antiMeridian = GreatCircle(Point(90,-180),Point(0,-180))
+    #a = arc.intersectsGreatCircle(antiMeridian)
 
-    edge = ([138.04994128321047, 84.746915392846248], [-178.39292475883215, 84.268032034802275])
-    splitEdge(edge)
-
-    a = findIntersetion(-178.39292475883215, 84.268032034802275, 138.04994128321047, 84.746915392846248)
+    edge = ([163.547646, -84.383935] , [-73.198884, -83.514260])
+    #edge = ([138.04994128321047, 84.746915392846248], [-178.39292475883215, 84.268032034802275])
+    #splitEdge(edge)
+    #a = findIntersection(-178.39292475883215, 84.268032034802275, 138.04994128321047, 84.746915392846248)
+    a = findIntersection(163.547646, -84.383935, -73.198884, -83.514260)
