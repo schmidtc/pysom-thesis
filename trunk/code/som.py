@@ -32,16 +32,17 @@ class som:
     '''
     def __init__(self):
         ''' These initial training parameters should be set before training. '''
-        self.Dims = 0
-        self.X = 0
-        self.Y = 0
-        self.Size = 0
-        self.Type = 'none'
-        self.tSteps = 0
-        self.maxN = 0
-        self.alpha0 = 0
-        self.nodes = []
-        self.daMap = {}
+        self.Dims = 0 # int, the number of dimmension in the input-space
+        self.X = 0 # int, optionally the number nurons in the X dimmension
+        self.Y = 0 # int, optionally the number nurons in the Y dimmension
+        self.Size = 0 # int, total number of neurons
+        self.Type = 'none' # str, name of topology type
+        self.tSteps = 0 # int, total number of training steps.
+        self.maxN = 0.0 # float, initial neighborhood radius, expressed as percentage.
+        self.alpha0 = 0.0 # float, initial learning rate
+
+        self.nodes = [] # reference vecotors are stored here.
+        self.daMap = {} # mapping of observations to neurons is stored here.
 
     def load(self,path='',name=None):
         ''' This function loads a saved SOM from disk into memory.
