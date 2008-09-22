@@ -51,30 +51,30 @@ def getIVdata(s,f):
     daMap = s.daMap
     f.reset()
     l = f.listolists()
-    #c = f.listolists(comments=True)
-    #if c[0]:
-    #    c = [i[0] for i in c]
-    #    c = map(int,c)
-    #else:
-    #    c = False
+    c = f.listolists(comments=True)
+    if c[0]:
+        c = [i[0] for i in c]
+        c = map(int,c)
+    else:
+        c = False
     ivData = []
     for node,ids in daMap.iteritems():
         degree = s.G.degree(node)
         size = len(ids)
         if size > 1:
-            distMatrix = pairWiseDist(ids,l)
+            #distMatrix = pairWiseDist(ids,l)
             # for a sq. dist martix, the number of the pairWise distances is
             # equal to the totalsize (size in 1d)**2 - the number of diagonals
             # (size) over 2
-            averageIV = distMatrix.sum() / (((size**2)-size)/2)
+            #averageIV = distMatrix.sum() / (((size**2)-size)/2)
             #averageIV = distMatrix.max()
             #averageIV = avgQE(s.nodes[node],ids,l)
-            #if c:
-            #    cluster,pclust = getCluster(ids,c)
-            #else:
-            #    cluster,pclust = 0,0
-            ivData.append((node,size,degree,averageIV))
-            #ivData.append((node,size,degree,cluster,pclust))
+            if c:
+                cluster,pclust = getCluster(ids,c)
+            else:
+                cluster,pclust = 0,0
+            #ivData.append((node,size,degree,averageIV))
+            ivData.append((node,size,degree,cluster,pclust))
     
     #data = {}
     #for node,size,degree,aiv in ivData:
