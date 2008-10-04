@@ -1,0 +1,7 @@
+dome -f8 -v -s file.wrl
+python WRLtoXYZ.py file.wrl > geodesic_642.xyz
+wc -l geodesic_642.xyz
+     642 geodesic_642.xyz
+sxyz_voronoi geodesic_642.xyz 
+mv delaunay.xyz geodesic_642_delaunay.xyz
+
