@@ -1,18 +1,39 @@
 """
+======================================================================
 Python Self-Organizing Maps 
 ----------------------------------------------------------------------
 AUTHOR(S):      Charles R. Schmidt cschmidt@rohan.sdsu.edu
 ----------------------------------------------------------------------
-Copyright (c) 2006-2008  Charles R. Schmidt
-======================================================================
-This source code is probably licensed under the GNU General Public License,
-Version 2, you should check.
+* Copyright (c) 2006-2008, Charles R. Schmidt
+* All rights reserved.
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions are met:
+*     * Redistributions of source code must retain the above copyright
+*       notice, this list of conditions and the following disclaimer.
+*     * Redistributions in binary form must reproduce the above copyright
+*       notice, this list of conditions and the following disclaimer in the
+*       documentation and/or other materials provided with the distribution.
+*     * Neither the name of the San Diego State University nor the
+*       names of its contributors may be used to endorse or promote products
+*       derived from this software without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY Charles R. Schmidt ''AS IS'' AND ANY
+* EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+* WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+* DISCLAIMED. IN NO EVENT SHALL Charles R. Schmidt BE LIABLE FOR ANY
+* DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+* (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+* ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+* (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ======================================================================
 """
 # Standard Libraries
 import random,math,time,sys,os
 from math import acos,sqrt,pi,degrees,sin,cos,asin
-import pickle
+import pickle #provides object serialization
 
 # External Libraries
 # http://numpy.scipy.org/
@@ -105,8 +126,9 @@ class som:
         outf.close()
 
     def randInit(self):
-        ''' This function initializes the reference vectors with values 0 to 1.
-            If you are not standardizing your data this function should be overwritten
+        ''' This function initializes the reference vectors with random values in 
+            the range of 0 to 1.  If your data has not standardized within this range,
+            this function should be overwritten
     
             * Ideally this function would analyze the input data and scale the
               randomization accordingly.  SOM_PAK does something along these lines,
@@ -126,6 +148,8 @@ class som:
             * As written this function does not handle missing values, a previous version
               did, but it was painfully slow. One option would be to remove the distance
               function and pick the appropriate dist function depending on the values present.
+            * An external distance function could also be used here, however the extra 
+              function call will effect performance.
         '''
         d = ((self.nodes-v)**2).sum(1)
         minI = d.argmin()
@@ -150,16 +174,11 @@ class som:
         top = dist**2
         bottom = (2*(float(sigma)**2))
         return a * math.exp(-top/bottom)
-    def kernalWidth(self,t):
-        """Returns the number of neurons to include at time t
-           this should probably return the current order instead,
-           which means it should be moved to Topology."""
-        r = round((self.Size*self.maxN) * (1 - (t/float(self.tSteps))))
-        r = int(r)
-        if r == 0: r = 1
-        return r
 
     def merge(self,t,ind,v):
+        ''' This function adjusts the actual refernce vectors at time 't' based on observation
+            vector 'v'.
+        '''
         bmu = self.findBMU(ind,v)
         sigma = self.kernalWidth(t)
         results = self.neighborhood( bmu , sigma )
@@ -175,6 +194,11 @@ class som:
                 put(self.nodes[nodeID],ind,part+delta)
 
     def run(self,obsf):
+        ''' Call this function with your observation file are a perameter.
+            obsf must be an instance ObsFile as provided by data.py
+
+            All training parameters should be set before call this runction.
+        ''', 
         self.neighborhoodCache = {}
         print "####################################"
         print "###        Configuration         ###"
@@ -189,24 +213,18 @@ class som:
         print ""
         print "Running..."
         t1 = time.time()
-        #s = ''
         T = self.tSteps
         for t in xrange(self.tSteps):
             id,ind,v = obsf.stream()
             self.merge(t,ind,v)
-            ### 
-            #if t%100 == 0:
-            #    if len(s) > 60:
-            #        print '\r'+s
-            #        s = ''
-            #    s += '%d...'%t
-            #sys.stdout.write("\r%s%d"%(s,t))
             sys.stdout.write("\r%.2f%%"%(100*float(t)/T))
             sys.stdout.flush()
         print "\nRun compleated in %f seconds"%(time.time()-t1)
 
     def map(self,obsf):
-        """ This function needs an overhall #5"""
+        ''' This function maps the observation back onto the trained SOM
+            The QError is returned
+        '''
         qerror = 0
         counter = 0 
         daMap = {} # keys are node ID's, values are lists of observation ID's.
@@ -223,9 +241,73 @@ class som:
         qerror = qerror/counter
         self.daMap = daMap
         return qerror
+    
+class GraphTopology(som):
+    ''' GraphTopology extends "som" and provides a functioning implementation of the
+        Self-Organizing Map training algorithm.  The topology is based on a graph
+        structure with is provided using the NetworkX graph library.
+    '''
+    def __init__(self,G=None,Type='Graph'):
+        ''' Special initializtion for this topology, also calls som.__init__'''
+        som.__init__(self)
+        self.Type = Type
+        if G:
+            self.G = G
+            self.Size = G.order() # Number of nodes (neurons) in the network.
+            # if findWidth is not given a seed it will brute force the total network
+            # width, this could take a long time. For the spherical network, one of
+            # the polls should yield the correct width. Or possibly the node with
+            # lowest degree. The Width messures the largest distance between any two 
+            # nodes in the network
+            self.Width = nf.findWidth(G,G.nodes()[-1]) 
+    def save(self,path,name):
+        ''' in addition to saving this codebook, we also need to save the graph '''
+        som.save(self,path,name)
+        if not name:
+            name = '%ds_%dd_%dr_%fa'%(self.Size,self.Dims,self.tSteps,self.alpha0)
+        graphFile = path+name+'.graph'
+        f = open(graphFile,'wb')
+        pickle.dump(self.G,f) #serialize the graph to a textfile.
+        f.close()
+    def load(self,path,name):
+        ''' loads the graph and other information from disk '''
+        som.load(self,path,name)
+        if not name:
+            name = '%ds_%dd_%dr_%fa'%(self.Size,self.Dims,self.tSteps,self.alpha0)
+        graphFile = path+name+'.graph'
+        if os.path.exists(graphFile):
+            f = open(graphFile,'rb')
+            self.G = G = pickle.load(f)
+            self.Size = G.order()
+            self.Width = nf.findWidth(G,G.nodes()[-1]) 
+            f.close()
+    def kernalWidth(self,t):
+        """
+        kernalWidth returns the width of the neighborhood in terms of order
+        """
+        r = round((self.Width*self.maxN) * (1 - (t/float(self.tSteps))))
+        r = int(r)
+        if r == 0: r = 1
+        return r
+    def neighborhood(self,bmu,kernalWidth):
+        """
+        This function returns a dictionary containing the neighbors of bmu as
+        keys and their dist (as an order) as values.
+        """
+        return nf.neighborhood(self.G,bmu,kernalWidth)
+    def merge(self,t,ind,v):
+        bmu = self.findBMU(ind,v)
+        a = self.alpha(t)
+        sigma = self.kernalWidth(t)
+        results = self.neighborhood( bmu , sigma )
+        sigma = float(sigma)
+        # hci has been internalized in this next line to speed up processing
+        alteredNodes = [(node,(v-self.nodes[node])*(a*math.exp(-(odist*odist)/(2*sigma*sigma)))) for node,odist in results.iteritems()]
+        for nodeID,node in alteredNodes:
+            self.nodes[nodeID] += node
 
 #class Topology(som):
-#    """ Template class for topology Copy this class to create a new topology for som"""
+#    """ Template class for topology. Copy this class to create a new topology for som"""
 #    def __init__(self):
 #        som.__init__(self)
 #    def save(self,path,name):
@@ -253,163 +335,3 @@ class som:
 #        bmu is the id of the best match, or neighborhood center.
 #        """
 #        pass
-    
-class GraphTopology(som):
-    """ Template class for topology Copy this class to create a new topology for som"""
-    def __init__(self,G=None,Type='Graph'):
-        som.__init__(self)
-        self.Type = Type
-        if G:
-            self.G = G
-            self.Size = G.order()
-            # if findWidth is not given a seed it will brute force the total network
-            # width, this could take a long time. For the spherical network, one of
-            # the polls should yield the correct width. Or possibly the node with
-            # lowest degree.
-            self.Width = nf.findWidth(G,G.nodes()[-1]) 
-
-    def save(self,path,name):
-        som.save(self,path,name)
-        if not name:
-            name = '%ds_%dd_%dr_%fa'%(self.Size,self.Dims,self.tSteps,self.alpha0)
-        graphFile = path+name+'.graph'
-        f = open(graphFile,'w')
-        pickle.dump(self.G,f)
-        f.close()
-    def load(self,path,name):
-        som.load(self,path,name)
-        if not name:
-            name = '%ds_%dd_%dr_%fa'%(self.Size,self.Dims,self.tSteps,self.alpha0)
-        graphFile = path+name+'.graph'
-        if os.path.exists(graphFile):
-            f = open(graphFile,'r')
-            self.G = G = pickle.load(f)
-            self.Size = G.order()
-            self.Width = nf.findWidth(G,G.nodes()[-1]) 
-            f.close()
-
-    def randInit(self):
-        som.randInit(self)
-    def kernalWidth(self,t):
-        """
-        kernalWidth returns the width of the neighborhood in terms of order
-        """
-        r = round((self.Width*self.maxN) * (1 - (t/float(self.tSteps))))
-        r = int(r)
-        if r == 0: r = 1
-        return r
-    def odist(n):
-        """
-        n is the nth neuron in the in neighborhood, return's order
-        example the 3rd neuron in the set is 1 order from the 0th.
-        """
-        raise "not implemented"
-    def neighborhood(self,bmu,kernalWidth):
-        """
-        This function returns a dictionary containing the neighbors of bmu as
-        keys and their dist (as an order) as values.
-        """
-        return nf.neighborhood(self.G,bmu,kernalWidth)
-
-    def hci2(self, sigma, a, dist):
-        top = dist**2
-        bottom = (2*(sigma**2))
-        return a * math.exp(-top/bottom)
-    def merge(self,t,ind,v):
-        """
-        imporved neighborhood function eliminates the need for odist function.
-        """
-        bmu = self.findBMU(ind,v)
-        a = self.alpha(t)
-        sigma = self.kernalWidth(t)
-        results = self.neighborhood( bmu , sigma )
-        sigma = float(sigma)
-        alteredNodes = [(node,(v-self.nodes[node])*(a*math.exp(-(odist*odist)/(2*sigma*sigma)))) for node,odist in results.iteritems()]
-        #alteredNodes = [(node,(v-self.nodes[node])*self.hci2(sigma,a,odist)) for node,odist in results.iteritems()]
-        for nodeID,node in alteredNodes:
-            self.nodes[nodeID] += node
-
-class Sphere(som):
-    def __init__(self):
-        som.__init__(self)
-        # The Cache only works if the Neighborhood size is decreasing!
-        # If you increase the maxN clear the cache!
-        self.neighborhoodCache = {}
-    def clearCache(self):
-        self.neighborhoodCache = {}
-    def randInit(self):
-        som.randInit(self)
-        N = self.Size
-        points = []
-        for i in xrange(1,N+1):
-            i = float(i)
-            N = float(N)
-            h = (-1)+((2*(i-1)) / (N-1))
-            theta = acos(h)
-            if i == 1 or i == N:
-                phi = 0
-            else:
-                phi = (points[int(i)-2][0] + (3.6/sqrt(N)) * (1/sqrt(1-h**2)) ) % (2*pi)
-            points.append((phi,theta))
-        points = array([(phi-pi,theta-(pi/2)) for phi,theta in points])
-        self.grid = points
-
-        size = self.Size * self.maxN
-        maxW = 0
-        W = 0
-        while size >= (1+(3*maxW)*(maxW-1)):
-            maxW += 1
-        self.maxW = maxW
-
-    def odist(self,n):
-        d = 1
-        while n >= (1+(3*d)*(d-1)):
-            d+=1
-        return d-1
-    def save(self,path,name):
-        som.save(self,path,name)
-        geof = open(path+name+'_geo.txt','w')
-        geof.write("%d %d\n"%(self.Dims,self.Size))
-        for i in xrange(self.Size):
-            geof.write("%f %f\n"%(degrees(self.grid[i][0]),degrees(self.grid[i][1])))
-        geof.close()
-    def load(self,path,name):
-        som.load(self,path,name)
-        if os.path.exists(path+name+'_geo.txt'):
-            geof = open(path+name+'_geo.txt','r')
-            header = geof.next()
-            self.grid = zeros((self.Size,2),'float')
-            for i in xrange(self.Size):
-                geo = geof.next()
-                geo = geo.split()
-                geo = (math.radians(float(geo[0])),math.radians(float(geo[1])))
-                self.grid[i] = geo
-        else:
-            pass
-    def sdist(self,pt1,pt2):
-        phi1,theta1 = pt1
-        phi2,theta2 = pt2
-        dphi = phi2 - phi1
-        dtheta = theta2 - theta1
-        a = sin(dtheta/2)**2 + (cos(theta1) * cos(theta2) * sin(dphi/2)**2)
-        c = 2 * asin(min(1,sqrt(a)))
-        return c
-    def kernalWidth(self,t):
-        r = round((self.maxW) * (1 - (t/float(self.tSteps))))
-        r = int(r)
-        if r == 0: r = 1
-        return r
-    def neighborhood(self,bmu,sigma):
-        NumNeighbors = (1+(3*sigma)*(sigma-1))
-        try:
-            return self.neighborhoodCache[bmu][:NumNeighbors]
-        except:
-            pt0 = self.grid[bmu]
-            dists = {}
-            for i in xrange(self.Size):
-                dists[self.sdist(self.grid[i],pt0)] = i
-            keys = dists.keys()
-            keys.sort() 
-            pts = [dists[keys[i]] for i in xrange(NumNeighbors)]
-            self.neighborhoodCache[bmu] = pts
-            return pts
