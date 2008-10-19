@@ -17,4 +17,4 @@ random_data.o : random_Data.C
 
 
 clean: 
-	@/bin/rm *.o
+	@rm *.o
