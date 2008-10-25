@@ -39,6 +39,14 @@ class ObsFile:
         The first line should contain only the number of dimmension in the data set.
         Each subsequant line should contain one observation, each value should be seperated
         a space.
+
+        eg:
+        3
+        1.0 0.9 0.8
+        0.6 0.0 0.2
+        0.2 0.5 1.0
+        0.0 1.0 0.0
+
     '''
     def __init__(self,filename,fileType = 'complete'):
         ''' Opens the file '''
