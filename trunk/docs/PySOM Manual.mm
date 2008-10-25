@@ -1,7 +1,7 @@
 <map version="0.8.1">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
 <node CREATED="1223248477773" ID="Freemind_Link_376679635" MODIFIED="1223248881518" TEXT="PySOM Manual">
-<node CREATED="1223248884252" FOLDED="true" ID="Freemind_Link_528587726" MODIFIED="1223249800001" POSITION="right" TEXT="Intro">
+<node CREATED="1223248884252" ID="Freemind_Link_528587726" MODIFIED="1223249800001" POSITION="right" TEXT="Intro">
 <edge WIDTH="thin"/>
 <node CREATED="1223249163125" ID="Freemind_Link_707954679" MODIFIED="1223249219858" TEXT="PySOM is an implementation of the Self-Organizing Map training algorithm written in the Python Programming Language."/>
 <node CREATED="1223249220495" ID="Freemind_Link_1632558200" MODIFIED="1223249291698" TEXT="What makes PySOM unique from other implementations is that the network topology is not hard wired, instead we represent the topology as a graph."/>
@@ -12,8 +12,21 @@
 <node CREATED="1223249534753" ID="Freemind_Link_240614022" MODIFIED="1223249665901" TEXT="In the following sections you will learn how to setup your topology, organize your data, set your training paramenters, and train your SOM."/>
 <node CREATED="1223249666674" ID="Freemind_Link_807120523" MODIFIED="1223249729292" TEXT="Some useful functions and instructions for visualizing your SOM will also be provided, but most if this will need to be down without the help of PySOM."/>
 <node CREATED="1223249809685" ID="Freemind_Link_46774827" MODIFIED="1223249820222" TEXT="Library Organiztion">
+<node CREATED="1224564252941" ID="Freemind_Link_1076386337" MODIFIED="1224564255034" TEXT="pysom">
 <node CREATED="1223249820802" ID="Freemind_Link_1009790772" MODIFIED="1223249824679" TEXT="som.py">
 <node CREATED="1223249825732" ID="Freemind_Link_567368777" MODIFIED="1223249839213" TEXT="Contains the training code"/>
+</node>
+<node CREATED="1224564229583" ID="Freemind_Link_226602435" MODIFIED="1224564231977" TEXT="data.py">
+<node CREATED="1224564232394" ID="Freemind_Link_38346801" MODIFIED="1224564242715" TEXT="Classes for reading Observation Data"/>
+</node>
+<node CREATED="1224564263499" ID="Freemind_Link_783906642" MODIFIED="1224564266592" TEXT="util"/>
+<node CREATED="1224565602232" ID="Freemind_Link_833202588" MODIFIED="1224565604084" TEXT="topo">
+<node CREATED="1224565604513" ID="Freemind_Link_1210266418" MODIFIED="1224565606517" TEXT="hex.py"/>
+<node CREATED="1224565607058" ID="Freemind_Link_1582975467" MODIFIED="1224565609007" TEXT="rook.py"/>
+</node>
+<node CREATED="1224564349912" ID="Freemind_Link_686269829" MODIFIED="1224564352741" TEXT="thesis">
+<node CREATED="1224564353386" ID="Freemind_Link_1634894114" MODIFIED="1224564371575" TEXT="Code directly related to thesis"/>
+</node>
 </node>
 </node>
 <node CREATED="1223248886165" ID="Freemind_Link_1664257889" MODIFIED="1223248888873" TEXT="Topology">
@@ -24,7 +37,7 @@
 <node CREATED="1223248897113" ID="Freemind_Link_850087041" MODIFIED="1223248899870" TEXT="Training"/>
 <node CREATED="1223248900275" ID="Freemind_Link_989431844" MODIFIED="1223248902503" TEXT="Visualize"/>
 </node>
-<node CREATED="1223250006181" FOLDED="true" ID="Freemind_Link_1467846724" MODIFIED="1223250012067" POSITION="right" TEXT="Installation">
+<node CREATED="1223250006181" ID="Freemind_Link_1467846724" MODIFIED="1223250012067" POSITION="right" TEXT="Installation">
 <node CREATED="1223251103094" FOLDED="true" ID="Freemind_Link_1493726936" MODIFIED="1223251107555" TEXT="Requirements">
 <node CREATED="1223250012511" ID="Freemind_Link_74409514" MODIFIED="1223250179919" TEXT="PySOM requires a Python Version 2.4 or later.  Major version releases of Python (eg. from 2.0 to 3.0) are not backwards compatible and PySOM should not be expected to work with future major releases."/>
 <node CREATED="1223250216700" ID="Freemind_Link_1298461132" MODIFIED="1223250254785" TEXT="In addition the following Python Libraries are required."/>

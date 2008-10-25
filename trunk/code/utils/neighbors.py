@@ -1,6 +1,10 @@
 import networkx as NX
 
 def neighborhood(G,n,o):
+    """ Returns the neighbors of node n in graph G out to order o,
+        Returned as dictionary where the keys are node ids and the
+        values are the order of that node,
+    """
     base = G[n]
     neighbors = {}
     neighbors[n] = 0
@@ -18,6 +22,9 @@ def neighborhood(G,n,o):
     return neighbors
 
 def findWidth(G,seed=None,returnWidths=False):
+    """ Returns the maximum width of graph G
+        If given a seed will only search from that node.
+    """
     widths = []
     if not seed == None:
         nodes = [seed]
@@ -40,9 +47,6 @@ def findWidth(G,seed=None,returnWidths=False):
     else: return max(widths)
 
 if __name__=='__main__':
-#    G = graph((6,6))
-#    for i in range(1,7):
-#        G.add_node(str(i))
     G = NX.Graph()
 
     G.add_edge(('1','2'))
@@ -54,13 +58,6 @@ if __name__=='__main__':
     G.add_edge(('7','8'))
     G.add_edge(('8','9'))
     G.add_edge(('9','1'))
-"""
-    G.add_edge(('1','2'))
-    G.add_edge(('1','4'))
-    G.add_edge(('1','5'))
-    G.add_edge(('4','2'))
-    G.add_edge(('4','5'))
-    G.add_edge(('2','5'))
-    G.add_edge(('5','3'))
-    G.add_edge(('3','6'))
-"""
+
+    print findWidth(G)
+    print neighborhood(G,'1',4)

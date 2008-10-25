@@ -43,7 +43,7 @@ import numpy as N
 import networkx as NX
 
 # Local Libraries (part of pySom)
-from utils import *
+import utils.neighbors as nf
 from data import ObsFile
 
 class som:
