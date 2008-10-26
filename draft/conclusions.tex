@@ -2,8 +2,9 @@
 \chapter{CONCLUSIONS}
 The spherical SOM has been widely suggested as a solution to the edge effect
 in traditional SOM.  The edge of the traditional SOM is a problem because neurons on
-the edge of the neural network are less central than those in
-the center of the network.  We extended this problem to spherical SOM by
+the edge of the topology are less central to the neural network than those in
+the center of the topology, resulting is differing levels of influence on the
+training process.  We extended this problem to spherical SOM by
 asserting that irregular spherical topologies will have neurons that are less
 central than others.  Existing research in spherical SOM has widely been
 focused on minimizing this irregularity and the commonly used tessellated
@@ -63,6 +64,16 @@ toolbox these tools provide much more than a new visualization method or
 clustering technique.  Using SOM we can extract spatial representations from
 otherwise aspatial data, allowing us to leverage our existing set of
 tools on a whole new set of problems.
+
+\section{Limitations and Future Directions}
+A key limitation of this research is that we only address how topological
+regularity effects the SOM.  We do not address how other attributes of the
+topology effect the SOM. Specifically, the benefits and/or costs of removing the
+edge are unclear.  More research needs to be done in order to determine if spherical SOM
+is appropriate for all applications, or under which conditions it becomes
+inappropriate.  The edge effect may in fact be useful in identifying outliers.
+
+
 
 
 %\section{Significance}
