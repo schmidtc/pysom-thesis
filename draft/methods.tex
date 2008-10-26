@@ -17,7 +17,8 @@ rectangular and hexagonal topologies.  However, implementations of the
 geodesic and spherical SOMs were not readily available at the time this thesis
 was written.  In order to test these topologies it was necessary to implement
 our own version of SOM, PySOM.  Because the goal of this thesis was to study
-different topologies for use in SOM, we created PySOM to be topologically agnostic.
+different topologies for use in SOM, we created PySOM to be independent from
+the topology.
 That is, our implementation is not explicitly aware of the topology.  Rather, we
 represent the topology of the SOM as a graph. The graph provides the necessary
 information to determine neuron adjacency and construct neighborhoods.  The
@@ -50,11 +51,13 @@ requires more computation than the traditional topologies.
 
 We provide utility functions to create the graph structures for both the
 rectangular and hexagonal topologies.  To create the graph structure for the
-geodesic topology we use the ``dome'' software package, which outputs the
-point coordinates in ``XYZ'' format for each node \citep{dome}.  These
-coordinates are fed into the STRIPACK software program. STRIPACK computes both
-the Voronoi cells and their complement, the Delaunay triangulation, on the
-surface of the sphere \citep{Ranka97}.  The Delaunay triangulation provides the graph
+geodesic topology we use the ``dome'' software packager, which creates a
+``WRL'' file containing the points coordinates for each node in the geodesic
+dome \citep{dome}.  These coordinates are fed into the STRIPACK software
+program.  STRIPACK computes both the Voronoi cells and their complement, the
+Delaunay triangulation, on the surface of the sphere \citep{Ranka97}.  We
+provide a utility script, which converts the WRL file format into
+the XYZ file formate that STRIPACK expects.  The Delaunay triangulation provides the graph
 structure between the neurons of the geodesic SOM.  A similar process is used
 for the spherical topology. In this case we wrote a Python implementation of
 the method for distributing points on a sphere that was introduced by
@@ -62,8 +65,9 @@ the method for distributing points on a sphere that was introduced by
 An additional utility program reads the output from STRIPACK and
 creates the NetworkX graph structure.  PySOM has no direct graphical
 output, however several utility functions are provided to assist in the
-creation of visualizations.  These functions create files that are compatible with
-popular GIS software packages, namely ESRI's ArcGIS.
+creation of visualizations.  These functions create text files that are compatible with
+popular GIS software packages, namely ESRI's ArcGIS.  ArcGIS provides tools to
+create ShapeFiles from these text files.
 
 \section{Diagnostics}
 \label{meth:diag}
@@ -72,7 +76,7 @@ where they encounter fewer competing signals.  A prime example of this is the
 ``Utah-Hawaii'' case shown in Figure \ref{som:states}.  Relying only on the
 SOM, one would be left to believe that the two states are similar.  Recalling
 that the QError measures the distance between two vectors in attribute space,
-we see that the QError from Utah to the neuron is $1.509$, the QError from
+we calculate that the QError from Utah to the neuron is $1.509$, the QError from
 Hawaii to the neuron in $1.505$, but the QError from Utah to Hawaii is
 $3.014$. In this case only Utah and Hawaii were mapped to that neuron.  In a
 case where multiple observations land on the same neuron, it is possible to
@@ -84,11 +88,12 @@ internal heterogeneity of neuron \(i\) as,
  \label{eqno1}
  \end{equation}
 where, \(n_i\) is the number of observations mapped to \(i\), and \(x_i\) are
-the input vectors mapped to \(i\).  For any neuron that captures more then one
+the input vectors mapped to \(i\).  The double bars represent the Euclidean
+distance between two observations. For any neuron that captures more then one
 observation, this measure tells how dissimilar those observations are.
 
 The edge effects in SOM make it clear that the compression of the input-space is
-not uniform through out a trained map.  While outliers being pushed to the edge of
+not uniform throughout a trained map.  While outliers being pushed to the edge of
 the SOM is not necessarily an undesirable outcome, it is important to understand
 when and where information is being compressed.  This variable compression of
 the input-space is what allows the SOM to represent high-dimensional data, but
@@ -112,7 +117,7 @@ the neuron's first-order neighborhood size.  It would be expected that in
 traditional SOMs neurons closer to the edge, those with fewer neighbors, will
 have higher internal heterogeneity. Neurons on the edge of the traditional
 (rectangular and hexagonal) topologies are considered more irregular, because
-they have few neighbors then neurons inside the edge.  This can be extended to
+they have fewer neighbors than neurons inside the edge.  This can be extended to
 spherical SOMs by considering the degree of any given neuron.  The degree of a
 neuron $deg(m_i)$ measures the number of adjacent neurons.  If the
 relationship between $H_i$ and $deg(m_i)$ is consistent across topologies,
@@ -156,11 +161,11 @@ importance. Nodes with more connections are thought to be more central to the
 network and have a larger influence than nodes with fewer connections.
 
 This holds with our understanding of the edge effect.  Neurons on the edge are
-less central to the network and have less influence than other nodes.  These
+less central to the network and have less influence on training than other nodes.  These
 edge nodes are also less influenced by the network, allowing outliers take
 root.  During the training process, observations that are more average than
-others tend to be centralized.  The observations that surround them tend to be
-more extreme.  Referring back to figure \ref{som:states}, you'll notice
+others tend to be centralized.  More extreme observations tend to be pushed to
+the edges.  Referring back to figure \ref{som:states}, you'll notice
 that observations with smaller symbols are closer to the mean of the
 input-space and that these observations have been centralized in the network.
 Using the degree as a measure of centrality does not capture this picture
@@ -201,7 +206,7 @@ cross the $180^{th}$ meridian.  To accommodate this we split each polygon at
 the $180^{th}$ meridian and redraw it as two parts.
 
 Once the GIS layers have been created and the internal heterogeneity of each
-neuron has been calculated, a number visualizations become possible. We
+neuron has been calculated, a number of visualizations become possible. We
 visualize the internal heterogeneity by shading the corresponding polygons.
 These visualizations allow for the exploration of patterns in internal
 heterogeneity with relation to the underlaying topology.  Further, we can
@@ -229,7 +234,7 @@ ensure that we can calculate an internal heterogeneity for as many neurons as
 possible, we create approximately $25,000$ observations in each dataset.  As
 described in the next section, our SOMs have either 642 or 644 neurons
 (depending on the topology).  Having a large number of observation relative to
-the number of neurons will force the SOM to preform clustering, increasing the
+the number of neurons will force the SOM to perform clustering, increasing the
 number of neurons for which the internal heterogeneity can be computed.
 
 As mentioned in section \ref{q1} we will need to combine the results of
@@ -238,7 +243,8 @@ this we will create ten synthetic datasets as described above.  Each of these
 datasets can be thought of as samples from the same input space.  That is, the
 data generating process remains the same for each synthetic dataset created.
 After training ten SOMs for each topology we take the average internal
-heterogeneity of each to ensure that the results are comparable.
+heterogeneity of each trained SOM.  We compare these results to ensure that
+trained SOMs behave similarly within each topology.
 
 
 %We will create a number of different data sets and use them to train various SOMs.  
@@ -283,7 +289,9 @@ with comparable parameters.  The literature provides many rules of thumb for
 training a SOM: each SOM is trained in two stages, the first of which uses a larger
 initial learning rate and neighborhood search radius with a small number of
 training steps; the second stage uses a lower initial learning rate and
-neighborhood search radius, but extends the length of training.
+neighborhood search radius, but extends the length of training. In PySOM we
+define at initial neighborhood search radius as a percentage of the maximum
+width of the graph.
 \\
 First Stage Parameters:
 \begin{itemize}
