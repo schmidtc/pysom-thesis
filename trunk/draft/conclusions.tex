@@ -3,17 +3,17 @@
 The spherical SOM has been widely suggested as a solution to the edge effect
 in traditional SOM.  The edge of the traditional SOM is a problem because neurons on
 the edge of the neural network are less central than those in
-the center of the network.  We extended this problem into spherical SOM by
+the center of the network.  We extended this problem to spherical SOM by
 asserting that irregular spherical topologies will have neurons that are less
 central than others.  Existing research in spherical SOM has widely been
 focused on minimizing this irregularity and the commonly used tessellated
 icosahedron based topology offers the most regular topology. However, the main
-disadvantage of this topology type is that it offers a limited control over
+disadvantage of this topology type is that it offers very limited control over
 network size.  Alternative methods for generating the spherical topology,
 which can create a network of any size, have been reviewed or suggested by
 \cite{wu2005} and \cite{Nishio:2006fk}.  These alternative methods have been
 largely dismissed because they produce network structures that are more irregular.
-This research has taken a closer look at the impact that the irregularity has on
+This research has taken a closer look at the impact that irregularity has on
 the training process in an attempt to address the suitability of these less regular
 topologies for use in SOM.
 
@@ -29,15 +29,17 @@ In this study the new diagnostics were applied to the evaluation of both
 traditional and spherical SOMs. Each SOM was trained using the same synthetic
 data and training parameters, but utilizing different network topologies.  By
 formally testing for difference of means and variance in the results of the
-diagnostics, the following technical conclusions were made: 1) The internal
+diagnostics, the following conclusions were made: 1) The internal
 heterogeneity of a neuron decreases as its first-order neighborhood size
 increases, but less so in spherical topologies.  2) The average internal
 heterogeneity of a SOM is higher when a more irregular topology is used.  3)
 Visualizing internal heterogeneity provides valuable insight into the
-underling training process. From these conclusions, we can make an
-interpretation on the importance of the topological irregularities in SOM.
+underlying training process and how the SOM represents clusters. From these
+conclusions, we can make interpretations on the importance of topological
+irregularities in SOM.
 
-The effects of irregular topology were minimized in both of the spherical
+In comparison to the tradition rectangular and hexagonal topologies, the effects
+of irregular topology were minimized in both of the spherical
 topologies we tested.  Specifically, we found no significant differences
 between the two different spherical topologies we test.  As such, we believe
 that the importance of regularity within spherical SOM may be overstated.
