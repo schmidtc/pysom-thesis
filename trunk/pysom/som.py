@@ -179,7 +179,7 @@ class som:
         ''' This function adjusts the actual refernce vectors at time 't' based on observation
             vector 'v'.
         '''
-        bmu = self.findBMU(ind,v)
+        bmu = self.findBMU(None,v)
         sigma = self.kernalWidth(t)
         results = self.neighborhood( bmu , sigma )
         alteredNodes = [(results[i],self.hci(t,self.odist(i))) for i in xrange(len(results))]
@@ -299,7 +299,7 @@ class GraphTopology(som):
         ''' This function adjusts the actual refernce vectors at time 't' based on observation
             vector 'v'.
         '''
-        bmu = self.findBMU(ind,v)
+        bmu = self.findBMU(None,v)
         a = self.alpha(t)
         sigma = self.kernalWidth(t)
         results = self.neighborhood( bmu , sigma )
