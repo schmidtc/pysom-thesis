@@ -1,3 +1,6 @@
+import utils
+import som
+import data
 """
 ======================================================================
 PySOM: A Graph Based Implentation of Self-Organizing Maps
