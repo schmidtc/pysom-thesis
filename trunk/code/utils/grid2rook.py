@@ -1,5 +1,4 @@
 from numpy import array,ones
-from hex import writePoly
 #from Numeric import *
 #from MLab import *
 #import LinearAlgebra as LA

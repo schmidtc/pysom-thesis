@@ -296,6 +296,9 @@ class GraphTopology(som):
         """
         return nf.neighborhood(self.G,bmu,kernalWidth)
     def merge(self,t,ind,v):
+        ''' This function adjusts the actual refernce vectors at time 't' based on observation
+            vector 'v'.
+        '''
         bmu = self.findBMU(ind,v)
         a = self.alpha(t)
         sigma = self.kernalWidth(t)
