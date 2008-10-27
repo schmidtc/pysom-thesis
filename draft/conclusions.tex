@@ -45,7 +45,9 @@ topologies we tested.  Specifically, we found no significant differences
 between the two different spherical topologies we test.  As such, we believe
 that the importance of regularity within spherical SOM may be overstated.
 Relying only on highly regular spherical topologies may place
-unnecessary constraints on the users of spherical SOM.  
+unnecessary constraints on the users of spherical SOM.  For example, using less
+regular spherical topologies we can overcome the resolution constraint and build
+SOMs with any number of neurons.
 
 In pursuit of these findings we built an open source implementation of SOM,
 PySOM. This software is capable of training a SOM with an arbitrary
@@ -54,6 +56,59 @@ the previous chapters.  Using PySOM, future researchers may train their
 SOMs on a variety of different topologies.  We hope that this will enable an
 exploratory based approach to help determine the most appropriate topology for
 a given research question.
+
+
+\section{Limitations}
+A key limitation of this research is that we only address how topological
+regularity effects the SOM.  We do not address how other attributes of the
+topology effect the SOM. Specifically, the benefits and/or costs of removing the
+edge are unclear.  More research needs to be done in order to determine if spherical SOM
+is appropriate for all applications, or under which conditions it becomes
+inappropriate.  The edge effect may in fact be useful in identifying outliers.
+
+Our implementation, PySOM, is significantly slower than existing implementations
+of the SOM.  As it is currently written it would not be of much use for
+extremely large SOMs due to the speed issues.  PySOM currently does not
+implement the shortcut winner search described by \cite{Kohonen2000}.  The
+shortcut winner search is a method in which an observation only searches the entire
+network for it best match once.  On subsequent iterations that particular
+observation will only look in the neighborhood of its previous best match. If
+the new best match is on the edge of that neighborhood the search radius is
+expanded.
+
+
+\section{Future Directions}
+It would be beneficial to expand this research to investigate other aspects of
+topology and their effects on the SOM.  The graph structure allows for great
+flexibility in testing changes to the topology.  One could construct an
+experiment in which individual nodes are removed from the network topology, to
+determine the impact of an individual neuron.  It could also be beneficial to
+test other topologies using the framework laid out by this thesis.
+
+Using spherical SOMs introduces many challenges in terms of visualization.
+Particularly in projecting the spherical SOMs into two-dimensional Euclidean
+space.  The random initialization of the SOM results in an arbitrary rotation of
+the trained SOM.  It would be helpful when visually comparing two SOMs if they
+were both rotated in a consistent fashion. One could accomplish this by identify
+the two post prominent features of the trained SOM and rotating the SOM such
+that the most prominent feature is locate at $0^\circ$ Latitude, $0^\circ^$
+Longitude and the second most prominent feature is located as far North as
+possible. A third feature could be required if the first two are antipodal. The
+challenge in this lies in identifying features in the SOM.  A variety of metrics
+could be used to rank individual neurons. Alternately, one could cluster the
+neurons and use the resulting regions as features.
+
+A number of improvements can be made made to PySOM in order to make it of use to
+the broader scientific community.  Implementing the shortcut winning search
+could dramatically reduce running time.  Python allows for portions of the code
+to be written directly in the C programming language.  The highly computational
+sections of the code, such as search for the best matching unit, have the
+potential to run significant faster in C. Optimization can also be made to the
+neighborhood search routines.  Caching the neighborhood around a given neuron
+would drastically reduce the number of neighborhood search, but increase the
+programs memory requirements.  Perhaps the most useful addition to PySOM would
+be a Graphical User Interface (GUI).  A well designed GUI would greatly increase the
+accessibility and usability of this code.
 
 Traditionally the geographical sciences have been concerned with identifying and
 understanding relationships found in the context of spatial data.  
@@ -64,16 +119,6 @@ toolbox these tools provide much more than a new visualization method or
 clustering technique.  Using SOM we can extract spatial representations from
 otherwise aspatial data, allowing us to leverage our existing set of
 tools on a whole new set of problems.
-
-\section{Limitations and Future Directions}
-A key limitation of this research is that we only address how topological
-regularity effects the SOM.  We do not address how other attributes of the
-topology effect the SOM. Specifically, the benefits and/or costs of removing the
-edge are unclear.  More research needs to be done in order to determine if spherical SOM
-is appropriate for all applications, or under which conditions it becomes
-inappropriate.  The edge effect may in fact be useful in identifying outliers.
-
-
 
 
 %\section{Significance}
