@@ -1,6 +1,14 @@
-import networkx
 from math import sqrt
+import networkx
+from grid2rook import grid2Rook
 
+def rookGraph(rows, cols):
+    rook = grid2Rook(rows,cols,binary=1)
+    G = networkx.Graph()
+    for node in rook:
+        for neighbor in rook[node][1]:
+            G.add_edge((node,neighbor))
+    return G
 def hexGraph(rows, cols):
     x = cols
     y = rows
