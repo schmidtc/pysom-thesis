@@ -3,6 +3,13 @@ all: thesis.pdf
 view: thesis.pdf
 	open thesis.pdf
 
+py:
+	cat ../pysom/README |texifypython -l 70 > README.tex
+	cat ../pysom/som.py |texifypython -l 70 > som_py.tex
+	cat ../pysom/data.py |texifypython -l 70 > data_py.tex
+	cat ../pysom/topology.py |texifypython -l 70 > topology_py.tex
+	cat ../pysom/networkFunctions.py |texifypython -l 70 > networkFunctions_py.tex
+
 thesis.pdf: ../bib/*.bib *.tex *.cls
 	( pdflatex thesis || rm -f thesis.pdf ) && \
 	bibtex thesis && \
