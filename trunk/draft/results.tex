@@ -14,8 +14,8 @@ section \ref{states} revisits the Utah-Hawaii example.
 %\section{Data}
 Before applying the diagnostics we must first train a series of SOMs.  The
 training is accomplished using our graph based implementation of SOM, PySOM.
-Using the ten synthetic datasets we train ten SOMs for each topology, which
-represent forty simulations.  The
+Using the ten synthetic datasets we train ten SOMs for each topology, these
+trained SOMs represent forty simulations.  The
 mean internal heterogeneity of these SOMs is summarized in Table
 \ref{ivtable3}.  We find that the mean internal heterogeneity remains fairly
 stable, ranging from 0.0274 in the spherical topology to 0.0298 in the
@@ -55,7 +55,7 @@ We used several machines of varying configurations to train the forty
 different SOMS.  On the fastest of those machines training one SOM took
 around forty-five (45) minutes.  In contrast SOM\_PAK takes only ninety (90)
 seconds to train the hexagonal SOM with the same training parameters.  This
-significant difference is largely do to differences in the underlying data
+significant difference is largely due to differences in the underlying data
 structures.  We traded speed for the ability to represent a SOM with any
 topology.  Differences between the Python and C programing languages may also
 account for significant difference in runtime.
@@ -301,7 +301,7 @@ datasets.  Each dataset was created by sampling from the same data generating pr
 that was provided by \cite{wu2006}.  We used these datasets to train ten
 SOMs for each of our topologies.  The purpose of training ten SOMs was to
 produce large enough sample sizes for the difference of means and variance
-testing, this was necessary to formally evaluate the results of our first two
+testing; this was necessary to formally evaluate the results of our first two
 research questions.  In this section we verify that combining those
 simulations was appropriate by visualizing the similarities between them.
 In the remainder of this section we focus our efforts on comparing internal
@@ -400,7 +400,7 @@ given neuron we classify it by the cluster it captured most frequently.
 \caption{Detailed internal heterogeneity mapping for each topology. Darker colors
 represent neurons that display larger internal heterogeneity. Neurons for which
 an internal heterogeneity could not be calculated are not shaded. The numbers
-represent primary cluster mapped at that neuron.}
+represent the primary cluster mapped at that neuron.}
 \label{cluster}
 \end{minipage}
 \end{figure}

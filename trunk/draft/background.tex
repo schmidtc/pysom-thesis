@@ -73,7 +73,7 @@ in the low-dimensional neural network \citep{ritter99}.
 
 The SOM has a number of applications, but is primarily used for data reduction
 and data visualization.  The SOM is often compared with other data reduction
-techniques, such as principal components or multi-dimensional scaling. Like
+techniques, such as principal components analysis or multi-dimensional scaling. Like
 SOM, these techniques reduce the dimensionality of the input-space
 \citep{Kohonen2000,skupin08}. However unlike SOM, these techniques do not
 directly perform clustering.  The SOM on the other hand has the ability to do
@@ -98,8 +98,9 @@ states are represented as spatial orientations and distances.  Even in this
 larger case, where neurons outnumber observations, clustering may still occur.
 This happens because the SOM tries to represent the entire input-space.  
 The SOM may better represent the input-space by not assigning observations to
-every neuron, allowing these neurons to represent dissimilarities, while
-clustering of observations occurs at other neurons.
+every neuron.  In this case, neurons that have not collected any observations
+still represent dissimilarities between observations from the input space.
+%, while clustering of observations occurs at other neurons.
 
 A useful property of the SOM is that the network structure connecting the neurons
 allows us to create meaningful visualisations.  Observations used in the

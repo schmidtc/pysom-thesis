@@ -9,7 +9,7 @@ py:
 	cat ../pysom/data.py |texifypython -l 70 > data_py.tex
 	cat ../pysom/topology.py |texifypython -l 70 > topology_py.tex
 	cat ../pysom/networkFunctions.py |texifypython -l 70 > networkFunctions_py.tex
-
+	echo "\n\n\n Please remove triple quotes from README.tex \n\n\n"
 thesis.pdf: ../bib/*.bib *.tex *.cls
 	( pdflatex thesis || rm -f thesis.pdf ) && \
 	bibtex thesis && \
