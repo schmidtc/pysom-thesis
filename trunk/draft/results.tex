@@ -14,10 +14,12 @@ section \ref{states} revisits the Utah-Hawaii example.
 %\section{Data}
 Before applying the diagnostics we must first train a series of SOMs.  The
 training is accomplished using our graph based implementation of SOM, PySOM.
-Using the ten synthetic datasets we train ten SOMs for each topology.  The
+Using the ten synthetic datasets we train ten SOMs for each topology, which
+represent forty simulations.  The
 mean internal heterogeneity of these SOMs is summarized in Table
 \ref{ivtable3}.  We find that the mean internal heterogeneity remains fairly
-stable, suggesting that the results of each simulation can be combined within
+stable, ranging from 0.0274 in the spherical topology to 0.0298 in the
+rectangular topology. This suggests that the results of each simulation can be combined within
 a given topology.  For the rectangular topology, we now have forty neurons
 with a degree of two for which an internal heterogeneity can be calculated. It
 should be noted that we can only measure the internal heterogeneity when a
@@ -99,7 +101,7 @@ For each topology, we calculated the internal heterogeneity and degree of
 all the neurons.  We then grouped the internal heterogeneity measures by degree.  These groups are
 treated as representative samples from a larger distribution. Table \ref{meanvar1}
 shows the details of each sample, including its size, mean and variance. 
-The size is the number of observations for which we were able to calculate an
+The size N is the number of observations for which we were able to calculate an
 internal heterogeneity. The mean and variance capture the centrality and
 dispersion of the samples.  We create a box-and-whisker diagram (box plot) for
 each sample, as shown in figure \ref{boxplot}, to visualize the samples
@@ -258,7 +260,7 @@ topologies.  We test for a
 difference in mean and variance between each sample using the same method of
 random labeling that was applied in the previous diagnostic.  No significant
 differences were found in the variances; the difference in means are presented
-in table \ref{rlt:all}.  As in table \ref{rtl}, this table shows the
+in table \ref{rlt:all}.  As in table \ref{rlt}, this table shows the
 difference in means below the diagonal, the p-value above the diagonal (with
 significant values in bold), and the variance of each sample along the
 diagonal.  It was expected that the mean and variance of the
