@@ -12,10 +12,10 @@
 {\textbf{class}}\hspace{6pt}ObsFile:\\
 \hspace{24pt}{\texttt{{'}{'}}}{\texttt{{'}\hspace{6pt}ObsFile\hspace{6pt}provides\hspace{6pt}an\hspace{6pt}interface\hspace{6pt}to\hspace{6pt}your\hspace{6pt}Observation\hspace{6pt}Data\hspace{6pt}File.}}\\
 {\texttt{\hspace{48pt}The\hspace{6pt}File\hspace{6pt}should\hspace{6pt}be\hspace{6pt}formated\hspace{6pt}as\hspace{6pt}follows:}}\\
-{\texttt{\hspace{48pt}The\hspace{6pt}first\hspace{6pt}line\hspace{6pt}should\hspace{6pt}contain\hspace{6pt}only\hspace{6pt}the\hspace{6pt}number\hspace{6pt}of\hspace{6pt}dimmension\hspace{6pt}in}}{}...\`$\Rightarrow$\\
-...{}{\texttt{\hspace{6pt}the\hspace{6pt}data\hspace{6pt}set.}}\\
-{\texttt{\hspace{48pt}Each\hspace{6pt}subsequant\hspace{6pt}line\hspace{6pt}should\hspace{6pt}contain\hspace{6pt}one\hspace{6pt}observation,\hspace{6pt}each\hspace{6pt}valu}}{}...\`$\Rightarrow$\\
-...{}{\texttt{e\hspace{6pt}should\hspace{6pt}be\hspace{6pt}seperated}}\\
+{\texttt{\hspace{48pt}The\hspace{6pt}first\hspace{6pt}line\hspace{6pt}should\hspace{6pt}contain\hspace{6pt}only\hspace{6pt}the\hspace{6pt}number\hspace{6pt}of\hspace{6pt}dimension\hspace{6pt}in\hspace{6pt}}}{}...\`$\Rightarrow$\\
+...{}{\texttt{the\hspace{6pt}data\hspace{6pt}set.}}\\
+{\texttt{\hspace{48pt}Each\hspace{6pt}subsequent\hspace{6pt}line\hspace{6pt}should\hspace{6pt}contain\hspace{6pt}one\hspace{6pt}observation,\hspace{6pt}each\hspace{6pt}valu}}{}...\`$\Rightarrow$\\
+...{}{\texttt{e\hspace{6pt}should\hspace{6pt}be\hspace{6pt}separated}}\\
 {\texttt{\hspace{48pt}a\hspace{6pt}space.}}\\
 \\
 {\texttt{\hspace{48pt}eg:}}\\
@@ -33,7 +33,7 @@
 \hspace{48pt}self.fileType\hspace{6pt}=\hspace{6pt}fileType\\
 \hspace{48pt}self.reset()\\
 \hspace{24pt}{\textbf{def}}\hspace{6pt}\_\_iter\_\_(self):\\
-\hspace{48pt}{\texttt{{'}{'}}}{\texttt{{'}\hspace{6pt}Create\hspace{6pt}an\hspace{6pt}interator\hspace{6pt}{'}}}{\texttt{{'}{'}}}\\
+\hspace{48pt}{\texttt{{'}{'}}}{\texttt{{'}\hspace{6pt}Create\hspace{6pt}an\hspace{6pt}iterator\hspace{6pt}{'}}}{\texttt{{'}{'}}}\\
 \hspace{48pt}{\textbf{return}}\hspace{6pt}self\\
 \hspace{24pt}{\textbf{def}}\hspace{6pt}listolists(self,comments=False):\\
 \hspace{48pt}{\texttt{{'}{'}}}{\texttt{{'}\hspace{6pt}Returns\hspace{6pt}the\hspace{6pt}entire\hspace{6pt}data\hspace{6pt}file\hspace{6pt}as\hspace{6pt}a\hspace{6pt}list\hspace{6pt}of\hspace{6pt}lists\hspace{6pt}{'}}}{\texttt{{'}{'}}}\\
@@ -92,7 +92,7 @@
 \hspace{24pt}{\textbf{def}}\hspace{6pt}stream(self):\\
 \hspace{48pt}{\texttt{{'}{'}}}{\texttt{{'}\hspace{6pt}Loops\hspace{6pt}of\hspace{6pt}the\hspace{6pt}records,\hspace{6pt}always\hspace{6pt}returns\hspace{6pt}a\hspace{6pt}line,\hspace{6pt}if\hspace{6pt}the\hspace{6pt}end\hspace{6pt}of}}{}...\`$\Rightarrow$\\
 ...{}{\texttt{\hspace{6pt}file\hspace{6pt}is\hspace{6pt}reached,\hspace{6pt}}}\\
-{\texttt{\hspace{72pt}the\hspace{6pt}file\hspace{6pt}is\hspace{6pt}seeked\hspace{6pt}back\hspace{6pt}to\hspace{6pt}that\hspace{6pt}start.}}\\
+{\texttt{\hspace{72pt}the\hspace{6pt}file\hspace{6pt}pointer\hspace{6pt}is\hspace{6pt}reset\hspace{6pt}back\hspace{6pt}to\hspace{6pt}that\hspace{6pt}start.}}\\
 {\texttt{\hspace{48pt}{'}}}{\texttt{{'}{'}}}\\
 \hspace{48pt}{\textbf{try:}}\\
 \hspace{72pt}{\textbf{return}}\hspace{6pt}self.next()\\
