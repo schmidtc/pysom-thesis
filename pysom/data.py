@@ -11,8 +11,8 @@ from numpy import array,empty
 class ObsFile:
     ''' ObsFile provides an interface to your Observation Data File.
         The File should be formated as follows:
-        The first line should contain only the number of dimmension in the data set.
-        Each subsequant line should contain one observation, each value should be seperated
+        The first line should contain only the number of dimension in the data set.
+        Each subsequent line should contain one observation, each value should be separated
         a space.
 
         eg:
@@ -30,7 +30,7 @@ class ObsFile:
         self.fileType = fileType
         self.reset()
     def __iter__(self):
-        ''' Create an interator '''
+        ''' Create an iterator '''
         return self
     def listolists(self,comments=False):
         ''' Returns the entire data file as a list of lists '''
@@ -87,7 +87,7 @@ class ObsFile:
             raise "fileTypeError"
     def stream(self):
         ''' Loops of the records, always returns a line, if the end of file is reached, 
-            the file is seeked back to that start.
+            the file pointer is reset back to that start.
         '''
         try:
             return self.next()
