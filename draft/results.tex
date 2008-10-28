@@ -27,8 +27,8 @@ neuron captures two or more observations from the training data.  Therefore,
 it is still possible to have less than forty measurements.
 
 \begin{table}[hbt]
-\centering
-\caption{Mean internal heterogeneity for each simulation, by topology.}
+%\centering
+\caption{Mean Internal Heterogeneity For Each Simulation, by Topology}
 \label{ivtable3}
 \begin{tabular}{|c||c|c|c|c|}
 \hline
@@ -61,7 +61,7 @@ topology.  Differences between the Python and C programing languages may also
 account for significant difference in runtime.
 
 
-\section{Internal heterogeneity vs. first-order neighborhood size}
+\section{Internal Heterogeneity vs. First-Order Neighborhood Size}
 \label{rdq1}
 %The \emph{degree} is one measure of a neuron's centrality in a network. A
 %neuron with a higher degree has higher network connectivity, and therefore is
@@ -73,10 +73,10 @@ demonstrating that topological irregularity affects the placement of outliers
 in the SOM.  
 
 \begin{table}[htb]
-\centering
+%\centering
 \scriptsize
 \begin{minipage}{\textwidth}
-\caption{Size, mean and variance of each sample}
+\caption{Size, Mean and Variance of each Sample}
 \label{meanvar1}
 \begin{tabular}{|c||cc|cc|cc|cc|}
 \hline
@@ -105,7 +105,7 @@ The size N is the number of observations for which we were able to calculate an
 internal heterogeneity. The mean and variance capture the centrality and
 dispersion of the samples.  We create a box-and-whisker diagram (box plot) for
 each sample, as shown in figure \ref{boxplot}, to visualize the samples
-summarized in table \ref{meanvar1}.
+summarized in Table \ref{meanvar1}.
 
 \begin{figure}[htb]
 \centering
@@ -198,7 +198,7 @@ samples.
   }
 \end{minipage}\end{table}
 
-The results of the means test are presented in table \ref{rlt}. This table
+The results of the means test are presented in Table \ref{rlt}. This table
 shows the difference in means below the diagonal, the p-value above the
 diagonal (with significant values in bold), and the variance of each
 sample along the diagonal.  In the rectangular and hexagonal topologies, we
@@ -225,7 +225,7 @@ the spherical topology.
 %neighborhood size, or degree, increases?
 
 
-\section{Internal heterogeneity vs. topological regularity}
+\section{Internal Heterogeneity vs. Topological Regularity}
 \label{rdq2}
 Above we saw that changes in a neuron's degree was related to changes in
 internal heterogeneity in topologies with edges, but not in the two sphere-based
@@ -233,10 +233,10 @@ topologies. The next step is to see if internal heterogeneity changes between
 topologies.  To do this we will first order our topologies by a summary
 measure of the topological regularity.  For this diagnostic we use the average
 closeness centrality for each topology as the summary measure.  The summary
-measure and the sorting of our topologies is shown in table \ref{vardeg}.
+measure and the sorting of our topologies is shown in Table \ref{vardeg}.
 
 \begin{table}
-\centering
+%\centering
 \begin{minipage}{\textwidth}
 \caption{Measure of Topological Regularity and Sample Mean and Variance}
 \label{vardeg}
@@ -260,7 +260,7 @@ topologies.  We test for a
 difference in mean and variance between each sample using the same method of
 random labeling that was applied in the previous diagnostic.  No significant
 differences were found in the variances; the difference in means are presented
-in table \ref{rlt:all}.  As in table \ref{rlt}, this table shows the
+in Table \ref{rlt:all}.  As in table \ref{rlt}, this table shows the
 difference in means below the diagonal, the p-value above the diagonal (with
 significant values in bold), and the variance of each sample along the
 diagonal.  It was expected that the mean and variance of the
@@ -294,7 +294,7 @@ achieved.
 
 
 
-\section{Visualization of internal heterogeneity}
+\section{Visualization of Internal Heterogeneity}
 \label{rdq3}
 In order to address our research questions we first created ten synthetic
 datasets.  Each dataset was created by sampling from the same data generating process

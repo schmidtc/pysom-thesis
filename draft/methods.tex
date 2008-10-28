@@ -9,7 +9,7 @@ parameters.  The specifics of our training data are explained in section
 \ref{meth:data}.  Section \ref{meth:train} describes the training parameters used
 across all of our SOMs.
 
-\section{Graph based implementation of SOM}
+\section{Graph Based Implementation of SOM}
 \label{meth:som}
 The most widely available implementation of SOM is Kohonen's
 own SOM\_PAK \citep{kohonen1996}.  SOM\_PAK implements both the traditional
@@ -119,7 +119,7 @@ question concerning internal heterogeneity and topological irregularity.  The
 third helps visualize the patterns between internal heterogeneity; the
 usefulness of which is examined in the next chapter.
 
-\subsection{Internal heterogeneity vs. first-order neighborhood size}
+\subsection{Internal Heterogeneity vs. First-Order Neighborhood Size}
 \label{q1}
 This diagnostic compares the internal heterogeneity of each neuron against
 the neuron's first-order neighborhood size.  It would be expected that in
@@ -158,7 +158,7 @@ are on the edge. To address the problem of small sample size for topologies
 with relatively few neurons of a particular degree, we will increase
 the sample size by combining the results of many SOMs.
 
-\subsection{Internal heterogeneity vs. topological regularity}
+\subsection{Internal Heterogeneity vs. Topological Regularity}
 This diagnostic compares the internal heterogeneity of each neuron against a
 measure of regularity for its associated topology.  As mentioned above the
 degree of each neuron measures the number of adjacent neighbors.  A completely
@@ -196,7 +196,7 @@ the mean of internal heterogeneity will decrease when the network is more
 regular.  %In addition to testing these assumptions with random labeling we
 %visualize the results with box plots.
 
-\subsection{Visualize internal heterogeneity mapping}
+\subsection{Visualize Internal Heterogeneity Mapping}
 Visualizing the internal heterogeneity may yield insight into how irregular topology
 effects the SOM.  Creating these visualization for many different topologies
 however, offers a number of challenges.  While the rectangular and hexagonal
