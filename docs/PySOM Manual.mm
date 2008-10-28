@@ -1,4 +1,4 @@
-<map version="0.8.1">
+<map version="0.8.0">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
 <node CREATED="1223248477773" ID="Freemind_Link_376679635" MODIFIED="1223248881518" TEXT="PySOM Manual">
 <node CREATED="1223248884252" ID="Freemind_Link_528587726" MODIFIED="1223249800001" POSITION="right" TEXT="Intro">
@@ -6,11 +6,16 @@
 <node CREATED="1223249163125" ID="Freemind_Link_707954679" MODIFIED="1223249219858" TEXT="PySOM is an implementation of the Self-Organizing Map training algorithm written in the Python Programming Language."/>
 <node CREATED="1223249220495" ID="Freemind_Link_1632558200" MODIFIED="1223249291698" TEXT="What makes PySOM unique from other implementations is that the network topology is not hard wired, instead we represent the topology as a graph."/>
 <node CREATED="1223249292367" ID="Freemind_Link_1042004081" MODIFIED="1223249346035" TEXT="The NetworkX python library is used to manage the graph."/>
+<node CREATED="1225141486557" ID="Freemind_Link_1113593148" MODIFIED="1225141522862" TEXT="Using a graph structure allows us to train SOMs on a variety of different topologies with relative ease."/>
 <node CREATED="1223249365960" ID="Freemind_Link_1081351783" MODIFIED="1223249427528" TEXT="This document is intended to provide an overview of PySOM and help users get started with training their SOMs."/>
 <node CREATED="1223249428220" ID="Freemind_Link_1927767488" MODIFIED="1223249470470" TEXT="In it&apos;s current form some basic knowledge of the Python Programming language is required to use PySOM"/>
 <node CREATED="1223249472019" ID="Freemind_Link_1018626559" MODIFIED="1223249512818" TEXT="I hope to provide a more robust graphical user interface in the future, but for now PySOM can only be accessed programmitcally."/>
 <node CREATED="1223249534753" ID="Freemind_Link_240614022" MODIFIED="1223249665901" TEXT="In the following sections you will learn how to setup your topology, organize your data, set your training paramenters, and train your SOM."/>
-<node CREATED="1223249666674" ID="Freemind_Link_807120523" MODIFIED="1223249729292" TEXT="Some useful functions and instructions for visualizing your SOM will also be provided, but most if this will need to be down without the help of PySOM."/>
+<node CREATED="1223249666674" ID="Freemind_Link_807120523" MODIFIED="1225141572476" TEXT="Some useful functions and instructions for visualizing your SOM will also be provided, but most if this will need to be done without the help of PySOM."/>
+<node CREATED="1225153882150" ID="Freemind_Link_1980990836" MODIFIED="1225153952993" TEXT="PySOM is organized in a library containing three core modules; som, data and topoloy."/>
+<node CREATED="1225153954085" ID="Freemind_Link_138134356" MODIFIED="1225154000673" TEXT="The &quot;som&quot; module is provided in appendix \ref{a:som_py} and contains the training algorith."/>
+<node CREATED="1225154001326" ID="Freemind_Link_654360751" MODIFIED="1225154080898" TEXT="Section \ref{a:data_py} contains the &quot;data&quot; module which handles the parsing of the observation file."/>
+<node CREATED="1225154081446" ID="Freemind_Link_1400587117" MODIFIED="1225154166682" TEXT="The topology module contains a number of sub-modules for creating different topologies."/>
 <node CREATED="1223249809685" ID="Freemind_Link_46774827" MODIFIED="1223249820222" TEXT="Library Organiztion">
 <node CREATED="1224564252941" ID="Freemind_Link_1076386337" MODIFIED="1224564255034" TEXT="pysom">
 <node CREATED="1223249820802" ID="Freemind_Link_1009790772" MODIFIED="1223249824679" TEXT="som.py">
