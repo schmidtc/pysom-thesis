@@ -1,21 +1,7 @@
-"""
-======================================================================
-Python Self-Organizing Maps -- Data Tools
-----------------------------------------------------------------------
-AUTHOR(S):      Charles R. Schmidt cschmidt@rohan.sdsu.edu
-======================================================================
-"""
-
+from math import sqrt
 import networkx
 from utils.grid2rook import grid2Rook
 
-def rookGraph(rows, cols):
-    rook = grid2Rook(rows,cols,binary=1)
-    G = networkx.Graph()
-    for node in rook:
-        for neighbor in rook[node][1]:
-            G.add_edge((node,neighbor))
-    return G
 def hexGraph(rows, cols):
     x = cols
     y = rows
@@ -67,23 +53,6 @@ def hexPts(cols,rows):
         hexY=hexY+deltaY
     return pts
 
-def rookPoly(pts):
-    """ Draw the polygons for a rook topology """
-    deltaX = 1.0
-    deltaY = 1.0
-    centroidsDist = 1.0
-    polygons = []
-    for i in pts:
-        pX = i[0]
-        pY = i[1]
-        poly =[ 0,
-                [(pX-(deltaX/2),pY+(deltaY/2)), 
-                (pX+(deltaX/2),pY+(deltaY/2)),
-                (pX+(deltaX/2),pY-(deltaY/2)),
-                (pX-(deltaX/2),pY-(deltaY/2)),
-                (pX-(deltaX/2),pY+(deltaY/2)) ]]
-        polygons.append(poly)
-    return polygons
 def hexPoly(pts):
     """ Draw the polygons for a hex topology, modified from Martin's CODtoSHP.py """
     deltaX = 1.0

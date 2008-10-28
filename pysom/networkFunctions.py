@@ -1,3 +1,11 @@
+"""
+======================================================================
+Python Self-Organizing Maps -- Network Functions
+----------------------------------------------------------------------
+AUTHOR(S):      Charles R. Schmidt cschmidt@rohan.sdsu.edu
+======================================================================
+"""
+
 import networkx as NX
 
 def neighborhood(G,n,o):

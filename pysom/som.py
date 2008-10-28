@@ -192,10 +192,10 @@ class som:
         if r < 0: r = 0
         return r
     def hci(self, t, dist):
-        ''' This kernal function adjust the magnitude with which the
+        ''' This kernel function adjust the magnitude with which the
             observation affects the reference vectors.
         '''
-        sigma = self.kernalWidth(t)
+        sigma = self.kernelWidth(t)
         a = self.alpha(t)
         top = dist**2
         bottom = (2*(float(sigma)**2))
@@ -206,7 +206,7 @@ class som:
             't' based on observation vector 'v'.
         '''
         bmu = self.findBMU(None,v)
-        sigma = self.kernalWidth(t)
+        sigma = self.kernelWidth(t)
         results = self.neighborhood( bmu , sigma )
         alteredNodes = [(results[i],self.hci(t,self.odist(i))) for i in xrange(len(results))]
         for nodeID,hc in alteredNodes:
@@ -320,27 +320,27 @@ class GraphTopology(som):
             self.Size = G.order()
             self.Width = nf.findWidth(G,G.nodes()[-1]) 
             f.close()
-    def kernalWidth(self,t):
-        ''' kernalWidth returns the width of the neighborhood in terms
+    def kernelWidth(self,t):
+        ''' kernelWidth returns the width of the neighborhood in terms
             of order.
         '''
         r = round((self.Width*self.maxN) * (1 - (t/float(self.tSteps))))
         r = int(r)
         if r == 0: r = 1
         return r
-    def neighborhood(self,bmu,kernalWidth):
+    def neighborhood(self,bmu,kernelWidth):
         '''
         This function returns a dictionary containing the neighbors of
         bmu as keys and their dist (as an order) as values.
         '''
-        return nf.neighborhood(self.G,bmu,kernalWidth)
+        return nf.neighborhood(self.G,bmu,kernelWidth)
     def merge(self,t,ind,v):
         ''' This function adjusts the actual refernce vectors at time
             't' based on observation vector 'v'.
         '''
         bmu = self.findBMU(None,v)
         a = self.alpha(t)
-        sigma = self.kernalWidth(t)
+        sigma = self.kernelWidth(t)
         results = self.neighborhood( bmu , sigma )
         sigma = float(sigma)
 
@@ -362,8 +362,8 @@ class GraphTopology(som):
 #       som.load(self,path,name)
 #    def randInit(self):
 #       som.randInit(self)
-#    def kernalWidth(self,t):
-#       ''' kernalWidth returns the width of the neighborhood in terms
+#    def kernelWidth(self,t):
+#       ''' kernelWidth returns the width of the neighborhood in terms
 #           of order.
 #       '''
 #       pass
@@ -373,7 +373,7 @@ class GraphTopology(som):
 #       example the 3rd neuron in the set is 1 order from the 0th.
 #       """
 #       pass
-#    def neighborhood(self,bmu,kernalWidth):
+#    def neighborhood(self,bmu,kernelWidth):
 #       '''
 #       This function returns a dictionary containing the neighbors of
 #       bmu as keys and their dist (as an order) as values.
