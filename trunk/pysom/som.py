@@ -8,25 +8,29 @@ AUTHOR(S):      Charles R. Schmidt cschmidt@rohan.sdsu.edu
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
+* modification, are permitted provided that the following conditions
+* are met:
 *     * Redistributions of source code must retain the above copyright
 *       notice, this list of conditions and the following disclaimer.
-*     * Redistributions in binary form must reproduce the above copyright
-*       notice, this list of conditions and the following disclaimer in the
-*       documentation and/or other materials provided with the distribution.
+*     * Redistributions in binary form must reproduce the above
+*       copyright notice, this list of conditions and the following
+*       disclaimer in the documentation and/or other materials
+*       provided with the distribution.
 *     * Neither the name of the San Diego State University nor the
-*       names of its contributors may be used to endorse or promote products
-*       derived from this software without specific prior written permission.
+*       names of its contributors may be used to endorse or promote
+*       products derived from this software without specific prior
+*       written permission.
 *
 * THIS SOFTWARE IS PROVIDED BY Charles R. Schmidt ''AS IS'' AND ANY
-* EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-* WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-* DISCLAIMED. IN NO EVENT SHALL Charles R. Schmidt BE LIABLE FOR ANY
-* DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-* (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-* ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-* (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+* EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+* PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL Charles R. Schmidt BE
+* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+* BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ======================================================================
 """
@@ -52,24 +56,39 @@ class som:
         A template is provied in 'Topology'
     '''
     def __init__(self):
-        ''' These initial training parameters should be set before training. '''
-        self.Dims = 0 # int, the number of dimmension in the input-space
-        self.X = 0 # int, optionally the number nurons in the X dimmension
-        self.Y = 0 # int, optionally the number nurons in the Y dimmension
-        self.Size = 0 # int, total number of neurons
-        self.Type = 'none' # str, name of topology type
-        self.tSteps = 0 # int, total number of training steps.
-        self.maxN = 0.0 # float, initial neighborhood radius, expressed as percentage.
-        self.alpha0 = 0.0 # float, initial learning rate
+        '''
+        These initial training parameters should be
+        set before training.
+        '''
+        # int, the number of dimmension in the input-space
+        self.Dims = 0
+        # int, optionally the number nurons in the X dimmension
+        self.X = 0
+        # int, optionally the number nurons in the Y dimmension
+        self.Y = 0
+        # int, total number of neurons
+        self.Size = 0
+        # str, name of topology type
+        self.Type = 'none'
+        # int, total number of training steps.
+        self.tSteps = 0
+        # float, initial neighborhood radius, expressed as percentage.
+        self.maxN = 0.0
+        # float, initial learning rate
+        self.alpha0 = 0.0
 
-        self.nodes = [] # reference vecotors are stored here.
-        self.daMap = {} # mapping of observations to neurons is stored here.
+        # reference vecotors are stored here.
+        self.nodes = []
+        # mapping of observations to neurons is stored here.
+        self.daMap = {}
 
     def load(self,path='',name=None):
         ''' This function loads a saved SOM from disk into memory.
             pySom uses several files to represent the SOM,
-            .cod is the Codebook file which represents the reference vectors
-            .map represents the mapping of the observations onto the trained SOM
+            .cod is the Codebook file which represents the
+                reference vectors
+            .map represents the mapping of the observations
+                onto the trained SOM
             
             If the path and name are omitted they will be guessed 
             based on the SOM's parameters
@@ -102,8 +121,10 @@ class som:
     def save(self,path='',name=None):
         ''' This function saves a SOM to disk.
             pySom uses several files to represent the SOM,
-            .cod is the Codebook file which represents the reference vectors
-            .map represents the mapping of the observations onto the trained SOM
+            .cod is the Codebook file which represents the
+                reference vectors
+            .map represents the mapping of the observations
+                onto the trained SOM
             
             If the path and name are omitted they will be guessed 
             based on the SOM's parameters
@@ -126,30 +147,35 @@ class som:
         outf.close()
 
     def randInit(self):
-        ''' This function initializes the reference vectors with random values in 
-            the range of 0 to 1.  If your data has not standardized within this range,
-            this function should be overwritten
+        ''' This function initializes the reference vectors with
+            random values in the range of 0 to 1.  If your data has
+            not standardized within this range, this function should
+            be overwritten.
     
-            * Ideally this function would analyze the input data and scale the
-              randomization accordingly.  SOM_PAK does something along these lines,
-              their code might help find a good solution for this.
+            * Ideally this function would analyze the input data and
+              scale the randomization accordingly.  SOM_PAK does 
+              something along these lines, their code might help find
+              a good solution for this.
         '''
         self.nodes = array([[random.random() for j in xrange(self.Dims)] for i in xrange(self.Size)])
 
     def findBMU(self,ind,v,ReturnDist = False):
-        ''' This function returns the ID of the reference vector that is the closest
-            (in Euclidean distance) to input vector v
-            
-            Optionally this function will also return that distance between the two.
-            Overwrite this function if you need something other than Euclidean dist.
+        ''' This function returns the ID of the reference vector that
+            is the closest (in Euclidean distance) to input vector v.
+            Optionally this function will also return that distance
+            between the two.  Overwrite this function if you need
+            something other than Euclidean dist.
 
             the 'ind' parameter is unused and should be set to None.
 
-            * As written this function does not handle missing values, a previous version
-              did, but it was painfully slow. One option would be to remove the distance
-              function and pick the appropriate dist function depending on the values present.
-            * An external distance function could also be used here, however the extra 
-              function call will effect performance.
+            * As written this function does not handle missing values,
+              a previous version did, but it was painfully slow. One
+              option would be to remove the distance function and pick
+              the appropriate dist function depending on the values
+              present.
+            * An external distance function could also be used here,
+              however the extra function call will effect
+              performance.
         '''
         d = ((self.nodes-v)**2).sum(1)
         minI = d.argmin()
@@ -160,14 +186,14 @@ class som:
             return minI
 
     def alpha(self,t):
-        '''  Returns the learning rate (alpha) as a function of time t.
+        ''' Returns the learning rate (alpha) as a function of time t.
         '''
         r = self.alpha0 * (1 - (t/float(self.tSteps)))
         if r < 0: r = 0
         return r
     def hci(self, t, dist):
-        ''' This kernal function adjust the magnitude with which the observation affects 
-            the reference vectors.
+        ''' This kernal function adjust the magnitude with which the
+            observation affects the reference vectors.
         '''
         sigma = self.kernalWidth(t)
         a = self.alpha(t)
@@ -176,8 +202,8 @@ class som:
         return a * math.exp(-top/bottom)
 
     def merge(self,t,ind,v):
-        ''' This function adjusts the actual refernce vectors at time 't' based on observation
-            vector 'v'.
+        ''' This function adjusts the actual refernce vectors at time
+            't' based on observation vector 'v'.
         '''
         bmu = self.findBMU(None,v)
         sigma = self.kernalWidth(t)
@@ -194,11 +220,14 @@ class som:
                 put(self.nodes[nodeID],ind,part+delta)
 
     def run(self,obsf):
-        ''' Call this function with your observation file are a perameter.
+        ''' Call this function with your observation file are a
+            perameter.
+
             obsf must be an instance ObsFile as provided by data.py
 
-            All training parameters should be set before call this runction.
-        ''', 
+            All training parameters should be set before calling this
+            function.
+        '''
         self.neighborhoodCache = {}
         print "####################################"
         print "###        Configuration         ###"
@@ -222,8 +251,8 @@ class som:
         print "\nRun compleated in %f seconds"%(time.time()-t1)
 
     def map(self,obsf):
-        ''' This function maps the observation back onto the trained SOM
-            The QError is returned
+        ''' This function maps the observation back onto the trained
+            SOM.  The QError is returned.
         '''
         qerror = 0
         counter = 0 
@@ -243,25 +272,35 @@ class som:
         return qerror
     
 class GraphTopology(som):
-    ''' GraphTopology extends "som" and provides a functioning implementation of the
-        Self-Organizing Map training algorithm.  The topology is based on a graph
-        structure with is provided using the NetworkX graph library.
+    ''' GraphTopology extends "som" and provides a functioning
+        implementation of the Self-Organizing Map training algorithm.
+        The topology is based on a graph structure with is provided
+        using the NetworkX graph library.
     '''
     def __init__(self,G=None,Type='Graph'):
-        ''' Special initializtion for this topology, also calls som.__init__'''
+        ''' Special initializtion for this topology,
+            also calls som.__init__
+        '''
         som.__init__(self)
         self.Type = Type
         if G:
             self.G = G
-            self.Size = G.order() # Number of nodes (neurons) in the network.
-            # if findWidth is not given a seed it will brute force the total network
-            # width, this could take a long time. For the spherical network, one of
-            # the polls should yield the correct width. Or possibly the node with
-            # lowest degree. The Width messures the largest distance between any two 
-            # nodes in the network
+
+            # Number of nodes (neurons) in the network.
+            self.Size = G.order()
+            # if findWidth is not given a seed it will brute force the
+            # total network width, this could take a long time. For
+            # the spherical network, one of the polls should yield the
+            # correct width. Or possibly the node with lowest degree.
+            # The Width messures the largest distance between any two
+            # nodes in the network.
+
             self.Width = nf.findWidth(G,G.nodes()[-1]) 
+
     def save(self,path,name):
-        ''' in addition to saving this codebook, we also need to save the graph '''
+        ''' in addition to saving this codebook, we also need to save
+            the graph
+        '''
         som.save(self,path,name)
         if not name:
             name = '%ds_%dd_%dr_%fa'%(self.Size,self.Dims,self.tSteps,self.alpha0)
@@ -282,59 +321,61 @@ class GraphTopology(som):
             self.Width = nf.findWidth(G,G.nodes()[-1]) 
             f.close()
     def kernalWidth(self,t):
-        """
-        kernalWidth returns the width of the neighborhood in terms of order
-        """
+        ''' kernalWidth returns the width of the neighborhood in terms
+            of order.
+        '''
         r = round((self.Width*self.maxN) * (1 - (t/float(self.tSteps))))
         r = int(r)
         if r == 0: r = 1
         return r
     def neighborhood(self,bmu,kernalWidth):
-        """
-        This function returns a dictionary containing the neighbors of bmu as
-        keys and their dist (as an order) as values.
-        """
+        '''
+        This function returns a dictionary containing the neighbors of
+        bmu as keys and their dist (as an order) as values.
+        '''
         return nf.neighborhood(self.G,bmu,kernalWidth)
     def merge(self,t,ind,v):
-        ''' This function adjusts the actual refernce vectors at time 't' based on observation
-            vector 'v'.
+        ''' This function adjusts the actual refernce vectors at time
+            't' based on observation vector 'v'.
         '''
         bmu = self.findBMU(None,v)
         a = self.alpha(t)
         sigma = self.kernalWidth(t)
         results = self.neighborhood( bmu , sigma )
         sigma = float(sigma)
-        # hci has been internalized in this next line to speed up processing
+
+        # hci has been internalized in this next line,
+        # to speed up processing
         alteredNodes = [(node,(v-self.nodes[node])*(a*math.exp(-(odist*odist)/(2*sigma*sigma)))) for node,odist in results.iteritems()]
         for nodeID,node in alteredNodes:
             self.nodes[nodeID] += node
 
 #class Topology(som):
-#    """ Template class for topology. Copy this class to create a new topology for som"""
+#    """ Template class for topology.
+#        Copy this class to create a new topology for som.
+#    """
 #    def __init__(self):
-#        som.__init__(self)
+#       som.__init__(self)
 #    def save(self,path,name):
-#        som.save(self,path,name)
+#       som.save(self,path,name)
 #    def load(self,path,name):
-#        som.load(self,path,name)
+#       som.load(self,path,name)
 #    def randInit(self):
-#        som.randInit(self)
+#       som.randInit(self)
 #    def kernalWidth(self,t):
-#        """
-#        You should overwrite this, see note above...
-#        kernalWidth returns the width of the neighborhood in terms of order
-#        """
-#        pass
+#       ''' kernalWidth returns the width of the neighborhood in terms
+#           of order.
+#       '''
+#       pass
 #    def odist(n):
-#        """
-#        n is the nth neuron in the in neighborhood, return's order
-#        example the 3rd neuron in the set is 1 order from the 0th.
-#        """
-#        pass
+#       """
+#       n is the nth neuron in the in neighborhood, return's order
+#       example the 3rd neuron in the set is 1 order from the 0th.
+#       """
+#       pass
 #    def neighborhood(self,bmu,kernalWidth):
-#        """
-#        This function must return the ID's of the nodes inside the neighborhood, 
-#        NumNeighbors is defined by kernalWidth and is expressed as an order.
-#        bmu is the id of the best match, or neighborhood center.
-#        """
-#        pass
+#       '''
+#       This function returns a dictionary containing the neighbors of
+#       bmu as keys and their dist (as an order) as values.
+#       '''
+#       pass
