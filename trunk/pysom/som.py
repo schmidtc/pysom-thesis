@@ -53,18 +53,18 @@ from data import ObsFile
 class som:
     ''' Base class for the Self-Organizing Map,
         Each topology will inherit from this class.
-        A template is provied in 'Topology'
+        A template is provided in 'Topology'
     '''
     def __init__(self):
         '''
         These initial training parameters should be
         set before training.
         '''
-        # int, the number of dimmension in the input-space
+        # int, the number of dimension in the input-space
         self.Dims = 0
-        # int, optionally the number nurons in the X dimmension
+        # int, optionally the number neurons in the X dimension
         self.X = 0
-        # int, optionally the number nurons in the Y dimmension
+        # int, optionally the number neurons in the Y dimension
         self.Y = 0
         # int, total number of neurons
         self.Size = 0
@@ -77,7 +77,7 @@ class som:
         # float, initial learning rate
         self.alpha0 = 0.0
 
-        # reference vecotors are stored here.
+        # reference vectors are stored here.
         self.nodes = []
         # mapping of observations to neurons is stored here.
         self.daMap = {}
@@ -202,7 +202,7 @@ class som:
         return a * math.exp(-top/bottom)
 
     def merge(self,t,ind,v):
-        ''' This function adjusts the actual refernce vectors at time
+        ''' This function adjusts the actual reference vectors at time
             't' based on observation vector 'v'.
         '''
         bmu = self.findBMU(None,v)
@@ -221,7 +221,7 @@ class som:
 
     def run(self,obsf):
         ''' Call this function with your observation file are a
-            perameter.
+            parameter.
 
             obsf must be an instance ObsFile as provided by data.py
 
@@ -248,7 +248,7 @@ class som:
             self.merge(t,ind,v)
             sys.stdout.write("\r%.2f%%"%(100*float(t)/T))
             sys.stdout.flush()
-        print "\nRun compleated in %f seconds"%(time.time()-t1)
+        print "\nRun completed in %f seconds"%(time.time()-t1)
 
     def map(self,obsf):
         ''' This function maps the observation back onto the trained
@@ -278,7 +278,7 @@ class GraphTopology(som):
         using the NetworkX graph library.
     '''
     def __init__(self,G=None,Type='Graph'):
-        ''' Special initializtion for this topology,
+        ''' Special initialization for this topology,
             also calls som.__init__
         '''
         som.__init__(self)
@@ -335,7 +335,7 @@ class GraphTopology(som):
         '''
         return nf.neighborhood(self.G,bmu,kernelWidth)
     def merge(self,t,ind,v):
-        ''' This function adjusts the actual refernce vectors at time
+        ''' This function adjusts the actual reference vectors at time
             't' based on observation vector 'v'.
         '''
         bmu = self.findBMU(None,v)
@@ -369,7 +369,7 @@ class GraphTopology(som):
 #       pass
 #    def odist(n):
 #       """
-#       n is the nth neuron in the in neighborhood, return's order
+#       n is the nth neuron in the in neighborhood, returns order
 #       example the 3rd neuron in the set is 1 order from the 0th.
 #       """
 #       pass

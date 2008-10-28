@@ -10,7 +10,7 @@ import networkx
 from utils.grid2rook import grid2Rook
 
 def rookGraph(rows, cols):
-    ''' Create a rectangular graph topoloy '''
+    ''' Create a rectangular graph topology '''
     rook = grid2Rook(rows,cols,binary=1)
     G = networkx.Graph()
     for node in rook:
@@ -18,7 +18,7 @@ def rookGraph(rows, cols):
             G.add_edge((node,neighbor))
     return G
 def hexGraph(rows, cols):
-    ''' Create a hexagonal graph topoloy '''
+    ''' Create a hexagonal graph topology '''
     x = cols
     y = rows
     grid = []
