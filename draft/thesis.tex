@@ -41,6 +41,7 @@
 \graphicspath{{figures/}}
 % what is natbib anyway?
 \usepackage[round]{natbib}
+\usepackage{setspace}
 
 % For chemistry use this.  We've included it because of the chemistry examples.
 %\usepackage{dchem}
@@ -121,7 +122,7 @@
 
 % Dates
 \gradyear{2008}
-\submitdate{August 2008}
+\submitdate{December 2008}
 
 % Your committee chair (don't include titles as per the manual)
 \committeechair{Sergio J. Rey}
@@ -240,7 +241,9 @@ Charles R. Schmidt
 % You must have thbib.bib file in the current directory 
 %
 %\bibliographystyle{plain}
+\singlespacing
 \bibliographystyle{apalike}
+\addcontentsline{toc}{schapter}{\bibname}   %do NOT substitute your bibname
 \bibliography{../bib/som}
 
 % This includes append.tex

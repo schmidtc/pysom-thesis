@@ -257,8 +257,28 @@ which every neuron would have exactly six neighbors.  \cite{wu2006} prefer
 this structure, because it has very low variances in both neuron spacing
 and neighborhood size. 
 
+\begin{figure}
+\centering
+\subfigure[Geodesic Topology]{
+  \label{topo:geo}
+  \includegraphics[width=.40\linewidth]{g642.png}
+}
+\subfigure[Spherical Topology]{
+  \label{topo:sphere}
+  \includegraphics[width=.40\linewidth]{642.png}
+}
+\caption{The geodesic topology is create by subdividing the sides of an
+icosahedron. The ``spherical'' topology is created by drawing Voronoi regions
+around points distributed on the surface of a sphere.}
+\label{s_topos}
+\end{figure}
+
 Based solely on measures of neuron spacing, \cite{wu2005} dismissed the usefulness of a method
-proposed by \cite{Rakhmanov94} for distributing points on a sphere.  Similarly
+proposed by \cite{Rakhmanov94} for distributing points on a sphere.  
+Figure \ref{s_topos} shows both the tessellated icosahedron \subref{topo:geo} and
+a less uniform topology \subref{topo:sphere} derived from this method of
+distributing points.
+Similarly
 \cite{Nishio:2006fk} use these variance measures to support their helix
 algorithm for distributing points on a sphere.  Table \ref{table1} shows that
 these metrics can be misleading and comparison across topologies may not be
