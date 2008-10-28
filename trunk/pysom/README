@@ -1,0 +1,138 @@
+"""
+=================================================================
+PySOM: Python Self-Organizing Maps, README
+-----------------------------------------------------------------
+AUTHOR(S): Charles R. Schmidt cschmidt@rohan.sdsu.edu
+-----------------------------------------------------------------
+
+PySOM is an implementation of the Self-Organizing Map training
+algorithm written in the Python Programming Language.  What makes
+PySOM unique compared to other implementations is that the
+network topology is not hard wired. Instead, we represent the
+topology as a graph.  The NetworkX python library is used to
+manage the graph.  Using a graph structure allows us to train
+SOMs on a variety of different topologies with relative ease.
+This document is intended to provide an overview of PySOM and
+help users get started with training their SOMs.  In its current
+form some basic knowledge of the Python Programming language is
+required to use PySOM. I hope to provide a more robust graphical
+user interface in the future, but for now PySOM can only be
+accessed programmatically.  In the following sections you will
+learn how to organize your data, set up your topology, set your
+training parameters, and train your SOM.
+
+-----------------
+| Prerequisites |
+-----------------
+PySOM requires Python version 2.4 or later, available from
+http://python.org
+
+In addition the following Python Libraries are required:
+Numpy (1.0.4) available from http://numpy.org/
+NetworkX (0.35.1) available from http://networkx.lanl.gov/
+Version numbers used for development are provided, but future
+version are expected to work.
+
+----------------
+| Installation |
+----------------
+Download the latest version of PySOM from
+http://code.google.com/p/pysom-thesis/downloads/list
+
+
+--------
+| Data |
+--------
+The observation file should match the following format, where the
+first row indicates the number dimension in your input data set.
+Each subsequent row contains the values or a particular
+observation separated by spaces.  Addition columns can exist in
+your observation file, e.g. for meta data.  But PySOM will only
+read the number of columns specified on the first line. Your
+values should scale from 0 to 1.  See the following extract from
+a real input file:
+3
+0.847 0.508 0.573 1
+0.597 0.417 0.093 6
+0.436 0.578 0.464 0
+0.454 0.407 0.092 6
+0.906 0.438 0.501 1
+0.482 0.025 0.475 5
+
+We create an instance of the observation file manager with the
+following code:
+>>> from pysom import data
+>>> f = data.ObsFile('/path/to/file.txt')
+
+------------
+| Topology |
+------------
+In the current version, PySOM will create both hexagonal and
+rectangular graph structures.  Any valid undirected NetworkX can
+be used as the topology for your SOM.  The nodes of the graph
+will be treated as neurons.  To create a hexagon graph use the
+following python code:
+>>> from pysom import topology
+>>> rows = 3
+>>> cols = 3
+>>> G = topology.hexGraph(rows,cols)
+
+For a rectangular graph change the last line to:
+>>> G = topology.rookGraph(rows,cols)
+
+-----------------------
+| Training Parameters |
+-----------------------
+Before setting the training parameters you must create an
+instance of the SOM.  This can be done with the following code:
+>>> from pysom import som
+>>> S = som.GraphyTopology(G)
+where G is the graph we created above.
+
+Once the SOM instance has been created we need to set the
+following training parameters (comments marked by '#' explain
+each parameter):
+>>> #The number of dimensions in training data
+>>> S.Dims = 3
+
+>>> #The percent of the network to include in the first training step
+>>> S.maxN = 0.5
+
+>>> #The number training steps to perform
+>>> S.tSteps = 10000 
+
+>>> #The initial learning rate
+>>> S.alpha0 = 0.04
+
+
+------------
+| Training |
+------------
+With the training parameters set we can now randomly initialize
+the SOM and start the training with the following code:
+>>> S.randInit()
+>>> # Save the initial State (optional)
+>>> S.save('output/', 'initial_state')
+>>> S.run(f)
+where S was created above and f was the observation file manager
+we also created above.
+
+The SOM can be saved at any point with its '.save' method. This
+method takes two parameters, the first is a path, the second is
+the save as name. We'll save the trained SOM with the following
+code:
+>>> S.save('output/','phase1')
+
+It is often desirable to train the SOM in two phases, to do this
+simply adjust the training parameters, reset the file and restart
+the training. As demonstrated with the following code:
+>>> S.maxN = 0.333
+>>> S.tSteps = 1000000
+>>> S.tSteps = 1000
+>>> S.alpha0 = 0.03
+>>> f.reset()
+>>> S.run()
+>>> S.save('output/','phase2')
+
+=================================================================
+"""
