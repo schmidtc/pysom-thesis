@@ -148,13 +148,6 @@ Methodology
 			| \includegraphics[width=0.75\linewidth]{topos.png}
 			| \end{figure}
 			| \end{center}
-		Data Generation
-			Synthetic Multivariate Data
-			| * Follow Wu and Takatsuka (2006)
-			| * Seven clusters
-			| * Three dimension
-			| * Clusters are normally distributed w/ unit variance on each dimension
-			| * 25,000 Observation -> 644 Neurons
 		Graph Based Implementation of SOM
 			Python
 			| * Growing scientific community
@@ -169,83 +162,6 @@ Methodology
 			| * Topology independent
 			| * Flexible
 Results
-	Internal Heterogeneity vs. First-Order Neighborhood Size
-		Diagnostic
-			Internal Heterogeneity vs. First-Order Neighborhood Size
-			| * Does a neuron's I.H. decrease as its first-order neighborhood size increases?
-			| ** Group neurons by degree and topology
-			| ** Measure I.H. within each group
-			| ** Check for difference of means and variance between groups
-		Internal Heterogeneity vs. First-Order Neighborhood Size
-			Rectangular
-			| \begin{center}
-			| \begin{figure}
-			| \includegraphics[width=0.75\linewidth]{rook_iv_box.png}
-			| \end{figure}
-			| \end{center}
-		Internal Heterogeneity vs. First-Order Neighborhood Size
-			Hexagonal
-			| \begin{center}
-			| \begin{figure}
-			| \includegraphics[width=0.75\linewidth]{hex_iv_box.png}
-			| \end{figure}
-			| \end{center}
-		Internal Heterogeneity vs. First-Order Neighborhood Size
-			Geodesic
-			| \begin{center}
-			| \begin{figure}
-			| \includegraphics[width=0.75\linewidth]{geodesic_iv_box.png}
-			| \end{figure}
-			| \end{center}
-		Internal Heterogeneity vs. First-Order Neighborhood Size
-			Spherical
-			| \begin{center}
-			| \begin{figure}
-			| \includegraphics[width=0.75\linewidth]{graph_iv_box.png}
-			| \end{figure}
-			| \end{center}
-	Internal Heterogeneity vs. Topological Regularity
-		Diagnostic
-			Internal Heterogeneity vs. Topological Regularity
-			| * Does a SOM's average I.H. increase in more irregular topologies?
-			| ** Group neurons by Topology
-			| ** Measure I.H. within each group
-			| ** Check for difference of means and variance between groups
-		Internal Heterogeneity vs. Topological Regularity
-			| \begin{table}
-			| \centering
-			| \begin{minipage}{\textwidth}
-			| \caption{Measure of Topological Regularity and Sample Mean and Variance}
-			| \label{vardeg}
-			| \begin{tabular}{|c||c|c|c|}
-			| \hline
-			| &$c=1/n \sum_{i=1} (1/n \sum_{j=1} d_{i,j})^{-1}$&&\\
-			| Topology & Closeness Centrality & Mean & Variance\\
-			| \hline
-			| Rectangular & 0.0603 & 0.0294 &0.0001\\
-			| Hexagonal & 0.0739 & 0.0289 &0.0001\\
-			| Geodesic & 0.0890 & 0.0281 &0.0001\\
-			| Spherical & 0.0906 & 0.0281 &0.0001\\
-			| \hline
-			| \end{tabular}
-			| \end{minipage}
-			| \end{table}
-		Internal Heterogeneity vs. Topological Regularity
-			| \begin{table}
-			|   \begin{minipage}{\textwidth}
-			|   \caption{Results of Difference of Mean Testing Across Topologies}
-			|   \label{rlt:all}
-			|   \begin{tabular}{|c||c|c|c|c|}
-			|   \hline
-			|   \textbf{Topology}&Rectangular&Hexagonal &Geodesic &Spherical\\\hline
-			|   \hline
-			|	Rectangular & (0.000064) & \textbf{0.001000} & \textbf{0.000100} & \textbf{0.000100}\\\hline
-			|	Hexagonal & -0.000479 & (0.000064) & \textbf{0.000100} & \textbf{0.000100}\\\hline
-			|	Geodesic & -0.001329 & -0.000850 & (0.000060) & 0.505600\\\hline
-			|	Spherical & -0.001328 & -0.000849 & 0.000001 & (0.000061)\\\hline
-			|   \end{tabular}
-			|   \end{minipage}
-			| \end{table}
 	Visualization of Internal Heterogeneity
 		Diagnostics
 			Visualization of Internal Heterogeneity
@@ -281,16 +197,8 @@ Results
 Conclusions
 	Conclusions
 		Key Findings
-			Internal Heterogeneity vs. First-Order Neighborhood Size
-			| * Significant differences for hexagonal and rectangular topologies
-			| * One significant difference in spherical topology
-			| ** Magnitude of difference very small compared with magnitudes in "flat" topologies
-			| * No significant difference for geodesic
-			Internal Heterogeneity vs. Topological Regularity
-			| * Geodesic and spherical show no significant differences
-			Visualization of Internal Heterogeneity
-			| * Shows patterns of clustering
-			| * Provides insight into the self-organizing process
+			PySOM
+			| Works.
 		Objective
 			Question
 			| Does Regularity Matter in Spherical SOM?
@@ -302,7 +210,6 @@ Conclusions
 		Future Directions
 			Extensions
 			| * Rotate sphere-based SOMs to show "central" feature
-			| * Compare different SOMs on more than just topology
 			| * Test other topologies
 			| ** Remove nodes from the existing topologies
 		Edge Effects in SOM
