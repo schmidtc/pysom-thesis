@@ -3,9 +3,8 @@ preamble
 	@authorShort Schmidt
 	@institute Department of Geography\\San Diego State University
 	@instituteShort SDSU
-	@title Effects of Irregular Topology in Spherical Self-Organizing Maps
-	@titleShort Irregular Topology in Spherical-SOM
-	@subtitle Thesis presentation
+	@title PySOM: A Graph Based Implementation of Self-Organizing Maps
+	@titleShort PySOM
 	@date September 15, 2008
 	@dateShort Thesis
 	\definecolor{sdsu_green}{RGB}{155,200,115}
@@ -119,29 +118,21 @@ Background
 			| * No Network Size Limitation
 	Objectives
 		Objectives
-			Question
-			| Does Regularity Matter in Spherical SOM?
-			Methods
-			| * Three Diagnostics
-			| ** Internal Heterogeneity vs. First-Order Neighborhood Size
-			| ** Internal Heterogeneity vs. Topological Regularity
-			| ** Visualization of Internal Heterogeneity
-Methodology
-	Internal Heterogeneity
-		Internal Heterogeneity
-			Neuron Internal Heterogeneity 
-			| \({IH_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j+1}^{n_i} ||{x_{ij}}-{x_{ik}}||\)
-			Internal Heterogeneity
-			| * Measures the difference of observations mapped in neuron
-			| * Measure of how well data fits to neuron
-	Research Design 
-		Research Design 
-			Training
-			| * Four Topologies
-			| * Synthetic Data
-			| * Ten Simulations Each
-			Implementation
-			| * PySOM
+			PySOM
+			| * Testbed for different topologies
+			| * Support as many topologies
+			| * Open Source
+PySOM
+	Python
+		Python
+			Why Python
+			| * Growing scientific community
+			| * Extensive libraries
+			| * Rapid development
+			PySAL
+			| * Python Spatial Analysis Library
+			| ** 
+	Design 
 		Topologies
 			| \begin{center}
 			| \begin{figure}
@@ -149,9 +140,6 @@ Methodology
 			| \end{figure}
 			| \end{center}
 		Graph Based Implementation of SOM
-			Python
-			| * Growing scientific community
-			| * Rapid development
 			Why
 			| * Alternative topologies not available 
 			| * Difficult to extend
