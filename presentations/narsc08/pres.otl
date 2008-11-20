@@ -146,14 +146,15 @@ PySOM
 Results
 	Status Report
 		Current Status
+			Open Source
+			| * Public Repository
+			| ** http://code.google.com/p/pysom-thesis
 			Core Library
+			| * Limited API
 			| * Training
 			| * Mapping
-			Interface
-			| * Limited API
-			| * Python Interpreter
 			Topologies
-			| * Built in
+			| * Built-in
 			| ** Rectangular
 			| ** Hexagonal
 			| * External
@@ -165,19 +166,13 @@ Results
 			| \includegraphics[width=0.75\linewidth]{topos.png}
 			| \end{figure}
 			| \end{center}
-		Open Source Project
-			Public Repository
-			| * Google Project Hosting
-			| ** http://code.google.com/p/pysom
-			| ** All source is available
-			| ** Limited Documentation
 	Visualization
 		Visualization
 			Visualizing the SOM
 			| * Currently Handled by ESRI's ArcMap
 			| * Limited Assistance
-			| ** txt2shp
-			| * Result Mapping
+			| ** txt-to-shp
+			| * Compontent Mapping
 			| ** DBF rewrite
 		Visualization 
 			Rectangular
