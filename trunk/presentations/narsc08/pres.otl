@@ -1,12 +1,12 @@
 preamble
-	@author Charles R. Schmidt
+	@author Charles R. Schmidt$^{1}$\\Sergio J. Rey$^{1}$\\Andr\'e Skupin$^{2}$
 	@authorShort Schmidt
-	@institute Department of Geography\\San Diego State University
-	@instituteShort SDSU
+	@institute The GeoDa Center for Geospatial Analysis and Computation\\Arizona State University$^{1}$\\Department of Gepgraphy\\San Diego State University$^{2}$
+	@instituteShort GeoDa Center
 	@title PySOM: A Graph Based Implementation of Self-Organizing Maps
 	@titleShort PySOM
-	@date September 15, 2008
-	@dateShort Thesis
+	@date November 21, 2008
+	@dateShort ASU
 	\definecolor{sdsu_green}{RGB}{155,200,115}
 	\usecolortheme[named=sdsu_green]{structure}
 	\usepackage{graphicx}
@@ -116,66 +116,91 @@ Background
 			| * Rejected in Literature
 			| * Less Regular
 			| * No Network Size Limitation
-	Objectives
-		Objectives
-			PySOM
-			| * Testbed for different topologies
-			| * Support as many topologies
-			| * Open Source
 PySOM
-	Python
-		Python
+	Objectives
+		PySOM
+			Why build another SOM implementation
+			| * Alternative topologies not available 
+			| * Difficult to extend
+			Objectives
+			| * Open Source
+			| * Support many topologies
+			| * Testbed for different topologies
+			Design Components
+			| * Python
+			| * PySAL
+			| * Graph Based Implementation
+	Design
+		Design
 			Why Python
 			| * Growing scientific community
 			| * Extensive libraries
 			| * Rapid development
-			PySAL
-			| * Python Spatial Analysis Library
-			| ** 
-	Design 
+			Python Spatial Analysis Library
+			| * Collection of Spatial Analysis Tools
+			| * Leveraging PySAL
+			| * Extending PySAL
+			Graph Based Implementation
+			| * Topology independent
+			| * Flexible
+Results
+	Status Report
+		Current Status
+			Core Library
+			| * Training
+			| * Mapping
+			Interface
+			| * Limited API
+			| * Python Interpreter
+			Topologies
+			| * Built in
+			| ** Rectangular
+			| ** Hexagonal
+			| * External
+			| ** Rakhmanov (Spherical)
+			| ** Geodesic Sphere
 		Topologies
 			| \begin{center}
 			| \begin{figure}
 			| \includegraphics[width=0.75\linewidth]{topos.png}
 			| \end{figure}
 			| \end{center}
-		Graph Based Implementation of SOM
-			Why
-			| * Alternative topologies not available 
-			| * Difficult to extend
-			| * Flexibility over speed
-			| ** SOM\_PAK: 90 seconds
-			| ** PySOM: 45 minutes
-			Graphs
-			| * Topology independent
-			| * Flexible
-Results
-	Visualization of Internal Heterogeneity
-		Diagnostics
-			Visualization of Internal Heterogeneity
-			| * What information can be learned from a mapping of the I.H.?
-		Visualization of Internal Heterogeneity
+		Open Source Project
+			Public Repository
+			| * Google Project Hosting
+			| ** http://code.google.com/p/pysom
+			| ** All source is available
+			| ** Limited Documentation
+	Visualization
+		Visualization
+			Visualizing the SOM
+			| * Currently Handled by ESRI's ArcMap
+			| * Limited Assistance
+			| ** txt2shp
+			| * Result Mapping
+			| ** DBF rewrite
+		Visualization 
 			Rectangular
 			| \begin{center}
 			| \begin{figure}
 			| \includegraphics[width=0.70\linewidth]{rook_clusters.png}
 			| \end{figure}
 			| \end{center}
-		Visualization of Internal Heterogeneity
+		Visualization 
 			Hexagonal
 			| \begin{center}
 			| \begin{figure}
 			| \includegraphics[width=0.70\linewidth]{hex_clusters.png}
 			| \end{figure}
 			| \end{center}
-		Visualization of Internal Heterogeneity
+		Visualization 
 			Geodesic
 			| \begin{center}
 			| \begin{figure}
 			| \includegraphics[width=0.70\linewidth]{geodesic_clusters.png}
 			| \end{figure}
 			| \end{center}
-		Visualization of Internal Heterogeneity
+		Visualization 
 			Spherical
 			| \begin{center}
 			| \begin{figure}
@@ -183,24 +208,22 @@ Results
 			| \end{figure}
 			| \end{center}
 Conclusions
-	Conclusions
-		Key Findings
-			PySOM
-			| Works.
-		Objective
-			Question
-			| Does Regularity Matter in Spherical SOM?
-		Limitations
-			Qualifications
-			| * Only addressing how topology effects the SOM.
-			| ** Does not address the benefits of having or removing the edge.
-			| ** Is pushing outliers to the edges a bad thing?
-		Future Directions
+	Limitations \& Future Directions
+		Limitations \& Future Directions
+			Limitations
+			| * Flexibility over speed
+			| ** SOM\_PAK: 90 seconds
+			| ** PySOM: 45 minutes
+			| * API/Interface
+			| * Topology Support
+			| * Visualization
+		Limitations \& Future Directions
 			Extensions
-			| * Rotate sphere-based SOMs to show "central" feature
-			| * Test other topologies
-			| ** Remove nodes from the existing topologies
-		Edge Effects in SOM
+			| * PySAL Style Distribution
+			| ** Standalone Desktop Application
+			| ** ArcMap Toolbox (Som Analyst)
+			| ** Web Services
+		Back to Utah and Hawaii
 			| \begin{center}
 			| \begin{figure}
 			| \includegraphics[width=\linewidth]{statesSphere.png}
