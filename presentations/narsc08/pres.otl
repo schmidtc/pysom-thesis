@@ -23,12 +23,6 @@ Background
 			| * Data Visualization
 			| * Data Reduction
 			| * Clustering
-		In Terms of Geography (Skupin 2004)
-			| \begin{center}
-			| \begin{figure}
-			| \includegraphics[width=.8\linewidth]{skupin.png}
-			| \end{figure}
-			| \end{center}
 		SOM as Dimensionality Reduction
 			| \begin{center}
 			| \begin{figure}
@@ -50,12 +44,6 @@ Background
 			| \end{figure}
 			| \end{center}
 			| (Skupin 2008)
-		SOM and GIScience
-			| \begin{center}
-			| \begin{figure}
-			| \includegraphics[width=0.50\linewidth]{book.png}
-			| \end{figure}
-			| \end{center}
 		SOM and GIScience
 			| \begin{quote}
 			| "translate \emph{data similarities} into \emph{spatial relationship}" 
@@ -87,13 +75,13 @@ Background
 		Edge Effects in SOM
 			| \begin{center}
 			| \begin{figure}
-			| \includegraphics[width=0.60\linewidth]{gridedge.png}
+			| \includegraphics[width=0.80\linewidth]{gridedge.png}
 			| \end{figure}
 			| \end{center}
 		Edge Effects
 			In SOM
 			| * Higher density of observations mapped to edge neurons
-			| * Higher internal heterogeneity for edge neurons
+			| * Edge neurons have less influence 
 			In Spatial Analysis
 			| * Inflated nearest neighbor distances
 			| * Mask the true distribution
@@ -140,9 +128,18 @@ PySOM
 			| * Collection of Spatial Analysis Tools
 			| * Leveraging PySAL
 			| * Extending PySAL
-			Graph Based Implementation
+		Graph Based Implementation
+			Hard Coded Topology
+			| * Fast
+			| ** Optimized for each topology
+			| * Difficult to extend
+			| * Inflexible
+			Graphs
 			| * Topology independent
+			| ** Can train using any graph
+			| * Neighborhood construction
 			| * Flexible
+			| ** Can modify graph structure
 Results
 	Status Report
 		Current Status
@@ -155,11 +152,9 @@ Results
 			| * Mapping
 			Topologies
 			| * Built-in
-			| ** Rectangular
-			| ** Hexagonal
+			| ** Rectangular, Hexagonal
 			| * External
-			| ** Rakhmanov (Spherical)
-			| ** Geodesic Sphere
+			| ** Rakhmanov (Spherical), Geodesic Sphere
 		Topologies
 			| \begin{center}
 			| \begin{figure}
