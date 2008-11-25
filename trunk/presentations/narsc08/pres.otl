@@ -1,7 +1,7 @@
 preamble
 	@author Charles R. Schmidt$^{1}$\\Sergio J. Rey$^{1}$\\Andr\'e Skupin$^{2}$
 	@authorShort Schmidt
-	@institute The GeoDa Center for Geospatial Analysis and Computation\\Arizona State University$^{1}$\\Department of Gepgraphy\\San Diego State University$^{2}$
+	@institute The GeoDa Center for Geospatial Analysis and Computation\\Arizona State University$^{1}$\\Department of Geography\\San Diego State University$^{2}$
 	@instituteShort GeoDa Center
 	@title PySOM: A Graph Based Implementation of Self-Organizing Maps
 	@titleShort PySOM
@@ -104,6 +104,12 @@ Background
 			| * Rejected in Literature
 			| * Less Regular
 			| * No Network Size Limitation
+		Topologies
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.75\linewidth]{topos.png}
+			| \end{figure}
+			| \end{center}
 PySOM
 	Objectives
 		PySOM
@@ -155,12 +161,6 @@ Results
 			| ** Rectangular, Hexagonal
 			| * External
 			| ** Rakhmanov (Spherical), Geodesic Sphere
-		Topologies
-			| \begin{center}
-			| \begin{figure}
-			| \includegraphics[width=0.75\linewidth]{topos.png}
-			| \end{figure}
-			| \end{center}
 	Visualization
 		Visualization
 			Visualizing the SOM
