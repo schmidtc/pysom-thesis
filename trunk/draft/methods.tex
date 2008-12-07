@@ -72,8 +72,10 @@ create ShapeFiles from these text files.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=.9\linewidth]{flowchart.png}
+\begin{minipage}{5.5in}
 \caption{Steps for creating geodesic graph structures.}
 \label{flowchart}
+\end{minipage}
 \end{figure}
 
 \section{Diagnostics}
@@ -302,18 +304,19 @@ training steps; the second stage uses a lower initial learning rate and
 neighborhood search radius, but extends the length of training. In PySOM we
 define the initial neighborhood search radius as a percentage of the maximum
 width of the graph.
-\\
-First Stage Parameters:
 \begin{itemize}
-  \item Initial neighborhood search radius of 50\%, which decreases during training. 
-  \item Initial learning rate of 0.04 which decreases during training.
-  \item 100,000 training steps.
-\end{itemize}
-Second Stage Parameters:
-\begin{itemize}
-  \item Initial neighborhood search radius of 33\%, which decreases during training. 
-  \item Initial learning rate of 0.03 which decreases during training.
-  \item 1,000,000 training steps.
+\item First Stage Parameters:
+  \begin{itemize}
+    \item Initial neighborhood search radius of 50\%, which decreases during training. 
+    \item Initial learning rate of 0.04 which decreases during training.
+    \item 100,000 training steps.
+  \end{itemize}
+\item Second Stage Parameters:
+  \begin{itemize}
+    \item Initial neighborhood search radius of 33\%, which decreases during training. 
+    \item Initial learning rate of 0.03 which decreases during training.
+    \item 1,000,000 training steps.
+  \end{itemize}
 \end{itemize}
 
 As shown in Figure \ref{fig:nSize}, topologies differ in terms of achievable

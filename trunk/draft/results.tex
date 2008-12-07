@@ -72,6 +72,16 @@ as measured by equation \ref{eqno1} to increase at these locations,
 demonstrating that topological irregularity affects the placement of outliers
 in the SOM.  
 
+For each topology, we calculated the internal heterogeneity and degree of
+all the neurons.  We then grouped the internal heterogeneity measures by degree.  These groups are
+treated as representative samples from a larger distribution. Table \ref{meanvar1}
+shows the details of each sample, including its size, mean and variance. 
+The size N is the number of observations for which we were able to calculate an
+internal heterogeneity. The mean and variance capture the centrality and
+dispersion of the samples.  We create a box-and-whisker diagram (box plot) for
+each sample, as shown in figure \ref{boxplot}, to visualize the samples
+summarized in Table \ref{meanvar1}.
+
 \begin{table}[htb]
 %\centering
 \scriptsize
@@ -97,16 +107,6 @@ in the SOM.
 \hline
 \end{tabular} \end{minipage} \end{table}
 
-For each topology, we calculated the internal heterogeneity and degree of
-all the neurons.  We then grouped the internal heterogeneity measures by degree.  These groups are
-treated as representative samples from a larger distribution. Table \ref{meanvar1}
-shows the details of each sample, including its size, mean and variance. 
-The size N is the number of observations for which we were able to calculate an
-internal heterogeneity. The mean and variance capture the centrality and
-dispersion of the samples.  We create a box-and-whisker diagram (box plot) for
-each sample, as shown in figure \ref{boxplot}, to visualize the samples
-summarized in Table \ref{meanvar1}.
-
 \begin{figure}[htb]
 \centering
 \subfigure[Rectangular Topology]{
@@ -125,11 +125,13 @@ summarized in Table \ref{meanvar1}.
   \label{boxplot:geodesic}
   \includegraphics[width=.45\linewidth]{geodesic_iv_box.png}
 }
+\begin{minipage}{5.3in}
 \caption{Box-and-whisker diagrams representing samples derived from forty
 trained SOMs.  The samples within each topology were created by grouping the
 internal heterogeneity of each neuron of a given degree size. The diagrams how the
 centrality and dispersion of each sample.}
 \label{boxplot}
+\end{minipage}
 \end{figure}
 
 We see that the means of the samples seem to respond as expected for the
@@ -142,7 +144,7 @@ possibly due to the large difference in sample size.  To verify these
 conclusions we formally test for differences in means and variance between the
 samples.
 
-\begin{table}[htb]
+\begin{table}[hb]
 \begin{minipage}{\textwidth}
 \caption{Results of Difference of Mean Testing Within Each Topology}
 \label{rlt}
@@ -275,7 +277,7 @@ is more irregular than the geodesic topology, similar levels of quality may be
 achieved.
 
 
-\begin{table}
+\begin{table}[h]
   \begin{minipage}{\textwidth}
   \caption{Results of Difference of Mean Testing Across Topologies}
   \label{rlt:all}
@@ -291,8 +293,6 @@ achieved.
   \end{tabular}
   \end{minipage}
 \end{table}
-
-
 
 \section{Visualization of Internal Heterogeneity}
 \label{rdq3}
@@ -341,10 +341,13 @@ explore them in more depth.
   \label{ten:geodesic}
   \includegraphics[width=0.5\linewidth]{geodesic_thesis_7c.png}
 }
+
+\hspace{0.11in} \begin{minipage}{6.22in}
 \caption{Internal heterogeneity mapping for each of the forty SOMs. Darker colors
 represent neurons that display larger internal heterogeneity. Neurons for which
 an internal heterogeneity could not be calculated are not shaded.}
 \label{ten}
+\end{minipage}
 \end{minipage}
 \end{figure}
 
@@ -362,13 +365,13 @@ the random initialization of the SOM.  However, the relationships between the
 dimensions remain constant across topologies. 
 
 \begin{figure}[ht]
+\centering
 \begin{minipage}{\textwidth}
-  \includegraphics[width=\linewidth]{cplanes.png}
-  \caption{The first (A), second (B) and third (C) component planes are shown
-for the first simulation of each topology.  These component planes show how
-the original dimensions are represented in the trained SOMs.}
-  \label{cplanes}
-\end{minipage}\end{figure}
+\includegraphics[width=\linewidth]{cplanes.png}
+\caption{The first (A), second (B) and third (C) component planes are shown for the first simulation of each topology.  These component planes show how the original dimensions are represented in the trained SOMs.}
+\label{cplanes}
+\end{minipage}
+\end{figure}
 
 
 
@@ -454,9 +457,11 @@ far from the mean of all the states.
 \begin{figure}[h]
 \centering
 \includegraphics[width=.9\linewidth]{statesSphere.png}
+\begin{minipage}{5.42in}
 \caption{An example of how spherical SOM addresses the boundary effect found in
 traditional SOM.}
 \label{sphere:states}
+\end{minipage}
 \end{figure}
 
 In Figure \ref{sphere:states} we present the same data trained on a 400 neuron
