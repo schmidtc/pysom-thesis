@@ -67,8 +67,10 @@ in the low-dimensional neural network \citep{ritter99}.
   \label{topo:hex}
   \includegraphics[width=.30\linewidth]{topo_hex.png}
 }
+\begin{minipage}{3.54in}
 \caption{In traditional SOM either a rectangular or hexagonal topology is used.}
 \label{topos}
+\end{minipage}
 \end{figure}
 
 The SOM has a number of applications, but is primarily used for data reduction
@@ -226,8 +228,10 @@ boundary, which effects its ability to represent \emph{data similarities} as
 \begin{figure}[htb]
 \centering
 \includegraphics[width=.9\linewidth]{gridedge.png}
+\begin{minipage}{5.4in}
 \caption{An example of the boundary effect in SOM.}
 \label{som:states}
+\end{minipage}
 \end{figure}
 
 One way to eliminate the edge effect is to wrap the lattice around a
@@ -268,10 +272,12 @@ and neighborhood size.
   \label{topo:sphere}
   \includegraphics[width=.40\linewidth]{642.png}
 }
+\begin{minipage}{5.04in}
 \caption{The geodesic topology is create by subdividing the sides of an
 icosahedron. The ``spherical'' topology is created by drawing Voronoi regions
 around points distributed on the surface of a sphere.}
 \label{s_topos}
+\end{minipage}
 \end{figure}
 
 Based solely on measures of neuron spacing, \cite{wu2005} dismissed the usefulness of a method
@@ -340,12 +346,14 @@ application for which this network size would be most relevant is unclear.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=\linewidth]{networkSize.pdf}
+\begin{minipage}{6.2in}
 \caption{This figure demonstrates the achievable network size using various
 spherical topologies, in comparison with the traditional SOM. The Y-axis
 represents the achievable network size, while the X-axis represents the
 smallest increase in grid size for each topology.}
 % frequency of the tessellation. For the traditional Kohonen method the X-axis represents the size of both dimensions of the grid; for comparability the ratio between the dimensions was fixed at one ($X_{dim}=Y_{dim}$).  For the \cite{Rakhmanov94} and \cite{Nishio:2006fk} methods the X-axis represents the exact network size.}
 \label{fig:nSize}
+\end{minipage}
 \end{figure}
 
 Given this lack of theoretical development, researchers should be cautious
@@ -359,6 +367,7 @@ the size of these networks.  As an aside, the preferred ratio between these
 dimensions depends on the data being represented, and should generally not
 equal one \citep{kohonen1996, toolbox}.  In Figure \ref{fig:nSize} we used a
 ratio of one only for comparison purposes with the other topologies.
+
 \citeauthor{ritter99}'s tessellation method results in a network size that
 grows at a rate of \(N=2+10*4^f\), where $f$ is the frequency of tessellation.
 \cite{wu2006} offer a slight improvement. Rather than recursively subdividing
