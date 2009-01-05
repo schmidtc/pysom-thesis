@@ -1,0 +1,62 @@
+\documentclass[times, 10pt,twocolumn]{article} 
+\usepackage{times}
+\usepackage{subfigure}
+
+\usepackage{graphicx} %sjr added
+\graphicspath{{../../presentation/figures/}{../../draft/figures/}}
+\pagestyle{empty}
+
+%------------------------------------------------------------------------- 
+\begin{document}
+
+\title{Effects of Irregular Topology in Spherical Self-Organizing Maps}
+
+\author{
+Charles R. Schmidt\\
+School of Geographical Sciences\\Arizona State University\\
+Charles.R.Schmidt@asu.edu\and
+Sergio J. Rey\\
+School of Geographical Sciences\\Arizona State University\\srey@asu.edu
+\and
+Andr\'e Skupin\\
+Department of Geography\\San Diego State University\\
+skupin@mail.sdsu.edu
+}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+We explore the effect of different topologies on properties of self-organizing
+maps (SOM). We suggest several diagnostics for measuring
+topology-induced errors in SOM and use these in a comparison of four different
+topologies. The results show that SOM is less sensitive to localized
+irregularities in the network structure than the literature may otherwise
+suggest.  Further, the results support the use of spherical topologies as a
+solution to the boundary problem in traditional SOM.
+  
+\end{abstract}
+
+
+
+%------------------------------------------------------------------------- 
+\section{Introduction}
+\input{introduction} % 1 page
+
+\section{Edge Effects} % 1.5 pages
+\input{edge}
+
+
+\section{Methods} % 1.5 pages
+\input{methods}
+
+\section{Results} %1.5 pages
+\input{results}
+%------------------------------------------------------------------------- 
+\section{Conclusions} %0.5 pages
+\input{conclusion}
+\bibliographystyle{apalike}
+\bibliography{../proposal/som}
+
+\end{document}
+
