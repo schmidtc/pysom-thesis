@@ -1,14 +1,14 @@
-all: geows09.pdf
+all: paper.pdf
 
-view: geows09.pdf
-	open geows09.pdf
+view: paper.pdf
+	open paper.pdf
 
-geows09.pdf: ../bib/*.bib *.tex
-	( pdflatex geows09 || rm -f geows09.pdf ) && \
-	bibtex geows09 && \
-	( pdflatex geows09 || rm -f geows09.pdf ) && \
-	( pdflatex geows09 ) && \
-	( pdflatex geows09 )
+paper.pdf: ../../bib/*.bib *.tex
+	( pdflatex paper || rm -f paper.pdf ) && \
+	bibtex paper && \
+	( pdflatex paper || rm -f paper.pdf ) && \
+	( pdflatex paper ) && \
+	( pdflatex paper )
 
 clean:
-	rm -f *.aux *.bbl *.blg *.dvi *.log *.lot *.toc *.lof geows09.ps geows09.pdf
+	rm -f *.aux *.bbl *.blg *.dvi *.log *.lot *.toc *.lof paper.ps paper.pdf
