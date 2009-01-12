@@ -4,9 +4,8 @@ view: paper.pdf
 	open paper.pdf
 
 paper.pdf: ../../bib/*.bib *.tex
-	( pdflatex paper || rm -f paper.pdf ) && \
+	( pdflatex paper ) && \
 	bibtex paper && \
-	( pdflatex paper || rm -f paper.pdf ) && \
 	( pdflatex paper ) && \
 	( pdflatex paper )
 

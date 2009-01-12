@@ -25,35 +25,33 @@ relationships.
 
 One way to eliminate the edge effect is to wrap the lattice around a
 three-dimensional object such as a sphere or torus, thereby removing the edge
-entirely. The toroidal SOM was introduced by Li et al. \cite{li1993}, however the torus
+entirely. The toroidal SOM was introduced by \cite{li1993}, however the torus
 is not effective for visualization, as maps generated from a torus are not
-very intuitive \cite{ito2000,wu2006}.  Ritter \cite{ritter99} describes the torus as
+very intuitive \citep{ito2000,wu2006}.  \cite{ritter99} describes the torus as
 being topologically flat and suggests that a curved topology, such as that of
 a sphere, may better reflect directional data.  A sphere also results in a
 more intuitive map, since we are accustomed to looking at geographic maps
 based on a sphere.  
 
 \label{bg:sphere}
-Ritter \cite{ritter99} first introduced the spherical SOM, and several enhancements have
-since been suggested \cite{boudjemai2003,sangole03,Nishio:2006fk,wu2006}.  A
-good comparison of these enhancements can be found in Wu and Takatsuka
- \cite{wu2006}.  All of
+\cite{ritter99} first introduced the spherical SOM, and several enhancements have
+since been suggested \citep{boudjemai2003,sangole03,Nishio:2006fk,wu2006}.  A
+good comparison of these enhancements can be found in \cite{wu2006}.  All of
 these methods derive their spherical structure through the tessellation of a
-polyhedron as originally proposed by Ritter \cite{ritter99}.  Wu and Takatsuka \cite{wu2006} point
+polyhedron as originally proposed by \cite{ritter99}.  \cite{wu2006} point
 out the importance of a uniform distribution on the sphere, and that it is
 preferable for all neurons to have an equal number of neighbors and to be
 equally spaced.  They find generally that the tessellation method best satisfies
 these conditions, and specifically that the icosahedron is the best starting
-point \cite{wu2005}. Tessellation of the icosahedron results in a network of
+point \citep{wu2005}. Tessellation of the icosahedron results in a network of
 neurons, each having exactly six neighbors, save the original twelve
 which each have five neighbors.  This is very close to the ideal structure in
-which every neuron would have exactly six neighbors.  Wu and Takatsuka \cite{wu2006} prefer
+which every neuron would have exactly six neighbors.  \cite{wu2006} prefer
 this structure, because it has very low variances in both neuron spacing
 and neighborhood size. 
 
-Based solely on measures of neuron spacing, Wu and Takatsuka \cite{wu2005} dismissed the usefulness of a method
-proposed by Rakhmanov et al. \cite{Rakhmanov94} for distributing points on a sphere.
-Similarly Nishio et al.
+Based solely on measures of neuron spacing, \cite{wu2005} dismissed the usefulness of a method
+proposed by \cite{Rakhmanov94} for distributing points on a sphere.  Similarly 
 \cite{Nishio:2006fk} use these variance measures to support their helix
 algorithm for distributing points on a sphere.  However,
 these metrics can be misleading and comparison across topologies may not be
