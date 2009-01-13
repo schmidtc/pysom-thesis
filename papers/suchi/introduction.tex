@@ -17,15 +17,35 @@ states, the goal of SOM is ``to translate \emph{data similarities} into
 The SOM is a type of artificial neural network in which neurons are ``organized''
 in such a way as to project the high-dimensional relationships of a set of
 training data onto a low-dimensional network structure.  The traditional
-SOM uses a rectangular or hexagonal network topology \citep{Kohonen2000}.  These topologies 
-create a well-known problem in SOM called the boundary or edge effect.  Neurons on
-the boundary of the hexagonal and rectangular lattices have fewer neighbors,
-which reduces their ability to interact with other neurons during the
-self-organizing process.  Using a spherical lattice has been widely suggested as a
-solution to the problem \citep{ritter99, boudjemai2003, sangole03,
-Nishio:2006fk, wu2006}. The use of the spherical lattice, however, does not
-completely overcome the boundary problem, and the choice of which spherical
-topology to use for the network can be difficult to make.
+SOM uses a rectangular or hexagonal network topology \citep{Kohonen2000}.  
+As shown in Figure \ref{topos} these topologies have different properties.  In
+the rectangular topology, Figure \ref{topo:rook}, internal neurons are bounded
+by four neighbors.  In the hexagonal topology, Figure \ref{topo:hex}, internal
+neurons are bounded by six neighbors. These topologies create a well-known
+problem in SOM called the boundary or edge effect.  Neurons on the boundary of
+the hexagonal and rectangular lattices have fewer neighbors, which reduces their
+ability to interact with other neurons during the self-organizing process.
+Using a spherical lattice has been widely suggested as a solution to the problem
+\citep{ritter99, boudjemai2003, sangole03, Nishio:2006fk, wu2006}. The use of
+the spherical lattice, however, does not completely overcome the boundary
+problem, and the choice of which spherical topology to use for the network can
+be difficult to make.
+
+\begin{figure}
+\centering
+\caption{In traditional SOM either a rectangular or hexagonal topology is used.}
+\subfigure[Rectangular Topology]{
+  \label{topo:rook}
+  \includegraphics[width=.25\linewidth]{topo_rook.png}
+}
+\subfigure[Hexagonal Topology]{
+  \label{topo:hex}
+  \includegraphics[width=.30\linewidth]{topo_hex.png}
+}
+\label{topos}
+\end{figure}
+
+
 
 A regular network topology is one in which every node on the network has exactly the
 same number of adjacent nodes.  Any topology involving an edge is irregular.

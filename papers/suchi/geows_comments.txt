@@ -1,45 +1,53 @@
 --------- Comment 1:
-The authors present a (new) method of evaluating  topologies for self organizing
-maps (SOMs). The aim is to find suitable topologies to counter the edge effect,
-which is a common problem in SOMs. The evaluation is based on irregularity of
-individual nodes in relation to their neighborhood. Evaluation is performed by
-statistically analyzing 10 hypothetical data-sets.
+#The authors present a (new) method of evaluating  topologies for self organizing
+#maps (SOMs). The aim is to find suitable topologies to counter the edge effect,
+#which is a common problem in SOMs. The evaluation is based on irregularity of
+#individual nodes in relation to their neighborhood. Evaluation is performed by
+#statistically analyzing 10 hypothetical data-sets.
 
-Overall, the paper presents interesting, relevant work, even though it is not
-directly linked to geographic information, but provides broader results that may
-be applicable for either the analysis of geographic data or the "spatialization"
-of non-spatial data.
+#Overall, the paper presents interesting, relevant work, even though it is not
+#directly linked to geographic information, but provides broader results that may
+#be applicable for either the analysis of geographic data or the "spatialization"
+#of non-spatial data.
 
-The paper can be improved in its presentation. Overall, ideas are well presented
-and argued for, however there is same redundancy and/or leaps in the
-presentation (see comments below).
+#The paper can be improved in its presentation. Overall, ideas are well presented
+#and argued for, however there is same redundancy and/or leaps in the
+#presentation (see comments below).
 
-There is quite some overlap between your introduction and Section 2 concerning
-the explanation of the edge effect and possible solutions. And while the
-(ir)regularity of SOMs is generally well explained, a figure illustrating some
-of this would be beneficial.
+#There is quite some overlap between your introduction and Section 2 concerning
+#the explanation of the edge effect and possible solutions. And while the
+#(ir)regularity of SOMs is generally well explained, a figure illustrating some
+#of this would be beneficial.
+I think some overlap is necessary here, added a figure of Rect and Hex
 
-Figure 1 is a bit hard to read, maybe you could enhance either font size or font
-color (grayscale) to make it more readable?
+#Figure 1 is a bit hard to read, maybe you could enhance either font size or font
+#color (grayscale) to make it more readable?
+increased size.
 
-You do not really explain why using neuron adjacency as a measure is misleading
-(or if the explanation is in the paragraph above, then just skip/rephrase the
-last sentence of that paragraph). [That's in the middle of Section 2]
+#You do not really explain why using neuron adjacency as a measure is misleading
+#(or if the explanation is in the paragraph above, then just skip/rephrase the
+#last sentence of that paragraph). [That's in the middle of Section 2]
+added table
 
-It would be easier to map your text to Figure 2 if you used the shape of the
-topologies instead of the authors' names in the legend of Figure 2.
+#It would be easier to map your text to Figure 2 if you used the shape of the
+#topologies instead of the authors' names in the legend of Figure 2.
+this could be somewhat misleading, since we don't test Ritter's tessellation method (the same as kohonen, but tessellation occurs less frequently.) We also don't test Nishio's method.
 
-Which ten synthetic data-sets are used for training? You state you used _the_
-ten data-sets, but I seem to have missed which these are.
+#Which ten synthetic data-sets are used for training? You state you used _the_
+#ten data-sets, but I seem to have missed which these are.
+added explanation of the data
 
-Section 4: Can you elaborate on the step from combining results of the
-individual test data-sets to what you say about rectangular topology next? I
-don't quite get this argumentation step.
+#Section 4: Can you elaborate on the step from combining results of the
+#individual test data-sets to what you say about rectangular topology next? I
+#don't quite get this argumentation step.
+the reason for combining the ten datasets is now explained along with the data
 
-Your tables 3-4 should be better distributed in the paper such that they are
-closer to the results they report. And they are a bit hard to read as you've
-always need to remember what is above, below and on the diagonal. Possibly you
-could think of another way of presenting these results?
+#Your tables 3-4 should be better distributed in the paper such that they are
+#closer to the results they report. And they are a bit hard to read as you've
+#always need to remember what is above, below and on the diagonal. Possibly you
+#could think of another way of presenting these results?
+moved tables back into sub-table form, not sure there is a better way to display these.
 
-What are the numbers in the neurons in Fig. 3? The cluster these neurons belong
-to? Please explain this in the caption!a
+#What are the numbers in the neurons in Fig. 3? The cluster these neurons belong
+#to? Please explain this in the caption!
+added explanation to text, but not caption.
