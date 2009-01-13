@@ -16,10 +16,10 @@ same time, the edge of the neural lattice represents a true visual boundary
 which affects its ability to represent data similarities as spatial
 relationships.
 
-\begin{figure}
+\begin{figure}[htb]
   \begin{center}
-\caption{Edge effects in SOM}\label{f:edge}
-  \includegraphics[width=0.70\linewidth]{gridedge.png}
+  \caption{Edge effects in SOM}\label{f:edge}
+  \includegraphics[width=1.0\linewidth]{gridedge.png}
 \end{center}
 \end{figure}
 
@@ -53,7 +53,7 @@ and neighborhood size.
 Based solely on measures of neuron spacing, \cite{wu2005} dismissed the usefulness of a method
 proposed by \cite{Rakhmanov94} for distributing points on a sphere.  Similarly 
 \cite{Nishio:2006fk} use these variance measures to support their helix
-algorithm for distributing points on a sphere.  However,
+algorithm for distributing points on a sphere.  Table \ref{table1} shows that
 these metrics can be misleading and comparison across topologies may not be
 consistent.  The traditional rectangular and hexagonal topologies have no
 variance in neuron spacing, and the generally preferred hexagonal structure
@@ -64,6 +64,21 @@ considered during the formation of the neural network.  At this stage the
 spacing is significant as it plays a part in constructing the network's
 topology by determining neuron adjacency.  However, using this measure to
 evaluate potential topologies for use in SOM may be misleading.
+
+\begin{table}[htbp]
+\caption{Variances in Topologies}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Topology&Grid Size&Neuron Spacing&Variance in Neighborhood Size\\
+\hline
+Rectangular&9x18&1&0.2716\\
+Hexagonal&9x18&1&1.2138\\
+Geodesic&162&0.25319 - 0.31287& 0.0686\\
+Rakhmanov&162&0.15779 - 0.30069& 0.2908\\
+\hline
+\end{tabular}
+\label{table1}
+\end{table}
 
 As spherical (and other alternative) topologies become
 increasingly more common it is necessary to investigate how the choice of
