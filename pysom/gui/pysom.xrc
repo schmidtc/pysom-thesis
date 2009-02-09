@@ -3,113 +3,271 @@
   <object class="wxFrame" name="PySOM">
     <title>PySOM: Python Self-Organizing Maps</title>
     <centered>1</centered>
-    <object class="wxPanel">
-      <object class="wxBoxSizer">
-        <orient>wxVERTICAL</orient>
-        <object class="sizeritem">
-          <object class="wxStaticBoxSizer">
-            <label>Training Data</label>
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxPanel">
+          <object class="wxBoxSizer">
             <orient>wxVERTICAL</orient>
             <object class="sizeritem">
-              <object class="wxBoxSizer">
-                <orient>wxVERTICAL</orient>
+              <object class="wxStaticBoxSizer">
                 <object class="sizeritem">
                   <object class="wxBoxSizer">
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Data File:</label>
-                      </object>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxTextCtrl"/>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxStaticBitmap">
-                        <bitmap stock_id="wxART_FILE_OPEN"/>
-                      </object>
-                    </object>
-                    <orient>wxHORIZONTAL</orient>
-                  </object>
-                </object>
-                <object class="sizeritem">
-                  <object class="wxBoxSizer">
-                    <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
                       <object class="wxBoxSizer">
                         <object class="sizeritem">
                           <object class="wxStaticText">
-                            <label>Dimensions: 15</label>
+                            <label>Data File:</label>
                           </object>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>5</border>
                         </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="DataFileName">
+                            <XRCED>
+                              <events>EVT_TEXT|EVT_TEXT_ENTER|EVT_TEXT_URL|EVT_TEXT_MAXLEN</events>
+                              <assign_var>1</assign_var>
+                            </XRCED>
+                          </object>
+                          <option>1</option>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticBitmap">
+                            <size>25,25</size>
+                            <bitmap stock_id="wxART_FILE_OPEN"/>
+                          </object>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>5</border>
+                        </object>
+                        <orient>wxHORIZONTAL</orient>
+                      </object>
+                      <flag>wxALL|wxEXPAND</flag>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>Obersevations: 3011</label>
                           </object>
                         </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Dimensions: 15</label>
+                          </object>
+                        </object>
                         <orient>wxVERTICAL</orient>
                       </object>
+                      <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
+                      <border>15</border>
                     </object>
+                    <orient>wxVERTICAL</orient>
                   </object>
+                  <option>0</option>
+                  <flag>wxALL|wxEXPAND</flag>
                 </object>
-              </object>
-            </object>
-          </object>
-        </object>
-        <object class="sizeritem">
-          <object class="wxStaticBoxSizer">
-            <label>Topology</label>
-            <orient>wxVERTICAL</orient>
-            <object class="sizeritem">
-              <object class="wxBoxSizer">
-                <orient>wxHORIZONTAL</orient>
-                <object class="sizeritem">
-                  <object class="wxStaticText">
-                    <label>Topology File:</label>
-                  </object>
-                </object>
-                <object class="sizeritem">
-                  <object class="wxTextCtrl"/>
-                </object>
-                <object class="sizeritem">
-                  <object class="wxStaticBitmap">
-                    <bitmap stock_id="wxART_FILE_OPEN"/>
-                  </object>
-                </object>
-                <object class="sizeritem">
-                  <object class="wxStaticBitmap">
-                    <bitmap stock_id="wxART_NORMAL_FILE"/>
-                  </object>
-                </object>
-              </object>
-            </object>
-            <object class="sizeritem">
-              <object class="wxBoxSizer">
-                <object class="sizeritem">
-                  <object class="wxStaticText">
-                    <label>Type: Hex</label>
-                  </object>
-                </object>
-                <object class="sizeritem">
-                  <object class="wxStaticText">
-                    <label>Nodes: 642</label>
-                  </object>
-                </object>
-                <object class="sizeritem">
-                  <object class="wxStaticText">
-                    <label>Width: 15</label>
-                  </object>
-                </object>
+                <label>Training Data</label>
                 <orient>wxVERTICAL</orient>
               </object>
+              <option>0</option>
+              <flag>wxALL|wxEXPAND</flag>
+              <border>3</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticBoxSizer">
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Topology File:</label>
+                      </object>
+                      <flag>wxALL|wxEXPAND</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl"/>
+                      <option>1</option>
+                      <flag>wxALL|wxEXPAND</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticBitmap">
+                        <size>25,25</size>
+                        <bitmap stock_id="wxART_FILE_OPEN"/>
+                      </object>
+                      <flag>wxALL|wxEXPAND</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticBitmap">
+                        <size>25,25</size>
+                        <bitmap stock_id="wxART_NORMAL_FILE"/>
+                      </object>
+                      <flag>wxALL|wxEXPAND</flag>
+                      <border>5</border>
+                    </object>
+                    <orient>wxHORIZONTAL</orient>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>5</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Type: Hex</label>
+                      </object>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Nodes: 642</label>
+                      </object>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Width: 15</label>
+                      </object>
+                    </object>
+                    <orient>wxVERTICAL</orient>
+                  </object>
+                  <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
+                  <border>15</border>
+                </object>
+                <label>Topology</label>
+                <orient>wxVERTICAL</orient>
+              </object>
+              <option>0</option>
+              <flag>wxALL|wxEXPAND</flag>
+              <border>3</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticBoxSizer">
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Initial Codebook File:</label>
+                          </object>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl"/>
+                          <option>1</option>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticBitmap">
+                            <size>25,25</size>
+                            <bitmap stock_id="wxART_FILE_OPEN"/>
+                          </object>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticBitmap">
+                            <size>25,25</size>
+                            <bitmap stock_id="wxART_NORMAL_FILE"/>
+                          </object>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>5</border>
+                        </object>
+                        <orient>wxHORIZONTAL</orient>
+                      </object>
+                      <flag>wxALL|wxEXPAND</flag>
+                      <border>0</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticBoxSizer">
+                        <object class="sizeritem">
+                          <object class="wxBoxSizer">
+                            <orient>wxVERTICAL</orient>
+                            <object class="sizeritem">
+                              <object class="wxBoxSizer">
+                                <orient>wxHORIZONTAL</orient>
+                                <object class="sizeritem">
+                                  <object class="wxStaticText">
+                                    <label>Codebook File:</label>
+                                  </object>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxTextCtrl"/>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxStaticBitmap">
+                                    <size>25,25</size>
+                                    <bitmap stock_id="wxART_NORMAL_FILE"/>
+                                  </object>
+                                </object>
+                              </object>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxBoxSizer">
+                                <orient>wxHORIZONTAL</orient>
+                                <object class="sizeritem">
+                                  <object class="wxStaticText">
+                                    <label>Initial Search Radius:</label>
+                                  </object>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxTextCtrl"/>
+                                </object>
+                              </object>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxBoxSizer">
+                                <object class="sizeritem">
+                                  <object class="wxStaticText">
+                                    <label>Training Steps:</label>
+                                  </object>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxTextCtrl"/>
+                                </object>
+                                <orient>wxHORIZONTAL</orient>
+                              </object>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxBoxSizer">
+                                <object class="sizeritem">
+                                  <object class="wxStaticText">
+                                    <label>Intial Learning Rate:</label>
+                                  </object>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxTextCtrl"/>
+                                </object>
+                                <orient>wxHORIZONTAL</orient>
+                              </object>
+                            </object>
+                          </object>
+                        </object>
+                        <label>Training Phases</label>
+                        <orient>wxVERTICAL</orient>
+                      </object>
+                      <option>0</option>
+                      <flag>wxALL|wxEXPAND</flag>
+                    </object>
+                    <orient>wxVERTICAL</orient>
+                  </object>
+                  <option>1</option>
+                  <flag>wxALL|wxEXPAND</flag>
+                </object>
+                <label>Training Parameters</label>
+                <orient>wxVERTICAL</orient>
+              </object>
+              <option>1</option>
+              <flag>wxALL|wxEXPAND</flag>
+              <border>3</border>
             </object>
           </object>
         </object>
-        <object class="sizeritem">
-          <object class="wxStaticBoxSizer">
-            <label>Training Parameters</label>
-            <orient>wxVERTICAL</orient>
-          </object>
-        </object>
+        <option>1</option>
+        <flag>wxALL|wxEXPAND</flag>
       </object>
     </object>
   </object>
