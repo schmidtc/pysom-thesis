@@ -1,0 +1,116 @@
+<?xml version="1.0" ?>
+<resource>
+  <object class="wxFrame" name="PySOM">
+    <title>PySOM: Python Self-Organizing Maps</title>
+    <centered>1</centered>
+    <object class="wxPanel">
+      <object class="wxBoxSizer">
+        <orient>wxVERTICAL</orient>
+        <object class="sizeritem">
+          <object class="wxStaticBoxSizer">
+            <label>Training Data</label>
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Data File:</label>
+                      </object>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl"/>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticBitmap">
+                        <bitmap stock_id="wxART_FILE_OPEN"/>
+                      </object>
+                    </object>
+                    <orient>wxHORIZONTAL</orient>
+                  </object>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <orient>wxVERTICAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Dimensions: 15</label>
+                          </object>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Obersevations: 3011</label>
+                          </object>
+                        </object>
+                        <orient>wxVERTICAL</orient>
+                      </object>
+                    </object>
+                  </object>
+                </object>
+              </object>
+            </object>
+          </object>
+        </object>
+        <object class="sizeritem">
+          <object class="wxStaticBoxSizer">
+            <label>Topology</label>
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+              <object class="wxBoxSizer">
+                <orient>wxHORIZONTAL</orient>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Topology File:</label>
+                  </object>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxTextCtrl"/>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticBitmap">
+                    <bitmap stock_id="wxART_FILE_OPEN"/>
+                  </object>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticBitmap">
+                    <bitmap stock_id="wxART_NORMAL_FILE"/>
+                  </object>
+                </object>
+              </object>
+            </object>
+            <object class="sizeritem">
+              <object class="wxBoxSizer">
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Type: Hex</label>
+                  </object>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Nodes: 642</label>
+                  </object>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Width: 15</label>
+                  </object>
+                </object>
+                <orient>wxVERTICAL</orient>
+              </object>
+            </object>
+          </object>
+        </object>
+        <object class="sizeritem">
+          <object class="wxStaticBoxSizer">
+            <label>Training Parameters</label>
+            <orient>wxVERTICAL</orient>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</resource>
