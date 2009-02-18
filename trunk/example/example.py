@@ -2,6 +2,10 @@ import sys
 sys.path.insert(0,'/Users/cschmidt/Documents/repos/pysom/trunk')
 import pysom
 
+#create an instance of the Observation File class.
+# 3d-7c-no1_rs.dat, is a generated data file containing 7 clusters in 3 dimensions.
+f = pysom.data.ObsFile("3d-7c-no1_rs.dat")
+
 #create a networkX graph using provided utility functions
 rows = 20
 cols = 20
@@ -22,9 +26,6 @@ S.randInit()
 # Save the initial State (optional)
 S.save("output/", "initial_state")
 
-#create an instance of the Observation File class.
-# 3d-7c-no1_rs.dat, is a generated data file containing 7 clusters in 3 dimensions.
-f = pysom.data.ObsFile("3d-7c-no1_rs.dat")
 
 #Train the som
 S.run(f)
