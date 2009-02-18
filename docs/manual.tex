@@ -1,0 +1,68 @@
+Intro
+    PySOM is an implementation of the Self-Organizing Map training algorithm written in the Python Programming Language.  What makes PySOM unique from other implementations is that the network topology is not hard wired, instead we represent the topology as a graph.  The NetworkX python library is used to manage the graph.  This document is intended to provide an overview of PySOM and help users get started with training their SOMs.  In it's current form some basic knowledge of the Python Programming language is required to use PySOM I hope to provide a more robust graphical user interface in the future, but for now PySOM can only be accessed programmitcally.  In the following sections you will learn how to setup your topology, organize your data, set your training parameters, and train your SOM.  Some useful functions and instructions for visualizing your SOM will also be provided, but most if this will need to be done without the help of PySOM.
+
+    Library Organization
+        pysom
+            som.py
+                Contains the training code
+            data.py
+                Classes for reading Observation Data
+            util
+            topo
+                hex.py
+                rook.py
+            thesis
+                Code directly related to thesis
+    Topology
+        Any valid undirected NetworkX can be used as the topology for your SOM.  The nodes of the graph will be treated as neurons.
+        Several utility function are provided to help creat your graphs.
+    Data
+    Training
+    Visualize
+Installation
+    Requirements
+        PySOM requires a Python Version 2.4 or later.  Major version releases of Python (eg. from 2.0 to 3.0) are not backwards compatible and PySOM should not be expected to work with future major releases.
+        In addition the following Python Libraries are required.
+        Version numbers used for development are provided, but future version are expected to work.
+        Numpy (1.0.4)
+        NetworkX (0.35.1)
+        To create spherical topologies you also need the STRI_PACK and SXYZ_VORONOI software packages, these require a fortran complier.
+        To create Geoesic topologies you will need the Dome software package.
+        To visualize the SOM you will need ESRI's ArcMap or another method for creating ShapeFiles.
+    PySOM
+        You can download PySOM from http://code.google.com/p/pysom-thesis/downloads/list
+Topology
+    Intro
+        NetworkX Undirected Graph
+    Rectangular
+    Hexagon
+    Geodesic
+        Dome
+        stri_pack
+        parseDelaunay
+    Spherical
+        Rahkmonv
+        stri_pack
+        parseDelaunay
+Data
+    FileFormat
+        Dims
+        Obs
+        Obs
+        Obs
+        ....
+    ObsFile
+        Complete
+        Sparse
+Training
+    Parameters
+        Dims
+        maxN
+        tSteps
+        alpha0
+    Phase I
+    Phase II
+Saving
+Loading
+Mapping
+
