@@ -1,4 +1,4 @@
-<map version="0.8.0">
+<map version="0.8.1">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
 <node CREATED="1223248477773" ID="Freemind_Link_376679635" MODIFIED="1223248881518" TEXT="PySOM Manual">
 <node CREATED="1223248884252" ID="Freemind_Link_528587726" MODIFIED="1223249800001" POSITION="right" TEXT="Intro">
@@ -16,7 +16,7 @@
 <node CREATED="1225153954085" ID="Freemind_Link_138134356" MODIFIED="1225154000673" TEXT="The &quot;som&quot; module is provided in appendix \ref{a:som_py} and contains the training algorith."/>
 <node CREATED="1225154001326" ID="Freemind_Link_654360751" MODIFIED="1225154080898" TEXT="Section \ref{a:data_py} contains the &quot;data&quot; module which handles the parsing of the observation file."/>
 <node CREATED="1225154081446" ID="Freemind_Link_1400587117" MODIFIED="1225154166682" TEXT="The topology module contains a number of sub-modules for creating different topologies."/>
-<node CREATED="1223249809685" ID="Freemind_Link_46774827" MODIFIED="1223249820222" TEXT="Library Organiztion">
+<node CREATED="1223249809685" FOLDED="true" ID="Freemind_Link_46774827" MODIFIED="1223249820222" TEXT="Library Organiztion">
 <node CREATED="1224564252941" ID="Freemind_Link_1076386337" MODIFIED="1224564255034" TEXT="pysom">
 <node CREATED="1223249820802" ID="Freemind_Link_1009790772" MODIFIED="1223249824679" TEXT="som.py">
 <node CREATED="1223249825732" ID="Freemind_Link_567368777" MODIFIED="1223249839213" TEXT="Contains the training code"/>
@@ -34,7 +34,7 @@
 </node>
 </node>
 </node>
-<node CREATED="1223248886165" ID="Freemind_Link_1664257889" MODIFIED="1223248888873" TEXT="Topology">
+<node CREATED="1223248886165" FOLDED="true" ID="Freemind_Link_1664257889" MODIFIED="1223248888873" TEXT="Topology">
 <node CREATED="1223249005146" ID="Freemind_Link_672716319" MODIFIED="1223249092114" TEXT="Any valid undirected NetworkX can be used as the topology for your SOM.  The nodes of the graph will be treated as neurons."/>
 <node CREATED="1223249133233" ID="Freemind_Link_957442368" MODIFIED="1223249153277" TEXT="Several utility function are provided to help creat your graphs."/>
 </node>
@@ -42,7 +42,7 @@
 <node CREATED="1223248897113" ID="Freemind_Link_850087041" MODIFIED="1223248899870" TEXT="Training"/>
 <node CREATED="1223248900275" ID="Freemind_Link_989431844" MODIFIED="1223248902503" TEXT="Visualize"/>
 </node>
-<node CREATED="1223250006181" ID="Freemind_Link_1467846724" MODIFIED="1223250012067" POSITION="right" TEXT="Installation">
+<node CREATED="1223250006181" FOLDED="true" ID="Freemind_Link_1467846724" MODIFIED="1223250012067" POSITION="right" TEXT="Installation">
 <node CREATED="1223251103094" FOLDED="true" ID="Freemind_Link_1493726936" MODIFIED="1223251107555" TEXT="Requirements">
 <node CREATED="1223250012511" ID="Freemind_Link_74409514" MODIFIED="1223250179919" TEXT="PySOM requires a Python Version 2.4 or later.  Major version releases of Python (eg. from 2.0 to 3.0) are not backwards compatible and PySOM should not be expected to work with future major releases."/>
 <node CREATED="1223250216700" ID="Freemind_Link_1298461132" MODIFIED="1223250254785" TEXT="In addition the following Python Libraries are required."/>
@@ -53,7 +53,7 @@
 <node CREATED="1223250520488" ID="Freemind_Link_1350416118" MODIFIED="1223250618353" TEXT="To create Geoesic topologies you will need the Dome software package."/>
 <node CREATED="1223250975559" ID="Freemind_Link_1069689905" MODIFIED="1223251005681" TEXT="To visualize the SOM you will need ESRI&apos;s ArcMap or another method for creating ShapeFiles."/>
 </node>
-<node CREATED="1223251123926" ID="Freemind_Link_266649466" MODIFIED="1223251127963" TEXT="PySOM">
+<node CREATED="1223251123926" FOLDED="true" ID="Freemind_Link_266649466" MODIFIED="1223251127963" TEXT="PySOM">
 <node CREATED="1223251128376" ID="Freemind_Link_891219149" MODIFIED="1223251169884" TEXT="You can download PySOM from http://code.google.com/p/pysom-thesis/downloads/list"/>
 </node>
 </node>
@@ -75,14 +75,14 @@
 </node>
 </node>
 <node CREATED="1223248483234" FOLDED="true" ID="_" MODIFIED="1223248488130" POSITION="right" TEXT="Data">
-<node CREATED="1223248488551" FOLDED="true" ID="Freemind_Link_1566643953" MODIFIED="1223248491316" TEXT="FileFormat">
+<node CREATED="1223248488551" ID="Freemind_Link_1566643953" MODIFIED="1223248491316" TEXT="FileFormat">
 <node CREATED="1223248491688" ID="Freemind_Link_1509298993" MODIFIED="1223248494605" TEXT="Dims"/>
 <node CREATED="1223248495322" ID="Freemind_Link_1515876548" MODIFIED="1223248497662" TEXT="Obs"/>
 <node CREATED="1223248498307" ID="Freemind_Link_1185905145" MODIFIED="1223248498927" TEXT="Obs"/>
 <node CREATED="1223248499555" ID="Freemind_Link_1358739651" MODIFIED="1223248500175" TEXT="Obs"/>
 <node CREATED="1223248501669" ID="Freemind_Link_854918841" MODIFIED="1223248502512" TEXT="...."/>
 </node>
-<node CREATED="1223248504725" FOLDED="true" ID="Freemind_Link_1294154974" MODIFIED="1223248508739" TEXT="ObsFile">
+<node CREATED="1223248504725" ID="Freemind_Link_1294154974" MODIFIED="1223248508739" TEXT="ObsFile">
 <node CREATED="1223248513483" ID="Freemind_Link_844419491" MODIFIED="1223248515901" TEXT="Complete"/>
 <node CREATED="1223248516218" ID="Freemind_Link_649325600" MODIFIED="1223248520495" TEXT="Sparse"/>
 </node>
@@ -100,7 +100,7 @@
 <node CREATED="1223248759767" ID="Freemind_Link_127807964" MODIFIED="1223248762979" POSITION="right" TEXT="Saving"/>
 <node CREATED="1223248763472" ID="Freemind_Link_1325218999" MODIFIED="1223248765285" POSITION="right" TEXT="Loading"/>
 <node CREATED="1223248767626" ID="Freemind_Link_238774452" MODIFIED="1223248769206" POSITION="right" TEXT="Mapping"/>
-<node CREATED="1223593950993" FOLDED="true" ID="Freemind_Link_1276918422" MODIFIED="1223594037732" POSITION="right" TEXT="API Examples">
+<node CREATED="1223593950993" ID="Freemind_Link_1276918422" MODIFIED="1223594037732" POSITION="right" TEXT="API Examples">
 <node CREATED="1223593952972" FOLDED="true" ID="Freemind_Link_985048586" MODIFIED="1223594160893" TEXT="hex">
 <node CREATED="1223594067400" ID="Freemind_Link_542053762" MODIFIED="1223594172067" TEXT="import pysom"/>
 <node CREATED="1223594199246" ID="Freemind_Link_1384719524" MODIFIED="1223594211144" TEXT="from pysom.utils import hex"/>
