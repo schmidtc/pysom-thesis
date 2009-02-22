@@ -1,0 +1,312 @@
+preamble
+	@author Charles R. Schmidt$^{1}$\\Sergio J. Rey$^{1}$\\Andr\'e Skupin$^{2}$
+	@authorShort Schmidt
+	@institute The GeoDa Center for Geospatial Analysis and Computation\\Arizona State University$^{1}$\\Department of Geography\\San Diego State University$^{2}$
+	@instituteShort GeoDa Center
+	@title PySOM: A Graph Based Implementation of Self-Organizing Maps
+	@titleShort PySOM
+	@date November 21, 2008
+	@dateShort ASU
+	\definecolor{sdsu_green}{RGB}{155,200,115}
+	\usecolortheme[named=sdsu_green]{structure}
+	\usepackage{graphicx}
+	\usepackage{subfigure}
+Background
+	The Self-Organizing Map
+		The Self-Organizing Map
+			What is the SOM
+			| * Artificial Neural Network
+			| * High Dimension Input Data
+			| * Unsupervised Competitive Learning Process
+			| * Each Neuron Models of a Portion of the Input Space
+			Applications
+			| * Data Visualization
+			| * Data Reduction
+			| * Clustering
+		In Terms of Geography (Skupin 2004)
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=.8\linewidth]{skupin.png}
+			| \end{figure}
+			| \end{center}
+		SOM as Dimensionality Reduction
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.90\linewidth]{dimensionReduction.png}
+			| \end{figure}
+			| \end{center}
+			| \vspace{1in} (Skupin 2008)
+		SOM as Clustering
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.90\linewidth]{clustering.png}
+			| \end{figure}
+			| \end{center}
+			| (Skupin 2008)
+		SOM as Clustering
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.90\linewidth]{clustermap.png}
+			| \end{figure}
+			| \end{center}
+			| (Skupin 2008)
+		SOM and GIScience
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.50\linewidth]{book.png}
+			| \end{figure}
+			| \end{center}
+		SOM and GIScience
+			| \begin{quote}
+			| "translate \emph{data similarities} into \emph{spatial relationship}" 
+			| \end{quote}
+			| \hspace{2in} -- Helge Ritter, 1999
+		Training
+			Assignment and Updating
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.90\linewidth]{input.png}
+			| \end{figure}
+			| \end{center}
+		Training
+			Training
+			| * Randomize input vectors
+			| * Randomly Initialize the neurons
+			| * Loop Until Map Converges
+			| ** Grab an Input Vector
+			| ** Find the Best Matching Neuron and its Neighborhood
+			| ** Modify the Weights of the Neurons to Make them More Similar to the Input Vector
+		Training
+			Iterations
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.90\linewidth]{somtrain.png}
+			| \end{figure}
+			| \end{center}
+	Edge Effects in SOM
+		Edge Effects in SOM
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.80\linewidth]{gridedge.png}
+			| \end{figure}
+			| \end{center}
+		Edge Effects
+			In SOM
+			| * Higher density of observations mapped to edge neurons
+			| * Higher internal heterogeneity for edge neurons
+			In Spatial Analysis
+			| * Inflated nearest neighbor distances
+			| * Mask the true distribution
+			Components of Edge Effect
+			| * True Boundary
+		Suggested Solutions
+			With Edges
+			| * Hierarchical SOM
+			| * Growing SOM
+			| * Mathematical Weighting
+			Without Edges
+			| * Spherical SOM
+			| * Toroidal SOM
+		Spherical SOM
+			Geodesic
+			| * Most Common
+			| * Highly Regular
+			| * Limited Network Size
+			Rakhmanov (Spherical)
+			| * Rejected in Literature
+			| * Less Regular
+			| * No Network Size Limitation
+	Objectives
+		Objectives
+			Question
+			| Does Regularity Matter in Spherical SOM?
+			Methods
+			| * Three Diagnostics
+			| ** Internal Heterogeneity vs. First-Order Neighborhood Size
+			| ** Internal Heterogeneity vs. Topological Regularity
+			| ** Visualization of Internal Heterogeneity
+Methodology
+	Internal Heterogeneity
+		Internal Heterogeneity
+			Neuron Internal Heterogeneity 
+			| \({IH_i} = \frac{2}{{n_i}^2-{n_i}}\sum_{j=1}^{n_i}\sum_{k=j+1}^{n_i} ||{x_{ij}}-{x_{ik}}||\)
+			Internal Heterogeneity
+			| * Measures the difference of observations mapped in neuron
+			| * Measure of how well data fits to neuron
+	Research Design 
+		Research Design 
+			Training
+			| * Four Topologies
+			| * Synthetic Data
+			| * Ten Simulations Each
+			Implementation
+			| * PySOM
+		Topologies
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.75\linewidth]{topos.png}
+			| \end{figure}
+			| \end{center}
+		Data Generation
+			Synthetic Multivariate Data
+			| * Follow Wu and Takatsuka (2006)
+			| * Seven clusters
+			| * Three dimension
+			| * Clusters are normally distributed w/ unit variance on each dimension
+			| * 25,000 Observation -> 644 Neurons
+		Graph Based Implementation of SOM
+			Python
+			| * Growing scientific community
+			| * Rapid development
+			Why
+			| * Alternative topologies not available 
+			| * Difficult to extend
+			| * Flexibility over speed
+			| ** SOM\_PAK: 90 seconds
+			| ** PySOM: 45 minutes
+			Graphs
+			| * Topology independent
+			| * Flexible
+Results
+	Internal Heterogeneity vs. First-Order Neighborhood Size
+		Diagnostic
+			Internal Heterogeneity vs. First-Order Neighborhood Size
+			| * Does a neuron's I.H. decrease as its first-order neighborhood size increases?
+			| ** Group neurons by degree and topology
+			| ** Measure I.H. within each group
+			| ** Check for difference of means and variance between groups
+		Internal Heterogeneity vs. First-Order Neighborhood Size
+			Rectangular
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.75\linewidth]{rook_iv_box.png}
+			| \end{figure}
+			| \end{center}
+		Internal Heterogeneity vs. First-Order Neighborhood Size
+			Hexagonal
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.75\linewidth]{hex_iv_box.png}
+			| \end{figure}
+			| \end{center}
+		Internal Heterogeneity vs. First-Order Neighborhood Size
+			Geodesic
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.75\linewidth]{geodesic_iv_box.png}
+			| \end{figure}
+			| \end{center}
+		Internal Heterogeneity vs. First-Order Neighborhood Size
+			Spherical
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.75\linewidth]{graph_iv_box.png}
+			| \end{figure}
+			| \end{center}
+	Internal Heterogeneity vs. Topological Regularity
+		Diagnostic
+			Internal Heterogeneity vs. Topological Regularity
+			| * Does a SOM's average I.H. increase in more irregular topologies?
+			| ** Group neurons by Topology
+			| ** Measure I.H. within each group
+			| ** Check for difference of means and variance between groups
+		Internal Heterogeneity vs. Topological Regularity
+			| \begin{table}
+			| \centering
+			| \begin{minipage}{\textwidth}
+			| \caption{Measure of Topological Regularity and Sample Mean and Variance}
+			| \label{vardeg}
+			| \begin{tabular}{|c||c|c|c|}
+			| \hline
+			| &$c=1/n \sum_{i=1} (1/n \sum_{j=1} d_{i,j})^{-1}$&&\\
+			| Topology & Closeness Centrality & Mean & Variance\\
+			| \hline
+			| Rectangular & 0.0603 & 0.0294 &0.0001\\
+			| Hexagonal & 0.0739 & 0.0289 &0.0001\\
+			| Geodesic & 0.0890 & 0.0281 &0.0001\\
+			| Spherical & 0.0906 & 0.0281 &0.0001\\
+			| \hline
+			| \end{tabular}
+			| \end{minipage}
+			| \end{table}
+		Internal Heterogeneity vs. Topological Regularity
+			| \begin{table}
+			|   \begin{minipage}{\textwidth}
+			|   \caption{Results of Difference of Mean Testing Across Topologies}
+			|   \label{rlt:all}
+			|   \begin{tabular}{|c||c|c|c|c|}
+			|   \hline
+			|   \textbf{Topology}&Rectangular&Hexagonal &Geodesic &Spherical\\\hline
+			|   \hline
+			|	Rectangular & (0.000064) & \textbf{0.001000} & \textbf{0.000100} & \textbf{0.000100}\\\hline
+			|	Hexagonal & -0.000479 & (0.000064) & \textbf{0.000100} & \textbf{0.000100}\\\hline
+			|	Geodesic & -0.001329 & -0.000850 & (0.000060) & 0.505600\\\hline
+			|	Spherical & -0.001328 & -0.000849 & 0.000001 & (0.000061)\\\hline
+			|   \end{tabular}
+			|   \end{minipage}
+			| \end{table}
+	Visualization of Internal Heterogeneity
+		Diagnostics
+			Visualization of Internal Heterogeneity
+			| * What information can be learned from a mapping of the I.H.?
+		Visualization of Internal Heterogeneity
+			Rectangular
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.70\linewidth]{rook_clusters.png}
+			| \end{figure}
+			| \end{center}
+		Visualization of Internal Heterogeneity
+			Hexagonal
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.70\linewidth]{hex_clusters.png}
+			| \end{figure}
+			| \end{center}
+		Visualization of Internal Heterogeneity
+			Geodesic
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.70\linewidth]{geodesic_clusters.png}
+			| \end{figure}
+			| \end{center}
+		Visualization of Internal Heterogeneity
+			Spherical
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=0.70\linewidth]{sphere_clusters.png}
+			| \end{figure}
+			| \end{center}
+Conclusions
+	Conclusions
+		Key Findings
+			Internal Heterogeneity vs. First-Order Neighborhood Size
+			| * Significant differences for hexagonal and rectangular topologies
+			| * One significant difference in spherical topology
+			| ** Magnitude of difference very small compared with magnitudes in "flat" topologies
+			| * No significant difference for geodesic
+			Internal Heterogeneity vs. Topological Regularity
+			| * Geodesic and spherical show no significant differences
+			Visualization of Internal Heterogeneity
+			| * Shows patterns of clustering
+			| * Provides insight into the self-organizing process
+		Objective
+			Question
+			| Does Regularity Matter in Spherical SOM?
+		Limitations
+			Qualifications
+			| * Only addressing how topology effects the SOM.
+			| ** Does not address the benefits of having or removing the edge.
+			| ** Is pushing outliers to the edges a bad thing?
+		Future Directions
+			Extensions
+			| * Rotate sphere-based SOMs to show "central" feature
+			| * Compare different SOMs on more than just topology
+			| * Test other topologies
+			| ** Remove nodes from the existing topologies
+		Edge Effects in SOM
+			| \begin{center}
+			| \begin{figure}
+			| \includegraphics[width=\linewidth]{statesSphere.png}
+			| \end{figure}
+			| \end{center}
