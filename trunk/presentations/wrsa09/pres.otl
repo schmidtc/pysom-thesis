@@ -3,10 +3,10 @@ preamble
 	@authorShort Schmidt
 	@institute The GeoDa Center for Geospatial Analysis and Computation\\Arizona State University$^{1}$\\Department of Geography\\San Diego State University$^{2}$
 	@instituteShort GeoDa Center
-	@title PySOM: A Graph Based Implementation of Self-Organizing Maps
-	@titleShort PySOM
-	@date November 21, 2008
-	@dateShort ASU
+	@title Effects of Irregular Topology in Spherical Self-Organizing Maps
+	@titleShort Irregular Topology in Spherical-SOM
+	@date February 23, 2009
+	@dateShort WRSA 2009
 	\definecolor{sdsu_green}{RGB}{155,200,115}
 	\usecolortheme[named=sdsu_green]{structure}
 	\usepackage{graphicx}
@@ -58,7 +58,7 @@ Background
 			| \end{center}
 		SOM and GIScience
 			| \begin{quote}
-			| "translate \emph{data similarities} into \emph{spatial relationship}" 
+			| "translate \emph{data similarities} into \emph{spatial relationships}" 
 			| \end{quote}
 			| \hspace{2in} -- Helge Ritter, 1999
 		Training
