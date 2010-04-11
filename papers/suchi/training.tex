@@ -1,0 +1,47 @@
+\label{bg:train}
+% the number of neurons
+%and their spatial arrangement are determined before training the SOM.
+%An observation from the input space is represented as input vector, \(x\).
+%We must also define a distance measure \(d(x,m_i)\) between \(x\) and \(m_i\).
+%For this thesis, euclidean distances are used for this purpose.
+As with other artificial neural networks, the SOM has to be trained with
+samples from the input-space.  These samples, or observations, are represented
+as input vectors.  During the training process neurons compete for inputs;
+with each training step winning neurons are adjusted to better match the
+signals they receive.  Feedback between the neurons allows the entire network to
+eventually converge to a final state. After training, each neuron in the SOM
+will represent a portion of the input space.  To accomplish this
+representation each neuron is associated with a parametric reference vector,
+\(m_i\), referred to as a model vector \citep{Kohonen2000}.  The length of each
+model vector is equal to the length of the input vectors, such that each
+element within a model vector represents a dimension of the input-space.  The
+initial values of the elements are most commonly randomized, such that a
+mapping of the input-space onto the initial SOM would have no meaning. Other
+initializations are possible and may reduce the time required for the map to
+converge \citep{Kohonen2000}.
+
+Our implementation follows the ``Original Incremental SOM Algorithm'' as laid
+out by \cite{Kohonen2000}.  In each step of the algorithm, a randomly selected
+observation (input vector $x$) searches for its best model (reference vector
+$m_i$) among the neurons.  The best model is defined as the $m_i$ with the
+smallest distance to $x$.  These distances are referred to as quantization
+errors (QErrors), and they measure the distance between two vectors in
+attribute space \citep{Kohonen2000}.  Our implementation uses Euclidean
+distances, however, any reasonable distance measure can be used here.  The
+``winning'' neuron is termed the Best Matching Unit (BMU $c$).  The
+neighborhood ($N_c$) around the BMU ($c$) is found and all $m_i$ within $N_c$ are
+updated.  The size of the neighborhood and the magnitude of the updates are
+controlled by the neighborhood function. In our implementation, the width of
+the neighborhood decreases as the training progresses, and the magnitude of
+the updates decrease, with a Gaussian function, toward the edge of the
+neighborhood. A learning-rate factor is used to further reduce the magnitude
+of the updates as training progresses.  Combined these create the neighborhood
+kernel function $h_{ci}$ which defines a scaler used to adjust the magnitude
+of each update in a given training step.  This function always evaluates to
+zero for neurons outside the neighborhood.  The update is defined as,
+\begin{equation}
+  {m_i(t+1)} = m_i(t) +  h_{ci}(t)[x(t) - m_i(t)]
+\label{update}
+\end{equation}
+where, $t$ is the current training step.  The training process is repeated a
+predefined number of times, or ideally until the map converges.
