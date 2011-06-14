@@ -270,6 +270,29 @@ class som:
         qerror = qerror/counter
         self.daMap = daMap
         return qerror
+    def umat(self, options = ''):
+        """
+        Calculate the U-Matrix
+
+        Parameters:
+        options -- str -- ['', 'average', 'median']
+            If provided the average or median distances will be computed, otherwise the sum of distances is returned.
+        """
+        u = [0.0 for nid in xrange(self.Size)]
+        for nid in xrange(self.Size):
+            vec = self.nodes[nid]
+            neighbors = self.neighborhood(nid,1)
+            neighbors = [xid for xid in neighbors.keys() if xid!=nid]
+            if options == 'median':
+                d = N.median( (((self.nodes[neighbors]-vec)**2).sum(1)) ** (0.5) )
+            elif options == 'average':
+                d = N.mean( ((((self.nodes[neighbors]-vec)**2).sum(1)) ** (0.5)) )
+            else:
+                d = ((((self.nodes[neighbors]-vec)**2).sum(1)) ** (0.5)).sum()
+            #print nid,d
+            u[nid] = d
+        return u
+        
     
 class GraphTopology(som):
     ''' GraphTopology extends "som" and provides a functioning
